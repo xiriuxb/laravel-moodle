@@ -9,7 +9,7 @@
     
 </head>
 <body>
-    <x-nav-bar/>
+    <x-navbar/>
     <div class="container" style="position: relative" >
         @yield('content')
     </div>

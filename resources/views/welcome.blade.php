@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <p class="quote">The beautiful Laravel</p>
+        <p class="quote">Preuniversitario LlamaSoft</p>
     </div>
 </div>
 <div class="row">

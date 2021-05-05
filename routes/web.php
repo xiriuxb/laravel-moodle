@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/lista',function (){
     return view('layouts.lista');
 });
+
+Route::resource('list','ListaComentarioController');

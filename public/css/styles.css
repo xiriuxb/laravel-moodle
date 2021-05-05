@@ -1,9 +1,12 @@
 .quote{
     font: 400 72px "Arizona", Helvetica, sans-serif;
-    color: #f4645f;
+    color: #6e6cf7;
     text-align: center;
 }
 
 .post-title{
-    color: #f4645f;
+    color: #5f61f4;
+}
+body{
+    background-color: rgb(219, 255, 243);
 }

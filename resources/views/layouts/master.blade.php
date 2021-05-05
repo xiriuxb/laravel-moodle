@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale 1">
     <title>Laravel</title>
-    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href={{URL::asset('css/styles.css')}}>
+    
 </head>
 <body>
-    @include('partials.header')
-    <div style="padding-top: 60px" class="container">
+    <x-nav-bar/>
+    <div class="container" style="position: relative" >
         @yield('content')
     </div>
 </body>

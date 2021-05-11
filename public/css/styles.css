@@ -10,3 +10,33 @@
 body{
     background-color: rgb(219, 255, 243);
 }
+.titulo{
+    text-align: center;
+    font-style: italic;
+    background-image: url("https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg");
+    padding: 80px;
+    color: #afc8ec;
+}
+.titulo1{
+    font-style: italic;
+    height: 400px;
+    color: #afc8ec;
+    position: relative;
+}
+.titulo1::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);
+    filter: brightness(56%);
+    position: absolute;
+    background-repeat: repeat;
+}
+.titulo1 .tit{
+    font-size: 2cm;
+    text-align: center;
+    filter: brightness(100%);
+    position: relative;
+    padding: auto;
+    top: 50%;
+}

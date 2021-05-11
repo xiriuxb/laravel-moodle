@@ -1,33 +1,28 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <p class="quote">Preuniversitario LlamaSoft</p>
-    </div>
+<div class="titulo1">
+    <h1 class="tit">Preuniversitario Lolo</h1>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <h1 class="post-title">Learning Laravel</h1>
-        <p>This blog post will get you right on track with laravel!</p>
-        <p><a href="#">Read more...</a></p>
-    </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-md-12">
-        <h1 class="post-title">The next steps</h1>
-        <p>Understanding the basics is great///</p>
-        <p><a href="#">Read more...</a></p>
-    </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-md-12">
-        <h1 class="post-title">Laravel5.5</h1>
-        <p>Thoug announced as a "minor release"</p>
-        <p><a href="#">Read more...</a></p>
-    </div>
+<div>
+    <section>
+        <h3 class="titulo">Seccion 1</h3>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus eius voluptatum fugit incidunt dignissimos asperiores voluptas doloremque, eaque voluptatem, provident omnis sed excepturi, ipsam error ipsa animi ab. Consectetur, nemo!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo blanditiis qui facilis est culpa dignissimos, sit inventore iste ratione aliquam suscipit laboriosam quos rerum et tempore deleniti id! Quaerat!
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis similique itaque atque. In a, omnis consequuntur sit beatae commodi nisi numquam dolorum quaerat sapiente. Voluptatem in similique quibusdam vero.
+        </p>
+    </section>
+    <section>
+        <div class="container">
+            <h3 class="titulo">Seccion 2</h3>
+        </div>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus eius voluptatum fugit incidunt dignissimos asperiores voluptas doloremque, eaque voluptatem, provident omnis sed excepturi, ipsam error ipsa animi ab. Consectetur, nemo!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo blanditiis qui facilis est culpa dignissimos, sit inventore iste ratione aliquam suscipit laboriosam quos rerum et tempore deleniti id! Quaerat!
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis similique itaque atque. In a, omnis consequuntur sit beatae commodi nisi numquam dolorum quaerat sapiente. Voluptatem in similique quibusdam vero.
+        </p>
+    </section>
 </div>
 
 @endsection

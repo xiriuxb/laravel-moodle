@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{secure_asset('css/header.style.css')}}">
+<!--link rel="stylesheet" href="{{URL::asset('css/header.style.css')}}"-->
 <header class="main-header" id="navbar">
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">

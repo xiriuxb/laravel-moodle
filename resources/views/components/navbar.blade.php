@@ -43,7 +43,6 @@
 <script>
   window.onscroll = () => {
   const nav = document.querySelector('#navbar');
-  //nav.toggleClass('scroll', this.scrollTop()>nav.height);
   if(this.scrollY <= 10) nav.className = 'main-header'; else nav.className = 'main-header scroll';
 };
 </script>

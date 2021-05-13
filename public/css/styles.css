@@ -11,14 +11,12 @@ body{
     background-color: rgb(219, 255, 243);
 }
 .titulo{
+    font-size: 50px;
     text-align: center;
-    font-style: italic;
-    background-image: url("https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg");
-    padding: 80px;
-    color: #afc8ec;
+    padding: 50px;
+    color: #4689e6;
 }
 .titulo1{
-    font-style: italic;
     height: 400px;
     color: #afc8ec;
     position: relative;
@@ -33,10 +31,74 @@ body{
     background-repeat: repeat;
 }
 .titulo1 .tit{
-    font-size: 2cm;
     text-align: center;
     filter: brightness(100%);
     position: relative;
-    padding: auto;
     top: 50%;
+}
+
+.section-pair{
+    background-color: #ccd9ed;
+    padding-bottom: 30px;
+}
+
+.section-odd{
+    background-color: aliceblue;
+    padding-bottom: 30px;
+}
+
+@media (min-width: 544px) {  
+    h1 {font-size:3rem;} /*1rem = 16px*/
+  }
+
+  @media (min-width: 768px) {  
+    h1 {font-size:4.5rem;} /*1rem = 16px*/
+  }
+   
+  @media (min-width: 992px) { 
+    h1 {font-size:4.5rem;} /*1rem = 16px*/
+  }
+
+  @media only screen and (max-width: 500px) {
+    section.benefits{
+        background-position: -9999px -9999px;
+        background-size: auto;
+        background-size: 0ch;
+        background-color: red;
+    }
+}
+
+  div p.bienvenido{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 35px;
+      text-align: center;
+      padding-bottom: 15px;
+      margin-bottom: 0px;
+  }
+
+    .img-fluid.icono{
+      width: 60px;
+      border-radius: 50% !important;
+  }
+
+  section.benefits{
+      background-image: url("../images/smiling-beautiful-europe-book-school-education1.png");
+      background-repeat: no-repeat;
+      background-position: right;
+      background-size: 30%;
+  }
+
+  .row div.paddedd{
+      padding-bottom: 1.5rem;
+      max-height: fit-content;
+      font-size: 18px;
+      font-weight: bold;
+  }
+
+.row div.paddedd .row{
+    align-items: center;
+}
+
+.col-4{
+    max-width: fit-content;
 }

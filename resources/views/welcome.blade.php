@@ -1,27 +1,71 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="titulo1">
+<div class="titulo1 img-fluid">
     <h1 class="tit">Preuniversitario Lolo</h1>
 </div>
 <div>
-    <section>
-        <h3 class="titulo">Seccion 1</h3>
-        <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus eius voluptatum fugit incidunt dignissimos asperiores voluptas doloremque, eaque voluptatem, provident omnis sed excepturi, ipsam error ipsa animi ab. Consectetur, nemo!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo blanditiis qui facilis est culpa dignissimos, sit inventore iste ratione aliquam suscipit laboriosam quos rerum et tempore deleniti id! Quaerat!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis similique itaque atque. In a, omnis consequuntur sit beatae commodi nisi numquam dolorum quaerat sapiente. Voluptatem in similique quibusdam vero.
-        </p>
-    </section>
-    <section>
+    <section class="section-odd" id="webcoderskull">
+        <h3 class="titulo">BIENVENIDO</h3>
         <div class="container">
-            <h3 class="titulo">Seccion 2</h3>
+            <p class="bienvenido">
+                Bienvenido a Preuniversitario Lolo Online.
+            </p>
+            
         </div>
-        <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus eius voluptatum fugit incidunt dignissimos asperiores voluptas doloremque, eaque voluptatem, provident omnis sed excepturi, ipsam error ipsa animi ab. Consectetur, nemo!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo blanditiis qui facilis est culpa dignissimos, sit inventore iste ratione aliquam suscipit laboriosam quos rerum et tempore deleniti id! Quaerat!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum veritatis similique itaque atque. In a, omnis consequuntur sit beatae commodi nisi numquam dolorum quaerat sapiente. Voluptatem in similique quibusdam vero.
-        </p>
+    </section>
+    <section class="section-pair benefits" id="benefits">
+        <h3 class="titulo">BENEFICIOS</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 paddedd">
+                  <div class="row">
+                      <div class="col-4">
+                          <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                      </div>
+                      <div class="col">
+                          ACCESO 24/7
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-5 paddedd">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                        </div>
+                        <div class="col">
+                            ESTUDIA A TU RITMO
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 paddedd">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                        </div>
+                        <div class="col">
+                            ESTUDIA DONDE QUIERAS
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 paddedd">
+                    <div class="row">
+                      <div class="col-4">
+                          <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                      </div>
+                      <div class="col">
+                          PLATAFORMA INTERACTIVA
+                      </div>
+                    </div>
+                </div>
+              </div>    
+        </div>
+    </section>
+    <section class="section-odd">
+        <h3 class="titulo">BENEFICIOS</h3>
+        <div class="container">
+            
+        </div>
     </section>
 </div>
 

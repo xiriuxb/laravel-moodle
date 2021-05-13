@@ -61,10 +61,7 @@ body{
 
   @media only screen and (max-width: 500px) {
     section.benefits{
-        background-position: -9999px -9999px;
-        background-size: auto;
-        background-size: 0ch;
-        background-color: red;
+        background-image: none !important;
     }
 }
 

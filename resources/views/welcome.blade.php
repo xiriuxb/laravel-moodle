@@ -11,7 +11,6 @@
             <p class="bienvenido">
                 Bienvenido a Preuniversitario Lolo Online.
             </p>
-            
         </div>
     </section>
     <section class="section-pair benefits" id="benefits">
@@ -31,7 +30,7 @@
                 <div class="col-md-5 paddedd">
                     <div class="row">
                         <div class="col-4">
-                            <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                            <img src="../images/book-icon.png" class="img-fluid icono" alt="quixote">
                         </div>
                         <div class="col">
                             ESTUDIA A TU RITMO

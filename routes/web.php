@@ -15,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/lista',function (){
     return view('layouts.lista');
 });
 
 Route::resource('list','ListaComentarioController');
+
+Route::get('/acerca', function(){
+    return view('layouts.about');
+})->name('acerca');

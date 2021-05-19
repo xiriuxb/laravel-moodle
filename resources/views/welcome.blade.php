@@ -13,7 +13,13 @@
             </p>
         </div>
     </section>
-    <section class="section-pair benefits" id="benefits">
+    <section class="section-pair">
+        <h3 class="titulo">INGRESA A LA UNIVERSIDAD</h3>
+        <div class="container texto">
+            Nuestro deseo es que estudies la carrera que deseas, prepárate con este sistema de aprendizaje interactivo, que cuenta con videos explicativos, ejercicios y más recursos.
+        </div>
+    </section>
+    <section class="section-odd benefits" id="benefits">
         <h3 class="titulo">BENEFICIOS</h3>
         <div class="container">
             <div class="row">
@@ -60,12 +66,16 @@
               </div>    
         </div>
     </section>
-    <section class="section-odd">
-        <h3 class="titulo">BENEFICIOS</h3>
-        <div class="container">
-            
+    <section class="section-pair">
+        <div class="uno">
+            <div class="dos">
+                <div class="tres">
+                    <h3>Lolo</h3>
+                </div>
+            </div>
         </div>
     </section>
+    
 </div>
 
 @endsection

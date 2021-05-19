@@ -9,6 +9,7 @@
 }
 body{
     background-color: rgb(219, 255, 243);
+    min-height: 100%;
 }
 .titulo{
     font-size: 50px;
@@ -39,12 +40,12 @@ body{
 
 .section-pair{
     background-color: #ccd9ed;
-    padding-bottom: 30px;
+    text-align: center;
 }
 
 .section-odd{
     background-color: aliceblue;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 @media (min-width: 544px) {  
@@ -98,4 +99,23 @@ body{
 
 .col-4{
     max-width: fit-content;
+}
+
+.uno{
+    height: 200px;
+    padding-bottom: 0px;
+}
+
+.dos{
+    height: 200px;
+    background-color: #5f61f4;
+    width: 100%;
+    border-radius: 50%;
+    border-start-start-radius: initial;
+    border-bottom-left-radius: initial;
+    animation: ease-in 3ms alternate alternate unset;
+}
+
+.texto{
+    padding-bottom: 40px;
 }

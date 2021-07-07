@@ -23,16 +23,7 @@
             <a href="#service">services</a>
           </li>
           <li>
-            <a href="#project">projects</a>
-          </li>
-          <li>
-            <a href="#team">team</a>
-          </li>
-          <li>
-            <a href="#testimony">testimonils</a>
-          </li>
-          <li>
-            <a href="#contact">contact</a>
+            <a href="#contact">contacto</a>
           </li>
         </ul>
       </div>

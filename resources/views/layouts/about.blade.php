@@ -5,14 +5,14 @@
     <h1 class="tit">Preuniversitario Lolo</h1>
 </div>
 <div>
-    <section class="section-odd" id="webcoderskull">
+    <section class="section-odd">
         <h3 class="titulo">QUIENES SOMOS</h3>
         <div class="container">
             <p class="bienvenido">
                 Misión
             </p>
             <br>
-            <p class="text-center">
+            <p class="text-center texto">
                 Somos nosotros xD
             </p>
             <br>
@@ -20,7 +20,7 @@
                 Visión
             </p>
             <br>
-            <p class="text-center">
+            <p class="text-center texto">
                 Ser la mejor elección en cuanto a preuniversitarios
             </p>
         </div>

@@ -52,17 +52,22 @@ body{
     h1 {font-size:3rem;} /*1rem = 16px*/
   }
 
-  @media (min-width: 768px) {  
+@media (min-width: 768px) {  
     h1 {font-size:4.5rem;} /*1rem = 16px*/
-  }
+}
    
-  @media (min-width: 992px) { 
-    h1 {font-size:4.5rem;} /*1rem = 16px*/
-  }
+@media (min-width: 992px) { 
+   h1 {font-size:4.5rem;} /*1rem = 16px*/
+}
 
-  @media only screen and (max-width: 500px) {
-    section.benefits{
-        background-image: none !important;
+@media only screen and (max-width: 700px) {
+  section.benefits{
+    background-image: none !important;
+    }
+}
+@media only screen and (min-width: 1300px) {
+  section.benefits{
+    background-size: 20% !important;
     }
 }
 
@@ -82,14 +87,14 @@ body{
   section.benefits{
       background-image: url("../images/smiling-beautiful-europe-book-school-education1.png");
       background-repeat: no-repeat;
-      background-position: right;
-      background-size: 30%;
+      background-position: 90%;
+      background-size: 25%;
   }
 
   .row div.paddedd{
-      padding-bottom: 1.5rem;
+      padding-bottom: 2rem;
       max-height: fit-content;
-      font-size: 18px;
+      font-size: 23px;
       font-weight: bold;
   }
 
@@ -118,4 +123,10 @@ body{
 
 .texto{
     padding-bottom: 40px;
+    font-size: 30px;
+}
+
+.univ-back{
+    background-image: url(../images/university.svg);
+    background-position: bottom bottom 45px;
 }

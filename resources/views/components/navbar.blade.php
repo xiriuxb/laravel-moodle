@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="{{secure_asset('css/header.style.css')}}">
-<!--link rel="stylesheet" href="{{URL::asset('css/header.style.css')}}"-->
+<!--link rel="stylesheet" href="{{secure_asset('css/header.style.css')}}"-->
+<link rel="stylesheet" href="{{URL::asset('css/header.style.css')}}">
 <header class="main-header" id="navbar">
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
@@ -14,10 +14,10 @@
       <div class="collapse navbar-collapse" id="mainMenu">
         <ul class="navbar-nav ml-auto text-uppercase f1">
           <li>
-            <a href="{{ route('home') }}" class="active active-first">home</a>
+            <a href="{{ route('home') }}" class="active active-first">inicio</a>
           </li>
           <li>
-            <a href="{{ route('acerca') }}">about us</a>
+            <a href="{{ route('acerca') }}">nosotros</a>
           </li>
           <li>
             <a href="#service">services</a>

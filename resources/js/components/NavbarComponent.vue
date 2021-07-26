@@ -1,4 +1,51 @@
+<template>
+<header class="main-header" id="navbar">
+  <div class="container" >
+    <nav class="navbar navbar-expand-lg main-nav px-0">
+      <a class="navbar-brand" href="/">
+              <img src="/images/icon.png" alt="rajeshdas.com">
+            </a>
+      <button v-on:click="changeTheme" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="icon-bar icon-bar-1"></span>
+                      <span class="icon-bar icon-bar-2"></span>
+                      <span class="icon-bar icon-bar-3"></span>
+                  </button>
+      <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="navbar-nav ml-auto text-uppercase f1">
+          <li>
+            <a href="/" class="active active-first">inicio</a>
+          </li>
+          <li>
+            <a href="#cursos">Cursos</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- /.container -->
+</header>
+</template>
 
+<script>
+export default{
+  methods:{
+    changeTheme(){
+      const nav = document.querySelector('#navbar');
+      if(nav.className=='main-header' && scrollY<10){
+        nav.className = 'main-header scroll';
+        nav.style.position = "relative !important";
+      }
+  }
+}
+}
+
+window.onscroll = () => {
+  const nav = document.querySelector('#navbar');
+  if(scrollY <= 10) nav.className = 'main-header'; else nav.className = 'main-header scroll';
+};
+</script>
+
+<style>
 [data-target="#mainMenu"] {
     position: relative;
     z-index: 999;
@@ -204,4 +251,4 @@
     color: white !important;
     box-shadow: 0px 4px 7px #777;
   }
-
+</style>

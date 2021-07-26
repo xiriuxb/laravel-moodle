@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="{{secure_asset('css/header.style.css')}}">
-<!--<link rel="stylesheet" href="{{URL::asset('css/header.style.css')}}"-->
+<!--link rel="stylesheet" href="{{secure_asset('css/header.style.css')}}"-->
+<link rel="stylesheet" href="{{URL::asset('css/header.style.css')}}">
 <header class="main-header" id="navbar">
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
-      <a class="navbar-brand" href="/mojo">
-              <img src="http://rajeshdas.com/assets/images/logo.svg" alt="rajeshdas.com">
+      <a class="navbar-brand" href="/">
+              <img src="../images/icon.png" alt="rajeshdas.com">
             </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="icon-bar icon-bar-1"></span>
@@ -17,13 +17,7 @@
             <a href="{{ route('home') }}" class="active active-first">inicio</a>
           </li>
           <li>
-            <a href="{{ route('acerca') }}">nosotros</a>
-          </li>
-          <li>
-            <a href="#service">services</a>
-          </li>
-          <li>
-            <a href="#contact">contacto</a>
+            <a href="#cursos">Cursos</a>
           </li>
         </ul>
       </div>

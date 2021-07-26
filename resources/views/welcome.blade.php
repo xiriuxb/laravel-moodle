@@ -1,22 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="titulo1 img-fluid">
-    <h1 class="tit">Preuniversitario ""</h1>
-</div>
+
 <div>
-    <section class="section-odd" id="webcoderskull">
-        <h3 class="titulo">BIENVENIDO</h3>
-        <div class="container">
-            <p class="bienvenido">
-                Bienvenido a Preuniversitario "" Online.
-            </p>
-        </div>
-    </section>
     <section class="section-pair univ-back">
-        <h3 class="titulo">INGRESA A LA UNIVERSIDAD</h3>
+        <h3 class="titulo">LOREM</h3>
         <div class="container texto">
-            Nuestro deseo es que estudies la carrera que deseas, prepárate con este sistema de aprendizaje interactivo, que cuenta con videos explicativos, ejercicios y más recursos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum impedit voluptates, repellendus laboriosam facere excepturi ratione delectus iste, rem tempora nihil totam quas ducimus esse omnis debitis optio ex sint.
         </div>
     </section>
     <section class="section-odd benefits" id="benefits">
@@ -70,11 +60,12 @@
         <div class="uno">
             <div class="dos">
                 <div class="tres">
-                    <h3>Lolo</h3>
+                    <h3>cursos</h3>
                 </div>
             </div>
         </div>
     </section>
+    
     
 </div>
 

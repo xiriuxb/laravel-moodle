@@ -20,7 +20,7 @@
       
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a href="#!" class="text-white">Link 1</a>
+                  <a href="{{ route('acerca') }}" class="text-white">Acerca</a>
                 </li>
               </ul>
             </div>
@@ -28,11 +28,10 @@
       
             <!--Grid column-->
             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-              <h5 class="text-uppercase mb-0">Links</h5>
       
               <ul class="list-unstyled">
                 <li>
-                  <a href="#!" class="text-white">Link 1</a>
+                  <a href="#contact" class="text-white">Contacto</a>
                 </li>
               </ul>
             </div>

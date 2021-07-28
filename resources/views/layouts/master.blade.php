@@ -12,17 +12,10 @@
     
 </head>
 <body>
-    
     <div id="app">
-        <navbar-component></navbar-component>
-        <caratula-component></caratula-component>
-        <div>
-            @yield('content')
-        </div>
-        <comments-component></comments-component>
+        <router-view></router-view>
     </div>
     
 </body>
-<x-footer/>
 <script src="{{asset('js/app.js')}}"></script>
 </html>

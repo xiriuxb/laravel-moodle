@@ -1,12 +1,20 @@
-@extends('layouts.master')
-
-@section('content')
-
+<template>
 <div>
+<navbar-component></navbar-component>
+  <caratula-component></caratula-component>
+    <div>
+    <section class="section-odd" id="webcoderskull">
+        <h3 class="titulo">BIENVENIDO</h3>
+        <div class="container">
+            <p class="bienvenido">
+                Bienvenido a Preuniversitario "" Online.
+            </p>
+        </div>
+    </section>
     <section class="section-pair univ-back">
-        <h3 class="titulo">LOREM</h3>
+        <h3 class="titulo">INGRESA A LA UNIVERSIDAD</h3>
         <div class="container texto">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum impedit voluptates, repellendus laboriosam facere excepturi ratione delectus iste, rem tempora nihil totam quas ducimus esse omnis debitis optio ex sint.
+            Nuestro deseo es que estudies la carrera que deseas, prepárate con este sistema de aprendizaje interactivo, que cuenta con videos explicativos, ejercicios y más recursos.
         </div>
     </section>
     <section class="section-odd benefits" id="benefits">
@@ -26,7 +34,7 @@
                 <div class="col-md-5 paddedd">
                     <div class="row">
                         <div class="col-4">
-                            <img src="../images/book-icon.png" class="img-fluid icono" alt="quixote">
+                            <img src="/images/book-icon.png" class="img-fluid icono" alt="quixote">
                         </div>
                         <div class="col">
                             ESTUDIA A TU RITMO
@@ -60,13 +68,23 @@
         <div class="uno">
             <div class="dos">
                 <div class="tres">
-                    <h3>cursos</h3>
+                    <h3>Lolo</h3>
                 </div>
             </div>
         </div>
     </section>
-    
-    
+    </div>
 </div>
+</template>
 
-@endsection
+<script>
+import CaratulaComponent from '../CaratulaComponent.vue'
+export default {
+  components: { CaratulaComponent },
+
+}
+</script>
+
+<style>
+
+</style>

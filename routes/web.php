@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('', function () {
+    return view('layouts.master');
 })->name('home');
 
 Route::get('/lista',function (){
@@ -23,6 +23,13 @@ Route::get('/lista',function (){
 
 Route::resource('list','ListaComentarioController');
 
-Route::get('/acerca', function(){
+Route::get('/acerca/', function(){
     return view('layouts.about');
 })->name('acerca');
+
+Route::get('{any}', function () {
+    return view('layouts.master');
+})->where('any','.*');
+
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home2');

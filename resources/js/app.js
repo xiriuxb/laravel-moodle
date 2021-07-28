@@ -7,7 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+import Login from "./components/views/Login";
+import Home from "./components/views/Home";
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,6 +26,9 @@ Vue.component('navbar-component', require('./components/NavbarComponent.vue').de
 Vue.component('caratula-component',require('./components/CaratulaComponent.vue').default);
 Vue.component('registro-component', require('./components/RegistroComponent.vue').default);
 Vue.component('comments-component', require('./components/CommentsComponent.vue').default);
+Vue.component('login-component', require('./components/auth/LoginComponent.vue').default);
+Vue.component('home', require('./components/views/Home.vue').default);
+Vue.component('login', require('./components/views/Login.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,6 +36,15 @@ Vue.component('comments-component', require('./components/CommentsComponent.vue'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const router = new VueRouter({
+    routes: [
+        {path:'/login',component:Login,name:'login'},
+        {path:'/',component:Home,name:'home'}
+    ],
+    mode:'history'
+})
 const app = new Vue({
     el: '#app',
+    router:router
 });
+

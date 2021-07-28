@@ -3,20 +3,25 @@
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
       <a class="navbar-brand" href="/">
-              <img src="/images/icon.png" alt="rajeshdas.com">
+              <img src="/images/icon.png" alt="Buisiness Logo">
             </a>
       <button v-on:click="changeTheme" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="icon-bar icon-bar-1"></span>
                       <span class="icon-bar icon-bar-2"></span>
                       <span class="icon-bar icon-bar-3"></span>
                   </button>
-      <div class="collapse navbar-collapse" id="mainMenu">
+      <div class="collapse navbar-collapse justify-content-between" id="mainMenu">
         <ul class="navbar-nav ml-auto text-uppercase f1">
           <li>
             <a href="/" class="active active-first">inicio</a>
           </li>
           <li>
             <a href="#cursos">Cursos</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto text-uppercase f1">
+          <li>
+            <router-link :to="{name:'login'}">Login</router-link>
           </li>
         </ul>
       </div>
@@ -44,7 +49,7 @@ window.onscroll = () => {
   if(scrollY <= 10) nav.className = 'main-header'; else nav.className = 'main-header scroll';
 };
 </script>
-
+<!-- Estilos-->
 <style>
 [data-target="#mainMenu"] {
     position: relative;

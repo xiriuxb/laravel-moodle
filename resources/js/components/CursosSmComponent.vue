@@ -1,12 +1,16 @@
 <template>
 <section class="container">
 <div class="container">
-  <h3 class="text">Nuestros estudiantes comentan:</h3>
+  <h3 class="topico">Cursos Recomendados:</h3>
   <VueSlickCarousel v-bind="settings">
     <div v-for="comment in comments" :key="comment.id">
+        <img class="card-img-top" src="/images/crs-im-test.jpg" alt="Card image cap">
       <div class="card-body container">
-        <h5 class="card-title">{{comment.autor}}</h5>
-        {{comment.text}}
+        <p class="card-topico"><small class="topico-muted">{{comment.topico}}</small></p>
+        <a href="/">
+        <h5 class="card-title">{{comment.title}}</h5>
+        </a>
+        {{comment.topico}}
       </div>
     </div>
   </VueSlickCarousel>
@@ -33,17 +37,14 @@ export default {
     data:function(){
         return{
         comments:[
-            {'id':1, 'autor':'Bruce Banner', 'tipo':0,'text':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam mattis nibh et lectus hendrerit, id finibus odio volutpat. Etiam augue libero, interdum nec aliquam sed, venenatis et lectus. Mauris scelerisque sed magna sed finibus. Donec purus sem, interdum ac mauris nec, cursus placerat nisi. Integer et libero quis metus elementum varius.'},
-            {'id':2, 'autor':'Clark Kent', 'tipo':1,'text':'Curabitur placerat dolor eget orci porta dapibus. Cras sed mi ut risus convallis pharetra sit amet a nisi. Donec non massa ut turpis consequat mollis in eget felis. Donec venenatis metus et finibus lacinia. In sed magna rutrum, molestie magna id, congue tellus. Sed accumsan iaculis elit, ac interdum lacus tincidunt at. '},
-            {'id':3, 'autor':'Barry Allen', 'tipo':1,'text':'Go beyond Jira data and get visibility into what’s happening within your user stories, tasks and bugs. Flow’s delivery module helps you better understand how your team is working and can make lasting improvements to your workflow.'},
-            {'id':4, 'autor':'Martian Manhunter', 'tipo':0,'text':'Sandboxes gives your team a safe environment to practice what they\'re learning from expert-authored courses.'},
-            {'id':5, 'autor':'Wally West', 'tipo':1,'text':'Lorem Impsum dolor 5'},
-            {'id':6, 'autor':'Bruce Wayne', 'tipo':0,'text':'Lorem Impsum dolor 6'},
-            {'id':7, 'autor':'Dr. Fate', 'tipo':1,'text':'Lorem Impsum dolor 7'},
+            {'id':1, 'title':'Matemática Básica', 'tipo':0,'topico':'Matemática'},
+            {'id':2, 'title':'Matemática de Bachillerato', 'tipo':1,'topico':'Matemática'},
+            {'id':3, 'title':'Principios de Programación', 'tipo':1,'topico':'Programación'},
+            {'id':4, 'title':'Introducción al Internet', 'tipo':1,'topico':'Redes'},
         ],
         settings:{
             "infinite": true,
-            "slidesToShow": 3,
+            "slidesToShow": 4,
             "slidesToScroll": 1,
             "autoplay": false,
             "initialSlide":1,
@@ -95,21 +96,7 @@ section{
 .slick-list{
   margin-left: 10px !important;
 }
-div.slick-slide {
-  height: 100%;
-  margin: 5px;
-    display: block;
-    padding: 5px;
-    height: inherit !important;
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-}
+
 
 .slick-arrow{
     position: absolute;

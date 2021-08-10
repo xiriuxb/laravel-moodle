@@ -21,6 +21,9 @@
         </ul>
         <ul class="navbar-nav mr-auto text-uppercase f1">
           <li>
+            <a v-on:click="logout">Logout</a>
+          </li>
+          <li>
             <router-link :to="{name:'login'}">Login</router-link>
           </li>
         </ul>
@@ -40,7 +43,14 @@ export default{
         nav.className = 'main-header scroll';
         nav.style.position = "relative !important";
       }
-  }
+    },
+    logout(){
+      axios.post('logout').then(() => {
+        console.log("Logout");    
+      }).catch((err) => {
+        this.errors = err.response.data.errors;
+      });
+    }
 }
 }
 
@@ -181,13 +191,16 @@ window.onscroll = () => {
     }
   
     .main-header .navbar-nav {
-      margin-top: 70px;
+      margin-top: 30px;
     }
   
     .main-header .navbar-nav li .nav-link {
       text-align: center;
       padding: 20px 15px;
       border-radius: 0px;
+    }
+    #mainMenu li:not(:last-of-type) {
+      margin-right: 0px;
     }
   
     /**/

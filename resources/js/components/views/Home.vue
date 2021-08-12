@@ -254,6 +254,4 @@ div.active-cyan-4{
 .card-header img{
     width: 100px;
 }
-
-
 </style>

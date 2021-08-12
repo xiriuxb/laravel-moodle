@@ -1,62 +1,65 @@
 <template>
-  <section class="signup container-fluid d-flex">
+  <section class="container-fluid d-flex justify-content-center">
     <div class="signup-content">
       <form id="signup-form" class="signup-form">
         <h2 class="form-title">Regístrese</h2>
         <div class="row form-group">
           <div class="col">
-            <input v-model="form.name" type="text" class="form-input" name="name"
-              id="name" placeholder="Su nombre" />
-               <span class="invalid-feedback" role="alert">
-                                        <strong>Nel</strong>
-                                    </span>
+            <input v-model="form.name" type="text" v-on:keypress="isLetter($event)" class="form-control" name="name"
+              id="name" placeholder="Su nombre" required autocomplete="name" />
+              <div v-if="this.errors.name!=null" class="alert alert-danger">{{this.errors.name[0]}}</div>
           </div>
           <div class="col">
             <input  v-model="form.last_name"
-              type="text" class="form-input" name="last_name"
-              id="last_name" placeholder="Su apellido"/>
+              type="text" class="form-control" name="last_name"
+              id="last_name" placeholder="Su apellido" v-on:keypress="isLetter($event)"/>
+              <div v-if="this.errors.last_name!=null" class="alert alert-danger">{{this.errors.last_name[0]}}</div>
           </div>
         </div>
         <div class="form-group">
           <input  v-model="form.email"
             type="email"
-            class="form-input"
+            class="form-control"
             name="email"
             id="email"
             placeholder="Su email"
           />
+          <div v-if="this.errors.email!=null" class="alert alert-danger">{{this.errors.email[0]}}</div>
         </div>
         <div class="form-group">
           <input  v-model="form.password"
             type="password"
-            class="form-input"
+            class="form-control"
             name="password"
             id="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             ref="password"
           />
           <span
             toggle="#password"
             class="zmdi zmdi-eye field-icon toggle-password"
           ></span>
+          <div v-if="this.errors.password!=null" class="alert alert-danger">{{this.errors.password[0]}}</div>
         </div>
         <div class="form-group">
           <input
             type="password"
-            class="form-input"
+            class="form-control"
             name="password_confirmation"
             id="password_confirmation"
             v-model="form.password_confirmation"
-            placeholder="Repeat your password"
+            placeholder="Confirme la contraseña"
             data-vv-as="password"
           />
         </div>
         <div class="row form-group">
-            <country-select class="col form-input" name="country" id="country"
+            <country-select class="col form-control" name="country" id="country"
              v-model="form.country" :country="form.country" placeholder="País"
              :whiteList='["EC"]' :countryName='true' :autocomplete='true' :removePlaceholder='true'/>
-            <region-select class="col form-input" v-model="form.region" :country="form.country" 
-            :region="form.region" defaultRegion='EC' :regionName='true' name="region" id="region"  />
+            <region-select class="col form-control" v-model="form.region" :country="form.country" 
+            :region="form.region" defaultRegion='EC' :regionName='true' name="region" id="region" 
+            placeholder="Provincia/Región" />
+            <div v-if="this.errors.region!=null" class="alert alert-danger">Seleccione una opción</div>
         </div>
         <div class="form-group">
           <input
@@ -65,13 +68,13 @@
             name="submit"
             id="submit"
             class="form-submit"
-            value="Sign up"
+            value="Registrar"
           />
         </div>
       </form>
       <p class="loginhere">
-        Have already an account ?
-        <a href="#" class="loginhere-link">Login here</a>
+        Tiene ya una cuenta?
+        <a href="#" class="loginhere-link">Ingrese aquí</a>
       </p>
     </div>
   </section>
@@ -79,6 +82,7 @@
 
 <script>
 export default {
+
   data(){
     return{
       form:{
@@ -99,13 +103,24 @@ export default {
         console.log("SAved");
         if(response.status === 201) {
                this.$router.push({ path : '/registro-exitoso' });
+               console.log("SIIUUUU")
             }
-        
       }).catch((err) => {
-        this.errors = err.response.data.errors;
+        if (err.response!= undefined && err.response.status==422) {
+          this.errors = err.response.data.errors;
+          console.log(this.errors)
+        }
       });
+    },
+    isLetter(e) {
+      let char = String.fromCharCode(e.keyCode); // Get the character
+      if(/^[ñA-Za-z]+$/.test(char)) return true; // Match with regex 
+      else e.preventDefault(); // If not match, don't add to input text
     }
-  }
+  },
+  // validation for post from
+  // Use Vue
+  
 };
 </script>
 
@@ -132,19 +147,6 @@ section {
 form {
   display: block;
   margin-top: 0em;
-}
-.form-input {
-  width: 100%;
-  border: 1px solid #ebebeb;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  padding: 8px 10px;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-weight: 500;
 }
 
 h2 {
@@ -202,5 +204,13 @@ h2 {
 
 div.col {
   padding: 0px;
+}
+.alert {
+    position: relative;
+    padding: 0.1rem 1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    font-size: 0.7rem;
 }
 </style>

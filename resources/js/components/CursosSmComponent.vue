@@ -23,12 +23,7 @@
 <script>
   import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-  // optional style for arrows & dots
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-//Formación
-//Área de conocimiento
-//Tabla Inscripción(Estudiante, Curso, )
-//Tabla Cursos (IdCurso, Costo?, --Descripción, Duración, Área--)
 export default {
     components: { VueSlickCarousel },
     methods:{

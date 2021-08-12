@@ -5,14 +5,13 @@
         <form method="POST" action="">
           <!--@csrf-->
           <div class="form-group row">
-            <label for="email" class="text-md-right">E-Mail Address</label>
+            <label for="email" class="text-md-right">E-Mail</label>
             <div>
               <input
                 id="email"
                 type="email"
-                class="form-control @@error('email') is-invalid @enderror"
+                class="form-control"
                 name="email"
-                value="email"
                 required
                 autocomplete="email"
                 autofocus
@@ -21,7 +20,7 @@
           </div>
 
           <div class="form-group row">
-            <label for="password" class="text-md-right">Password</label>
+            <label for="password" class="text-md-right">Contraseña</label>
             <div>
               <input
                 id="password"
@@ -43,16 +42,16 @@
                   name="remember"
                   id="remember"
                 />
-                Remember Me
+                Recuérdame
               </div>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <div>
-              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
               <a class="btn btn-link" href="">
-                Forgot Your Password?
+                Olvidó su password
               </a>
             </div>
           </div>

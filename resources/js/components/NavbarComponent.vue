@@ -21,7 +21,7 @@
         </ul>
         <ul class="navbar-nav mr-auto text-uppercase f1">
           <li>
-            <a v-on:click="logout">Logout</a>
+            <a href="/" v-on:click="logout">Logout</a>
           </li>
           <li>
             <router-link :to="{name:'login'}">Login</router-link>

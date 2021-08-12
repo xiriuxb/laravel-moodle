@@ -2031,12 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
- // optional style for arrows & dots
 
- //Formación
-//Área de conocimiento
-//Tabla Inscripción(Estudiante, Curso, )
-//Tabla Cursos (IdCurso, Costo?, --Descripción, Duración, Área--)
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2335,6 +2330,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2361,12 +2359,26 @@ __webpack_require__.r(__webpack_exports__);
           _this.$router.push({
             path: '/registro-exitoso'
           });
+
+          console.log("SIIUUUU");
         }
       })["catch"](function (err) {
-        _this.errors = err.response.data.errors;
+        if (err.response != undefined && err.response.status == 422) {
+          _this.errors = err.response.data.errors;
+          console.log(_this.errors);
+        }
       });
+    },
+    isLetter: function isLetter(e) {
+      var _char = String.fromCharCode(e.keyCode); // Get the character
+
+
+      if (/^[ñA-Za-z]+$/.test(_char)) return true; // Match with regex 
+      else e.preventDefault(); // If not match, don't add to input text
     }
-  }
+  } // validation for post from
+  // Use Vue
+
 });
 
 /***/ }),
@@ -2414,7 +2426,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CaratulaComponent.vue */ "./resources/js/components/CaratulaComponent.vue");
-//
 //
 //
 //
@@ -7410,7 +7421,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv {\r\n  display: block;\n}\nsection {\r\n  display: block;\n}\n@media screen and (max-width: 768px) {\n.container {\r\n    width: calc(100% - 40px);\r\n    max-width: 100%;\n}\n}\n*,\r\n::after,\r\n::before {\r\n  box-sizing: border-box;\n}\nform {\r\n  display: block;\r\n  margin-top: 0em;\n}\n.form-input {\r\n  width: 100%;\r\n  border: 1px solid #ebebeb;\r\n  border-radius: 5px;\r\n  -moz-border-radius: 5px;\r\n  -webkit-border-radius: 5px;\r\n  -o-border-radius: 5px;\r\n  -ms-border-radius: 5px;\r\n  padding: 8px 10px;\r\n  box-sizing: border-box;\r\n  font-size: 14px;\r\n  font-weight: 500;\n}\nh2 {\r\n  line-height: 1.66;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-weight: 900;\r\n  color: #222;\r\n  font-family: montserrat;\r\n  font-size: 24px;\r\n  text-transform: uppercase;\r\n  text-align: center;\r\n  margin-bottom: 10px;\n}\n.signup-content {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  -moz-border-radius: 10px;\r\n  -webkit-border-radius: 10px;\r\n  -o-border-radius: 10px;\r\n  -ms-border-radius: 10px;\r\n  padding: 20px 20px;\r\n  max-width: 350px;\r\n  min-width: 250px;\n}\n.form-group {\r\n  overflow: hidden;\r\n  margin-bottom: 5px;\n}\n.form-submit {\r\n  width: 100%;\r\n  border-radius: 5px;\r\n  -moz-border-radius: 5px;\r\n  -webkit-border-radius: 5px;\r\n  -o-border-radius: 5px;\r\n  -ms-border-radius: 5px;\r\n  padding: 17px 20px;\r\n  box-sizing: border-box;\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n  color: #fff;\r\n  text-transform: uppercase;\r\n  border: none;\r\n  background-image: linear-gradient(to left, #74ebd5, #9face6);\n}\n.loginhere {\r\n  margin: 0px;\n}\ndiv.col {\r\n  padding: 0px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv {\r\n  display: block;\n}\nsection {\r\n  display: block;\n}\n@media screen and (max-width: 768px) {\n.container {\r\n    width: calc(100% - 40px);\r\n    max-width: 100%;\n}\n}\n*,\r\n::after,\r\n::before {\r\n  box-sizing: border-box;\n}\nform {\r\n  display: block;\r\n  margin-top: 0em;\n}\nh2 {\r\n  line-height: 1.66;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-weight: 900;\r\n  color: #222;\r\n  font-family: montserrat;\r\n  font-size: 24px;\r\n  text-transform: uppercase;\r\n  text-align: center;\r\n  margin-bottom: 10px;\n}\n.signup-content {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  -moz-border-radius: 10px;\r\n  -webkit-border-radius: 10px;\r\n  -o-border-radius: 10px;\r\n  -ms-border-radius: 10px;\r\n  padding: 20px 20px;\r\n  max-width: 350px;\r\n  min-width: 250px;\n}\n.form-group {\r\n  overflow: hidden;\r\n  margin-bottom: 5px;\n}\n.form-submit {\r\n  width: 100%;\r\n  border-radius: 5px;\r\n  -moz-border-radius: 5px;\r\n  -webkit-border-radius: 5px;\r\n  -o-border-radius: 5px;\r\n  -ms-border-radius: 5px;\r\n  padding: 17px 20px;\r\n  box-sizing: border-box;\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n  color: #fff;\r\n  text-transform: uppercase;\r\n  border: none;\r\n  background-image: linear-gradient(to left, #74ebd5, #9face6);\n}\n.loginhere {\r\n  margin: 0px;\n}\ndiv.col {\r\n  padding: 0px;\n}\n.alert {\r\n    position: relative;\r\n    padding: 0.1rem 1rem;\r\n    margin-bottom: 0.5rem;\r\n    border: 1px solid transparent;\r\n    border-radius: .25rem;\r\n    font-size: 0.7rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7458,7 +7469,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.quote{\r\n    font: 400 72px \"Arizona\", Helvetica, sans-serif;\r\n    color: #6e6cf7;\r\n    text-align: center;\n}\n.post-title{\r\n    color: #5f61f4;\n}\nbody{\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo{\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #4689e6;\n}\n.section-pair{\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd{\r\n    background-color: aliceblue;\r\n    padding-bottom: 40px;\n}\n.sp-card{\r\n    background-color: transparent;\r\n    border-color: transparent;\n}\n@media (min-width: 544px) {\nh1 {font-size:3rem;} /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1 {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1 {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits{\r\n    background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits{\r\n    background-size: 20% !important;\n}\n}\ndiv p.bienvenido{\r\n      font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n      font-size: 35px;\r\n      text-align: center;\r\n      padding-bottom: 15px;\r\n      margin-bottom: 0px;\n}\n.img-fluid.icono{\r\n      width: 60px;\r\n      border-radius: 50% !important;\n}\nsection.benefits{\r\n      background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n      background-repeat: no-repeat;\r\n      background-position: 90%;\r\n      background-size: 25%;\n}\n.row div.paddedd{\r\n      padding-bottom: 2rem;\r\n      max-height: -webkit-fit-content;\r\n      max-height: -moz-fit-content;\r\n      max-height: fit-content;\r\n      font-size: 23px;\r\n      font-weight: bold;\n}\n.row div.paddedd .row{\r\n    align-items: center;\n}\n.col-4{\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno{\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos{\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto{\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back{\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\ndiv.active-cyan-4{\r\n    width: 400px;\n}\n.active-cyan-4 input[type=text]:focus:not([readonly]) {\r\n    border: 1px solid #4dd0e1;\r\n    box-shadow: 0 0 0 1px #4dd0e1;\r\n    position: relative;\r\n    width: 400px;\n}\n.card-header img{\r\n    width: 100px;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.quote{\r\n    font: 400 72px \"Arizona\", Helvetica, sans-serif;\r\n    color: #6e6cf7;\r\n    text-align: center;\n}\n.post-title{\r\n    color: #5f61f4;\n}\nbody{\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo{\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #4689e6;\n}\n.section-pair{\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd{\r\n    background-color: aliceblue;\r\n    padding-bottom: 40px;\n}\n.sp-card{\r\n    background-color: transparent;\r\n    border-color: transparent;\n}\n@media (min-width: 544px) {\nh1 {font-size:3rem;} /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1 {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1 {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits{\r\n    background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits{\r\n    background-size: 20% !important;\n}\n}\ndiv p.bienvenido{\r\n      font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n      font-size: 35px;\r\n      text-align: center;\r\n      padding-bottom: 15px;\r\n      margin-bottom: 0px;\n}\n.img-fluid.icono{\r\n      width: 60px;\r\n      border-radius: 50% !important;\n}\nsection.benefits{\r\n      background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n      background-repeat: no-repeat;\r\n      background-position: 90%;\r\n      background-size: 25%;\n}\n.row div.paddedd{\r\n      padding-bottom: 2rem;\r\n      max-height: -webkit-fit-content;\r\n      max-height: -moz-fit-content;\r\n      max-height: fit-content;\r\n      font-size: 23px;\r\n      font-weight: bold;\n}\n.row div.paddedd .row{\r\n    align-items: center;\n}\n.col-4{\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno{\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos{\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto{\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back{\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\ndiv.active-cyan-4{\r\n    width: 400px;\n}\n.active-cyan-4 input[type=text]:focus:not([readonly]) {\r\n    border: 1px solid #4dd0e1;\r\n    box-shadow: 0 0 0 1px #4dd0e1;\r\n    position: relative;\r\n    width: 400px;\n}\n.card-header img{\r\n    width: 100px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40297,7 +40308,9 @@ var render = function() {
             _vm._v(" "),
             _c("ul", { staticClass: "navbar-nav mr-auto text-uppercase f1" }, [
               _c("li", [
-                _c("a", { on: { click: _vm.logout } }, [_vm._v("Logout")])
+                _c("a", { attrs: { href: "/" }, on: { click: _vm.logout } }, [
+                  _vm._v("Logout")
+                ])
               ]),
               _vm._v(" "),
               _c(
@@ -40362,256 +40375,295 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "signup container-fluid d-flex" }, [
-    _c("div", { staticClass: "signup-content" }, [
-      _c("form", { staticClass: "signup-form", attrs: { id: "signup-form" } }, [
-        _c("h2", { staticClass: "form-title" }, [_vm._v("Regístrese")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row form-group" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.name,
-                  expression: "form.name"
-                }
-              ],
-              staticClass: "form-input",
-              attrs: {
-                type: "text",
-                name: "name",
-                id: "name",
-                placeholder: "Su nombre"
-              },
-              domProps: { value: _vm.form.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "name", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(0)
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.last_name,
-                  expression: "form.last_name"
-                }
-              ],
-              staticClass: "form-input",
-              attrs: {
-                type: "text",
-                name: "last_name",
-                id: "last_name",
-                placeholder: "Su apellido"
-              },
-              domProps: { value: _vm.form.last_name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form, "last_name", $event.target.value)
-                }
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.email,
-                expression: "form.email"
-              }
-            ],
-            staticClass: "form-input",
-            attrs: {
-              type: "email",
-              name: "email",
-              id: "email",
-              placeholder: "Su email"
-            },
-            domProps: { value: _vm.form.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "email", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.password,
-                expression: "form.password"
-              }
-            ],
-            ref: "password",
-            staticClass: "form-input",
-            attrs: {
-              type: "password",
-              name: "password",
-              id: "password",
-              placeholder: "Password"
-            },
-            domProps: { value: _vm.form.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "password", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", {
-            staticClass: "zmdi zmdi-eye field-icon toggle-password",
-            attrs: { toggle: "#password" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.password_confirmation,
-                expression: "form.password_confirmation"
-              }
-            ],
-            staticClass: "form-input",
-            attrs: {
-              type: "password",
-              name: "password_confirmation",
-              id: "password_confirmation",
-              placeholder: "Repeat your password",
-              "data-vv-as": "password"
-            },
-            domProps: { value: _vm.form.password_confirmation },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "password_confirmation", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
+  return _c(
+    "section",
+    { staticClass: "container-fluid d-flex justify-content-center" },
+    [
+      _c("div", { staticClass: "signup-content" }, [
         _c(
-          "div",
-          { staticClass: "row form-group" },
+          "form",
+          { staticClass: "signup-form", attrs: { id: "signup-form" } },
           [
-            _c("country-select", {
-              staticClass: "col form-input",
-              attrs: {
-                name: "country",
-                id: "country",
-                country: _vm.form.country,
-                placeholder: "País",
-                whiteList: ["EC"],
-                countryName: true,
-                autocomplete: true,
-                removePlaceholder: true
-              },
-              model: {
-                value: _vm.form.country,
-                callback: function($$v) {
-                  _vm.$set(_vm.form, "country", $$v)
-                },
-                expression: "form.country"
-              }
-            }),
+            _c("h2", { staticClass: "form-title" }, [_vm._v("Regístrese")]),
             _vm._v(" "),
-            _c("region-select", {
-              staticClass: "col form-input",
-              attrs: {
-                country: _vm.form.country,
-                region: _vm.form.region,
-                defaultRegion: "EC",
-                regionName: true,
-                name: "region",
-                id: "region"
-              },
-              model: {
-                value: _vm.form.region,
-                callback: function($$v) {
-                  _vm.$set(_vm.form, "region", $$v)
+            _c("div", { staticClass: "row form-group" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.name,
+                      expression: "form.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "name",
+                    id: "name",
+                    placeholder: "Su nombre",
+                    required: "",
+                    autocomplete: "name"
+                  },
+                  domProps: { value: _vm.form.name },
+                  on: {
+                    keypress: function($event) {
+                      return _vm.isLetter($event)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                this.errors.name != null
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(_vm._s(this.errors.name[0]))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.last_name,
+                      expression: "form.last_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "last_name",
+                    id: "last_name",
+                    placeholder: "Su apellido"
+                  },
+                  domProps: { value: _vm.form.last_name },
+                  on: {
+                    keypress: function($event) {
+                      return _vm.isLetter($event)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "last_name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                this.errors.last_name != null
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(_vm._s(this.errors.last_name[0]))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.email,
+                    expression: "form.email"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "email",
+                  name: "email",
+                  id: "email",
+                  placeholder: "Su email"
                 },
-                expression: "form.region"
-              }
-            })
-          ],
-          1
+                domProps: { value: _vm.form.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              this.errors.email != null
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _vm._v(_vm._s(this.errors.email[0]))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.password,
+                    expression: "form.password"
+                  }
+                ],
+                ref: "password",
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  name: "password",
+                  id: "password",
+                  placeholder: "Contraseña"
+                },
+                domProps: { value: _vm.form.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "zmdi zmdi-eye field-icon toggle-password",
+                attrs: { toggle: "#password" }
+              }),
+              _vm._v(" "),
+              this.errors.password != null
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _vm._v(_vm._s(this.errors.password[0]))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.password_confirmation,
+                    expression: "form.password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  name: "password_confirmation",
+                  id: "password_confirmation",
+                  placeholder: "Confirme la contraseña",
+                  "data-vv-as": "password"
+                },
+                domProps: { value: _vm.form.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row form-group" },
+              [
+                _c("country-select", {
+                  staticClass: "col form-control",
+                  attrs: {
+                    name: "country",
+                    id: "country",
+                    country: _vm.form.country,
+                    placeholder: "País",
+                    whiteList: ["EC"],
+                    countryName: true,
+                    autocomplete: true,
+                    removePlaceholder: true
+                  },
+                  model: {
+                    value: _vm.form.country,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "country", $$v)
+                    },
+                    expression: "form.country"
+                  }
+                }),
+                _vm._v(" "),
+                _c("region-select", {
+                  staticClass: "col form-control",
+                  attrs: {
+                    country: _vm.form.country,
+                    region: _vm.form.region,
+                    defaultRegion: "EC",
+                    regionName: true,
+                    name: "region",
+                    id: "region",
+                    placeholder: "Provincia/Región"
+                  },
+                  model: {
+                    value: _vm.form.region,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "region", $$v)
+                    },
+                    expression: "form.region"
+                  }
+                }),
+                _vm._v(" "),
+                this.errors.region != null
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v("Seleccione una opción")
+                    ])
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                staticClass: "form-submit",
+                attrs: {
+                  type: "submit",
+                  name: "submit",
+                  id: "submit",
+                  value: "Registrar"
+                },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.saveFrom.apply(null, arguments)
+                  }
+                }
+              })
+            ])
+          ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-submit",
-            attrs: {
-              type: "submit",
-              name: "submit",
-              id: "submit",
-              value: "Sign up"
-            },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.saveFrom.apply(null, arguments)
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1)
-    ])
-  ])
+        _vm._m(0)
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "invalid-feedback", attrs: { role: "alert" } },
-      [_c("strong", [_vm._v("Nel")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("p", { staticClass: "loginhere" }, [
-      _vm._v("\n      Have already an account ?\n      "),
+      _vm._v("\n      Tiene ya una cuenta?\n      "),
       _c("a", { staticClass: "loginhere-link", attrs: { href: "#" } }, [
-        _vm._v("Login here")
+        _vm._v("Ingrese aquí")
       ])
     ])
   }
@@ -40690,18 +40742,16 @@ var staticRenderFns = [
               _c(
                 "label",
                 { staticClass: "text-md-right", attrs: { for: "email" } },
-                [_vm._v("E-Mail Address")]
+                [_vm._v("E-Mail")]
               ),
               _vm._v(" "),
               _c("div", [
                 _c("input", {
-                  staticClass:
-                    "form-control @@error('email') is-invalid @enderror",
+                  staticClass: "form-control",
                   attrs: {
                     id: "email",
                     type: "email",
                     name: "email",
-                    value: "email",
                     required: "",
                     autocomplete: "email",
                     autofocus: ""
@@ -40714,7 +40764,7 @@ var staticRenderFns = [
               _c(
                 "label",
                 { staticClass: "text-md-right", attrs: { for: "password" } },
-                [_vm._v("Password")]
+                [_vm._v("Contraseña")]
               ),
               _vm._v(" "),
               _c("div", [
@@ -40743,7 +40793,7 @@ var staticRenderFns = [
                       id: "remember"
                     }
                   }),
-                  _vm._v("\n              Remember Me\n            ")
+                  _vm._v("\n              Recuérdame\n            ")
                 ])
               ])
             ]),
@@ -40753,11 +40803,11 @@ var staticRenderFns = [
                 _c(
                   "button",
                   { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                  [_vm._v("Login")]
+                  [_vm._v("Ingresar")]
                 ),
                 _vm._v(" "),
                 _c("a", { staticClass: "btn btn-link", attrs: { href: "" } }, [
-                  _vm._v("\n              Forgot Your Password?\n            ")
+                  _vm._v("\n              Olvidó su password\n            ")
                 ])
               ])
             ])

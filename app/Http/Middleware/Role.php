@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class Role
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        return redirect(RouteServiceProvider::HOME);
+        //return $next($request);
     }
 }

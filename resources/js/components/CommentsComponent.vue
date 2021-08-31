@@ -6,7 +6,7 @@
     <div v-for="comment in comments" :key="comment.id">
       <div class="card-body container">
         <h5 class="card-title">{{comment.autor}}</h5>
-        {{comment.text}}
+        {{comment.texto }}
       </div>
     </div>
   </VueSlickCarousel>
@@ -32,15 +32,7 @@ export default {
     },
     data:function(){
         return{
-        comments:[
-            {'id':1, 'autor':'Bruce Banner', 'tipo':0,'text':'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam mattis nibh et lectus hendrerit, id finibus odio volutpat. Etiam augue libero, interdum nec aliquam sed, venenatis et lectus. Mauris scelerisque sed magna sed finibus. Donec purus sem, interdum ac mauris nec, cursus placerat nisi. Integer et libero quis metus elementum varius.'},
-            {'id':2, 'autor':'Clark Kent', 'tipo':1,'text':'Curabitur placerat dolor eget orci porta dapibus. Cras sed mi ut risus convallis pharetra sit amet a nisi. Donec non massa ut turpis consequat mollis in eget felis. Donec venenatis metus et finibus lacinia. In sed magna rutrum, molestie magna id, congue tellus. Sed accumsan iaculis elit, ac interdum lacus tincidunt at. '},
-            {'id':3, 'autor':'Barry Allen', 'tipo':1,'text':'Go beyond Jira data and get visibility into what’s happening within your user stories, tasks and bugs. Flow’s delivery module helps you better understand how your team is working and can make lasting improvements to your workflow.'},
-            {'id':4, 'autor':'Martian Manhunter', 'tipo':0,'text':'Sandboxes gives your team a safe environment to practice what they\'re learning from expert-authored courses.'},
-            {'id':5, 'autor':'Wally West', 'tipo':1,'text':'Lorem Impsum dolor 5'},
-            {'id':6, 'autor':'Bruce Wayne', 'tipo':0,'text':'Lorem Impsum dolor 6'},
-            {'id':7, 'autor':'Dr. Fate', 'tipo':1,'text':'Lorem Impsum dolor 7'},
-        ],
+        comments:[],
         settings:{
             "infinite": true,
             "slidesToShow": 3,
@@ -77,7 +69,15 @@ export default {
             ]
         }
       }
-    }
+    },
+    mounted(){
+      axios.get('api/visibleComments').then((response) => {
+        this.comments = response.data.data;
+        console.log(response);
+      }).catch((err) => {
+        
+      }); 
+    },
 }        
 </script>
 

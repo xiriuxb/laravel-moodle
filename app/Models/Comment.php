@@ -18,6 +18,7 @@ class Comment extends Model
         'autor',
         'editor',
         'texto',
+        'is_active',
     ];
 
 }

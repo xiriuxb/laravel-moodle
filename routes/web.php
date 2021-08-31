@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('', function () {
     return view('layouts.master');
 })->name('home');
-
-Route::get('/lista',function (){
-    return view('layouts.lista');
-});
-
-Route::resource('list','ListaComentarioController');
 
 Route::get('/acerca', function(){
     return view('layouts.about');
@@ -32,4 +27,5 @@ Route::get('{any}', function () {
 })->where('any','.*');
 
 Auth::routes();
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home2');

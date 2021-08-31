@@ -101,10 +101,9 @@ export default {
     saveFrom(){
       axios.post('register',this.form).then(() => {
         console.log("SAved");
-        if(response.status === 201) {
+        console.log(status);
                this.$router.push({ path : '/registro-exitoso' });
                console.log("SIIUUUU")
-            }
       }).catch((err) => {
         if (err.response!= undefined && err.response.status==422) {
           this.errors = err.response.data.errors;

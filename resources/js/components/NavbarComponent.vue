@@ -24,7 +24,7 @@
             <a href="/" v-on:click="logout">Logout</a>
           </li>
           <li>
-            <router-link :to="{name:'login'}">Login</router-link>
+            <router-link :to="{name:'ingreso'}">Login</router-link>
           </li>
         </ul>
       </div>
@@ -34,12 +34,12 @@
 </header>
 </template>
 
-<script>
+<script scope>
 export default{
   methods:{
     changeTheme(){
       const nav = document.querySelector('#navbar');
-      if(nav.className=='main-header' && scrollY<10){
+      if(nav!=null && nav.className=='main-header' && scrollY<10){
         nav.className = 'main-header scroll';
         nav.style.position = "relative !important";
       }

@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <div class="card-body">
-        <form method="POST" action="">
+        <form>
           <!--@csrf-->
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
@@ -12,6 +12,7 @@
                 type="email"
                 class="form-control"
                 name="email"
+                v-model="form.email"
                 required
                 autocomplete="email"
                 autofocus
@@ -27,6 +28,7 @@
                 type="password"
                 class="form-control @error('password') is-invalid @enderror"
                 name="password"
+                v-model="form.password"
                 required
                 autocomplete="current-password"
               />
@@ -49,7 +51,7 @@
 
           <div class="form-group row mb-0">
             <div>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
+              <button @click.prevent="loginForm" type="submit" class="btn btn-primary">Ingresar</button>
               <a class="btn btn-link" href="">
                 Olvidó su password
               </a>
@@ -68,8 +70,29 @@
 </template>
 
 <script>
-import CaratulaComponent from "../CaratulaComponent.vue";
-export default {};
+export default {
+  data(){
+    return{
+      form:{
+        email:'',
+        password:'',
+      },
+      errors:[]
+    }
+  },
+  methods:{
+    loginForm(){
+      axios.post('api/vuelogin',this.form).then(() => {
+        console.log("Loged");
+        console.log(response)
+      }).catch((err) => {
+        
+          this.errors = err.response.data.errors;
+          console.log(this.errors)
+      });
+    },
+  },
+};
 </script>
 
 <style>

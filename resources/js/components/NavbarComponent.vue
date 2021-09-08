@@ -10,21 +10,25 @@
                       <span class="icon-bar icon-bar-2"></span>
                       <span class="icon-bar icon-bar-3"></span>
                   </button>
-      <div class="collapse navbar-collapse justify-content-between" id="mainMenu">
-        <ul class="navbar-nav ml-auto text-uppercase f1">
-          <li>
+      <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="navbar-nav text-uppercase ml-auto f1">
+          <li class="nav-item">
             <a href="/" class="active active-first">inicio</a>
           </li>
-          <li>
+          <li class="nav-item">
             <a href="#cursos">Cursos</a>
           </li>
         </ul>
-        <ul class="navbar-nav mr-auto text-uppercase f1">
+        <ul class="navbar-nav ms-auto">
           <li>
-            <a href="/" v-on:click="logout">Logout</a>
+            <router-link :to="{name:'ingreso'}">
+              <a class="btn btn-primary">
+                Ingrese
+              </a>
+            </router-link>
           </li>
           <li>
-            <router-link :to="{name:'ingreso'}">Login</router-link>
+            <user-menu-component></user-menu-component>
           </li>
         </ul>
       </div>
@@ -35,7 +39,9 @@
 </template>
 
 <script scope>
+import UserMenuComponent from './UserMenuComponent.vue';
 export default{
+  components: { UserMenuComponent },
   methods:{
     changeTheme(){
       const nav = document.querySelector('#navbar');
@@ -60,7 +66,7 @@ window.onscroll = () => {
 };
 </script>
 <!-- Estilos-->
-<style>
+<style scoped>
 [data-target="#mainMenu"] {
     position: relative;
     z-index: 999;
@@ -72,12 +78,6 @@ window.onscroll = () => {
     color: rgb(255, 255, 255);
     font-weight: 400;
     position: relative;
-    z-index: 1;
-    text-decoration: none;
-  }
-  
-  .main-header.fixed-nav #mainMenu li > a {
-    color: rgb(255, 255, 255);
     text-decoration: none;
   }
   
@@ -116,10 +116,6 @@ window.onscroll = () => {
     transform-origin: left center;
   }
   
-  .main-header.fixed-nav #mainMenu li > a::before {
-    background: #000;
-  }
-  
   .main-header {
     position: fixed;
     align-content: center;
@@ -130,22 +126,6 @@ window.onscroll = () => {
     transition: all 0.4s ease;
   }
   
-  .main-header.fixed-nav {
-    top: 0;
-    background: #fff;
-    -webkit-box-shadow: 0 8px 12px -8px rgba(0, 0, 0, 0.09);
-    box-shadow: 0 8px 12px -8px rgba(0, 0, 0, 0.09);
-    -webkit-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-  }
-  
-  .main-header.fixed-nav .navbar-brand > img:last-of-type {
-    display: block;
-  }
-  
-  .main-header.fixed-nav .navbar-brand > img:first-of-type {
-    display: none;
-  }
   .navbar-brand {
     color: #fff;
   }
@@ -154,14 +134,9 @@ window.onscroll = () => {
     animation: fadeInLeft 0.4s both 0.4s;
   }
   /* main-header end */
+
   @media (max-width: 991px) {
     /*header starts*/
-  
-    .collapse.in {
-      display: block !important;
-      padding: 0;
-      clear: both;
-    }
   
     .navbar-toggler {
       margin: 0;
@@ -182,7 +157,7 @@ window.onscroll = () => {
       text-align: center;
     }
   
-    .main-header .navbar {
+    .main-header .navbar-nav {
       float: none;
       width: 100%;
       padding-left: 0;
@@ -194,11 +169,6 @@ window.onscroll = () => {
       margin-top: 30px;
     }
   
-    .main-header .navbar-nav li .nav-link {
-      text-align: center;
-      padding: 20px 15px;
-      border-radius: 0px;
-    }
     #mainMenu li:not(:last-of-type) {
       margin-right: 0px;
     }
@@ -269,4 +239,5 @@ window.onscroll = () => {
     color: white !important;
     box-shadow: 0px 4px 7px #777;
   }
+
 </style>

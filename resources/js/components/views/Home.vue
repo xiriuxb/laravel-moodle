@@ -241,16 +241,6 @@ body{
     background-position: bottom bottom 45px;
 }
 
-div.active-cyan-4{
-    width: 400px;
-}
-
-.active-cyan-4 input[type=text]:focus:not([readonly]) {
-    border: 1px solid #4dd0e1;
-    box-shadow: 0 0 0 1px #4dd0e1;
-    position: relative;
-    width: 400px;
-}
 .card-header img{
     width: 100px;
 }

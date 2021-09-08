@@ -105,14 +105,19 @@ export default {
             
         },
         save(){
-            axios.post('api/comments',this.form).then(() => {
-                this.errors = [];
-                this.loadComments();
-            }).catch((err) => {
-                if (err.response.status==422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
+            if(this.editMode){
+                console.log("editmode xD");
+            }else{
+                axios.post('api/comments',this.form).then(() => {
+                    this.errors = [];
+                    this.loadComments();
+                }).catch((err) => {
+                    if (err.response.status==422) {
+                        this.errors = err.response.data.errors;
+                    }
+                });
+                
+            }
         },
         loadComments(){
             axios.get('/api/comments').then((response) => {

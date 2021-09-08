@@ -40,6 +40,7 @@ Vue.component('login-view', require('./components/views/LoginView.vue').default)
 Vue.component('admin', require('./components/views/Admin.vue').default);
 Vue.component('adminComments', require('./components/Admin/AdminCommentComponent.vue').default);
 Vue.component('admin-courses-component', require('./components/Admin/AdminCoursesComponent.vue').default);
+Vue.component('user-menu-component',require('./components/UserMenuComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

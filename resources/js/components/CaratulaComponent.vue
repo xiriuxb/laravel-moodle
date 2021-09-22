@@ -1,8 +1,8 @@
 <template>
-  <div class="titulo1 img-fluid">
+  <div id="encabezado" class="img-fluid">
       <div class="row" id="caratula">
         <div class="container tit col-6 col-sm-6">
-            <h1>Aprende con nosotros</h1>
+            <h1 id="titulo1">Aprende con nosotros</h1>
             <div class="container">
                 <input class="form-control" type="text" placeholder="Buscar Curso" aria-label="Search">
             </div>
@@ -25,11 +25,10 @@ export default {
 
 <style>
 
-.titulo1{
-    color: #afc8ec;
+#encabezado{
     position: relative;
 }
-.titulo1::before{
+#encabezado::before{
     content: "";
     width: 100%;
     height: 100%;
@@ -38,7 +37,7 @@ export default {
     position: absolute;
     background-repeat: repeat;
 }
-.titulo1 .tit{
+#encabezado .tit{
     text-align: center;
     filter: brightness(100%);
     position: relative;
@@ -50,11 +49,13 @@ export default {
     position: relative;
     max-width: 500px;
     margin-top: 60px;
-    margin-bottom: 20px;
 }
 
 .row{
     margin-right: 0px !important;
     margin-left: 0px !important;
+}
+#titulo1{
+    color: #afc8ec;;
 }
 </style>

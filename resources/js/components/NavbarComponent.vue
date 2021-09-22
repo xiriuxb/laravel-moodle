@@ -16,7 +16,7 @@
             <a href="/" class="active active-first">inicio</a>
           </li>
           <li class="nav-item">
-            <a href="#cursos">Cursos</a>
+            <a href="cursos">Cursos</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -50,13 +50,6 @@ export default{
         nav.style.position = "relative !important";
       }
     },
-    logout(){
-      axios.post('logout').then(() => {
-        console.log("Logout");    
-      }).catch((err) => {
-        this.errors = err.response.data.errors;
-      });
-    }
 }
 }
 

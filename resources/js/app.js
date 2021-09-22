@@ -5,14 +5,16 @@
  */
 
 require('./bootstrap');
-
+//Librerias
 window.Vue = require('vue').default;
 import VueRouter from 'vue-router'
 import vueCountryRegionSelect from 'vue-country-region-select'
 Vue.use(VueRouter)
 Vue.use(vueCountryRegionSelect)
+//Componentes del sitio
 import LoginView from "./components/views/LoginView";
 import Home from "./components/views/Home";
+import Cursos from "./components/views/Cursos";
 import SuccessRegisterComponent from "./components/SuccessRegisterComponent"
 import Admin from "./components/views/Admin.vue"
 import Vue from 'vue';
@@ -38,6 +40,7 @@ Vue.component('success-reg-component', require('./components/SuccessRegisterComp
 Vue.component('home', require('./components/views/Home.vue').default);
 Vue.component('login-view', require('./components/views/LoginView.vue').default);
 Vue.component('admin', require('./components/views/Admin.vue').default);
+Vue.component('cursos', require('./components/views/Cursos.vue').default);
 Vue.component('adminComments', require('./components/Admin/AdminCommentComponent.vue').default);
 Vue.component('admin-courses-component', require('./components/Admin/AdminCoursesComponent.vue').default);
 Vue.component('user-menu-component',require('./components/UserMenuComponent.vue').default);
@@ -53,6 +56,7 @@ const router = new VueRouter({
         {path:'/',component:Home,name:'home'},
         {path:'/registro-exitoso',component:SuccessRegisterComponent,name:'succ-reg'},
         {path:'/admin',component:Admin,name:'admin'},
+        {path:'/cursos',component:Cursos,name:'cursos'},
 
     ],
     mode:'history'

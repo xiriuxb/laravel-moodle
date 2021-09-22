@@ -5,34 +5,38 @@
         <h2 class="form-title">Regístrese</h2>
         <div class="row form-group">
           <div class="col">
+            <label for="name">*Primer nombre</label>
             <input v-model="form.name" type="text" v-on:keypress="isLetter($event)" class="form-control" name="name"
-              id="name" placeholder="Su nombre" required autocomplete="name" />
+              id="name" placeholder="Nombre" required autocomplete="first_name" maxlength="16"/>
               <div v-if="this.errors.name!=null" class="alert alert-danger">{{this.errors.name[0]}}</div>
           </div>
           <div class="col">
+            <label for="last_name">*Primer apellido</label>
             <input  v-model="form.last_name"
               type="text" class="form-control" name="last_name"
-              id="last_name" placeholder="Su apellido" v-on:keypress="isLetter($event)"/>
+              id="last_name" placeholder="Apellido" v-on:keypress="isLetter($event)"/>
               <div v-if="this.errors.last_name!=null" class="alert alert-danger">{{this.errors.last_name[0]}}</div>
           </div>
         </div>
         <div class="form-group">
+          <label for="email">*Su email</label>
           <input  v-model="form.email"
             type="email"
             class="form-control"
             name="email"
             id="email"
-            placeholder="Su email"
+            placeholder="user@example.com"
           />
           <div v-if="this.errors.email!=null" class="alert alert-danger">{{this.errors.email[0]}}</div>
         </div>
         <div class="form-group">
+          <label for="password">*Contraseña</label>
           <input  v-model="form.password"
             type="password"
             class="form-control"
             name="password"
             id="password"
-            placeholder="Contraseña"
+            placeholder="Mínimo 8 caracteres"
             ref="password"
           />
           <span
@@ -48,18 +52,39 @@
             name="password_confirmation"
             id="password_confirmation"
             v-model="form.password_confirmation"
-            placeholder="Confirme la contraseña"
+            placeholder="*Confirme la contraseña"
             data-vv-as="password"
           />
         </div>
         <div class="row form-group">
-            <country-select class="col form-control" name="country" id="country"
-             v-model="form.country" :country="form.country" placeholder="País"
+          <div class="col">
+            <label for="country">*País</label>
+            <country-select class="form-control" name="country" id="country"
+             v-model="form.country" :country="form.country" placeholder="*País"
              :whiteList='["EC"]' :countryName='true' :autocomplete='true' :removePlaceholder='true'/>
+          </div>
+          <div class="col">
+            <label for="region">*Provincia/región</label>
             <region-select class="col form-control" v-model="form.region" :country="form.country" 
             :region="form.region" defaultRegion='EC' :regionName='true' name="region" id="region" 
-            placeholder="Provincia/Región" />
+            placeholder="Provincia" />
             <div v-if="this.errors.region!=null" class="alert alert-danger">Seleccione una opción</div>
+          </div>
+        </div>
+        <div class="hided">
+          <div class="form-group" id="telefono">
+              <label for="telephone">Teléfono</label>
+              <div class="row">
+                <p class="col">09-</p>
+                <input @input="isNumber($event)" type="text" maxlength="8" class="col form-control" v-model="form.phone_number">
+              </div>
+              <div v-if="this.errors.phone_number!=null" class="alert alert-danger">{{this.errors.phone_number[0]}}</div>
+          </div>
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <input type="date" class="form-control" placeholder="Fecha de nacimiento" v-model="form.birth_day">
+            <div v-if="this.errors.birth_day!=null" class="alert alert-danger">{{this.errors.birth_day[0]}}</div>
+          </div>
         </div>
         <div class="form-group">
           <input
@@ -72,15 +97,18 @@
           />
         </div>
       </form>
+      <div id="requerido">*Requerido</div>
       <p class="loginhere">
         Tiene ya una cuenta?
         <a href="#" class="loginhere-link">Ingrese aquí</a>
-      </p>
+      </p> 
     </div>
   </section>
 </template>
 
-<script>
+<script scoped>
+
+
 export default {
 
   data(){
@@ -93,6 +121,8 @@ export default {
         password_confirmation:'',
         country:'',
         region:'',
+        phone_number:'',
+        birth_day:'',
       },
       errors:[]
     }
@@ -112,23 +142,25 @@ export default {
       });
     },
     isLetter(e) {
-      let char = String.fromCharCode(e.keyCode); // Get the character
-      if(/^[ñA-Za-z]+$/.test(char)) return true; // Match with regex 
+      let char = String.fromCharCode(e.keyCode);
+      if(/^[ñA-Za-z]+$/.test(char)) return true; 
       else e.preventDefault(); // If not match, don't add to input text
+    },
+    isNumber(e){
+      let char = String.fromCharCode(e.keyCode); 
+      if(/^[0-9]/.test(char)) return true; 
+      else e.preventDefault();
     }
   },
-  // validation for post from
-  // Use Vue
   
 };
 </script>
 
-<style>
-div {
-  display: block;
-}
+<style scoped>
+
 section {
   display: block;
+  position: relative;
 }
 @media screen and (max-width: 768px) {
   .container {
@@ -211,5 +243,21 @@ div.col {
     border: 1px solid transparent;
     border-radius: .25rem;
     font-size: 0.7rem;
+}
+#requerido{
+  font-size: 14px;
+  bottom: 3px;
+  position: relative;
+}
+form label{
+  padding-top: 0;
+  font-size: 0.9em;
+  margin: 0;
+}
+#telefono p.col{
+  max-width: 40px;
+  bottom: 0;
+  top: 50%;
+  transform: translateY(30%);
 }
 </style>

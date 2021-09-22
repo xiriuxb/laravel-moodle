@@ -4,7 +4,7 @@
           <div class="logo_content">
               <div class="logo">
                   <i class="bx"></i>
-                  <div class="logo_name">EDUCAONLINE</div>
+                  <div class="logo_name">Octavario (Admin)</div>
               </div>
               <i class="bx bx-menu" id="btn"></i>
           </div>
@@ -22,6 +22,13 @@
                       <span class="links_name">Cursos</span>
                   </a>
                   <span class="tooltip">Cursos</span>
+              </li>
+              <li>
+                  <a>
+                      <i class="bx bx-grid"></i>
+                      <span class="links_name">Usuarios</span>
+                  </a>
+                  <span class="tooltip">Usuarios</span>
               </li>
           </ul>
           <div class="profile_content">
@@ -121,6 +128,7 @@ export default {
     margin: 0 5px;
     list-style: none;
     line-height: 50px;
+    cursor: pointer;
 }
 .sidebar ul li a{
     color: #fff;

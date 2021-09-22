@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use TaylorNetwork\UsernameGenerator\FindSimilarUsernames;
+use TaylorNetwork\UsernameGenerator\GeneratesUsernames;
 
 class User extends Authenticatable
 {
@@ -19,10 +21,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'last_name',
+        'username',
         'email',
         'password',
         'country',
         'region',
+        'phone_number',
+        'birth_day'
     ];
 
     /**

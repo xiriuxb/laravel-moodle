@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -25,6 +26,19 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    protected static function setUsernameAttribute($name, $lastName)
+    {
+        $firstName = strtolower($name);
+        $lastName = strtolower($lastName);
+        $username = $firstName[0] . $lastName;
+        $i = 0;
+        while(User::whereUsername($username)->exists())
+        {
+            $i++;
+            $username = $firstName[0] . $lastName . $i;
+        }
+        return $username;
+    }
 
     /**
      * Where to redirect users after registration.
@@ -52,12 +66,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:16', 'alpha'],
+            'last_name' => ['required', 'string', 'max:16','alpha'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed','max:24'],
             'country' => ['required', 'string', 'max:20'],
             'region' => ['required', 'string', 'max:64'],
+            'phone_number'=>['nullable','regex:/[(0-9)]{8}/'],
+            'birth_day'=>['nullable','date','before:today'],
         ]);
     }
 
@@ -73,9 +89,14 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'last_name'=>$data['last_name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => md5($data['password']),
             'country'=> $data['country'],
             'region'=> $data['region'],
+            'username'=> RegisterController::setUsernameAttribute($data['name'],$data['last_name']),
+            'phone_number'=>$data['phone_number'],
+            'birth_day'=>$data['birth_day']
         ]);
     }
+
+    
 }

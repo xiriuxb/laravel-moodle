@@ -35,11 +35,11 @@ class AdminComentarioController extends Controller
         if($request->is_active == ""){
             $request->is_active = 0;
         }
-        $comment = new Comment();
-        $comment->texto = $request->texto;
-        $comment->autor = $request->autor;
-        $comment->is_active = $request->is_active;
-        $comment->save();
+        Comment::create([
+            'texto'=>$request->texto,
+            'autor'=>$request->autor,
+            'is_active'=>$request->is_active
+        ]);
     }
 
     public function show($id) {

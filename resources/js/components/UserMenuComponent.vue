@@ -17,8 +17,16 @@
 
 <script>
 import 'boxicons';
-export default {
-
+export default{
+  methods:{
+    logout(){
+      axios.post('logout').then(() => {
+        console.log("Logout");    
+      }).catch((err) => {
+        this.errors = err.response.data.errors;
+      });
+    }
+}
 }
 </script>
 

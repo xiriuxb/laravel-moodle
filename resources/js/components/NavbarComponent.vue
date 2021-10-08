@@ -3,7 +3,7 @@
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
       <a class="navbar-brand" href="/">
-              <img src="/images/icon.png" alt="Buisiness Logo">
+              <img src="/images/logo.png" alt="Buisiness Logo">
             </a>
       <button v-on:click="changeTheme" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="icon-bar icon-bar-1"></span>
@@ -38,7 +38,7 @@
 </header>
 </template>
 
-<script scope>
+<script scoped>
 import UserMenuComponent from './UserMenuComponent.vue';
 export default{
   components: { UserMenuComponent },
@@ -123,7 +123,7 @@ window.onscroll = () => {
     color: #fff;
   }
   .main-header .navbar-brand img {
-    max-width: 250px;
+    max-width: 230px;
     animation: fadeInLeft 0.4s both 0.4s;
   }
   /* main-header end */
@@ -228,7 +228,7 @@ window.onscroll = () => {
   }
 
   header.scroll {
-    background-color: rgb(110, 143, 250);
+    background-color: rgb(218 218 218);
     color: white !important;
     box-shadow: 0px 4px 7px #777;
   }

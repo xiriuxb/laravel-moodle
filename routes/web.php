@@ -29,3 +29,7 @@ Route::get('{any}', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home2');
+
+Route::get('/email/verify', function () {
+    return view('layouts.sendemail');
+})->middleware('auth')->name('verification.notice');

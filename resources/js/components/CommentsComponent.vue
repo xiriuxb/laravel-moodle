@@ -37,11 +37,12 @@ export default {
             "infinite": true,
             "slidesToShow": 3,
             "slidesToScroll": 1,
-            "autoplay": false,
+            "autoplay": true,
             "initialSlide":1,
             "autoplaySpeed": 2000,
             "pauseOnFocus": true,
             "pauseOnHover": true,
+            "lazyLoad":"progressive",
             "responsive": [
               {
                 "breakpoint": 1024,
@@ -73,7 +74,6 @@ export default {
     mounted(){
       axios.get('api/visibleComments').then((response) => {
         this.comments = response.data.data;
-        console.log(response);
       }).catch((err) => {
         
       }); 

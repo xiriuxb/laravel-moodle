@@ -6,8 +6,7 @@
           <!--@csrf-->
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
-            <div>
-              <input
+            <input
                 id="email"
                 type="email"
                 class="form-control"
@@ -17,12 +16,10 @@
                 autocomplete="email"
                 autofocus
               />
-            </div>
           </div>
 
           <div class="form-group row">
             <label for="password" class="text-md-right">Contraseña</label>
-            <div>
               <input
                 id="password"
                 type="password"
@@ -30,9 +27,7 @@
                 name="password"
                 v-model="form.password"
                 required
-                autocomplete="current-password"
               />
-            </div>
           </div>
 
           <div class="form-group row">
@@ -50,20 +45,19 @@
           </div>
 
           <div class="form-group row mb-0">
-            <div>
-              <button @click.prevent="loginForm" type="submit" class="btn btn-primary">Ingresar</button>
-              <a class="btn btn-link" href="">
-                Olvidó su password
-              </a>
-            </div>
+              <button @click.prevent="loginForm" type="submit" class="btn btn-submit">Ingresar</button>
           </div>
+          <a class="btn btn-link" href="">
+                ¿Olvidó su password?
+              </a>
         </form>
       </div>
         <hr class="line">
         <div class="container">
-            <div class="container">
-                <button class="btn btn-secondary" id="registro-btn">Regístrese</button>
-            </div>
+          <button class="btn btn-secondary" id="registro-btn">Regístrese</button>
+        </div>
+        <div class="container">
+          <button class="btn btn-warning" id="cursos-btn">Ingrese a los cursos</button>
         </div>
     </div>
   </div>
@@ -95,9 +89,14 @@ export default {
 };
 </script>
 
-<style>
-label {
-  padding-top: 20px;
+<style scoped>
+
+label{
+  margin-bottom: -0.3rem;
+}
+form {
+  display: block;
+  margin-top: 0em;
 }
 .form-check {
   margin-top: 10px;
@@ -112,7 +111,12 @@ button {
     .line, .signInForm {
         width: 80%;
     }
+    #cursos-btn{
+      display: none;
+    }
 }
+
+
 
 .line {
     margin-bottom: 24px;
@@ -121,6 +125,30 @@ button {
     align-items: center;
     height: 1px;
     
+}
+.md-form{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.form-control{
+  border: 0;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  height:calc(1.5em + .4rem);
+}
+.form-group{
+  margin-bottom: 0.3rem;
+}
+.btn-submit{
+  background-color: tomato;
+  font-family:'Roboto',sans-serif;
+  box-shadow: 0px 4px 7px #777;
+  height: 60px;
+}
+.btn-submit:hover{
+  background-color: #d44a0b;
 }
 
 </style>

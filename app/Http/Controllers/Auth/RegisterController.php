@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -70,10 +71,10 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:16','alpha'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed','max:24'],
-            'country' => ['required', 'string', 'max:20'],
+            /*'country' => ['required', 'string', 'max:20'],
             'region' => ['required', 'string', 'max:64'],
-            'phone_number'=>['nullable','regex:/[(0-9)]{8}/'],
-            'birth_day'=>['nullable','date','before:today'],
+            'phone_number'=>['nullable','string','size:8','regex:/[(0-9)]{8}/'],
+            'birth_day'=>['nullable','date','before:today'],*/
         ]);
     }
 
@@ -90,12 +91,13 @@ class RegisterController extends Controller
             'last_name'=>$data['last_name'],
             'email' => $data['email'],
             'password' => md5($data['password']),
-            'country'=> $data['country'],
-            'region'=> $data['region'],
+            /*'country'=> $data['country'],
+            'region'=> $data['region'],*/
             'username'=> RegisterController::setUsernameAttribute($data['name'],$data['last_name']),
-            'phone_number'=>$data['phone_number'],
-            'birth_day'=>$data['birth_day']
+            /*'phone_number'=>$data['phone_number'],
+            'birth_day'=>$data['birth_day']*/
         ]);
+        event(new Registered($data));
     }
 
     

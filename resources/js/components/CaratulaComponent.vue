@@ -1,14 +1,14 @@
 <template>
   <div id="encabezado" class="img-fluid">
       <div class="row" id="caratula">
-        <div class="container tit col-6 col-sm-6">
+        <div class="container tit col-sm-5 col-xs-12">
             <h1 id="titulo1">Aprende con nosotros</h1>
             <div class="container">
                 <input class="form-control" type="text" placeholder="Buscar Curso" aria-label="Search">
             </div>
 
         </div>
-        <div class="container col-6 col-sm-6 registro">
+        <div class="container col-sm-7 col-xs-12 registro">
             <registro-component></registro-component>
         </div>
       </div>
@@ -37,7 +37,7 @@ export default {
     position: absolute;
     background-repeat: repeat;
 }
-#encabezado .tit{
+#encabezado #caratula .tit{
     text-align: center;
     filter: brightness(100%);
     position: relative;

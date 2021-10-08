@@ -122,7 +122,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .quote{
     font: 400 72px "Arizona", Helvetica, sans-serif;
     color: #6e6cf7;

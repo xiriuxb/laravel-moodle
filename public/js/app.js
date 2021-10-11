@@ -2077,6 +2077,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     RegistroComponent: _RegistroComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  data: function data() {
+    return {
+      titulo1: 'Aprende con nosotros'
+    };
   }
 });
 
@@ -8043,7 +8048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#encabezado{\r\n    position: relative;\n}\n#encabezado::before{\r\n    content: \"\";\r\n    width: 100%;\r\n    height: 100%;\r\n    background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n    filter: brightness(56%);\r\n    position: absolute;\r\n    background-repeat: repeat;\n}\n#encabezado #caratula .tit{\r\n    text-align: center;\r\n    filter: brightness(100%);\r\n    position: relative;\r\n    top: 40%;\r\n    padding-top: 150px;\n}\n.registro{\r\n    position: relative;\r\n    max-width: 500px;\r\n    margin-top: 60px;\n}\n.row{\r\n    margin-right: 0px !important;\r\n    margin-left: 0px !important;\n}\n#titulo1{\r\n    color: #afc8ec;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#encabezado{\r\n    position: relative;\n}\n#encabezado::before{\r\n    content: \"\";\r\n    width: 100%;\r\n    height: 100%;\r\n    background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n    filter: brightness(56%);\r\n    position: absolute;\r\n    background-repeat: repeat;\n}\n#encabezado #caratula .tit{\r\n    text-align: center;\r\n    filter: brightness(100%);\r\n    position: relative;\r\n    top: 40%;\r\n    padding-top: 150px;\n}\n.registro{\r\n    position: relative;\r\n    max-width: 500px;\r\n    margin-top: 60px;\n}\n.row{\r\n    margin-right: 0px !important;\r\n    margin-left: 0px !important;\n}\n#titulo1{\r\n    color: #ff772a;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8187,7 +8192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n[data-target=\"#mainMenu\"][data-v-485090b2] {\r\n    position: relative;\r\n    z-index: 999;\n}\n#mainMenu li > a[data-v-485090b2] {\r\n    font-weight: bold;\r\n    letter-spacing: 1px;\r\n    color: rgb(255, 255, 255);\r\n    font-weight: 400;\r\n    position: relative;\r\n    text-decoration: none;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n    margin-right: 30px;\n}\n#mainMenu li > a[data-v-485090b2]::before {\r\n    position: absolute;\r\n    content: \"\";\r\n    width: calc(100% - 1px);\r\n    height: 1px;\r\n    background: rgb(255, 255, 255);\r\n    bottom: -6px;\r\n    left: 0;\r\n    transform: scale(0, 1);\r\n    transform-origin: right center;\r\n    z-index: -1;\r\n    transition: transform 0.5s ease;\n}\n#mainMenu li > a[data-v-485090b2]:hover::before,\r\n  #mainMenu li > a.active[data-v-485090b2]::before {\r\n    transform: scale(1, 1);\r\n    transform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n    position: fixed;\r\n    align-content: center;\r\n    left: 0;\r\n    z-index: 99;\r\n    width: 100%;\r\n    transition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n    color: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n    max-width: 230px;\r\n    -webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n            animation: fadeInLeft 0.4s both 0.4s;\n}\r\n  /* main-header end */\n@media (max-width: 991px) {\r\n    /*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n      margin: 0;\r\n      padding: 0;\r\n      width: 40px;\r\n      height: 40px;\r\n      position: absolute;\r\n      top: 25px;\r\n      right: 0;\r\n      border: none;\r\n      border-radius: 0;\r\n      outline: none !important;\n}\n.main-header .container[data-v-485090b2]{\r\n      align-content: center;\r\n      align-items: center;\r\n      text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n      float: none;\r\n      width: 100%;\r\n      padding-left: 0;\r\n      padding-right: 0;\r\n      text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n      margin-top: 30px;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n      margin-right: 0px;\n}\r\n  \r\n    /**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\r\n      margin: 0 auto 6px;\r\n      border-radius: 0;\r\n      width: 30px;\r\n      height: 3px;\r\n      position: absolute;\r\n      right: 0;\r\n      transition: all 0.2s ease;\n}\n.main-header .navbar .navbar-toggler .icon-bar[data-v-485090b2]:first-child {\r\n      margin-top: 3px;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n      width: 10px;\r\n      top: 0px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n      width: 16px;\r\n      top: 12px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n      width: 20px;\r\n      top: 21px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n      margin-bottom: 5px;\r\n      border-radius: 0;\r\n      display: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n      width: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n      width: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n      width: 10px;\n}\n.main-header .navbar-toggler:hover .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\n}\n.main-header .navbar-toggler:focus .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\n}\r\n  \r\n    /*header ends*/\n}\nheader.scroll[data-v-485090b2] {\r\n    background-color: rgb(218 218 218);\r\n    color: white !important;\r\n    box-shadow: 0px 4px 7px #777;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-target=\"#mainMenu\"][data-v-485090b2] {\r\n    position: relative;\r\n    z-index: 999;\n}\n#mainMenu li > a[data-v-485090b2] {\r\n    font-weight: bold;\r\n    letter-spacing: 1px;\r\n    color: rgb(255, 255, 255);\r\n    font-weight: 400;\r\n    position: relative;\r\n    text-decoration: none;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n    margin-right: 30px;\n}\n#mainMenu li > a[data-v-485090b2]::before {\r\n    position: absolute;\r\n    content: \"\";\r\n    width: calc(100% - 1px);\r\n    height: 1px;\r\n    background: rgb(255, 255, 255);\r\n    bottom: -6px;\r\n    left: 0;\r\n    transform: scale(0, 1);\r\n    transform-origin: right center;\r\n    z-index: -1;\r\n    transition: transform 0.5s ease;\n}\n#mainMenu li > a[data-v-485090b2]:hover::before,\r\n  #mainMenu li > a.active[data-v-485090b2]::before {\r\n    transform: scale(1, 1);\r\n    transform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n    position: fixed;\r\n    align-content: center;\r\n    left: 0;\r\n    z-index: 99;\r\n    width: 100%;\r\n    transition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n    color: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n    max-width: 230px;\r\n    -webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n            animation: fadeInLeft 0.4s both 0.4s;\n}\r\n  /* main-header end */\n@media (max-width: 991px) {\r\n    /*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n      margin: 0;\r\n      padding: 0;\r\n      width: 40px;\r\n      height: 40px;\r\n      position: absolute;\r\n      top: 25px;\r\n      right: 0;\r\n      border: none;\r\n      border-radius: 0;\r\n      outline: none !important;\n}\n.main-header .container[data-v-485090b2]{\r\n      align-content: center;\r\n      align-items: center;\r\n      text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n      float: none;\r\n      width: 100%;\r\n      padding-left: 0;\r\n      padding-right: 0;\r\n      text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n      margin-top: 30px;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n      margin-right: 0px;\n}\r\n  \r\n    /**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\r\n      margin: 0 auto 6px;\r\n      border-radius: 0;\r\n      width: 30px;\r\n      height: 3px;\r\n      position: absolute;\r\n      right: 0;\r\n      transition: all 0.2s ease;\n}\n.main-header .navbar .navbar-toggler .icon-bar[data-v-485090b2]:first-child {\r\n      margin-top: 3px;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n      width: 10px;\r\n      top: 0px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n      width: 16px;\r\n      top: 12px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n      width: 20px;\r\n      top: 21px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n      margin-bottom: 5px;\r\n      border-radius: 0;\r\n      display: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n      width: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n      width: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n      width: 10px;\n}\n.main-header .navbar-toggler:hover .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\n}\n.main-header .navbar-toggler:focus .icon-bar[data-v-485090b2] {\r\n      background-color: #fff;\n}\r\n  \r\n    /*header ends*/\n}\nheader.scroll[data-v-485090b2] {\r\n    background-color: #d95d22;;\r\n    color: white !important;\r\n    box-shadow: 0px 4px 7px #777;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8355,7 +8360,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.quote[data-v-59b256ea]{\r\n    font: 400 72px \"Arizona\", Helvetica, sans-serif;\r\n    color: #6e6cf7;\r\n    text-align: center;\n}\n.post-title[data-v-59b256ea]{\r\n    color: #5f61f4;\n}\nbody[data-v-59b256ea]{\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo[data-v-59b256ea]{\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #4689e6;\n}\n.section-pair[data-v-59b256ea]{\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd[data-v-59b256ea]{\r\n    background-color: aliceblue;\r\n    padding-bottom: 40px;\n}\n.sp-card[data-v-59b256ea]{\r\n    background-color: transparent;\r\n    border-color: transparent;\n}\n@media (min-width: 544px) {\nh1[data-v-59b256ea] {font-size:3rem;} /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1[data-v-59b256ea] {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1[data-v-59b256ea] {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits[data-v-59b256ea]{\r\n    background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits[data-v-59b256ea]{\r\n    background-size: 20% !important;\n}\n}\ndiv p.bienvenido[data-v-59b256ea]{\r\n      font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n      font-size: 35px;\r\n      text-align: center;\r\n      padding-bottom: 15px;\r\n      margin-bottom: 0px;\n}\n.img-fluid.icono[data-v-59b256ea]{\r\n      width: 60px;\r\n      border-radius: 50% !important;\n}\nsection.benefits[data-v-59b256ea]{\r\n      background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n      background-repeat: no-repeat;\r\n      background-position: 90%;\r\n      background-size: 25%;\n}\n.row div.paddedd[data-v-59b256ea]{\r\n      padding-bottom: 2rem;\r\n      max-height: -webkit-fit-content;\r\n      max-height: -moz-fit-content;\r\n      max-height: fit-content;\r\n      font-size: 23px;\r\n      font-weight: bold;\n}\n.row div.paddedd .row[data-v-59b256ea]{\r\n    align-items: center;\n}\n.col-4[data-v-59b256ea]{\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno[data-v-59b256ea]{\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos[data-v-59b256ea]{\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto[data-v-59b256ea]{\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back[data-v-59b256ea]{\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\n.card-header img[data-v-59b256ea]{\r\n    width: 100px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.quote[data-v-59b256ea]{\r\n    font: 400 72px \"Arizona\", Helvetica, sans-serif;\r\n    color: #6e6cf7;\r\n    text-align: center;\n}\n.post-title[data-v-59b256ea]{\r\n    color: #5f61f4;\n}\nbody[data-v-59b256ea]{\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo[data-v-59b256ea]{\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #002e45;\n}\n.section-pair[data-v-59b256ea]{\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd[data-v-59b256ea]{\r\n    background-color: aliceblue;\r\n    padding-bottom: 40px;\n}\n.sp-card[data-v-59b256ea]{\r\n    background-color: transparent;\r\n    border-color: transparent;\n}\n@media (min-width: 544px) {\nh1[data-v-59b256ea] {font-size:3rem;} /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1[data-v-59b256ea] {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1[data-v-59b256ea] {font-size:4.5rem;} /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits[data-v-59b256ea]{\r\n    background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits[data-v-59b256ea]{\r\n    background-size: 20% !important;\n}\n}\ndiv p.bienvenido[data-v-59b256ea]{\r\n      font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n      font-size: 35px;\r\n      text-align: center;\r\n      padding-bottom: 15px;\r\n      margin-bottom: 0px;\n}\n.img-fluid.icono[data-v-59b256ea]{\r\n      width: 60px;\r\n      border-radius: 50% !important;\n}\nsection.benefits[data-v-59b256ea]{\r\n      background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n      background-repeat: no-repeat;\r\n      background-position: 90%;\r\n      background-size: 25%;\n}\n.row div.paddedd[data-v-59b256ea]{\r\n      padding-bottom: 2rem;\r\n      max-height: -webkit-fit-content;\r\n      max-height: -moz-fit-content;\r\n      max-height: fit-content;\r\n      font-size: 23px;\r\n      font-weight: bold;\n}\n.row div.paddedd .row[data-v-59b256ea]{\r\n    align-items: center;\n}\n.col-4[data-v-59b256ea]{\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno[data-v-59b256ea]{\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos[data-v-59b256ea]{\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto[data-v-59b256ea]{\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back[data-v-59b256ea]{\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\n.card-header img[data-v-59b256ea]{\r\n    width: 100px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8379,7 +8384,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.contain{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.izq{\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: auto;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100vh;\r\n    margin: 0 40px;\n}\n@media (min-width: 768px){\n.izq {\r\n        flex: 1;\n}\n}\n.der{\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/AZULbanner2.png);\n}\n@media (min-width: 768px){\n.der {\r\n        flex: 1.4;\r\n        display: block;\n}\n}\n@media (min-width:1366px){\n.izq{flex:4}\n.der{\r\n        flex:6;\r\n        display:block\n}\n}\ndiv.izq img{\r\n    width: 300px;\n}\n#mensaje{\r\n    margin: 40% 30%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.contain{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.izq{\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: auto;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100vh;\r\n    margin: 0 40px;\n}\n@media (min-width: 768px){\n.izq {\r\n        flex: 1;\n}\n}\n.der{\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/AZULbanner2.png);\n}\n@media (min-width: 768px){\n.der {\r\n        flex: 1.4;\r\n        display: block;\n}\n}\n@media (min-width:1366px){\n.izq{flex:4}\n.der{\r\n        flex:6;\r\n        display:block\n}\n}\ndiv.izq img{\r\n    width: 300px;\n}\n#mensaje{\r\n    padding: 40% 12% 0% 12%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42097,7 +42102,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "img-fluid", attrs: { id: "encabezado" } }, [
     _c("div", { staticClass: "row", attrs: { id: "caratula" } }, [
-      _vm._m(0),
+      _c("div", { staticClass: "container tit col-sm-5 col-xs-12" }, [
+        _c("h1", { attrs: { id: "titulo1" } }, [_vm._v(_vm._s(_vm.titulo1))]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -42113,19 +42122,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container tit col-sm-5 col-xs-12" }, [
-      _c("h1", { attrs: { id: "titulo1" } }, [_vm._v("Aprende con nosotros")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Buscar Curso",
-            "aria-label": "Search"
-          }
-        })
-      ])
+    return _c("div", { staticClass: "container" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          placeholder: "Buscar Curso",
+          "aria-label": "Search"
+        }
+      })
     ])
   }
 ]
@@ -43594,7 +43599,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "card-group justify-content-center" }, [
         _c("div", { staticClass: "card sp-card mb-3 sm-12" }, [
           _c("div", { staticClass: "card-header bg-transparent" }, [
-            _c("img", { attrs: { src: "/images/inscribirse.png", alt: "" } })
+            _c("img", { attrs: { src: "/images/step1-1.png", alt: "" } })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -43610,7 +43615,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "card sp-card mb-3" }, [
           _c("div", { staticClass: "card-header bg-transparent" }, [
-            _c("img", { attrs: { src: "/images/inscribirse.png", alt: "" } })
+            _c("img", { attrs: { src: "/images/step2.png", alt: "" } })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -43630,7 +43635,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "card-header bg-transparent" }, [
             _c("img", {
               staticClass: "card-img-top",
-              attrs: { src: "/images/inscribirse.png", alt: "" }
+              attrs: { src: "/images/step3.png", alt: "" }
             })
           ]),
           _vm._v(" "),

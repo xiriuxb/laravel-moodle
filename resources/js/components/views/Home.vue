@@ -15,7 +15,7 @@
         <div class="card-group justify-content-center">
                 <div class="card sp-card mb-3 sm-12">
                 <div class="card-header bg-transparent">
-                     <img src="/images/inscribirse.png" alt="">
+                     <img src="/images/step1-1.png" alt="">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">1. Regístrese</h5>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card sp-card mb-3">
                 <div class="card-header bg-transparent">
-                    <img src="/images/inscribirse.png" alt="">
+                    <img src="/images/step2.png" alt="">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">2. Inscríbase en un curso</h5>
@@ -37,7 +37,7 @@
                 </div>
                 <div class=" card sp-card mb-3">
                 <div class="card-header bg-transparent">
-                     <img  class="card-img-top" src="/images/inscribirse.png" alt="">
+                     <img  class="card-img-top" src="/images/step3.png" alt="">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">3. Comience a aprender</h5>
@@ -140,7 +140,7 @@ body{
     font-size: 50px;
     text-align: center;
     padding: 50px;
-    color: #4689e6;
+    color: #002e45;
 }
 
 .section-pair{

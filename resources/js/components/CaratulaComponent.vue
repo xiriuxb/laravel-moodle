@@ -2,7 +2,7 @@
   <div id="encabezado" class="img-fluid">
       <div class="row" id="caratula">
         <div class="container tit col-sm-5 col-xs-12">
-            <h1 id="titulo1">Aprende con nosotros</h1>
+            <h1 id="titulo1">{{titulo1}}</h1>
             <div class="container">
                 <input class="form-control" type="text" placeholder="Buscar Curso" aria-label="Search">
             </div>
@@ -19,6 +19,12 @@
 import RegistroComponent from './RegistroComponent.vue'
 export default {
   components: { RegistroComponent },
+  data(){
+      return{
+        titulo1:'Aprende con nosotros'
+
+      }
+  }
 
 }
 </script>
@@ -56,6 +62,6 @@ export default {
     margin-left: 0px !important;
 }
 #titulo1{
-    color: #afc8ec;;
+    color: #ff772a;
 }
 </style>

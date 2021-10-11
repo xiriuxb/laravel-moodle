@@ -228,7 +228,7 @@ window.onscroll = () => {
   }
 
   header.scroll {
-    background-color: rgb(218 218 218);
+    background-color: #d95d22;;
     color: white !important;
     box-shadow: 0px 4px 7px #777;
   }

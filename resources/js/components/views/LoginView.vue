@@ -69,7 +69,7 @@ div.izq img{
     width: 300px;
 }
 #mensaje{
-    margin: 40% 30%;
+    padding: 40% 12% 0% 12%;
     color: aliceblue;
     font-size: larger;
 }

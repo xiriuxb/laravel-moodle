@@ -24,7 +24,16 @@
 <script scoped>
 import FooterComponent from '../FooterComponent.vue'
 export default {
-  components: { FooterComponent },
+    components: { FooterComponent },
+    methods:{
+    },
+    mounted(){
+      const nav = document.querySelector('#navbar');
+      if(nav!=null && nav.className=='main-header'){
+        nav.className = 'main-header scroll';
+        nav.style.position = "relative !important";
+      }
+    },
 
 }
 </script>

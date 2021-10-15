@@ -1,17 +1,19 @@
 <template>
-<section class="container">
-<div class="container">
+<section class="container" id="commentss">
   <h3 class="text">Nuestros estudiantes comentan:</h3>
   <VueSlickCarousel v-bind="settings">
     <div v-for="comment in comments" :key="comment.id">
       <div class="card-body container">
-        <h5 class="card-title">{{comment.autor}}</h5>
-        {{comment.texto }}
+        <h5 class="card-title">{{comment.texto}}</h5>
+        <div class="ftr">
+          <div class="author">
+            <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised">
+            <span>{{comment.autor}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </VueSlickCarousel>
-</div>
-
 </section>
 
 </template>
@@ -33,16 +35,17 @@ export default {
     data:function(){
         return{
         comments:[],
+        //settings for slick carousel
         settings:{
             "infinite": true,
             "slidesToShow": 3,
             "slidesToScroll": 1,
-            "autoplay": true,
+            "autoplay": false,
             "initialSlide":1,
             "autoplaySpeed": 2000,
             "pauseOnFocus": true,
             "pauseOnHover": true,
-            "lazyLoad":"progressive",
+            "lazyLoad":"ondemand",
             "responsive": [
               {
                 "breakpoint": 1024,
@@ -81,21 +84,19 @@ export default {
 }        
 </script>
 
-<style>
-
-
-.slick-track
+<style scoped>
+#commentss{
+  width: 90%;
+}
+.card-title{}
+::v-deep .slick-track
 {
     display: flex !important;
 }
-section{
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-.slick-list{
+::v-deep .slick-list{
   margin-left: 10px !important;
 }
-div.slick-slide {
+::v-deep div.slick-slide {
   height: 100%;
   margin: 5px;
     display: block;
@@ -107,11 +108,11 @@ div.slick-slide {
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid #002e45;
     border-radius: .25rem;
 }
 
-.slick-arrow{
+::v-deep .slick-arrow{
     position: absolute;
     margin-top: 0;
     cursor: pointer;
@@ -121,12 +122,29 @@ div.slick-slide {
     color: transparent;
     background-repeat: no-repeat;
 }
-.slick-arrow.slick-prev::before{
+::v-deep .slick-arrow.slick-prev::before{
   color:rgb(71, 71, 71);
   font-size: 30px;
 }
-.slick-arrow.slick-next::before{
+::v-deep .slick-arrow.slick-next::before{
   color:rgb(61, 61, 61);
   font-size: 30px;
+}
+::v-deep  .card .ftr div {
+    display: inline-block;
+}
+::v-deep  .slick-slide div div .ftr {
+    margin-top: 5px;
+}
+
+::v-deep  .slick-slide div div .ftr h4 {
+}
+::v-deep  .ftr .author .avatar {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-flex;
 }
 </style>

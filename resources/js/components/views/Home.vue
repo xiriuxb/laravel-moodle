@@ -15,7 +15,7 @@
         <div class="card-group justify-content-center">
                 <div class="card sp-card mb-3 sm-12">
                 <div class="card-header bg-transparent">
-                     <img src="/images/step1-1.png" alt="">
+                     <img src="/images/step1-1.png" alt="regístrese">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">1. Regístrese</h5>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card sp-card mb-3">
                 <div class="card-header bg-transparent">
-                    <img src="/images/step2.png" alt="">
+                    <img src="/images/step2.png" alt="inscríbase">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">2. Inscríbase en un curso</h5>
@@ -37,7 +37,7 @@
                 </div>
                 <div class=" card sp-card mb-3">
                 <div class="card-header bg-transparent">
-                     <img  class="card-img-top" src="/images/step3.png" alt="">
+                     <img  class="card-img-top" src="/images/step3.png" alt="aprenda">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">3. Comience a aprender</h5>
@@ -55,7 +55,7 @@
                 <div class="col-md-5 paddedd">
                   <div class="row">
                       <div class="col-4">
-                          <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                          <img src="/images/reloj.png" class="img-fluid icono" alt="acceso 24/7">
                       </div>
                       <div class="col">
                           ACCESO 24/7
@@ -65,7 +65,7 @@
                 <div class="col-md-5 paddedd">
                     <div class="row">
                         <div class="col-4">
-                            <img src="/images/book-icon.png" class="img-fluid icono" alt="quixote">
+                            <img src="/images/success.png" class="img-fluid icono" alt="a tu ritmo">
                         </div>
                         <div class="col">
                             ESTUDIA A TU RITMO
@@ -75,7 +75,7 @@
                 <div class="col-md-5 paddedd">
                     <div class="row">
                         <div class="col-4">
-                            <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                            <img src="/images/anywhere.png" class="img-fluid icono" alt="donde quieras">
                         </div>
                         <div class="col">
                             ESTUDIA DONDE QUIERAS
@@ -85,7 +85,7 @@
                 <div class="col-md-5 paddedd">
                     <div class="row">
                       <div class="col-4">
-                          <img src="https://png.pngtree.com/png-vector/20190504/ourlarge/pngtree-clock-icon-design-png-image_1017503.jpg" class="img-fluid icono" alt="quixote">
+                          <img src="/images/bitmap.png" class="img-fluid icono" alt="interactiva">
                       </div>
                       <div class="col">
                           PLATAFORMA INTERACTIVA
@@ -102,7 +102,7 @@
         <comments-component></comments-component>
     </section>
     <section class="section-pair univ-back">
-        <h3 class="titulo">INGRESA A LA UNIVERSIDAD</h3>
+        <h3 class="titulo">¿Qué contienen nuestros cursos?</h3>
         <div class="container texto">
             Nuestro deseo es que estudies la carrera que deseas, prepárate con este sistema de aprendizaje interactivo, que cuenta con videos explicativos, ejercicios y más recursos.
         </div>
@@ -117,9 +117,20 @@ import CaratulaComponent from '../CaratulaComponent.vue'
 import CursosSmComponent from '../CursosSmComponent.vue'
 import FooterComponent from '../FooterComponent.vue'
 export default {
-  components: { CaratulaComponent, FooterComponent, CursosSmComponent },
-
+    components: { CaratulaComponent, FooterComponent, CursosSmComponent },
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = to.meta.title || 'Academia Octavario';
+            }
+        },
+    },
 }
+window.onscroll = () => {
+  const nav = document.querySelector('#navbar');
+  if(scrollY <= 10) nav.className = 'main-header'; else nav.className = 'main-header scroll';
+};
 </script>
 
 <style scoped>
@@ -149,8 +160,7 @@ body{
 }
 
 .section-odd{
-    background-color: aliceblue;
-    padding-bottom: 40px;
+    background-color: rgb(255, 255, 255);
 }
 
 .sp-card{
@@ -191,7 +201,6 @@ body{
 
     .img-fluid.icono{
       width: 60px;
-      border-radius: 50% !important;
   }
 
   section.benefits{

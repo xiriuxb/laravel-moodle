@@ -199,6 +199,7 @@ h2 {
   padding: 20px 20px;
   max-width: 350px;
   min-width: 346px;
+  margin: 30px 0;
 }
 
 .form-submit {

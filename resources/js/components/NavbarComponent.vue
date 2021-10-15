@@ -11,7 +11,7 @@
                       <span class="icon-bar icon-bar-3"></span>
                   </button>
       <div class="collapse navbar-collapse" id="mainMenu">
-        <ul class="navbar-nav text-uppercase ml-auto f1">
+        <ul class="navbar-nav text-uppercase mr-auto f1">
           <li class="nav-item">
             <a href="/" class="active active-first">inicio</a>
           </li>
@@ -50,13 +50,8 @@ export default{
         nav.style.position = "relative !important";
       }
     },
+  }
 }
-}
-
-window.onscroll = () => {
-  const nav = document.querySelector('#navbar');
-  if(scrollY <= 10) nav.className = 'main-header'; else nav.className = 'main-header scroll';
-};
 </script>
 <!-- Estilos-->
 <style scoped>
@@ -72,6 +67,7 @@ window.onscroll = () => {
     font-weight: 400;
     position: relative;
     text-decoration: none;
+    font-weight: 500;
   }
   
   #mainMenu li:not(:last-of-type) {

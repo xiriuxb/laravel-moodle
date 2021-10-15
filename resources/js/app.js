@@ -57,7 +57,7 @@ Vue.component('cursos-component', require('./components/CursosComponent.vue').de
 const router = new VueRouter({
     routes: [
         {path:'/ingreso',component:LoginView,name:'ingreso'},
-        {path:'/',component:Home,name:'home'},
+        {path:'/',component:Home,name:'home', meta:{title:'Academia Octavario'},},
         {path:'/registro-exitoso',
         component:SuccessRegisterComponent,
         name:'succ-reg',
@@ -80,8 +80,4 @@ const app = new Vue({
     router:router
 });
 
-const appA = new Vue({
-    el: '#sendemail',
-    router:routerAuth
-});
 

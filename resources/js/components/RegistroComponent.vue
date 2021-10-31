@@ -126,7 +126,6 @@ export default {
       this.loading=true;
       this.disableBtnSubmit(true);
       axios.post('register',this.form).then(() => {
-        console.log(status);
                this.$router.push({ path : '/registro-exitoso' });
                console.log("SIIUUUU")
       }).catch((err) => {

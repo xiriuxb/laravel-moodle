@@ -4,7 +4,7 @@
     <div id="encabezado-cursos">
         <div class="row">
             <div class="col-5 col-md-5 justify-content-center">
-                    <h2 id="titulo-cursos">Cursos</h2>\
+                    <h2 id="titulo-cursos">Cursos</h2>
             </div>
             <div class="col-7 col-md-7 ">
                 <p>
@@ -23,15 +23,18 @@
 
 <script scoped>
 import FooterComponent from '../FooterComponent.vue'
+import NavbarComponent from '../NavbarComponent.vue'
 export default {
-    components: { FooterComponent },
+    components: { FooterComponent, NavbarComponent},
     methods:{
     },
     mounted(){
       const nav = document.querySelector('#navbar');
-      if(nav!=null && nav.className=='main-header'){
+      if(nav!=null){
         nav.className = 'main-header scroll';
         nav.style.position = "relative !important";
+      }else{
+
       }
     },
 

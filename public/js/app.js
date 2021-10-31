@@ -2137,6 +2137,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {},
   data: function data() {
     return {
+      visible: false,
       comments: [],
       //settings for slick carousel
       settings: {
@@ -2148,19 +2149,18 @@ __webpack_require__.r(__webpack_exports__);
         "autoplaySpeed": 2000,
         "pauseOnFocus": true,
         "pauseOnHover": true,
-        "lazyLoad": "ondemand",
         "responsive": [{
           "breakpoint": 1024,
           "settings": {
             "slidesToShow": 3,
-            "slidesToScroll": 3,
-            "infinite": true
+            "slidesToScroll": 1,
+            "infinite": false
           }
         }, {
           "breakpoint": 770,
           "settings": {
             "slidesToShow": 2,
-            "slidesToScroll": 2,
+            "slidesToScroll": 1,
             "initialSlide": 1
           }
         }, {
@@ -2173,12 +2173,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
     axios.get('api/visibleComments').then(function (response) {
       _this.comments = response.data.data;
-    })["catch"](function (err) {});
+      _this.visible = true;
+    })["catch"](function (err) {
+      _this.visible = false;
+    });
   }
 });
 
@@ -2790,8 +2793,6 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       this.disableBtnSubmit(true);
       axios.post('register', this.form).then(function () {
-        console.log(status);
-
         _this.$router.push({
           path: '/registro-exitoso'
         });
@@ -3137,6 +3138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../FooterComponent.vue */ "./resources/js/components/FooterComponent.vue");
+/* harmony import */ var _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue");
 //
 //
 //
@@ -3161,18 +3163,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    FooterComponent: _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    FooterComponent: _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    NavbarComponent: _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   methods: {},
   mounted: function mounted() {
     var nav = document.querySelector('#navbar');
 
-    if (nav != null && nav.className == 'main-header') {
+    if (nav != null) {
       nav.className = 'main-header scroll';
       nav.style.position = "relative !important";
-    }
+    } else {}
   }
 });
 
@@ -3189,9 +3193,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CaratulaComponent.vue */ "./resources/js/components/CaratulaComponent.vue");
-/* harmony import */ var _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CursosSmComponent.vue */ "./resources/js/components/CursosSmComponent.vue");
-/* harmony import */ var _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../FooterComponent.vue */ "./resources/js/components/FooterComponent.vue");
+/* harmony import */ var _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue");
+/* harmony import */ var _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CaratulaComponent.vue */ "./resources/js/components/CaratulaComponent.vue");
+/* harmony import */ var _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../CursosSmComponent.vue */ "./resources/js/components/CursosSmComponent.vue");
+/* harmony import */ var _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FooterComponent.vue */ "./resources/js/components/FooterComponent.vue");
 //
 //
 //
@@ -3306,14 +3311,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    CaratulaComponent: _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    FooterComponent: _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    CursosSmComponent: _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    CaratulaComponent: _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    FooterComponent: _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    CursosSmComponent: _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    NavbarComponent: _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   watch: {
     $route: {
@@ -3414,8 +3421,6 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use((vue_country_region_select__WEBPACK
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('navbar-component', __webpack_require__(/*! ./components/NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_1__.default.component('caratula-component', __webpack_require__(/*! ./components/CaratulaComponent.vue */ "./resources/js/components/CaratulaComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('registro-component', __webpack_require__(/*! ./components/RegistroComponent.vue */ "./resources/js/components/RegistroComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('comments-component', __webpack_require__(/*! ./components/CommentsComponent.vue */ "./resources/js/components/CommentsComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_1__.default.component('login-component', __webpack_require__(/*! ./components/auth/LoginComponent.vue */ "./resources/js/components/auth/LoginComponent.vue").default);
@@ -8404,7 +8409,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.contain{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.izq{\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: auto;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100vh;\r\n    margin: 0 40px;\n}\n@media (min-width: 768px){\n.izq {\r\n        flex: 1;\n}\n}\n.der{\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/AZULbanner2.png);\n}\n@media (min-width: 768px){\n.der {\r\n        flex: 1.4;\r\n        display: block;\n}\n}\n@media (min-width:1366px){\n.izq{flex:4}\n.der{\r\n        flex:6;\r\n        display:block\n}\n}\ndiv.izq img{\r\n    width: 300px;\n}\n#mensaje{\r\n    padding: 40% 12% 0% 12%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.contain{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.izq{\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: auto;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100vh;\r\n    margin: 0 40px;\n}\n@media (min-width: 768px){\n.izq {\r\n        flex: 1;\n}\n}\n.der{\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/AZULbanner2.png);\r\n    background-repeat: repeat-y;\n}\n@media (min-width: 768px){\n.der {\r\n        flex: 1.4;\r\n        display: block;\n}\n}\n@media (min-width:1366px){\n.izq{flex:4}\n.der{\r\n        flex:6;\r\n        display:block\n}\n}\ndiv.izq img{\r\n    width: 300px;\n}\n#mensaje{\r\n    padding: 40% 12% 0% 12%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42184,35 +42189,37 @@ var render = function() {
         _vm._v("Nuestros estudiantes comentan:")
       ]),
       _vm._v(" "),
-      _c(
-        "VueSlickCarousel",
-        _vm._b({}, "VueSlickCarousel", _vm.settings, false),
-        _vm._l(_vm.comments, function(comment) {
-          return _c("div", { key: comment.id }, [
-            _c("div", { staticClass: "card-body container" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(comment.texto))
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "ftr" }, [
-                _c("div", { staticClass: "author" }, [
-                  _c("img", {
-                    staticClass: "avatar img-raised",
-                    attrs: {
-                      src:
-                        "http://adamthemes.com/demo/code/cards/images/avatar3.png",
-                      alt: ""
-                    }
-                  }),
+      _vm.visible
+        ? _c(
+            "VueSlickCarousel",
+            _vm._b({}, "VueSlickCarousel", _vm.settings, false),
+            _vm._l(_vm.comments, function(comment) {
+              return _c("div", { key: comment.id }, [
+                _c("div", { staticClass: "card-body container" }, [
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(comment.texto))
+                  ]),
                   _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(comment.autor))])
+                  _c("div", { staticClass: "ftr" }, [
+                    _c("div", { staticClass: "author" }, [
+                      _c("img", {
+                        staticClass: "avatar img-raised",
+                        attrs: {
+                          src:
+                            "http://adamthemes.com/demo/code/cards/images/avatar3.png",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(comment.autor))])
+                    ])
+                  ])
                 ])
               ])
-            ])
-          ])
-        }),
-        0
-      )
+            }),
+            0
+          )
+        : _vm._e()
     ],
     1
   )
@@ -43536,8 +43543,7 @@ var staticRenderFns = [
     return _c("div", { attrs: { id: "encabezado-cursos" } }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-5 col-md-5 justify-content-center" }, [
-          _c("h2", { attrs: { id: "titulo-cursos" } }, [_vm._v("Cursos")]),
-          _vm._v("\\\r\n            ")
+          _c("h2", { attrs: { id: "titulo-cursos" } }, [_vm._v("Cursos")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-7 col-md-7 " }, [

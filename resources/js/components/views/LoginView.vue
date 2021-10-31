@@ -50,6 +50,7 @@ export default {
     position: relative;
     display: none;
     background-image: url(/images/AZULbanner2.png);
+    background-repeat: repeat-y;
 }
 @media (min-width: 768px){
     .der {

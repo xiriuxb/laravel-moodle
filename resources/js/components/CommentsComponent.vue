@@ -14,6 +14,7 @@
       </div>
     </div>
   </VueSlickCarousel>
+  <loading-component v-else></loading-component>
 </section>
 
 </template>
@@ -23,12 +24,14 @@
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   // optional style for arrows & dots
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  
+  import LoadingComponent from '../components/LoadingComponent.vue'
 //Formación
 //Área de conocimiento
 //Tabla Inscripción(Estudiante, Curso, )
 //Tabla Cursos (IdCurso, Costo?, --Descripción, Duración, Área--)
 export default {
-    components: { VueSlickCarousel },
+    components: { VueSlickCarousel, LoadingComponent },
     methods:{
 
     },
@@ -41,9 +44,9 @@ export default {
             "infinite": true,
             "slidesToShow": 3,
             "slidesToScroll": 1,
-            "autoplay": false,
+            "autoplay": true,
             "initialSlide":1,
-            "autoplaySpeed": 2000,
+            "autoplaySpeed": 6000,
             "pauseOnFocus": true,
             "pauseOnHover": true,
             "responsive": [

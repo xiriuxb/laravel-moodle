@@ -91,7 +91,7 @@
             role="button"
           >
           {{this.btnText}}
-          <div class="lds-ring" v-if="loading"><div></div><div></div><div></div><div></div></div>
+          <loading-component v-if="this.loading"></loading-component>
           </button>
       </form>
       <div id="requerido">*Requerido</div>
@@ -105,8 +105,9 @@
 </template>
 
 <script scoped>
-
+import LoadingComponent from '../components/LoadingComponent.vue'
 export default {
+  components:{LoadingComponent},
   data(){
     return{
       loading:false,
@@ -123,7 +124,6 @@ export default {
   },
   methods:{
     saveFrom(){
-      this.loading=true;
       this.disableBtnSubmit(true);
       axios.post('register',this.form).then(() => {
                this.$router.push({ path : '/registro-exitoso' });
@@ -131,9 +131,10 @@ export default {
       }).catch((err) => {
         if (err.response!= undefined && err.response.status==422) {
           this.errors = err.response.data.errors;
-          this.loading=false;
           this.disableBtnSubmit(false);
-          this.btnText = "Registrarse";
+        }
+        if(err.response!= undefined && err.response.status==500){
+          this.disableBtnSubmit(false);
         }
       });
     },
@@ -150,7 +151,13 @@ export default {
     disableBtnSubmit(value){
       const button = document.getElementById('submit');
       button.disabled = value;
-      this.btnText = "";
+      if(value){
+        this.loading=value;
+        this.btnText = "";
+      }else{
+        this.loading=false; 
+        this.btnText = "Registrarse";
+      }
     }
   },
 };
@@ -270,41 +277,7 @@ div.col {
   background-color: #d44a0b;
 }
 
-/*Loading icon */
-.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 50px;
-  height: 50px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  margin: 8px;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+::v-deep .lds-ring div {
   border-color: #fff transparent transparent transparent;
 }
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-/*end Loading icon */
 </style>

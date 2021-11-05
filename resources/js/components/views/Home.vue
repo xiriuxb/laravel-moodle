@@ -118,7 +118,7 @@ import CaratulaComponent from '../CaratulaComponent.vue'
 import CursosSmComponent from '../CursosSmComponent.vue'
 import FooterComponent from '../FooterComponent.vue'
 export default {
-    components: { CaratulaComponent, FooterComponent, CursosSmComponent,NavbarComponent },
+    components: { CaratulaComponent, FooterComponent, CursosSmComponent,NavbarComponent, },
     watch: {
         $route: {
             immediate: true,

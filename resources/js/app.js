@@ -45,6 +45,7 @@ Vue.component('admin-courses-component', require('./components/Admin/AdminCourse
 Vue.component('user-menu-component',require('./components/UserMenuComponent.vue').default);
 Vue.component('filter-component', require('./components/FilterComponent.vue').default);
 Vue.component('cursos-component', require('./components/CursosComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

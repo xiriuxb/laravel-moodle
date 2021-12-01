@@ -29,9 +29,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
     Route::apiResource('comments', 'App\Http\Controllers\AdminComentarioController');
 
-    Route::get('visibleComments', 'App\Http\Controllers\AdminComentarioController@visibles')->name('visibles');
+    Route::get('visibleComments', 'App\Http\Controllers\AdminComentarioController@visibles')->name('visibles')->middleware();
     
-    Route::get('curses', 'App\Http\Controllers\Cursos@index')->name('cursos');
+    Route::apiResource('curses', 'App\Http\Controllers\Cursos');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
 

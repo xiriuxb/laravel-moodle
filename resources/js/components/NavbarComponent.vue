@@ -1,5 +1,5 @@
 <template>
-<header class="main-header" id="navbar">
+<header class="main-header" id="navbar" v-if="show">
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
       <a class="navbar-brand" href="/">
@@ -13,10 +13,10 @@
       <div class="collapse navbar-collapse" id="mainMenu">
         <ul class="navbar-nav text-uppercase mr-auto f1">
           <li class="nav-item">
-            <a href="/" class="active active-first">inicio</a>
+            <router-link :to="{name:'home'}" class="active active-first">inicio</router-link>
           </li>
           <li class="nav-item">
-            <a href="cursos">Cursos</a>
+            <router-link :to="{name:'cursos'}">Cursos</router-link>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -41,6 +41,16 @@
 <script scoped>
 import UserMenuComponent from './UserMenuComponent.vue';
 export default{
+  compiled() {
+        $.on('NavbarComponent.hide', () => this.show = false)
+        $.on('NavbarComponent.show', () => this.show = true)
+    },
+  data(){
+    return{
+      cursos_link:'/cursos',
+      show:true
+    }
+  },
   components: { UserMenuComponent },
   methods:{
     changeTheme(){

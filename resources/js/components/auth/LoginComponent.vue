@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <div class="card-body">
-        <form>
+        <form autocomplete="off" id="login-form" @submit.prevent="loginForm">
           <!--@csrf-->
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
@@ -45,7 +45,7 @@
           </div>
 
           <div class="form-group row mb-0">
-              <button @click.prevent="loginForm" type="submit" class="btn btn-submit">Ingresar</button>
+              <button type="submit" class="btn btn-submit">Ingresar</button>
           </div>
           <a class="btn btn-link" href="">
                 ¿Olvidó su password?
@@ -80,9 +80,6 @@ export default {
         console.log("Loged");
         console.log(response)
       }).catch((err) => {
-        
-          this.errors = err.response.data.errors;
-          console.log(this.errors)
       });
     },
   },

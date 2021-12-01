@@ -1,9 +1,9 @@
 <template>
 <div class="col-12 col-md-4 col-sm-6">
-  <a class="card" :href="'/cursos/' + shortName">
+  <a class="card" :href="'/curso/' + shortname">
     <img
       class="card-img-top"
-      src="/images/crs-im-test.jpg"
+      v-bind:src="image"
       alt="Card image cap"
     />
     <div class="card-body bg-light">
@@ -19,9 +19,9 @@
 export default {
   props: {
     name: String,
-    description: String,
-    shortName:String,
+    shortname: String,
     precio:Number,
+    image: String,
   },
   data() {
     return {};
@@ -47,6 +47,7 @@ div:not(.card) {
 .card{
     border: 0;
     box-shadow: 0px 2px 3px #777;
+    min-width: 211px;
 }
 .card:hover{
     box-shadow: 0px 4px 7px #777;

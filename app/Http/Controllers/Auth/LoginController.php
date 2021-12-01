@@ -45,23 +45,44 @@ class LoginController extends Controller
     {
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
     public function vuelogin(Request $request)
     {
-        echo("bgfdsasdfghjk");
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-          $user = Auth::user();
-          return response()->json([
-            'status'   => 'success',
-          ]); 
-        } else { 
-          return response()->json([
-            'status' => 'error',
-            'user'   => 'Unauthorized Access'
-          ]); 
-        } 
+        // if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+        //   $user = Auth::user();
+        //   return response()->json([
+        //     'status'   => 'success',
+        //   ]); 
+        // } else { 
+        //   return response()->json([
+        //     'status' => 'error',
+        //     'user'   => response()
+        //   ]); 
+        // } 
+        // return response()->json(
+        //     $request -> email, 200
+        // );
+        $credentials = [
+          'email' => $request->email,
+          'password' => $request->password,
+      ];
+
+      if (Auth::attempt($credentials)) {
+          $success = true;
+          $message = 'User login successfully';
+      } else {
+          $success = false;
+          $message = 'Unauthorised';
+      }
+
+      // response
+      $response = [
+          'success' => $success,
+          'message' => $message,
+      ];
+      return response()->json($response);
     }
 }

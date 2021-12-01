@@ -12,7 +12,7 @@ class AdminComentarioController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth', ['except' => ['visibles']]);
     }
                 /**
      *
@@ -24,7 +24,7 @@ class AdminComentarioController extends Controller
     }
 
     public function visibles() {
-        return response()->json(['status'=>'ok','data'=>Comment::where('is_active',1)->get()], 200);
+        return response()->json(['status'=>'ok','data'=>Comment::where('is_active',1)->select('id','autor','texto')->get()], 200);
     }
 
     public function store(Request $request) {

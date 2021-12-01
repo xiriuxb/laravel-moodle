@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar-component></navbar-component>
     <div id="encabezado-cursos">
       <div class="row">
         <div class="col-5 col-md-5 justify-content-center">
@@ -12,7 +11,6 @@
       <filter-component></filter-component>
       <cursos-component></cursos-component>
     </div>
-    <footer-component></footer-component>
   </div>
 </template>
 

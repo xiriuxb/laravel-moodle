@@ -90,13 +90,13 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'last_name'=>$data['last_name'],
             'email' => $data['email'],
-            'password' => md5($data['password']),
+            'password' => Hash::make($data['password']),
             /*'country'=> $data['country'],
             'region'=> $data['region'],*/
             'username'=> RegisterController::setUsernameAttribute($data['name'],$data['last_name']),
             /*'phone_number'=>$data['phone_number'],
             'birth_day'=>$data['birth_day']*/
-        ]);
+        ])->assignRole('user');
         event(new Registered($data));
     }
 

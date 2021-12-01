@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, vel! Sequi modi possimus quibusdam placeat esse nulla tenetur consectetur accusantium asperiores, omnis quos nihil expedita velit vero eius odio. Possimus!</p>
                 <div class="card-header">{{ __('Dashboard') }}</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

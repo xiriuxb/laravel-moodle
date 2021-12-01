@@ -18,11 +18,20 @@
 
 <script>
 export default {
+    route: {
+        activate() {
+            $.trigger('NavbarComponent.hide')
+        },
+
+        deactivate() {
+            $.trigger('NavbarComponent.show')
+        }
+    }
 
 }
 </script>
 
-<style>
+<style scoped>
 
 .contain{
     display: flex;
@@ -73,5 +82,8 @@ div.izq img{
     padding: 40% 12% 0% 12%;
     color: aliceblue;
     font-size: larger;
+}
+header{
+    display: none !important;
 }
 </style>

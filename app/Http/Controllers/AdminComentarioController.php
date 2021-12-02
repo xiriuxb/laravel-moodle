@@ -13,6 +13,10 @@ class AdminComentarioController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['visibles']]);
+        //El CRUD puede ser hecho por los roles su y admin
+        $this->middleware('can:comment.create', ['except' => ['visibles']]);
+        $this->middleware('can:comment.delete', ['except' => ['visibles']]);
+        $this->middleware('can:comment.edit', ['except' => ['visibles']]);
     }
                 /**
      *

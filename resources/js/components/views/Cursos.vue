@@ -15,10 +15,7 @@
 </template>
 
 <script scoped>
-import FooterComponent from "../FooterComponent.vue";
-import NavbarComponent from "../NavbarComponent.vue";
 export default {
-  components: { FooterComponent, NavbarComponent },
   methods: {},
   mounted() {
     const nav = document.querySelector("#navbar");

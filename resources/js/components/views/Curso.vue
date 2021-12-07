@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar-component></navbar-component>
     <div v-if="visible">
               <div class="row">
                 <div class="col-2 col-md-10 justify-content-center">
@@ -18,13 +17,11 @@
               </div>
     </div>
     <loading-component v-else></loading-component>
-    <footer-component></footer-component>
+    
   </div>
 </template>
 
-<script>
-import FooterComponent from "../FooterComponent.vue";
-import NavbarComponent from "../NavbarComponent.vue";
+<script>  
 import LoadingComponent from "../LoadingComponent.vue";
 export default {
   data() {
@@ -34,8 +31,6 @@ export default {
     };
   },
   components: {
-    FooterComponent,
-    NavbarComponent,
     LoadingComponent,
   },
   beforeMount() {

@@ -20,7 +20,7 @@ export default {
   props: {
     name: String,
     shortname: String,
-    precio:Number,
+    precio:String,
     image: String,
   },
   data() {

@@ -1,6 +1,5 @@
-@extends('layouts.master')
 
-@section('content')
+
 <h1>Lista de Comentarios</h1>
 <table class="table table-light">
     <th>
@@ -15,5 +14,3 @@
         </tr>
     </tbody>
 </table>
-    
-@endsection

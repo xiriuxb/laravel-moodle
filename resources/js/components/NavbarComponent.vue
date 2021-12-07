@@ -13,19 +13,17 @@
       <div class="collapse navbar-collapse" id="mainMenu">
         <ul class="navbar-nav text-uppercase mr-auto f1">
           <li class="nav-item">
-            <router-link :to="{name:'home'}" class="active active-first">inicio</router-link>
+            <router-link :to="{name:'home-component'}" class="active active-first">inicio</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name:'cursos'}">Cursos</router-link>
+            <router-link :to="{path:'cursos'}">Cursos</router-link>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li>
-            <router-link :to="{name:'ingreso'}">
-              <a class="btn btn-primary">
+              <a class="btn btn-primary" href="ingreso">
                 Ingrese
               </a>
-            </router-link>
           </li>
           <li>
             <user-menu-component></user-menu-component>

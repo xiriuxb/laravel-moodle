@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -41,48 +41,26 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
-    }
-
     public function vuelogin(Request $request)
     {
-        // if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-        //   $user = Auth::user();
-        //   return response()->json([
-        //     'status'   => 'success',
-        //   ]); 
-        // } else { 
-        //   return response()->json([
-        //     'status' => 'error',
-        //     'user'   => response()
-        //   ]); 
-        // } 
-        // return response()->json(
-        //     $request -> email, 200
-        // );
-        $credentials = [
-          'email' => $request->email,
-          'password' => $request->password,
-      ];
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-      if (Auth::attempt($credentials)) {
-          $success = true;
-          $message = 'User login successfully';
-      } else {
-          $success = false;
-          $message = 'Unauthorised';
-      }
+        if (Auth::attempt($credentials,'remember')) {
+            $request->session()->regenerate();
+            $success = true;
+            $message = 'User login successfully';
+        }else {
+            $success = false;
+            $message = 'Unauthorised';
+        }
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ],200);
+        // response
 
-      // response
-      $response = [
-          'success' => $success,
-          'message' => $message,
-      ];
-      return response()->json($response);
     }
 }

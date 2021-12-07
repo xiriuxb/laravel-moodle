@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin');
+    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin')->middleware('guest');
 
-    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register');
+    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register')->middleware('guest');
 
     Route::get('email/verify/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
 
@@ -34,5 +34,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::apiResource('curses', 'App\Http\Controllers\Cursos');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
+
 
     

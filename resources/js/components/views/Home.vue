@@ -13,11 +13,11 @@ import HomeComponent from "../HomeComponent.vue";
 export default {
   components: { FooterComponent, NavbarComponent, HomeComponent },
 };
-window.onscroll = () => {
-  const nav = document.querySelector("#navbar");
-  if (scrollY <= 10) nav.className = "main-header";
-  else nav.className = "main-header scroll";
-};
+// window.onscroll = () => {
+//   const nav = document.querySelector("#navbar");
+//   if (scrollY <= 10) nav.className = "main-header";
+//   else nav.className = "main-header scroll";
+// };
 </script>
 
 <style scoped>

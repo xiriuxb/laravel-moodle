@@ -48,19 +48,25 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials,'remember')) {
+        if (Auth::attempt($credentials, 'remember')) {
             $request->session()->regenerate();
             $success = true;
             $message = 'User login successfully';
-        }else {
+        } else {
             $success = false;
             $message = 'Unauthorised';
         }
         return response()->json([
             'success' => $success,
             'message' => $message,
-        ],200);
-        // response
+        ], 200);
+    }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

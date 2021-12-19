@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ Route::get('/admin', function(){
 Route::get('/admin/{any}', function(){
     return view('layouts.master');
 })->middleware('can:admin.home')
-->name('admin.home')
-->where(['any'=>'comentarios|cursos']);
+->name('admi')
+->where(['any'=>'testimonios|cursos|usuarios']);
 
 Route::get('/cursos', function () {
     return view('layouts.master');
@@ -41,11 +42,12 @@ Route::get('/curso/{any}', function () {
 })->where(['any' => '.*']);
 
 Route::get('/email/verify', function () {
-    return view('auth.verify');
+    return view('layouts.master');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/test', function () {
-    return view('layouts.lista');
-})->name('xD');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 Auth::routes();

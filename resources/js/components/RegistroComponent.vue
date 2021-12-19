@@ -135,7 +135,7 @@
       <hr />
       <p class="loginhere" id="registered">
         ¿Ya tiene una cuenta?
-        <a href="#" class="loginhere-link">Ingrese aquí</a>
+        <a v-on:click="loginBtn" class="loginhere-link">Ingrese aquí</a>
       </p>
     </div>
   </section>
@@ -165,7 +165,7 @@ export default {
       axios
         .post("register", this.form)
         .then(() => {
-          this.$router.push({ path: "/registro-exitoso" });
+          window.location.href = "/email/verify";
           console.log(response);
         })
         .catch((err) => {
@@ -199,6 +199,9 @@ export default {
         this.btnText = "Registrarse";
       }
     },
+    loginBtn(){
+      window.location.href = "/ingreso";
+    }
   },
 };
 </script>

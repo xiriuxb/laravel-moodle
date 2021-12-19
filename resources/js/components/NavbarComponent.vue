@@ -1,5 +1,5 @@
 <template>
-<header class="main-header" id="navbar" v-if="show">
+<header class="main-header scroll" id="navbar" v-if="show">
   <div class="container" >
     <nav class="navbar navbar-expand-lg main-nav px-0">
       <a class="navbar-brand" href="/">
@@ -21,7 +21,7 @@
         </ul>
         <ul class="navbar-nav ms-auto">
           <li>
-              <a class="btn btn-primary" href="ingreso">
+              <a class="btn btn-primary" id="loginBtn" v-on:click="loginBtn">
                 Ingrese
               </a>
           </li>
@@ -36,17 +36,14 @@
 </header>
 </template>
 
-<script scoped>
+<script>
 import UserMenuComponent from './UserMenuComponent.vue';
 export default{
-  compiled() {
-        $.on('NavbarComponent.hide', () => this.show = false)
-        $.on('NavbarComponent.show', () => this.show = true)
-    },
   data(){
     return{
       cursos_link:'/cursos',
-      show:true
+      show:true,
+      isLogged:false,
     }
   },
   components: { UserMenuComponent },
@@ -58,6 +55,15 @@ export default{
         nav.style.position = "relative !important";
       }
     },
+    loginBtn(){
+      window.location.href = "/ingreso";
+    },
+    isLogged(){
+      
+    }
+  },
+  mounted(){
+    
   }
 }
 </script>
@@ -127,7 +133,7 @@ export default{
     color: #fff;
   }
   .main-header .navbar-brand img {
-    max-width: 230px;
+    max-width: 200px;
     animation: fadeInLeft 0.4s both 0.4s;
   }
   /* main-header end */
@@ -163,7 +169,7 @@ export default{
     }
   
     .main-header .navbar-nav {
-      margin-top: 30px;
+      margin-top: 15px;
     }
   
     #mainMenu li:not(:last-of-type) {

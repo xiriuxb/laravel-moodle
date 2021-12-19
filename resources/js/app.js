@@ -21,8 +21,9 @@ import Cursos from "./components/views/Cursos";
 import Admin from "./components/views/Admin.vue"
 import Vue from 'vue';
 import Curso from "./components/views/Curso";
-import AdminCommentComponent from "./components/Admin/AdminCommentComponent"
+import AdminTestimonialComponent from "./components/Admin/AdminTestimonialComponent"
 import AdminCoursesComponent from "./components/Admin/AdminCoursesComponent"
+import AdminUsersComponent from "./components/Admin/AdminUsersComponent"
 import Notice from "./components/Email/Notice"	
 /**
  * The following block of code may be used to automatically register your
@@ -68,19 +69,20 @@ const router = new VueRouter({
                         {path: '/', component: HomeComponemt, name: 'home-component',},
                         { path: '/cursos', component: Cursos, name: 'cursos' },
                         { path: '/curso/:shortname', component: Curso, name: 'curso' },
-                        {path: '/email/verify',component: Notice, name: 'email'},
+                        { path: '/email/verify',component: Notice, name: 'email'},
                     ],
                 },
                 {path: '/admin', component: Admin, name: 'admin', meta: { title: 'Octavario Admin' },
                     children:[
-                        { path: '/admin/comentarios', component: AdminCommentComponent, name: 'admin-comment' },
+                        { path: '/admin/testimonios', component: AdminTestimonialComponent, name: 'admin-comment' },
                         { path: '/admin/cursos', component: AdminCoursesComponent, name: 'admin-courses' },
+                        { path: '/admin/usuarios', component: AdminUsersComponent, name: 'admin-users' },
                     ],
                 },
                 { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
             ]
         },
-        { path: '/test', component: AdminCommentComponent, name: 'test' },
+        //{ path: '/test', component: AdminCommentComponent, name: 'test' },
     ],
     mode: 'history'
 })

@@ -4,35 +4,21 @@
       <div class="logo_content">
         <div class="logo">
           <i class="bx"></i>
-          <div class="logo_name">Octavario (Admin)</div>
+          <div class="logo_name">
+            <a href="/">
+            Octavario (Admin)
+            </a>
+          </div>
         </div>
         <i class="bx bx-menu" id="btn"></i>
       </div>
       <ul class="nav-list">
-        <li>
-          <router-link :to="{ name: 'admin-comment' }">
-            <a>
+        <li v-for="menu_item in menu_items" :key="menu_item.name">
+          <router-link :to="{ name: menu_item.component }">
               <i class="bx bx-grid"></i>
-              <span class="links_name">Comentarios</span>
-            </a>
+              <span class="links_name">{{menu_item.name}}</span>
           </router-link>
-          <span class="tooltip">Comentarios</span>
-        </li>
-        <li>
-          <router-link :to="{ name: 'admin-courses' }">
-            <a>
-              <i class="bx bx-grid"></i>
-              <span class="links_name">Coursos</span>
-            </a>
-          </router-link>
-          <span class="tooltip">Cursos</span>
-        </li>
-        <li>
-          <a>
-            <i class="bx bx-grid"></i>
-            <span class="links_name">Usuarios</span>
-          </a>
-          <span class="tooltip">Usuarios</span>
+          <span class="tooltip">{{menu_item.name}}</span>
         </li>
       </ul>
       <div class="profile_content">
@@ -53,17 +39,20 @@
 </template>
 
 <script>
-import AdminCommentComponent from "../Admin/AdminCommentComponent.vue";
+import AdminTestimonialComponent from "../Admin/AdminTestimonialComponent.vue";
 
 export default {
   name: "admin",
   components: {
-    AdminCommentComponent,
+    AdminTestimonialComponent,
   },
   data() {
     return {
-      comentarios: AdminCommentComponent,
-      lolo: AdminCommentComponent,
+      menu_items:[
+        {name:'Testimonios', component:'admin-comment'},
+        {name:'Cursos', component:'admin-courses'},
+        {name:'Usuarios',component: 'admin-users'}
+      ]
     };
   },
   methods: {

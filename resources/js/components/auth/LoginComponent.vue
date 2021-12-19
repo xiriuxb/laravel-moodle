@@ -35,14 +35,18 @@
           <div class="form-group row">
             <div>
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  name="remember"
-                  id="remember"
-                  v-model="form.remember"
-                />
+                <label for="remember">
+
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="remember"
+                    id="remember"
+                    v-model="form.remember"
+                    
+                  />
                 Recuérdame
+                </label>
               </div>
             </div>
           </div>
@@ -57,10 +61,10 @@
       </div>
       <hr class="line" />
       <div class="container">
-        <button class="btn btn-secondary" id="registro-btn">Regístrese</button>
+        <button class="btn btn-secondary" id="registro-btn" v-on:click="registerBtn">Regístrese</button>
       </div>
       <div class="container">
-        <button class="btn btn-warning" id="cursos-btn">
+        <button class="btn btn-warning" id="cursos-btn"  v-on:click="coursesBtn">
           Ingrese a los cursos
         </button>
       </div>
@@ -106,6 +110,12 @@ export default {
         this.btnText = texto;
       }
     },
+    registerBtn(){
+      window.location.href = "/";
+    },
+    coursesBtn(){
+      window.location.href = "https://www.academia.octavario.org/login/";
+    }
   },
 };
 </script>

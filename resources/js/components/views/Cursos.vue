@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="cursos">
     <div id="encabezado-cursos">
       <div class="row">
         <div class="col-5 col-md-5 justify-content-center">
@@ -32,6 +32,10 @@ export default {
 .main-header {
   position: relative !important;
 }
+#cursos{
+  padding-top: 100px;
+}
+
 #titulo-cursos {
   font-size: 60px;
   font-family: montserrat;

@@ -17,23 +17,27 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin')->middleware('guest');
+Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')
+->name('vuelogin')
+->middleware('guest');
 
-    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register')->middleware('guest');
+Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register')->middleware('guest');
 
-    Route::get('email/verify/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
 
-    Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-    Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
 
-    Route::apiResource('comments', 'App\Http\Controllers\AdminComentarioController');
+Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
 
-    Route::get('visibleComments', 'App\Http\Controllers\AdminComentarioController@visibles')->name('visibles')->middleware();
-    
-    Route::apiResource('curses', 'App\Http\Controllers\Cursos');
-    
-    Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
+Route::apiResource('curses', 'App\Http\Controllers\Cursos');
 
+Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
 
-    
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::apiResource('users', 'App\Http\Controllers\UserController');

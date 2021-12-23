@@ -10,6 +10,7 @@
 import NavbarComponent from "../NavbarComponent.vue";
 import FooterComponent from "../FooterComponent.vue";
 import HomeComponent from "../HomeComponent.vue";
+import NotFoundComponent from "../NotFoundComponent.vue";
 export default {
   components: { FooterComponent, NavbarComponent, HomeComponent },
   data() {

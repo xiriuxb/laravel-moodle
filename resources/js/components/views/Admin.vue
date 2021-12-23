@@ -56,9 +56,6 @@ export default {
     };
   },
   methods: {
-    changeComponent() {
-      return "comentarios";
-    },
   },
 };
 </script>

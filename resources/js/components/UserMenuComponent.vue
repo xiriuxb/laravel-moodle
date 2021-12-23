@@ -17,7 +17,7 @@
         aria-labelledby="dropdownMenuLink"
         id="userMenu"
       >
-        <a class="dropdown-item" href="#">{{usera}}</a>
+        <a class="dropdown-item" href="#">{{user_name}}</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>
@@ -32,7 +32,13 @@
 import "boxicons";
 export default {
   data() {
-    return {};
+    return {
+      user_name: "",
+    };
+  },
+  mounted(){
+    this.user_name = this.$store.state.user;
+    console.log('UserMenuComponent')
   },
   methods: {
     logout() {

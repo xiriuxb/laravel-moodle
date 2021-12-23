@@ -8,7 +8,7 @@
             </div>
 
         </div>
-        <div class="container col-sm-7 col-xs-12 registro">
+        <div class="container col-sm-7 col-xs-12 registro" v-if="!this.$store.getters.isLoggedIn">
             <registro-component></registro-component>
         </div>
       </div>
@@ -17,19 +17,19 @@
 
 <script>
 import RegistroComponent from './RegistroComponent.vue'
+
 export default {
   components: { RegistroComponent },
   data(){
       return{
-        titulo1:'Aprende con nosotros'
-
+        titulo1:'Aprende con nosotros',
       }
-  }
+  },
 
 }
 </script>
 
-<style>
+<style scoped>
 
 #encabezado{
     position: relative;
@@ -63,5 +63,8 @@ export default {
 }
 #titulo1{
     color: #ff772a;
+}
+.img-fluid{
+    min-height: 400px;
 }
 </style>

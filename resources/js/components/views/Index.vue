@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  methods: {
-    
+  mounted() {
+    this.$store.commit('setAuthUser', window.auth_user);
   },
 };
 </script>

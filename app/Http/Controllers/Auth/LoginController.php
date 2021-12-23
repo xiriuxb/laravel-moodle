@@ -52,14 +52,16 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $success = true;
             $message = 'User login successfully';
+            return redirect('/');
         } else {
             $success = false;
             $message = 'Unauthorised';
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ], 200);
         }
-        return response()->json([
-            'success' => $success,
-            'message' => $message,
-        ], 200);
+
     }
 
     public function logout(Request $request)

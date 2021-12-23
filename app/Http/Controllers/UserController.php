@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
     /**
      *
@@ -19,7 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(['status' => 'ok', 'data' => 
-            User::select('id','name','last_name','email','username','email_verified_at')->get()], 200);
+        // if(Auth::user()){
+        //     return response()->json(['status' => 'ok'], 200);
+        // }else{
+        //     return response()->json(['status' => 'no']);
+        // }
     }
 }

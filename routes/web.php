@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,32 +14,42 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 | contains the "web" middleware group. Now create something great!
 |
 */
+function FunctionName()
+{
+    # code...
+    $user = null;
+    if(Auth::check()){
+        $user =Auth::user()->name;
+    }
+    return $user;
+}
 
 
 Route::get('/', function () {
-    return view('layouts.master');
+    
+    return view('layouts.master',['auth_user'=>FunctionName()]);
 })->name('home');
 
 Route::get('/admin', function(){
-    return view('layouts.master');
+    return view('layouts.master',['auth_user'=>Auth::user()]);
 })->middleware('can:admin.home')->name('admin.home');
 
 Route::get('/admin/{any}', function(){
-    return view('layouts.master');
+    return view('layouts.master',['auth_user'=>Auth::user()]);
 })->middleware('can:admin.home')
 ->name('admi')
 ->where(['any'=>'testimonios|cursos|usuarios']);
 
 Route::get('/cursos', function () {
-    return view('layouts.master');
+    return view('layouts.master',['auth_user'=>Auth::user()]);
 });
 
 Route::get('/ingreso', function () {
-    return view('layouts.master');
+    return view('layouts.master',['auth_user'=>Auth::user()]);
 })->middleware('guest')->name('ingreso');
 
 Route::get('/curso/{any}', function () {
-    return view('layouts.master');
+    return view('layouts.master',['auth_user'=>Auth::user()]);
 })->where(['any' => '.*']);
 
 Route::get('/email/verify', function () {

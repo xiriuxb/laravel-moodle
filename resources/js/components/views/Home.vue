@@ -12,6 +12,12 @@ import FooterComponent from "../FooterComponent.vue";
 import HomeComponent from "../HomeComponent.vue";
 export default {
   components: { FooterComponent, NavbarComponent, HomeComponent },
+  data() {
+    return {
+      logged: Boolean,
+    };
+  },
+  
 };
 // window.onscroll = () => {
 //   const nav = document.querySelector("#navbar");

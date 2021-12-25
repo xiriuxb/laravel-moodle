@@ -2334,12 +2334,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     name: String,
     shortname: String,
     precio: String,
-    image: String
+    image: String,
+    summary: String,
+    categoryname: String
   },
   data: function data() {
     return {};
@@ -2361,6 +2364,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_CursoCardComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CursoCardComponent.vue */ "./resources/js/components/CursoCardComponent.vue");
 /* harmony import */ var _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+//
+//
 //
 //
 //
@@ -3692,6 +3697,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
 /* harmony import */ var _NotFoundComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../NotFoundComponent.vue */ "./resources/js/components/NotFoundComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8696,7 +8710,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na[data-v-f8010c88]{\r\n    text-decoration: none;\n}\ndiv[data-v-f8010c88]:not(.card) {\r\n  padding-bottom: 12px;\n}\n.card-footer[data-v-f8010c88]{\r\n    color: black;\r\n    text-align: end;\n}\n.card-body[data-v-f8010c88]{\r\n    padding: 10px;\r\n    padding-bottom: 0 !important;\n}\n.card[data-v-f8010c88]{\r\n    border: 0;\r\n    box-shadow: 0px 2px 3px #777;\r\n    min-width: 211px;\n}\n.card[data-v-f8010c88]:hover{\r\n    box-shadow: 0px 4px 7px #777;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na[data-v-f8010c88]{\r\n    text-decoration: none;\r\n    color: #777;\n}\ndiv[data-v-f8010c88]:not(.card) {\r\n  padding-bottom: 12px;\n}\n.card-footer[data-v-f8010c88]{\r\n    color: black;\r\n    text-align: end;\n}\n.card-body[data-v-f8010c88]{\r\n    padding: 10px;\r\n    padding-bottom: 0 !important;\n}\n.card[data-v-f8010c88]{\r\n    border: 0;\r\n    box-shadow: 0px 2px 3px #777;\r\n    min-width: 211px;\n}\n.card[data-v-f8010c88]:hover{\r\n    box-shadow: 0px 4px 7px #777;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9056,7 +9070,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 100px;\n}\n.main-header[data-v-3f7ae320] {\r\n  position: relative !important;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 80px;\n}\n.main-header[data-v-3f7ae320] {\r\n  position: relative !important;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.row[data-v-3f7ae320]{\r\n  margin: 20px 50px 20px 50px;\r\n  color: tomato;\r\n  min-height: 200px;\n}\n.card[data-v-3f7ae320] {\r\n  background-color: #002e45;\n}\nimg[data-v-3f7ae320]{\r\n  width: 100%;\r\n  min-height: 200px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43879,15 +43893,18 @@ var render = function() {
       [
         _c("img", {
           staticClass: "card-img-top",
-          attrs: { src: _vm.image, alt: "Card image cap" }
+          attrs: {
+            src: "https://img-c.udemycdn.com/course/240x135/1606018_069c.jpg",
+            alt: "Card image cap"
+          }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body bg-light" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("p", [_vm._v(_vm._s(this.categoryname))]),
+          _vm._v(" "),
           _c("h5", [_vm._v(_vm._s(_vm.name))]),
           _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(_vm._s(_vm.description))
-          ]),
+          _c("p", { domProps: { innerHTML: _vm._s(this.summary) } }),
           _vm._v(" "),
           _c("div", { staticClass: "card-footer" }, [
             _vm._v("$" + _vm._s(_vm.precio) + " USD")
@@ -43935,7 +43952,9 @@ var render = function() {
                   name: curso.fullname,
                   shortname: curso.shortname,
                   image: curso.image,
-                  precio: curso.price
+                  precio: curso.price,
+                  summary: curso.summary,
+                  categoryname: curso.category
                 }
               })
             }),
@@ -45576,7 +45595,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticStyle: { "padding-top": "100px" }, attrs: { id: "curso" } },
+    { attrs: { id: "curso" } },
     [
       _vm.visible
         ? _c(
@@ -45584,38 +45603,42 @@ var render = function() {
             [
               _vm.existe
                 ? _c("div", [
-                    _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "col-2 col-md-10 justify-content-center"
-                        },
-                        [
-                          _c("h2", { attrs: { id: "titulo-cursos" } }, [
-                            _vm._v(_vm._s(_vm.curso.fullname))
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "col-2 col-md-10 justify-content-center"
-                        },
-                        [
-                          _c("img", {
-                            attrs: { src: _vm.curso.image, alt: "" }
-                          })
-                        ]
-                      )
+                    _c("div", { staticClass: "card left" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-12 col-sm-8 justify-content-center"
+                          },
+                          [
+                            _c("p", [_vm._v(_vm._s(_vm.curso.category))]),
+                            _vm._v(" "),
+                            _c(
+                              "h2",
+                              {
+                                staticClass: "card-title",
+                                attrs: { id: "titulo-cursos" }
+                              },
+                              [_vm._v(_vm._s(_vm.curso.fullname))]
+                            ),
+                            _vm._v(" "),
+                            _c("div", {}, [
+                              _c("p", {
+                                domProps: {
+                                  innerHTML: _vm._s(this.curso.summary)
+                                }
+                              })
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(0)
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "comp" }, [
                       _c("div", { attrs: { id: "description" } }, [
-                        _c("p", {
-                          domProps: { innerHTML: _vm._s(this.curso.summary) }
-                        }),
-                        _vm._v(" "),
                         _c("p", {
                           domProps: {
                             innerHTML: _vm._s(this.curso.ex_description)
@@ -45633,7 +45656,25 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "col-12 col-sm-4 justify-content-center" },
+      [
+        _c("img", {
+          attrs: {
+            src: "https://img-c.udemycdn.com/course/240x135/1606018_069c.jpg",
+            alt: ""
+          }
+        })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

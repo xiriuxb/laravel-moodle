@@ -8,6 +8,8 @@
             :shortname="curso.shortname"
             :image="curso.image"
             :precio="curso.price"
+            :summary="curso.summary"
+            :categoryname="curso.category"
           >
           </curso-card-component>
     </div>

@@ -3,12 +3,13 @@
   <a class="card" :href="'/curso/' + shortname">
     <img
       class="card-img-top"
-      v-bind:src="image"
+      v-bind:src="'https://img-c.udemycdn.com/course/240x135/1606018_069c.jpg'"
       alt="Card image cap"
     />
-    <div class="card-body bg-light">
+    <div class="card-body">
+      <p>{{this.categoryname}}</p>
       <h5>{{ name }}</h5>
-      <p class="card-text">{{ description }}</p>
+      <p v-html="this.summary"></p>
       <div class="card-footer">${{ precio }} USD</div>
     </div>
   </a>
@@ -22,6 +23,8 @@ export default {
     shortname: String,
     precio:String,
     image: String,
+    summary: String,
+    categoryname: String,
   },
   data() {
     return {};
@@ -32,6 +35,7 @@ export default {
 <style scoped> 
 a{
     text-decoration: none;
+    color: #777;
 }
 div:not(.card) {
   padding-bottom: 12px;

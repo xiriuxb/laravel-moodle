@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Curso;
-use Illuminate\Http\Request;
+use App\Models\MoodleCurso;
 
 class Cursos extends Controller
 {
-
-
     public function __construct()
     {
     }
@@ -17,9 +14,10 @@ class Cursos extends Controller
      * @param  array  $data
      * @return \App\Models\Comment
      */
-    public function index()
+    public function index($categoria=null)
     {
         $cursos = [];
+        //dd($categoria);
         //Recive todos los cursos desde la API de moodle
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
@@ -30,22 +28,33 @@ class Cursos extends Controller
             ],'verify'=> false
         ]);
         $json = json_decode($res->getBody());
-        foreach ($json->courses as $curso) {
-            if ($curso->id != 1) {
-                $curso = new Curso([
-                    'id' => $curso->id,
-                    'fullname' => $curso->fullname,
-                    'shortname' => $curso->shortname,
-                    'summary' => $curso->summary,
-                    //'image' =>  str_replace('/webservice', '', $curso->overviewfiles[0]->fileurl), //remove /webservice string,
-                    'price' => $curso->customfields[1]->value,
-                    'category' => $curso->categoryname,
-                ]);
-                $cursos[] = $curso;
+        if (empty($json->courses) ) {
+            return response()->json(['status' => 'error', 'message' => 'No existen cursos'], 404);
+        }else{
+            foreach ($json->courses as $cursoj) {
+            //filter data by category
+                if ($cursoj->id != 1 && $cursoj->visible) { //Si el curso no es moodle y esta visible
+                    $curso = new MoodleCurso(
+                        $cursoj->id,
+                        $cursoj->fullname,
+                        $cursoj->shortname,
+                        $cursoj->summary,
+                        $cursoj->customfields[1]->value,
+                        $cursoj->categoryname,
+                        str_replace('/webservice', '', $cursoj->overviewfiles[0]->fileurl), //remove /webservice string,
+                    );
+                    if($categoria!= null && $curso->category == $categoria){
+                        //dd($categoria);
+                        $cursos[] = $curso;
+                    }
+                    elseif($categoria == null){
+                        $cursos[] = $curso;
+                    }
+                }
+                unset($curso);
             }
-            unset($curso);
+            return response()->json(['status' => 'ok', 'data' => $cursos], 200);
         }
-        return response()->json(['status' => 'ok', 'data' => $cursos], 200);
     }
 
     public function show($shortname)
@@ -65,16 +74,18 @@ class Cursos extends Controller
         if (empty($json->courses) ) {
             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
         } else {
-            $curso = new Curso([
-                'id' => $json->courses[0]->id,
-                'fullname' => $json->courses[0]->fullname,
-                'shortname' => $json->courses[0]->shortname,
-                'summary' => $json->courses[0]->summary,
-                //'image' =>  str_replace('/webservice', '', $json->courses[0]->overviewfiles[0]->fileurl), //remove /webservice string,
-                'price' => $json->courses[0]->customfields[1]->value,
-                'ex_description' => $json->courses[0]->customfields[2]->value,
-                'category' => $json->courses[0]->categoryname,
-            ]);
+            $curso_aux = $json->courses[0];
+            $curso = new MoodleCurso(
+                $curso_aux->id,
+                $curso_aux->fullname,
+                $curso_aux->shortname,
+                $curso_aux->summary,
+                $curso_aux->customfields[1]->value,
+                $curso_aux->categoryname,
+                str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
+                $curso_aux->customfields[2]->value,
+                //'destacado' => $json->courses[0]->customfields[3]->value,
+            );
             return response()->json(['status' => 'ok', 'data' => $curso], 200);	
         }
     }

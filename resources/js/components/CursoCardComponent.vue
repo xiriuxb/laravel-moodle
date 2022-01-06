@@ -1,9 +1,9 @@
 <template>
 <div class="col-12 col-md-4 col-sm-6">
-  <a class="card" :href="'/curso/' + shortname">
+  <router-link class="card" :to="{name:'curso',params:{shortname:shortname}}">
     <img
       class="card-img-top"
-      v-bind:src="'https://img-c.udemycdn.com/course/240x135/1606018_069c.jpg'"
+      v-bind:src="image"
       alt="Card image cap"
     />
     <div class="card-body">
@@ -12,7 +12,7 @@
       <p v-html="this.summary"></p>
       <div class="card-footer">${{ precio }} USD</div>
     </div>
-  </a>
+  </router-link>
 </div>
 </template>
 

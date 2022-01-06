@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar-component></navbar-component>
-    <router-view></router-view>
+      <router-view></router-view>
     <footer-component></footer-component>
   </div>
 </template>
@@ -9,10 +9,9 @@
 <script>
 import NavbarComponent from "../NavbarComponent.vue";
 import FooterComponent from "../FooterComponent.vue";
-import HomeComponent from "../HomeComponent.vue";
 import NotFoundComponent from "../NotFoundComponent.vue";
 export default {
-  components: { FooterComponent, NavbarComponent, HomeComponent },
+  components: { FooterComponent, NavbarComponent},
   data() {
     return {
       logged: Boolean,

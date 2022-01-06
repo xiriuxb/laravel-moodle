@@ -26,6 +26,7 @@ import AdminTestimonialComponent from "./components/Admin/AdminTestimonialCompon
 import AdminCoursesComponent from "./components/Admin/AdminCoursesComponent"
 import AdminUsersComponent from "./components/Admin/AdminUsersComponent"
 import Notice from "./components/Email/Notice"
+import CursosComponent from "./components/CursosComponent"
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -65,18 +66,21 @@ const router = new VueRouter({
         {
             path: '/', component: Home,
             children: [
-                { path: '/', component: HomeComponemt, name: 'home-component', },
-                { path: '/cursos', component: Cursos, name: 'cursos' },
-                { path: '/curso/:shortname', component: Curso, name: 'curso' },
-                { path: '/email/verify', component: Notice, name: 'email' },
+                { path: '', component: HomeComponemt, name: 'home-component', },
+                //{ path: '/cursos', component: Cursos, name: 'cursos' },
+                { path: 'cursos', component: Cursos, name: 'cursos', children:[
+                    { path: ":category?", component: CursosComponent, name: 'cursos-filtered' },
+                ] },
+                { path: 'curso/:shortname', component: Curso, name: 'curso' },
+                { path: 'email/verify', component: Notice, name: 'email' },
             ],
         },
         {
             path: '/admin', component: Admin, name: 'admin', meta: { title: 'Octavario Admin' },
             children: [
-                { path: '/admin/testimonios', component: AdminTestimonialComponent, name: 'admin-comment' },
-                { path: '/admin/cursos', component: AdminCoursesComponent, name: 'admin-courses' },
-                { path: '/admin/usuarios', component: AdminUsersComponent, name: 'admin-users' },
+                { path: 'testimonios', component: AdminTestimonialComponent, name: 'admin-comment' },
+                { path: 'cursos', component: AdminCoursesComponent, name: 'admin-courses' },
+                { path: 'usuarios', component: AdminUsersComponent, name: 'admin-users' },
             ],
         },
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },

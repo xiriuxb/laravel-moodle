@@ -30,7 +30,9 @@ Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioControll
 
 Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
 
-Route::apiResource('curses', 'App\Http\Controllers\Cursos');
+Route::apiResource('curse', 'App\Http\Controllers\Cursos');
+
+Route::get('curses/{categoria?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
 
 Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
 
@@ -38,5 +40,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController');
 
 Route::apiResource('users', 'App\Http\Controllers\UserController');

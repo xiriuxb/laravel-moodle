@@ -31,9 +31,9 @@
       </div>
     </div>
     <div id="admin" class="adm_content container">
-      <keep-alive>
+      <!-- <keep-alive> -->
         <router-view></router-view>
-      </keep-alive>
+      <!-- </keep-alive> -->
     </div>
   </div>
 </template>

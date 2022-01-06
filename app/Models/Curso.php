@@ -4,22 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class Curso extends Model
 {
     use HasFactory;
-    public function category()
+
+    public function matriculas()
     {
-        return $this->belongsTo(CategoriaCurso::class,'category')->select('id','name');
+        return $this->hasMany(Matricula::class);
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */     
+    //se anade category porque moodle trabaja con ese campo cuando
+    //la matricula se maneja con una base de datos externa
     protected $fillable = [
-        'id',
+        'moodle_id',
         'fullname',
-        'category',
         'shortname',
-        'summary',
-        'image',
-        'price',
+        'category',
         'destacado',
-        'ex_description'
     ];
 }

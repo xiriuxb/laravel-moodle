@@ -46,11 +46,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '49161'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'jorge'),
-            'password' => env('DB_PASSWORD', 'admin'),
+            'host' => env('DB_HOST', '65.21.94.181'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'xiriuxbo_laravel'),
+            'username' => env('DB_USERNAME', 'xiriuxbo_laravel'),
+            'password' => env('DB_PASSWORD', 'SphinxID1478523690/'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -90,19 +90,6 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-        'moodle' => [
-            'driver' => 'mysql',
-            'host' => env('DB_MOODLE_HOST', '127.0.0.1'),
-            'port' => env('DB_MOODLE_PORT', '54900'),
-            'database' => env('DB_MOODLE_DATABASE', 'moodle'),
-            'username' => env('DB_MOODLE_USERNAME', 'root'),
-            'password' => env('DB_MOODLE_PASSWORD', 'admin'),
-            'charset' => 'utf8',
-            'prefix' => 'mdl_',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
-
     ],
 
     /*

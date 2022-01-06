@@ -14,7 +14,27 @@ class CategoriaCursoController extends Controller
      */
     public function index()
     {
-        return response()->json(['status'=>'ok','data'=>CategoriaCurso::select('id','name')->get()], 200);
+        $categorias = [];
+        //Recive todos los cursos desde la API de moodle
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+            'query' => [
+                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wsfunction' => 'core_course_get_categories',
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+        foreach ($json as $category) {
+                $category = new CategoriaCurso([
+                    'id' => $category->id,
+                    'name' => $category->name,
+                ]);
+                $categorias[] = $category;
+            unset($category);
+        }
+        return response()->json(['status' => 'ok', 'data' => $categorias], 200);
+        //return response()->json(['status'=>'ok','data'=>CategoriaCurso::select('id','name')->get()], 200);
     }
 
     /**

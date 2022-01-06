@@ -5,18 +5,15 @@
         <div class="card left">
           <div class="row">
             <div class="col-12 col-sm-8 justify-content-center">
-              <p>{{ curso.category }}</p>
+              <div v-on:click.prevent="">{{ curso.category }}</div>
               <h2 id="titulo-cursos" class="card-title">{{ curso.fullname }}</h2>
-              <div class="">
-                <p v-html="this.curso.summary"></p>
+              <div id="summary">
+                <div>{{this.curso.summary}}</div>
               </div>
+              <button class="btn btn-primary" v-on:click="matricula">Inscribirse</button>
             </div>
             <div class="col-12 col-sm-4 justify-content-center">
-              <!-- <img :src="curso.image" alt="" /> -->
-              <img
-                src="https://img-c.udemycdn.com/course/240x135/1606018_069c.jpg"
-                alt=""
-              />
+              <img :src="curso.image" alt="" />
             </div>
           </div>
         </div>
@@ -47,9 +44,31 @@ export default {
     LoadingComponent,
     NotFoundComponent,
   },
+  methods:{
+    matricula(){
+      console.log(this.curso)
+      if(this.$store.state.user!=null){
+        var crse={
+        moodle_id:this.curso.moodle_id,
+        fullname:this.curso.fullname,
+        shortname:this.curso.shortname,
+        category:this.curso.category,
+        user_id:this.$store.state.user.id,
+      }
+        axios.post('/api/matricula', crse).then(response => {
+          console.log(response);
+        }).catch(error => {
+          console.log(error);
+          alert('Debe verificar su email');
+        });
+      }else{
+        alert('Debe estar logueado para poder matricularse');
+      }
+    }
+  },
   beforeMount() {
     axios
-      .get("/api/curses/" + this.$route.params.shortname)
+      .get("/api/curse/" + this.$route.params.shortname)
       .then((response) => {
         this.curso = response.data.data;
         this.existe = true;
@@ -86,5 +105,9 @@ export default {
 img{
   width: 100%;
   min-height: 200px;
+}
+#summary{
+  color: white;
+  font-size: large;
 }
 </style>

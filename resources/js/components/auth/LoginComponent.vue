@@ -92,7 +92,7 @@ export default {
       axios
         .post("api/vuelogin", this.form)
         .then((response) => {
-          if (response.data.success) {
+          if (!response.data.success) {
             //this.$router.push({ path: "/" });
             this.error = response.data.message;
             this.disableBtnSubmit(false,this.btnMsg);

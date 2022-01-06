@@ -20,10 +20,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        // if(Auth::user()){
-        //     return response()->json(['status' => 'ok'], 200);
-        // }else{
-        //     return response()->json(['status' => 'no']);
-        // }
+        return response()->json(['status' => 'ok', 'data' => User::with('matriculas')->get()], 200);
     }
 }

@@ -17,7 +17,7 @@
         aria-labelledby="dropdownMenuLink"
         id="userMenu"
       >
-        <a class="dropdown-item" href="#">{{user_name}}</a>
+        <a class="dropdown-item" href="#">{{user_name.name}}</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>
@@ -33,22 +33,23 @@ import "boxicons";
 export default {
   data() {
     return {
-      user_name: "",
+      user_name: [],
     };
   },
   mounted(){
     this.user_name = this.$store.state.user;
-    console.log('UserMenuComponent')
+    console.log(this.user_name)
   },
   methods: {
     logout() {
       axios
-        .post("logout")
+        .post("/api/logout")
         .then(() => {
           console.log("Logout");
         })
         .catch((err) => {
           this.errors = err.response.data.errors;
+          alert("Error al cerrar sesión");
         });
     },
   },

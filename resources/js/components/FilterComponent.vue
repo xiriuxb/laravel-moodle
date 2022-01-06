@@ -17,7 +17,10 @@
               <div class="card-body">
                 <ul class="list-menu">
                   <li v-for="categoria in categories" :key="categoria.id">
-                    <a  href="#" data-abc="true">{{categoria.name}} </a>
+                    <router-link :to="{ name: 'cursos-filtered', params: { category:categoria.name } }">
+                      {{ categoria.name }}
+                    </router-link>
+                    <!-- <a" >{{categoria.name}} </a> -->
                   </li>
                 </ul>
               </div>
@@ -34,11 +37,33 @@ export default {
       categories:[],
     }
   },
+  mounted(){
+    console.log('mounted')
+  },
   beforeMount(){
-      axios.get('api/categorias').then((response) => {
+    console.log('beforeMount')
+  },
+  mounted(){
+    console.log('mounted')
+  },
+  beforeUpdate(){
+    console.log('beforeUpdate')
+  },
+  updated(){
+    console.log('updated')
+  },
+  beforeDestroy(){
+    console.log('beforeDestroy')
+  },
+  destroyed(){
+    console.log('destroyed')
+  },
+  beforeCreate(){
+    console.log('created')
+      axios.get('/api/categorias').then((response) => {
         this.categories = response.data.data;
       }).catch((err) => {
-
+        console.log(err);
       }); 
     },
 };

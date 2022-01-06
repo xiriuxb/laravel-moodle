@@ -55,7 +55,7 @@ class LoginController extends Controller
             return redirect('/');
         } else {
             $success = false;
-            $message = 'Unauthorised';
+            $message = 'Email o password incorrecto(s)';
             return response()->json([
                 'success' => $success,
                 'message' => $message,

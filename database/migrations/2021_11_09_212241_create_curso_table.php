@@ -15,10 +15,11 @@ class CreateCursoTable extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname',254);
-            $table->bigInteger('category');
-            $table->string('shortname',255);
-            // $table->longText('summary');
+            $table->integer('moodle_id')->unsigned()->unique();
+            $table->string('fullname',255);
+            $table->string('shortname',128);
+            $table->string('category',128);
+            $table->boolean('destacado')->default(false);
             // $table->string('image',255);
             // $table->double('price', 8, 2);
             // $table->float('destacado')->default(0);

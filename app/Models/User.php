@@ -12,6 +12,10 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasRoles;
 
+    public function matriculas ()
+    {
+        return $this->hasMany(Matricula::class,'usuario_id');
+    }
     /**
      * The attributes that are mass assignable.
      *

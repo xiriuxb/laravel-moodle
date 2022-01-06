@@ -26,44 +26,46 @@ function FunctionName()
     return $user;
 }
 
-
-Route::get('/', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->name('home');
-
-Route::get('/admin', function(){
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->middleware('can:admin.home')->name('admin.home');
-
-Route::get('/admin/{any}', function(){
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->middleware('can:admin.home')
-->name('admi')
-->where(['any'=>'testimonios|cursos|usuarios']);
-
-Route::get('/cursos', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->name('cursos');
-
-Route::get('/cursos/{any}', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->where(['any'=>'.*']);
-
-Route::get('/ingreso', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->middleware('guest')->name('ingreso');
-
-Route::get('/curso/{any}', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->where(['any' => '.*']);
-
-Route::get('/email/verify', function () {
-    return view('layouts.master',['auth_user'=>FunctionName()]);
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Auth::routes();
+Route::group(['middleware' => ['web']], function () {
+    
+    Route::get('/', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->name('home');
+    
+    Route::get('/admin', function(){
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->middleware('can:admin.home')->name('admin.home');
+    
+    Route::get('/admin/{any}', function(){
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->middleware('can:admin.home')
+    ->name('admi')
+    ->where(['any'=>'testimonios|cursos|usuarios']);
+    
+    Route::get('/cursos', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->name('cursos');
+    
+    Route::get('/cursos/{any}', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->where(['any'=>'.*']);
+    
+    Route::get('/ingreso', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->middleware('guest')->name('ingreso');
+    
+    Route::get('/curso/{any}', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->where(['any' => '.*']);
+    
+    Route::get('/email/verify', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->middleware('auth')->name('verification.notice');
+    
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+    
+    Auth::routes();
+});

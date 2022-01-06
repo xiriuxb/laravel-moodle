@@ -14,33 +14,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['web']], function () {
+    // your routes here
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')
+    ->name('vuelogin');
+    
+    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register')->middleware('guest');
+    
+    Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+    
+    Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+    
+    Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
+    
+    Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
+    
+    Route::apiResource('curse', 'App\Http\Controllers\Cursos');
+    
+    Route::get('curses/{categoria?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
+    
+    Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
+    
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    
+    Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController');
+    
+    Route::apiResource('users', 'App\Http\Controllers\UserController');
 });
-Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')
-->name('vuelogin');
-
-Route::post('register', 'App\Http\Controllers\Auth\RegisterController@validator')->name('register')->middleware('guest');
-
-Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
-
-Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-
-Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
-
-Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
-
-Route::apiResource('curse', 'App\Http\Controllers\Cursos');
-
-Route::get('curses/{categoria?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
-
-Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController');
-
-Route::apiResource('users', 'App\Http\Controllers\UserController');

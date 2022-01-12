@@ -26,10 +26,11 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    //crea el username. Ejemplo: John Doe -> jdoe, si hay mas con ese nombre se crean como jdoe1, jdoe2, etc.
     protected static function setUsernameAttribute($name, $lastName)
     {
-        $firstName = strtolower($name);
-        $lastName = strtolower($lastName);
+        $firstName = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE',strtolower($name) );
+        $lastName = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE',strtolower($lastName) );
         $username = $firstName[0] . $lastName;
         $i = 0;
         while(User::whereUsername($username)->exists())

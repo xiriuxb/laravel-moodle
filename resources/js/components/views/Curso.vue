@@ -53,7 +53,7 @@ export default {
         fullname:this.curso.fullname,
         shortname:this.curso.shortname,
         category:this.curso.category,
-        user_id:this.$store.state.user.id,
+        user_id:this.$store.state.user.username,
       }
         axios.post('/api/matricula', crse).then(response => {
           console.log(response);

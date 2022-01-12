@@ -16,9 +16,9 @@ class CreateMatriculasTable extends Migration
         Schema::create('matriculas', function (Blueprint $table) {
             $table->id();
             $table->integer('curso_id')->unsigned();
-            $table->bigInteger('usuario_id')->unsigned();
+            $table->string('usuario_id',50);
             $table->foreign('curso_id')->references('moodle_id')->on('cursos');
-            $table->foreign('usuario_id')->references('id')->on('users');
+            $table->foreign('usuario_id')->references('username')->on('users');
             $table->timestamps();
         });
     }

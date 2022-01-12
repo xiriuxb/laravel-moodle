@@ -250,7 +250,10 @@ h2 {
   min-width: 346px;
   margin: 30px 0;
 }
-
+.signup-content .row{
+  margin-right:0;
+  margin-left: 0;
+}
 .form-submit {
   font-weight: 700;
   color: #fff;
@@ -262,8 +265,10 @@ h2 {
   background-position: -200%;
   transition: all 300ms ease-in-out;
 }
-.loginhere {
+.loginhere-link {
   margin: 0px;
+  color:rgb(87, 110, 241);
+  cursor: pointer;
 }
 
 div.col {
@@ -283,16 +288,8 @@ div.col {
   bottom: 3px;
   position: relative;
 }
-
-.hided {
-  display: none;
-}
 .col.compartido {
   margin-right: 3px;
-}
-.md-form {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 .form-control {
   border: 0;

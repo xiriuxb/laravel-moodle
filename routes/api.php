@@ -43,7 +43,7 @@ Route::group(['middleware' => ['web']], function () {
         return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
     
-    Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController');
+    Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
     
     Route::apiResource('users', 'App\Http\Controllers\UserController');
 });

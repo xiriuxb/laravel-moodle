@@ -21,7 +21,8 @@ function FunctionName()
     if(Auth::check()){
         $user =['name'=>Auth::user()->name,
                 'email'=>Auth::user()->email,
-                'id'=>Auth::user()->id];
+                'id'=>Auth::user()->id,
+                'username'=>Auth::user()->username];
     }
     return $user;
 }
@@ -43,7 +44,7 @@ Route::group(['middleware' => ['web']], function () {
     ->where(['any'=>'testimonios|cursos|usuarios']);
     
     Route::get('/cursos', function () {
-        return view('layouts.master',['auth_user'=>FunctionName()]);
+        return redirect('/cursos/all');
     })->name('cursos');
     
     Route::get('/cursos/{any}', function () {

@@ -16,6 +16,8 @@
             <div class="filter-content collapse" id="collapse_aside1" style="">
               <div class="card-body">
                 <ul class="list-menu">
+                  <li>
+                    <router-link :to="{path:'/cursos/all'}">Todos</router-link>
                   <li v-for="categoria in categories" :key="categoria.id">
                     <router-link :to="{ name: 'cursos-filtered', params: { category:categoria.name } }">
                       {{ categoria.name }}

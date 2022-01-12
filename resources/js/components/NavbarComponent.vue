@@ -29,7 +29,7 @@
               >
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'cursos' }">Cursos</router-link>
+              <router-link :to="{ name: 'cursos-filtered',params: { category:'all' }}">Cursos</router-link>
             </li>
           </ul>
           <ul class="navbar-nav ms-auto">

@@ -28,185 +28,12 @@ export default {
   data() {
     return {
       visible: false,
-      cursos: [
-        {
-          fullname: "Curso 1",
-          shortname: "CRS1",
-          description: "Este es un curso de prueba",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 2",
-          shortname: "CRS2",
-          description: "Este es un curso de prueba 2",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Lenguaje", "Básico"],
-        },
-        {
-          fullname: "Curso 3",
-          shortname: "CRS3",
-          description: "Este es un curso de prueba 3",
-          is_visible: true,
-          price: 20.0,
-          profesor: "Luis Test",
-          categories: ["Miscelaneo"],
-        },
-        {
-          fullname: "Curso 4",
-          shortname: "CRS4",
-          description: "Este es un curso de prueba 4",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 5",
-          shortname: "CRS5",
-          description: "Este es un curso de prueba 5",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 6",
-          shortname: "CRS6",
-          description: "Este es un curso de prueba 6",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 7",
-          shortname: "CRS7",
-          description: "Este es un curso de prueba 7",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 8",
-          shortname: "CRS8",
-          description: "Este es un curso de prueba 8",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 9",
-          shortname: "CRS9",
-          description: "Este es un curso de prueba 9",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 10",
-          shortname: "CRS10",
-          description: "Este es un curso de prueba 10",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 11",
-          shortname: "CRS11",
-          description: "Este es un curso de prueba 11",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 12",
-          shortname: "CRS12",
-          description: "Este es un curso de prueba 12",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 13",
-          shortname: "CRS13",
-          description: "Este es un curso de prueba 13",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 14",
-          shortname: "CRS14",
-          description: "Este es un curso de prueba 14",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 15",
-          shortname: "CRS15",
-          description: "Este es un curso de prueba 15",
-          is_visible: true,
-          price: 89.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 16",
-          shortname: "CRS16",
-          description: "Este es un curso de prueba 16",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 17",
-          shortname: "CRS17",
-          description: "Este es un curso de prueba 17",
-          is_visible: true,
-          price: 99.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 18",
-          shortname: "CRS18",
-          description: "Este es un curso de prueba 18",
-          is_visible: true,
-          price: 19.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-        {
-          fullname: "Curso 19",
-          shortname: "CRS19",
-          description: "Este es un curso de prueba 19",
-          is_visible: true,
-          price: 9.99,
-          profesor: "Luis Test",
-          categories: ["Matemáticas", "Básico"],
-        },
-      ],
       cursos2: [],
     };
   },
-  mounted() {
+  beforeMount() {
     var ruta="/api/curses";
-    if (this.$route.params.category == undefined){
+    if (this.$route.params.category == 'all'){
       ruta = "/api/curses";
     }else{
       ruta = "/api/curses/" + this.$route.params.category;
@@ -225,11 +52,6 @@ export default {
       });
       console.log(this.cursos2)
   },
-  methods:{
-    loadCourses(){
-      
-    }
-  }
 };
 </script>
 

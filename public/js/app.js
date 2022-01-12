@@ -2393,168 +2393,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       visible: false,
-      cursos: [{
-        fullname: "Curso 1",
-        shortname: "CRS1",
-        description: "Este es un curso de prueba",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 2",
-        shortname: "CRS2",
-        description: "Este es un curso de prueba 2",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Lenguaje", "Básico"]
-      }, {
-        fullname: "Curso 3",
-        shortname: "CRS3",
-        description: "Este es un curso de prueba 3",
-        is_visible: true,
-        price: 20.0,
-        profesor: "Luis Test",
-        categories: ["Miscelaneo"]
-      }, {
-        fullname: "Curso 4",
-        shortname: "CRS4",
-        description: "Este es un curso de prueba 4",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 5",
-        shortname: "CRS5",
-        description: "Este es un curso de prueba 5",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 6",
-        shortname: "CRS6",
-        description: "Este es un curso de prueba 6",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 7",
-        shortname: "CRS7",
-        description: "Este es un curso de prueba 7",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 8",
-        shortname: "CRS8",
-        description: "Este es un curso de prueba 8",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 9",
-        shortname: "CRS9",
-        description: "Este es un curso de prueba 9",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 10",
-        shortname: "CRS10",
-        description: "Este es un curso de prueba 10",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 11",
-        shortname: "CRS11",
-        description: "Este es un curso de prueba 11",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 12",
-        shortname: "CRS12",
-        description: "Este es un curso de prueba 12",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 13",
-        shortname: "CRS13",
-        description: "Este es un curso de prueba 13",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 14",
-        shortname: "CRS14",
-        description: "Este es un curso de prueba 14",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 15",
-        shortname: "CRS15",
-        description: "Este es un curso de prueba 15",
-        is_visible: true,
-        price: 89.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 16",
-        shortname: "CRS16",
-        description: "Este es un curso de prueba 16",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 17",
-        shortname: "CRS17",
-        description: "Este es un curso de prueba 17",
-        is_visible: true,
-        price: 99.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 18",
-        shortname: "CRS18",
-        description: "Este es un curso de prueba 18",
-        is_visible: true,
-        price: 19.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }, {
-        fullname: "Curso 19",
-        shortname: "CRS19",
-        description: "Este es un curso de prueba 19",
-        is_visible: true,
-        price: 9.99,
-        profesor: "Luis Test",
-        categories: ["Matemáticas", "Básico"]
-      }],
       cursos2: []
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
     var _this = this;
 
     var ruta = "/api/curses";
 
-    if (this.$route.params.category == undefined) {
+    if (this.$route.params.category == 'all') {
       ruta = "/api/curses";
     } else {
       ruta = "/api/curses/" + this.$route.params.category;
@@ -2570,9 +2417,6 @@ __webpack_require__.r(__webpack_exports__);
       console.log(err);
     });
     console.log(this.cursos2);
-  },
-  methods: {
-    loadCourses: function loadCourses() {}
   }
 });
 
@@ -2766,6 +2610,8 @@ var _data$mounted$beforeM;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -3793,7 +3639,7 @@ __webpack_require__.r(__webpack_exports__);
           fullname: this.curso.fullname,
           shortname: this.curso.shortname,
           category: this.curso.category,
-          user_id: this.$store.state.user.id
+          user_id: this.$store.state.user.username
         };
         axios.post('/api/matricula', crse).then(function (response) {
           console.log(response);
@@ -9008,7 +8854,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nsection[data-v-3c7b4e2f] {\r\n  display: block;\r\n  position: relative;\n}\nlabel[data-v-3c7b4e2f] {\r\n  margin-bottom: -0.3rem;\n}\n*[data-v-3c7b4e2f],[data-v-3c7b4e2f]::after,[data-v-3c7b4e2f]::before {\r\n  box-sizing: border-box;\n}\nform[data-v-3c7b4e2f] {\r\n  display: block;\r\n  margin-top: 0em;\n}\nh2[data-v-3c7b4e2f] {\r\n  line-height: 1.66;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-weight: 900;\r\n  color: #222;\r\n  font-family: montserrat;\r\n  font-size: 24px;\r\n  text-transform: uppercase;\r\n  text-align: center;\r\n  margin-bottom: 10px;\n}\n.signup-content[data-v-3c7b4e2f] {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  -moz-border-radius: 10px;\r\n  -webkit-border-radius: 10px;\r\n  -o-border-radius: 10px;\r\n  -ms-border-radius: 10px;\r\n  padding: 20px 20px;\r\n  max-width: 350px;\r\n  min-width: 346px;\r\n  margin: 30px 0;\n}\n.form-submit[data-v-3c7b4e2f] {\r\n  font-weight: 700;\r\n  color: #fff;\r\n  text-transform: uppercase;\r\n  margin: 0;\r\n  width: 100%;\n}\n.button-5[data-v-3c7b4e2f]:hover {\r\n  background-position: -200%;\r\n  transition: all 300ms ease-in-out;\n}\n.loginhere[data-v-3c7b4e2f] {\r\n  margin: 0px;\n}\ndiv.col[data-v-3c7b4e2f] {\r\n  padding: 0px;\n}\n.alert[data-v-3c7b4e2f] {\r\n  position: relative;\r\n  padding: 0.1rem 0.4rem;\r\n  border: 1px solid transparent;\r\n  border-radius: 0.25rem;\r\n  font-size: 0.7rem;\r\n  margin-bottom: 2px;\n}\n#requerido[data-v-3c7b4e2f] {\r\n  font-size: 14px;\r\n  top: 3px;\r\n  bottom: 3px;\r\n  position: relative;\n}\n.hided[data-v-3c7b4e2f] {\r\n  display: none;\n}\n.col.compartido[data-v-3c7b4e2f] {\r\n  margin-right: 3px;\n}\n.md-form[data-v-3c7b4e2f] {\r\n  margin-top: 0;\r\n  margin-bottom: 0;\n}\n.form-control[data-v-3c7b4e2f] {\r\n  border: 0;\r\n  border-bottom: 1px solid #ced4da;\r\n  border-radius: 0;\r\n  padding-bottom: 1px;\r\n  padding-top: 1px;\r\n  height: calc(1.5em + 0.4rem);\n}\n.form-group[data-v-3c7b4e2f] {\r\n  margin-bottom: 0.3rem;\n}\n#tlf09[data-v-3c7b4e2f] {\r\n  max-width: 25px;\r\n  padding-top: 3px;\n}\n.btn-submit[data-v-3c7b4e2f] {\r\n  background-color: tomato;\r\n  font-family: \"Roboto\", sans-serif;\r\n  box-shadow: 0px 4px 7px #777;\r\n  height: 60px;\n}\n.btn-submit[data-v-3c7b4e2f]:hover {\r\n  background-color: #d44a0b;\n}\n[data-v-3c7b4e2f] .lds-ring div {\r\n  border-color: #fff transparent transparent transparent;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nsection[data-v-3c7b4e2f] {\r\n  display: block;\r\n  position: relative;\n}\nlabel[data-v-3c7b4e2f] {\r\n  margin-bottom: -0.3rem;\n}\n*[data-v-3c7b4e2f],[data-v-3c7b4e2f]::after,[data-v-3c7b4e2f]::before {\r\n  box-sizing: border-box;\n}\nform[data-v-3c7b4e2f] {\r\n  display: block;\r\n  margin-top: 0em;\n}\nh2[data-v-3c7b4e2f] {\r\n  line-height: 1.66;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-weight: 900;\r\n  color: #222;\r\n  font-family: montserrat;\r\n  font-size: 24px;\r\n  text-transform: uppercase;\r\n  text-align: center;\r\n  margin-bottom: 10px;\n}\n.signup-content[data-v-3c7b4e2f] {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  -moz-border-radius: 10px;\r\n  -webkit-border-radius: 10px;\r\n  -o-border-radius: 10px;\r\n  -ms-border-radius: 10px;\r\n  padding: 20px 20px;\r\n  max-width: 350px;\r\n  min-width: 346px;\r\n  margin: 30px 0;\n}\n.signup-content .row[data-v-3c7b4e2f]{\r\n  margin-right:0;\r\n  margin-left: 0;\n}\n.form-submit[data-v-3c7b4e2f] {\r\n  font-weight: 700;\r\n  color: #fff;\r\n  text-transform: uppercase;\r\n  margin: 0;\r\n  width: 100%;\n}\n.button-5[data-v-3c7b4e2f]:hover {\r\n  background-position: -200%;\r\n  transition: all 300ms ease-in-out;\n}\n.loginhere-link[data-v-3c7b4e2f] {\r\n  margin: 0px;\r\n  color:rgb(87, 110, 241);\r\n  cursor: pointer;\n}\ndiv.col[data-v-3c7b4e2f] {\r\n  padding: 0px;\n}\n.alert[data-v-3c7b4e2f] {\r\n  position: relative;\r\n  padding: 0.1rem 0.4rem;\r\n  border: 1px solid transparent;\r\n  border-radius: 0.25rem;\r\n  font-size: 0.7rem;\r\n  margin-bottom: 2px;\n}\n#requerido[data-v-3c7b4e2f] {\r\n  font-size: 14px;\r\n  top: 3px;\r\n  bottom: 3px;\r\n  position: relative;\n}\n.col.compartido[data-v-3c7b4e2f] {\r\n  margin-right: 3px;\n}\n.form-control[data-v-3c7b4e2f] {\r\n  border: 0;\r\n  border-bottom: 1px solid #ced4da;\r\n  border-radius: 0;\r\n  padding-bottom: 1px;\r\n  padding-top: 1px;\r\n  height: calc(1.5em + 0.4rem);\n}\n.form-group[data-v-3c7b4e2f] {\r\n  margin-bottom: 0.3rem;\n}\n#tlf09[data-v-3c7b4e2f] {\r\n  max-width: 25px;\r\n  padding-top: 3px;\n}\n.btn-submit[data-v-3c7b4e2f] {\r\n  background-color: tomato;\r\n  font-family: \"Roboto\", sans-serif;\r\n  box-shadow: 0px 4px 7px #777;\r\n  height: 60px;\n}\n.btn-submit[data-v-3c7b4e2f]:hover {\r\n  background-color: #d44a0b;\n}\n[data-v-3c7b4e2f] .lds-ring div {\r\n  border-color: #fff transparent transparent transparent;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44206,34 +44052,47 @@ var render = function() {
               _c(
                 "ul",
                 { staticClass: "list-menu" },
-                _vm._l(_vm.categories, function(categoria) {
-                  return _c(
+                [
+                  _c(
                     "li",
-                    { key: categoria.id },
                     [
                       _c(
                         "router-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "cursos-filtered",
-                              params: { category: categoria.name }
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(categoria.name) +
-                              "\n                  "
-                          )
-                        ]
+                        { attrs: { to: { path: "/cursos/all" } } },
+                        [_vm._v("Todos")]
                       )
                     ],
                     1
-                  )
-                }),
-                0
+                  ),
+                  _vm._l(_vm.categories, function(categoria) {
+                    return _c(
+                      "li",
+                      { key: categoria.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "cursos-filtered",
+                                params: { category: categoria.name }
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(categoria.name) +
+                                "\n                  "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
               )
             ])
           ]
@@ -44738,9 +44597,18 @@ var render = function() {
                     "li",
                     { staticClass: "nav-item" },
                     [
-                      _c("router-link", { attrs: { to: { name: "cursos" } } }, [
-                        _vm._v("Cursos")
-                      ])
+                      _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            to: {
+                              name: "cursos-filtered",
+                              params: { category: "all" }
+                            }
+                          }
+                        },
+                        [_vm._v("Cursos")]
+                      )
                     ],
                     1
                   )
@@ -45794,7 +45662,11 @@ var render = function() {
     _c(
       "div",
       { staticClass: "comp" },
-      [_c("filter-component"), _vm._v(" "), _c("router-view")],
+      [
+        _c("filter-component"),
+        _vm._v(" "),
+        _c("router-view", { key: _vm.$route.fullPath })
+      ],
       1
     )
   ])

@@ -14,8 +14,10 @@ class Cursos extends Controller
      * @param  array  $data
      * @return \App\Models\Comment
      */
-    public function index($categoria=null)
+    public function index($categoria=null,$page=1)
     {
+        $SLICE_SIZE = 6;
+        $DEFAULT_CATEGORY = 'all';
         $cursos = [];
         //dd($categoria);
         //Recive todos los cursos desde la API de moodle
@@ -27,6 +29,7 @@ class Cursos extends Controller
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
         ]);
+        //dd($categoria);
         $json = json_decode($res->getBody());
         if (empty($json->courses) ) {
             return response()->json(['status' => 'error', 'message' => 'No existen cursos'], 404);
@@ -43,17 +46,24 @@ class Cursos extends Controller
                         $cursoj->categoryname,
                         str_replace('/webservice', '', $cursoj->overviewfiles[0]->fileurl), //remove /webservice string,
                     );
-                    if($categoria!= null && $curso->category == $categoria){
+                    if($categoria!= $DEFAULT_CATEGORY && $curso->category == $categoria){
                         //dd($categoria);
                         $cursos[] = $curso;
                     }
-                    elseif($categoria == null){
+                    elseif($categoria == $DEFAULT_CATEGORY){
                         $cursos[] = $curso;
                     }
                 }
                 unset($curso);
             }
-            return response()->json(['status' => 'ok', 'data' => $cursos], 200);
+            if(empty($cursos)){
+                return response()->json(['status' => 'error', 'message' => 'No existen cursos de esta categoría'], 404);
+            }else{
+                $arr = array_slice($cursos,$this->calcMin($page,$SLICE_SIZE),($SLICE_SIZE*$page));
+                return response()->json(['status' => 'ok', 
+                'data' => $arr
+            ,'pages'=>ceil(sizeof($cursos)/$SLICE_SIZE) ], 200);
+            }
         }
     }
 
@@ -87,6 +97,19 @@ class Cursos extends Controller
                 //'destacado' => $json->courses[0]->customfields[3]->value,
             );
             return response()->json(['status' => 'ok', 'data' => $curso], 200);	
+        }
+    }
+
+    private function calcMin($page, $slice_size)
+    {
+        switch ($page) {
+            case 1:
+                return 0;
+                break;
+            
+            default:
+                return ($page - 1) * $slice_size;
+                break;
         }
     }
 }

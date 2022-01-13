@@ -1,5 +1,16 @@
 <template>
-  <div class="container d-flex justify-content-center mt-30 mb-50">
+  <div class="container justify-content-center mb-50">
+      <div class="row container">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li v-for="index in pages" :key="index" class="page-item">
+            <router-link :to="{name:'cursos-filtered',params:{category:$route.params.category,page:index}}">
+              <a class="page-link">{{ index }}</a>
+            </router-link>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </div>
     <div class="row" v-if="this.visible">
       <curso-card-component
         v-for="curso in cursos2"
@@ -12,6 +23,7 @@
         :categoryname="curso.category"
       >
       </curso-card-component>
+      <p v-if="mensajeErr != ''">{{ mensajeErr }}</p>
     </div>
     <loading-component v-else></loading-component>
   </div>
@@ -29,28 +41,29 @@ export default {
     return {
       visible: false,
       cursos2: [],
+      mensajeErr: "",
+      pages: 0,
     };
   },
   beforeMount() {
-    var ruta="/api/curses";
-    if (this.$route.params.category == 'all'){
-      ruta = "/api/curses";
-    }else{
-      ruta = "/api/curses/" + this.$route.params.category;
-    }
-    console.log(ruta)
+    var ruta = "/api/curses";
+    ruta =
+      ruta + "/" + this.$route.params.category + "/" + this.$route.params.page;
+    console.log(ruta);
     axios
       .get(ruta)
       .then((response) => {
         this.cursos2 = response.data.data;
+        this.pages = response.data.pages;
         this.visible = true;
         console.log(response.data.data);
       })
       .catch((err) => {
-        this.visible = false;
-        console.log(err);
+        this.visible = true;
+        this.mensajeErr = err.response.data.message;
+        console.log(err.response.data.message);
       });
-      console.log(this.cursos2)
+    console.log(this.cursos2);
   },
 };
 </script>

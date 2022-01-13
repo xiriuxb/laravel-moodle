@@ -30,6 +30,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## TODO
 - Menu de usuario
 - Terminar el menu admin
-- Arreglar la vista Cursos y el componente Filter
+- X Arreglar la vista Cursos y el componente Filter
+- X Poner un mensaje si no hay cursos
+- Pagination en vista cursos
 - Añadir búsqueda
 - Frogot password

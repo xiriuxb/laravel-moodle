@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-100">
-    <div class="d-flex justify-content-center">
+  <div class="container justify-content-center" id="filter">
+    <div class="justify-content-center" >
           <article class="filter-group">
             <a
               data-toggle="collapse"
@@ -17,9 +17,9 @@
               <div class="card-body">
                 <ul class="list-menu">
                   <li>
-                    <router-link :to="{path:'/cursos/all'}">Todos</router-link>
+                    <router-link :to="{path:'/cursos/all/1'}">Todos</router-link>
                   <li v-for="categoria in categories" :key="categoria.id">
-                    <router-link :to="{ name: 'cursos-filtered', params: { category:categoria.name } }">
+                    <router-link :to="{ name: 'cursos-filtered', params: { category:categoria.name, page:1 } }">
                       {{ categoria.name }}
                     </router-link>
                     <!-- <a" >{{categoria.name}} </a> -->
@@ -39,27 +39,6 @@ export default {
       categories:[],
     }
   },
-  mounted(){
-    console.log('mounted')
-  },
-  beforeMount(){
-    console.log('beforeMount')
-  },
-  mounted(){
-    console.log('mounted')
-  },
-  beforeUpdate(){
-    console.log('beforeUpdate')
-  },
-  updated(){
-    console.log('updated')
-  },
-  beforeDestroy(){
-    console.log('beforeDestroy')
-  },
-  destroyed(){
-    console.log('destroyed')
-  },
   beforeCreate(){
     console.log('created')
       axios.get('/api/categorias').then((response) => {
@@ -72,6 +51,10 @@ export default {
 </script>
 
 <style scoped>
+#filter{
+  max-width: 250px;
+  min-width: 220px;
+}
 .mt-100 {
   margin-top: 30px;
   box-sizing: border-box;

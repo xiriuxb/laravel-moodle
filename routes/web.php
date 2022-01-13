@@ -44,12 +44,12 @@ Route::group(['middleware' => ['web']], function () {
     ->where(['any'=>'testimonios|cursos|usuarios']);
     
     Route::get('/cursos', function () {
-        return redirect('/cursos/all');
-    })->name('cursos');
+        return redirect('/cursos/all/1');
+    })->where(['any'=>'.*'])->name('cursos');
     
-    Route::get('/cursos/{any}', function () {
+    Route::get('/cursos/{category}/{page}', function () {
         return view('layouts.master',['auth_user'=>FunctionName()]);
-    })->where(['any'=>'.*']);
+    })->where(['category'=>'.*','page' => '[0-9]+']);
     
     Route::get('/ingreso', function () {
         return view('layouts.master',['auth_user'=>FunctionName()]);

@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::apiResource('curse', 'App\Http\Controllers\Cursos');
     
-    Route::get('curses/{categoria?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
+    Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
     

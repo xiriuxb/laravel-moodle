@@ -2383,6 +2383,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2393,28 +2405,26 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       visible: false,
-      cursos2: []
+      cursos2: [],
+      mensajeErr: "",
+      pages: 0
     };
   },
   beforeMount: function beforeMount() {
     var _this = this;
 
     var ruta = "/api/curses";
-
-    if (this.$route.params.category == 'all') {
-      ruta = "/api/curses";
-    } else {
-      ruta = "/api/curses/" + this.$route.params.category;
-    }
-
+    ruta = ruta + "/" + this.$route.params.category + "/" + this.$route.params.page;
     console.log(ruta);
     axios.get(ruta).then(function (response) {
       _this.cursos2 = response.data.data;
+      _this.pages = response.data.pages;
       _this.visible = true;
       console.log(response.data.data);
     })["catch"](function (err) {
-      _this.visible = false;
-      console.log(err);
+      _this.visible = true;
+      _this.mensajeErr = err.response.data.message;
+      console.log(err.response.data.message);
     });
     console.log(this.cursos2);
   }
@@ -2606,10 +2616,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var _data$mounted$beforeM;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2644,38 +2650,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_data$mounted$beforeM = {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       categories: []
     };
   },
-  mounted: function mounted() {
-    console.log('mounted');
-  },
-  beforeMount: function beforeMount() {
-    console.log('beforeMount');
-  }
-}, _defineProperty(_data$mounted$beforeM, "mounted", function mounted() {
-  console.log('mounted');
-}), _defineProperty(_data$mounted$beforeM, "beforeUpdate", function beforeUpdate() {
-  console.log('beforeUpdate');
-}), _defineProperty(_data$mounted$beforeM, "updated", function updated() {
-  console.log('updated');
-}), _defineProperty(_data$mounted$beforeM, "beforeDestroy", function beforeDestroy() {
-  console.log('beforeDestroy');
-}), _defineProperty(_data$mounted$beforeM, "destroyed", function destroyed() {
-  console.log('destroyed');
-}), _defineProperty(_data$mounted$beforeM, "beforeCreate", function beforeCreate() {
-  var _this = this;
+  beforeCreate: function beforeCreate() {
+    var _this = this;
 
-  console.log('created');
-  axios.get('/api/categorias').then(function (response) {
-    _this.categories = response.data.data;
-  })["catch"](function (err) {
-    console.log(err);
-  });
-}), _data$mounted$beforeM);
+    console.log('created');
+    axios.get('/api/categorias').then(function (response) {
+      _this.categories = response.data.data;
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  }
+});
 
 /***/ }),
 
@@ -3912,7 +3903,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__.default({
       component: _components_views_Cursos__WEBPACK_IMPORTED_MODULE_7__.default,
       name: 'cursos',
       children: [{
-        path: ":category?",
+        path: ":category?/:page?",
         component: _components_CursosComponent__WEBPACK_IMPORTED_MODULE_14__.default,
         name: 'cursos-filtered'
       }]
@@ -8710,7 +8701,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.mt-100[data-v-1c992a4a] {\r\n  margin-top: 30px;\r\n  box-sizing: border-box;\r\n  width: 300px;\r\n  padding-right: 0;\n}\n.filter-group[data-v-1c992a4a] {\r\n    border: 1px solid #343a4071;\r\n    width: 100%;\n}\n.card[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-color: #fff;\r\n  background-clip: border-box;\r\n  border: 1px solid rgba(0, 0, 0, 0.1);\r\n  border-radius: 0.37rem;\n}\n.card-header[data-v-1c992a4a] {\r\n  padding: 0.75rem 1.25rem;\r\n  margin-bottom: 0;\r\n  background-color: #fff;\r\n  border-bottom: 4px solid #d44a0b;\r\n  cursor: pointer;\n}\n.icon-control[data-v-1c992a4a] {\r\n  margin-top: 6px;\r\n  float: right;\r\n  font-size: 80%;\n}\n.list-menu[data-v-1c992a4a] {\r\n  list-style: none;\r\n  margin: 0;\r\n  padding-left: 0;\n}\n.list-menu a[data-v-1c992a4a] {\r\n  color: #343a40;\n}\na[data-v-1c992a4a] {\r\n  text-decoration: none !important;\r\n  background-color: transparent;\n}\n.checkbox-btn[data-v-1c992a4a] {\r\n  position: relative;\n}\n.checkbox-btn input[data-v-1c992a4a] {\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\n}\n.checkbox-btn input:checked ~ .btn[data-v-1c992a4a] {\r\n  border-color: #3167eb;\r\n  background-color: #3167eb;\r\n  color: #fff;\n}\n.btn-light[data-v-1c992a4a] {\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #343a40;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  background-color: #eee;\r\n  border: 1px solid #eee;\r\n  padding: 0.45rem 0.85rem;\r\n  font-size: 10px;\r\n  line-height: 1.5;\r\n  border-radius: 0.37rem;\n}\n.btn-light[data-v-1c992a4a]:hover {\r\n  background-color: #fff;\r\n  border-color: #989898;\n}\n.btn-medium[data-v-1c992a4a] {\r\n  font-size: 12px;\r\n  padding: 10px 22px;\r\n  display: inline-block;\r\n  margin-right: 20px;\r\n  letter-spacing: 2px;\r\n  border: 1px solid #157af6;\r\n  width: 100%;\n}\n.highlight-button[data-v-1c992a4a]:hover {\r\n  background-color: #157af6;\r\n  border: 2px solid #157af6;\r\n  color: #fff;\n}\n.custom-control[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: block;\r\n  min-height: 1.5rem;\r\n  padding-left: 1.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#filter[data-v-1c992a4a]{\r\n  max-width: 250px;\r\n  min-width: 220px;\n}\n.mt-100[data-v-1c992a4a] {\r\n  margin-top: 30px;\r\n  box-sizing: border-box;\r\n  width: 300px;\r\n  padding-right: 0;\n}\n.filter-group[data-v-1c992a4a] {\r\n    border: 1px solid #343a4071;\r\n    width: 100%;\n}\n.card[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: flex;\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-color: #fff;\r\n  background-clip: border-box;\r\n  border: 1px solid rgba(0, 0, 0, 0.1);\r\n  border-radius: 0.37rem;\n}\n.card-header[data-v-1c992a4a] {\r\n  padding: 0.75rem 1.25rem;\r\n  margin-bottom: 0;\r\n  background-color: #fff;\r\n  border-bottom: 4px solid #d44a0b;\r\n  cursor: pointer;\n}\n.icon-control[data-v-1c992a4a] {\r\n  margin-top: 6px;\r\n  float: right;\r\n  font-size: 80%;\n}\n.list-menu[data-v-1c992a4a] {\r\n  list-style: none;\r\n  margin: 0;\r\n  padding-left: 0;\n}\n.list-menu a[data-v-1c992a4a] {\r\n  color: #343a40;\n}\na[data-v-1c992a4a] {\r\n  text-decoration: none !important;\r\n  background-color: transparent;\n}\n.checkbox-btn[data-v-1c992a4a] {\r\n  position: relative;\n}\n.checkbox-btn input[data-v-1c992a4a] {\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\n}\n.checkbox-btn input:checked ~ .btn[data-v-1c992a4a] {\r\n  border-color: #3167eb;\r\n  background-color: #3167eb;\r\n  color: #fff;\n}\n.btn-light[data-v-1c992a4a] {\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #343a40;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  background-color: #eee;\r\n  border: 1px solid #eee;\r\n  padding: 0.45rem 0.85rem;\r\n  font-size: 10px;\r\n  line-height: 1.5;\r\n  border-radius: 0.37rem;\n}\n.btn-light[data-v-1c992a4a]:hover {\r\n  background-color: #fff;\r\n  border-color: #989898;\n}\n.btn-medium[data-v-1c992a4a] {\r\n  font-size: 12px;\r\n  padding: 10px 22px;\r\n  display: inline-block;\r\n  margin-right: 20px;\r\n  letter-spacing: 2px;\r\n  border: 1px solid #157af6;\r\n  width: 100%;\n}\n.highlight-button[data-v-1c992a4a]:hover {\r\n  background-color: #157af6;\r\n  border: 2px solid #157af6;\r\n  color: #fff;\n}\n.custom-control[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: block;\r\n  min-height: 1.5rem;\r\n  padding-left: 1.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43848,33 +43839,102 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container d-flex justify-content-center mt-30 mb-50" },
+    { staticClass: "container justify-content-center mb-50" },
     [
+      _c("div", { staticClass: "row container" }, [
+        _c(
+          "ul",
+          { staticClass: "pagination justify-content-center" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.pages, function(index) {
+              return _c(
+                "li",
+                { key: index, staticClass: "page-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "cursos-filtered",
+                          params: {
+                            category: _vm.$route.params.category,
+                            page: index
+                          }
+                        }
+                      }
+                    },
+                    [
+                      _c("a", { staticClass: "page-link" }, [
+                        _vm._v(_vm._s(index))
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
       this.visible
         ? _c(
             "div",
             { staticClass: "row" },
-            _vm._l(_vm.cursos2, function(curso) {
-              return _c("curso-card-component", {
-                key: curso.shortname,
-                attrs: {
-                  name: curso.fullname,
-                  shortname: curso.shortname,
-                  image: curso.image,
-                  precio: curso.price,
-                  summary: curso.summary,
-                  categoryname: curso.category
-                }
-              })
-            }),
-            1
+            [
+              _vm._l(_vm.cursos2, function(curso) {
+                return _c("curso-card-component", {
+                  key: curso.shortname,
+                  attrs: {
+                    name: curso.fullname,
+                    shortname: curso.shortname,
+                    image: curso.image,
+                    precio: curso.price,
+                    summary: curso.summary,
+                    categoryname: curso.category
+                  }
+                })
+              }),
+              _vm._v(" "),
+              _vm.mensajeErr != ""
+                ? _c("p", [_vm._v(_vm._s(_vm.mensajeErr))])
+                : _vm._e()
+            ],
+            2
           )
         : _c("loading-component")
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+        _vm._v("Previous")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "page-item" }, [
+      _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+        _vm._v("Next")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -44036,70 +44096,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-100" }, [
-    _c("div", { staticClass: "d-flex justify-content-center" }, [
-      _c("article", { staticClass: "filter-group" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "filter-content collapse",
-            attrs: { id: "collapse_aside1" }
-          },
-          [
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "ul",
-                { staticClass: "list-menu" },
-                [
-                  _c(
-                    "li",
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: { path: "/cursos/all" } } },
-                        [_vm._v("Todos")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._l(_vm.categories, function(categoria) {
-                    return _c(
+  return _c(
+    "div",
+    {
+      staticClass: "container justify-content-center",
+      attrs: { id: "filter" }
+    },
+    [
+      _c("div", { staticClass: "justify-content-center" }, [
+        _c("article", { staticClass: "filter-group" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "filter-content collapse",
+              attrs: { id: "collapse_aside1" }
+            },
+            [
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "ul",
+                  { staticClass: "list-menu" },
+                  [
+                    _c(
                       "li",
-                      { key: categoria.id },
                       [
                         _c(
                           "router-link",
-                          {
-                            attrs: {
-                              to: {
-                                name: "cursos-filtered",
-                                params: { category: categoria.name }
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                    " +
-                                _vm._s(categoria.name) +
-                                "\n                  "
-                            )
-                          ]
+                          { attrs: { to: { path: "/cursos/all/1" } } },
+                          [_vm._v("Todos")]
                         )
                       ],
                       1
-                    )
-                  })
-                ],
-                2
-              )
-            ])
-          ]
-        )
+                    ),
+                    _vm._l(_vm.categories, function(categoria) {
+                      return _c(
+                        "li",
+                        { key: categoria.id },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "cursos-filtered",
+                                  params: { category: categoria.name, page: 1 }
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(categoria.name) +
+                                  "\n                  "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]
+          )
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -44603,7 +44670,7 @@ var render = function() {
                           attrs: {
                             to: {
                               name: "cursos-filtered",
-                              params: { category: "all" }
+                              params: { category: "all", page: 1 }
                             }
                           }
                         },

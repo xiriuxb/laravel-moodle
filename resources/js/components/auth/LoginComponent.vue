@@ -17,6 +17,7 @@
               v-model="form.email"
               required
               autofocus
+              autocomplete="email"
             />
           </div>
 
@@ -36,7 +37,6 @@
             <div>
               <div class="form-check">
                 <label for="remember">
-
                   <input
                     class="form-check-input"
                     type="checkbox"
@@ -51,12 +51,16 @@
             </div>
           </div>
 
-          <div class="form-group row mb-0">
+          <div class="form-group row mb-0" v-if="!this.$store.getters.isLoggedIn">
             <button type="submit" class="btn btn-submit" id="submit">
               Ingresar
             </button>
           </div>
-          <a class="btn btn-link" href=""> ¿Olvidó su password? </a>
+          <router-link :to="{name:'forgot-password'}">
+            <a class="btn btn-link">
+              ¿Olvidó su contraseña?
+            </a>
+          </router-link>
         </form>
       </div>
       <hr class="line" />
@@ -97,7 +101,8 @@ export default {
             this.error = response.data.message;
             this.disableBtnSubmit(false,this.btnMsg);
           } else {
-            window.location.href = "/";
+            console.log(response.data);
+            this.$router.go({ name: "home-component" });
           }
         })
         .catch((err) => {});

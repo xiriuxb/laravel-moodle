@@ -3,10 +3,11 @@
       <div class="row" id="caratula">
         <div class="container tit col-sm-5 col-xs-12">
             <h1 id="titulo1">{{titulo1}}</h1>
+            <p class="text">Busca un curso</p>
             <div class="container">
-                <input class="form-control" type="text" placeholder="Buscar Curso" aria-label="Search">
+                <search-component></search-component>
             </div>
-
+            <p class="text">O mira nuestro listado de cursos <router-link :to="{name:'cursos-filtered',params:{category:'all',page:1}}"><a>aquí</a> </router-link></p>
         </div>
         <div class="container col-sm-7 col-xs-12 registro" v-if="!this.$store.getters.isLoggedIn">
             <registro-component></registro-component>
@@ -17,9 +18,10 @@
 
 <script>
 import RegistroComponent from './RegistroComponent.vue'
+import SearchComponent from './SearchComponent.vue'
 
 export default {
-  components: { RegistroComponent },
+  components: { RegistroComponent,SearchComponent },
   data(){
       return{
         titulo1:'Aprende con nosotros',
@@ -66,5 +68,16 @@ export default {
 }
 .img-fluid{
     min-height: 400px;
+}
+.text{
+    color: wheat;
+    font-weight: bold;
+}
+.text a{
+    color: #ff772a;
+}
+
+.text a:hover{
+    color: #007bff;
 }
 </style>

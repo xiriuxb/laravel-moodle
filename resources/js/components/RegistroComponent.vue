@@ -135,7 +135,9 @@
       <hr />
       <p class="loginhere" id="registered">
         ¿Ya tiene una cuenta?
-        <a v-on:click="loginBtn" class="loginhere-link">Ingrese aquí</a>
+        <router-link :to="{name:'ingreso-view'}">
+          <a class="loginhere-link">Ingrese aquí</a>
+        </router-link>
       </p>
     </div>
   </section>
@@ -163,7 +165,7 @@ export default {
     saveFrom() {
       this.disableBtnSubmit(true);
       axios
-        .post("register", this.form)
+        .post("api/register", this.form)
         .then(() => {
           window.location.href = "/email/verify";
           console.log(response);

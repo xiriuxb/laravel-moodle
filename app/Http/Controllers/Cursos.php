@@ -100,6 +100,38 @@ class Cursos extends Controller
         }
     }
 
+    public function search()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+            'query' => [
+                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wsfunction' => 'core_course_get_courses_by_field',
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+        if (empty($json->courses) ) {
+            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
+        } else {
+            foreach ($json->courses as $cursoj) {
+
+                if ($cursoj->id != 1 && $cursoj->visible) {
+                    $curso = new MoodleCurso(
+                        $cursoj->id,
+                        $cursoj->fullname,
+                        $cursoj->shortname,
+                        $cursoj->categoryname,
+                        false,
+                    );
+                    $cursos[] = $curso;
+                }
+                unset($cursoj);
+            }
+            return response()->json(['status' => 'ok', 'data' => $cursos], 200);	
+        }
+    }
+
     private function calcMin($page, $slice_size)
     {
         switch ($page) {

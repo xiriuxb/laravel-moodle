@@ -13,7 +13,7 @@
                 <h6 class="title">Categorías</h6>
               </div>
             </a>
-            <div class="filter-content collapse" id="collapse_aside1" style="">
+            <div class="collapse" id="collapse_aside1" style="">
               <div class="card-body">
                 <ul class="list-menu">
                   <li>
@@ -65,23 +65,6 @@ export default {
 .filter-group {
     border: 1px solid #343a4071;
     width: 100%;
-}
-
-.card {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0.37rem;
 }
 
 .card-header {

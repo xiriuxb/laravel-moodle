@@ -32,6 +32,16 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
-- Pagination en vista cursos
-- Añadir búsqueda
-- Frogot password
+- X Pagination en vista cursos
+- X La barra de paginacion se recarga-- cambiar eso-- No es problema solo cambiar posición
+- X Añadir boton registro en barra de navegación (no aparecer en home)
+- O Añadir búsqueda
+- X Frogot password
+- Revisar el uso de tildes en nombres de usuario
+- X Anadir un boton o algo en la pagina de inicio que redirija a los cursos
+- Boton de inscribirse, cambiar cuando ya este inscrito
+- X Revisar la ruta de email/verify
+- Add forntend messages on:
+    - Forgot password
+    - Reset password
+    - Matrícula

@@ -8,7 +8,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*Loading icon */
 .lds-ring {
   display: inline-block;

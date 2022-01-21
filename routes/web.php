@@ -51,6 +51,10 @@ Route::group(['middleware' => ['web']], function () {
         return view('layouts.master',['auth_user'=>FunctionName()]);
     })->where(['category'=>'.*','page' => '[0-9]+']);
     
+    Route::get('/cursos/{category}', function ($category) {
+        return redirect('/cursos/'.$category.'/1');
+    })->where(['category'=>'.*']);
+    
     Route::get('/ingreso', function () {
         return view('layouts.master',['auth_user'=>FunctionName()]);
     })->middleware('guest')->name('ingreso');
@@ -67,6 +71,12 @@ Route::group(['middleware' => ['web']], function () {
         $request->fulfill();
         return redirect('/');
     })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    Route::get('/forgot-password', function () {
+        return view('layouts.master',['auth_user'=>FunctionName()]);
+    })->middleware('guest')->name('password.request');
     
-    Auth::routes();
+    Route::get('/reset-password/{token}', function ($token) {
+        return view('layouts.master', ['token' => $token,'auth_user'=>FunctionName()]);
+    })->middleware('guest')->name('password.reset');
 });

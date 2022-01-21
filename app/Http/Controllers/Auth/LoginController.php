@@ -52,7 +52,10 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $success = true;
             $message = 'User login successfully';
-            return redirect('/');
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ], 200);
         } else {
             $success = false;
             $message = 'Email o password incorrecto(s)';

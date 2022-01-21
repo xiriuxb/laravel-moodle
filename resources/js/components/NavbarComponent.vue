@@ -2,11 +2,12 @@
   <header class="main-header scroll" id="navbar">
     <div class="container">
       <nav class="navbar navbar-expand-lg main-nav px-0">
-        <a class="navbar-brand" href="/">
-          <img src="/images/logo.png" alt="Buisiness Logo" />
-        </a>
+        <router-link :to="{name:'home-component'}">
+          <a class="navbar-brand">
+            <img src="/images/logo.png" alt="Buisiness Logo" />
+          </a>
+        </router-link>
         <button
-          v-on:click="changeTheme"
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -20,23 +21,33 @@
           <span class="icon-bar icon-bar-3"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainMenu">
-          <ul class="navbar-nav text-uppercase mr-auto f1">
-            <li class="nav-item">
+          <ul class="navbar-nav mr-auto f1">
+            <li class="nav-item text-uppercase">
               <router-link
                 :to="{ name: 'home-component' }"
                 class="active active-first"
-                >inicio</router-link
-              >
+                >inicio
+                </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item text-uppercase">
               <router-link :to="{ name: 'cursos-filtered',params: { category:'all' ,page:1}}">Cursos</router-link>
             </li>
+          <li class="nav-item">
+            <search-component></search-component>
+          </li>
           </ul>
           <ul class="navbar-nav ms-auto">
             <li v-if="!this.$store.getters.isLoggedIn">
-              <a class="btn btn-primary"  id="loginBtn" v-on:click="loginBtn">
-                Ingrese
+              <a href="/" v-if="$route.fullPath != '/'">
+                Regístrese
               </a>
+            </li>
+            <li>
+              <router-link :to="{name:'ingreso-view'}" v-if="!this.$store.getters.isLoggedIn">
+                <a class="btn btn-primary"  id="loginBtn">
+                  Ingrese
+                </a>
+              </router-link>
             </li>
             <li v-if="this.$store.getters.isLoggedIn">
               <user-menu-component></user-menu-component>
@@ -50,7 +61,7 @@
 </template>
 
 <script>
-console.log('NavbarComponent')
+import SearchComponent from './SearchComponent.vue';
 import UserMenuComponent from "./UserMenuComponent.vue";
 export default {
   data() {
@@ -58,7 +69,9 @@ export default {
       cursos_link: "/cursos",
     };
   },
-  components: { UserMenuComponent },
+  components: { UserMenuComponent, SearchComponent },
+  mounted(){
+  },
   methods: {
     changeTheme() {
       const nav = document.querySelector("#navbar");

@@ -68,11 +68,13 @@ const router = new VueRouter({
             children: [
                 { path: '', component: HomeComponemt, name: 'home-component', },
                 //{ path: '/cursos', component: Cursos, name: 'cursos' },
-                { path: 'cursos', component: Cursos, name: 'cursos', children:[
+                { path: 'cursos', component: Cursos, name: 'cursos' ,children:[
                     { path: ":category?/:page?", component: CursosComponent, name: 'cursos-filtered' },
                 ] },
                 { path: 'curso/:shortname', component: Curso, name: 'curso' },
                 { path: 'email/verify', component: Notice, name: 'email' },
+                { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
+                { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },
             ],
         },
         {
@@ -95,12 +97,16 @@ const router = new VueRouter({
 
 const store = new Vuex.Store({
     state: {
-        user: null
+        user: null,
+        token: null,
     },
     mutations: {
         setAuthUser(state, user) {
             state.user = user;
-        }
+        },
+        setResetToken(state, token) {
+            state.token = token;
+        }	
     },
     getters: {
         isLoggedIn(state) {

@@ -38,7 +38,6 @@ export default {
   },
   mounted(){
     this.user_name = this.$store.state.user;
-    console.log(this.user_name)
   },
   methods: {
     logout() {

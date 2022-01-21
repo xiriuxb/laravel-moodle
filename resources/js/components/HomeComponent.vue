@@ -113,9 +113,9 @@
 <script>
 import CaratulaComponent from './CaratulaComponent.vue'
 import CursosSmComponent from './CursosSmComponent.vue'
+
 export default {
     mounted(){
-        
         console.log('HomeComponent')
     },
     components: { CursosSmComponent,CaratulaComponent },

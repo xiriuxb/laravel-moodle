@@ -5,7 +5,11 @@
         <div class="card left">
           <div class="row">
             <div class="col-12 col-sm-8 justify-content-center">
-              <div v-on:click.prevent="">{{ curso.category }}</div>
+              <div>
+                <router-link :to="{name:'cursos-filtered',params:{category:curso.category,page:1}}">
+                {{ curso.category }}
+                </router-link>
+                </div>
               <h2 id="titulo-cursos" class="card-title">{{ curso.fullname }}</h2>
               <div id="summary">
                 <div>{{this.curso.summary}}</div>

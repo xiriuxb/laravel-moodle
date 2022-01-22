@@ -29,12 +29,6 @@ export default {
     },
     data:function(){
         return{
-        comments:[
-            {'id':1, 'title':'Matemática Básica', 'tipo':0,'topico':'Matemática'},
-            {'id':2, 'title':'Matemática de Bachillerato', 'tipo':1,'topico':'Matemática'},
-            {'id':3, 'title':'Principios de Programación', 'tipo':1,'topico':'Programación'},
-            {'id':4, 'title':'Introducción al Internet', 'tipo':1,'topico':'Redes'},
-        ],
         comments2:[
 
         ],

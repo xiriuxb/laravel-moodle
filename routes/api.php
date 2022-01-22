@@ -91,6 +91,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
         );
     
         return $status === Password::PASSWORD_RESET
-                    ? response()->json(['status', __($status)])
-                    : response()->json(['email' => __($status)]);
+                    ? response()->json(['status'=> __($status)])
+                    : response()->json(['errors'=>['email' => __($status)]],422);
     })->middleware('guest')->name('password.update');

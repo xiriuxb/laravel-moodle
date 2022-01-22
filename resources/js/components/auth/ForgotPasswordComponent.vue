@@ -6,7 +6,7 @@
         <h3>¿Olvidó su contraseña?</h3>
         <div
           id="alert"
-          v-if="visible"
+          v-if="errorMessage"
           v-bind:class="{
             'alert alert-success': this.stat,
             'alert alert-danger': !this.stat,
@@ -14,7 +14,7 @@
         >
           {{ this.errorMessage }}
         </div>
-        <form class="form-group" @submit.prevent="sendRequest">
+        <form class="form-group" @submit.prevent="sendRequest" v-if="!this.stat">
           <input
             type="email"
             class="form-control"
@@ -24,11 +24,19 @@
             v-model="form.email"
             required
           />
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          <button type="submit" class="btn btn-primary" :disabled="visible">
+            <span
+              class="spinner-border spinner-border-sm" v-if="visible"
+              role="status" aria-hidden="true"></span>
+            Enviar
+          </button>
         </form>
-        <router-link :to="{ name: 'ingreso-view' }">
-          <a>Ingresar</a>
+        <div>
+          O <router-link :to="{ name: 'ingreso-view' }">
+          <a>Ingrese</a>
         </router-link>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -48,16 +56,17 @@ export default {
   },
   methods: {
     sendRequest() {
-      this.visible = false;
+      this.visible = true;
       axios
         .post("api/forgot-password", this.form)
         .then((response) => {
           response.data.status ? (this.stat = true) : (this.stat = false);
           this.errorMessage = response.data[Object.keys(response.data)[0]];
-          this.visible = true;
+          this.visible = false;
         })
         .catch((error) => {
           this.stat = false;
+          this.visible = false;
         });
     },
   },
@@ -90,10 +99,14 @@ export default {
 
 #forgot-password .container button {
   width: 100%;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 15px 0 15px 0;
+}
+
+loading-component {
+  width: 20px;
+  height: 20px;
 }
 </style>

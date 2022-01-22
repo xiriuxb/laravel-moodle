@@ -42,6 +42,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - Boton de inscribirse, cambiar cuando ya este inscrito
 - X Revisar la ruta de email/verify
 - Add forntend messages on:
-    - Forgot password
-    - Reset password
+    - X Forgot password
+    - X Reset password
     - Matrícula

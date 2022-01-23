@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{csrf_token()}}">
+    <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
     <!--meta name="viewport" content="width=device-width, initial-scale 1"-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     {{-- estos scripts almacenan los parámetros enviados desde web.php en laravel --}}

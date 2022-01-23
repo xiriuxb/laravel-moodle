@@ -1,28 +1,55 @@
 <template>
   <div class="container justify-content-center mb-50">
-      <div class="row container">
-        <ul class="pagination justify-content-center">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li v-for="index in pages" :key="index" class="page-item">
-            <router-link :to="{name:'cursos-filtered',params:{category:$route.params.category,page:index}}">
-              <a class="page-link">{{ index }}</a>
+    <div v-if="this.visible">
+      <div class="row">
+        <curso-card-component
+          v-for="curso in cursos2"
+          :key="curso.shortname"
+          :name="curso.fullname"
+          :shortname="curso.shortname"
+          :image="curso.image"
+          :precio="curso.price"
+          :summary="curso.summary"
+          :categoryname="curso.category"
+        >
+        </curso-card-component>
+        <!-- Page navigation -->
+        <div class="container">
+          <ul class="pagination justify-content-center">
+            <router-link
+              :to="{
+                name: 'cursos-filtered',
+                params: {
+                  category: $route.params.category,
+                  page: navigationDown(page),
+                },
+              }"
+            >
+              <li class="page-item" :class="{'page-item disabled': page==1}"><a class="page-link">Previous</a></li>
             </router-link>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
+            <li v-for="index in pages" :key="index" class="page-item"
+              v-bind:class="{ 'page-item active': index == page }">
+              <router-link
+                :to="{name: 'cursos-filtered',params: { category: $route.params.category, page: index },}">
+                <a class="page-link">{{ index }}</a>
+              </router-link>
+            </li>
+            <router-link
+              :disabled="+page === +pages"
+              :to="{
+                name: 'cursos-filtered',
+                params: {
+                  category: $route.params.category,
+                  page: navigationUp(page, pages),
+                },
+              }"
+            >
+              <li class="page-item" :class="{'page-item disabled': page==pages}"><a class="page-link">Next</a></li>
+            </router-link>
+          </ul>
+        </div>
+        <!-- End page navigation -->
       </div>
-    <div class="row" v-if="this.visible">
-      <curso-card-component
-        v-for="curso in cursos2"
-        :key="curso.shortname"
-        :name="curso.fullname"
-        :shortname="curso.shortname"
-        :image="curso.image"
-        :precio="curso.price"
-        :summary="curso.summary"
-        :categoryname="curso.category"
-      >
-      </curso-card-component>
       <p v-if="mensajeErr != ''">{{ mensajeErr }}</p>
     </div>
     <loading-component v-else></loading-component>
@@ -43,27 +70,36 @@ export default {
       cursos2: [],
       mensajeErr: "",
       pages: 0,
+      page: 1,
     };
+  },
+  methods: {
+    navigationUp(page, maxPage) {
+      return page < maxPage ? +page + 1 : +page;
+    },
+    navigationDown(page) {
+      return page > 1 ? +page - 1 : 1;
+    },
   },
   beforeMount() {
     var ruta = "/api/curses";
     ruta =
       ruta + "/" + this.$route.params.category + "/" + this.$route.params.page;
-    console.log(ruta);
+    this.page = this.$route.params.page;
     axios
       .get(ruta)
       .then((response) => {
         this.cursos2 = response.data.data;
         this.pages = response.data.pages;
         this.visible = true;
-        console.log(response.data.data);
+        console.log(this.pages);
+        console.log(this.page);
       })
       .catch((err) => {
         this.visible = true;
         this.mensajeErr = err.response.data.message;
         console.log(err.response.data.message);
       });
-    console.log(this.cursos2);
   },
 };
 </script>

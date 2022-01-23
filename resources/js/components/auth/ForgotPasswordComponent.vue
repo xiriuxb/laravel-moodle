@@ -105,8 +105,7 @@ export default {
   margin: 15px 0 15px 0;
 }
 
-loading-component {
-  width: 20px;
-  height: 20px;
+#alert{
+  
 }
 </style>

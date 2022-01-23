@@ -33,7 +33,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
 - X Pagination en vista cursos
-- X La barra de paginacion se recarga-- cambiar eso-- No es problema solo cambiar posición
+- X La barra de paginacion se recarga-- cambiar eso-- no es problema
+- X Cambiar posición barra de paginación
 - X Añadir boton registro en barra de navegación (no aparecer en home)
 - O Añadir búsqueda
 - X Frogot password
@@ -41,7 +42,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Anadir un boton o algo en la pagina de inicio que redirija a los cursos
 - Boton de inscribirse, cambiar cuando ya este inscrito
 - X Revisar la ruta de email/verify
-- Add forntend messages on:
+- Add frontend messages on:
     - X Forgot password
     - X Reset password
     - Matrícula

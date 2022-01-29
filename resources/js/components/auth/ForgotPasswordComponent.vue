@@ -104,8 +104,4 @@ export default {
   align-items: center;
   margin: 15px 0 15px 0;
 }
-
-#alert{
-  
-}
 </style>

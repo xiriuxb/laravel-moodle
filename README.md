@@ -29,6 +29,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## TODO
 - Menu de usuario
+    - Vista de datos personales
+        - Cambio de correo
+        - Cambio de contraseña
+    - Vista de compras (inscripciones)
 - Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
@@ -42,7 +46,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Anadir un boton o algo en la pagina de inicio que redirija a los cursos
 - Boton de inscribirse, cambiar cuando ya este inscrito
 - X Revisar la ruta de email/verify
-- Add frontend messages on:
+- O Add frontend messages on:
     - X Forgot password
     - X Reset password
-    - Matrícula
+    - O Matrícula-- Revisar todos los errores que pueden llegar en el response
+    - X Login
+- Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
+- Cambiar el registro del curso al matricularse al back

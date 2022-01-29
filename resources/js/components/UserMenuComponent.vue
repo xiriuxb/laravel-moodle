@@ -17,7 +17,9 @@
         aria-labelledby="dropdownMenuLink"
         id="userMenu"
       >
-        <a class="dropdown-item" href="#">{{user_name.name}}</a>
+        <router-link :to="{path:'/personal'}">
+          <div class="dropdown-item">{{user_name.name}}</div>
+        </router-link>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>
@@ -44,7 +46,7 @@ export default {
       axios
         .post("/api/logout")
         .then(() => {
-          console.log("Logout");
+          this.$toast.open({message:'See u', type:'info',position:'top'});
         })
         .catch((err) => {
           this.errors = err.response.data.errors;

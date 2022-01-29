@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import "boxicons";
+
 import LoadingComponent from "../LoadingComponent.vue";
 export default {
   components: { LoadingComponent },

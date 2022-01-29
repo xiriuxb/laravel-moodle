@@ -6,12 +6,16 @@
 
 require('./bootstrap');
 //Librerias
+import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router'
 import vueCountryRegionSelect from 'vue-country-region-select'
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(Vuex);
-Vue.use(VueRouter)
-Vue.use(vueCountryRegionSelect)
+Vue.use(VueRouter);
+Vue.use(vueCountryRegionSelect);
+Vue.use(VueToast);
 //Componentes del sitio
 Vue.config.debug = true;
 Vue.config.devtools = true;
@@ -20,13 +24,13 @@ import HomeComponemt from "./components/HomeComponent";
 import Home from "./components/views/Home";
 import Cursos from "./components/views/Cursos";
 import Admin from "./components/views/Admin.vue"
-import Vue from 'vue';
 import Curso from "./components/views/Curso";
 import AdminTestimonialComponent from "./components/Admin/AdminTestimonialComponent"
 import AdminCoursesComponent from "./components/Admin/AdminCoursesComponent"
 import AdminUsersComponent from "./components/Admin/AdminUsersComponent"
 import Notice from "./components/Email/Notice"
 import CursosComponent from "./components/CursosComponent"
+import 'boxicons';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -86,6 +90,7 @@ const router = new VueRouter({
             ],
         },
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
+        { path: '/personal', component: require('./components/User/ProfileComponent.vue').default }
     ],
 
     //{ path: '/test', component: AdminCommentComponent, name: 'test' },
@@ -96,6 +101,7 @@ const router = new VueRouter({
 // s
 
 const store = new Vuex.Store({
+    strict: true,
     state: {
         user: null,
         token: null,
@@ -115,6 +121,9 @@ const store = new Vuex.Store({
             } else {
                 return true;
             }
+        },
+        getUser(state) {
+            return state.user;
         }
     }
 });

@@ -1,5 +1,6 @@
 <template>
   <div id="cursos">
+    
     <div id="encabezado-cursos">
       <div>
         <div class="col-5 col-md-5 justify-content-center">
@@ -10,6 +11,7 @@
     <div class="comp">
       <filter-component></filter-component>
       <router-view :key="$route.fullPath"></router-view>
+      <p>{{$data}}</p>
     </div>
   </div>
 </template>

@@ -83,8 +83,11 @@ class Cursos extends Controller
         $json = json_decode($res->getBody());
         if (empty($json->courses) ) {
             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
+        } elseif(!$json->courses[0]->visible){
+            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
         } else {
             $curso_aux = $json->courses[0];
+            //dd($curso_aux);
             $curso = new MoodleCurso(
                 $curso_aux->id,
                 $curso_aux->fullname,

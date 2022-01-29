@@ -25,7 +25,7 @@
                 },
               }"
             >
-              <li class="page-item" :class="{'page-item disabled': page==1}"><a class="page-link">Previous</a></li>
+              <li class="page-item" :class="{'page-item disabled': page==1}"><a class="page-link">Anterior</a></li>
             </router-link>
             <li v-for="index in pages" :key="index" class="page-item"
               v-bind:class="{ 'page-item active': index == page }">
@@ -44,7 +44,7 @@
                 },
               }"
             >
-              <li class="page-item" :class="{'page-item disabled': page==pages}"><a class="page-link">Next</a></li>
+              <li class="page-item" :class="{'page-item disabled': page==pages}"><a class="page-link">Siguiente</a></li>
             </router-link>
           </ul>
         </div>

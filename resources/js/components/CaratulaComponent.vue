@@ -72,6 +72,7 @@ export default {
 .text{
     color: wheat;
     font-weight: bold;
+    font-size: larger;
 }
 .text a{
     color: #ff772a;

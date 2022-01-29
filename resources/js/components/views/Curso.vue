@@ -50,7 +50,6 @@ export default {
   },
   methods:{
     matricula(){
-      console.log(this.curso)
       if(this.$store.state.user!=null){
         var crse={
         moodle_id:this.curso.moodle_id,
@@ -59,14 +58,15 @@ export default {
         category:this.curso.category,
         user_id:this.$store.state.user.username,
       }
-        axios.post('/api/matricula', crse).then(response => {
-          console.log(response);
+        axios.post('/api/matricula', crse).then(()=> {
+          this.$toast.open({message:'Usted se ha inscrito',position:'top', type:'success'});
         }).catch(error => {
           console.log(error);
-          alert('Debe verificar su email');
+          this.$toast.open({message:'Debe verificar su email',position:'top', type:'warning'});
         });
       }else{
-        alert('Debe estar logueado para poder matricularse');
+        this.$toast.open({message:'Debe estar logueado para poder matricularse',position:'top', type:'warning'});
+        this.$router.push({ name:'ingreso-view' });
       }
     }
   },

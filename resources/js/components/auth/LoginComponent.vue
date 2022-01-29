@@ -2,11 +2,12 @@
   <div class="container">
     <div>
       <div class="card-body">
-        <form autocomplete="off" id="login-form" @submit.prevent="loginForm()">
-          <!--@csrf-->
       <div class="alert alert-danger" role="alert" v-if="error">
         {{error}}
       </div>
+        <form autocomplete="off" id="login-form" @submit.prevent="loginForm()">
+          <!--@csrf-->
+          <input type="hidden" name="_token" :value=" token " />
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
             <input
@@ -85,8 +86,10 @@ export default {
         email: "",
         password: "",
         remember:false,
+        token:this.token
       },
       error: "",
+      token:'',
     };
   },
   methods: {
@@ -94,18 +97,15 @@ export default {
       this.error = "";
       this.disableBtnSubmit(true);
       axios
-        .post("api/vuelogin", this.form)
-        .then((response) => {
-          if (!response.data.success) {
-            //this.$router.push({ path: "/" });
-            this.error = response.data.message;
-            this.disableBtnSubmit(false,this.btnMsg);
-          } else {
-            console.log(response.data);
-            this.$router.go({ name: "home-component" });
-          }
+        .post("/api/vuelogin", this.form)
+        .then(() => {
+          this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
+          this.$router.go({ path: "/" });
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.error = err.response.data.message;
+            this.disableBtnSubmit(false,this.btnMsg)
+        });
     },
     disableBtnSubmit(value, texto) {
       const button = document.getElementById("submit");
@@ -123,6 +123,10 @@ export default {
       window.location.href = "https://www.academia.octavario.org/login/";
     }
   },
+  mounted(){
+    this.token = window.Laravel.csrfToken;
+    console.log(this.token);
+  }
 };
 </script>
 

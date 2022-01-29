@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
@@ -7,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,8 +20,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->middleware('web')
-    ->name('vuelogin');
+    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->middleware('throttle:5,10')->name('vuelogin');
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
     

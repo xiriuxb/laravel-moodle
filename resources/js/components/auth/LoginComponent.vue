@@ -7,7 +7,6 @@
       </div>
         <form autocomplete="off" id="login-form" @submit.prevent="loginForm()">
           <!--@csrf-->
-          <input type="hidden" name="_token" :value=" token " />
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
             <input
@@ -85,11 +84,9 @@ export default {
       form: {
         email: "",
         password: "",
-        remember:false,
-        token:this.token
+        remember:false
       },
       error: "",
-      token:'',
     };
   },
   methods: {
@@ -123,10 +120,6 @@ export default {
       window.location.href = "https://www.academia.octavario.org/login/";
     }
   },
-  mounted(){
-    this.token = window.Laravel.csrfToken;
-    console.log(this.token);
-  }
 };
 </script>
 

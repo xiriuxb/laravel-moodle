@@ -3872,7 +3872,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3880,11 +3879,9 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         email: "",
         password: "",
-        remember: false,
-        token: this.token
+        remember: false
       },
-      error: "",
-      token: ''
+      error: ""
     };
   },
   methods: {
@@ -3926,10 +3923,6 @@ __webpack_require__.r(__webpack_exports__);
     coursesBtn: function coursesBtn() {
       window.location.href = "https://www.academia.octavario.org/login/";
     }
-  },
-  mounted: function mounted() {
-    this.token = window.Laravel.csrfToken;
-    console.log(this.token);
   }
 });
 
@@ -47467,11 +47460,6 @@ var render = function() {
             }
           },
           [
-            _c("input", {
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.token }
-            }),
-            _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c(
                 "label",

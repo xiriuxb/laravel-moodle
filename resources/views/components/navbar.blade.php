@@ -17,10 +17,7 @@
             <a href="{{ route('home') }}" class="active active-first">inicio</a>
           </li>
           <li>
-<<<<<<< HEAD
-            <a href="#cursos">Cursos</a>
-=======
-            <a href="{{ route('acerca') }}">nosotros</a>
+            <a href="{{route('cursos')}}">Cursos</a>
           </li>
           <li>
             <a href="#service">services</a>
@@ -36,10 +33,6 @@
           </li>
           <li>
             <a href="#contact">contact</a>
-<<<<<<< HEAD
->>>>>>> parent of 48eb9a8 (navbar modificado)
-=======
->>>>>>> parent of 48eb9a8 (navbar modificado)
           </li>
         </ul>
       </div>

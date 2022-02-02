@@ -5,8 +5,9 @@
       <div class="alert alert-danger" role="alert" v-if="error">
         {{error}}
       </div>
-        <form autocomplete="off" id="login-form" @submit.prevent="loginForm()">
+        <form v-if="!this.$store.getters.isLoggedIn" autocomplete id="login-form" @submit.prevent="loginForm()">
           <!--@csrf-->
+          <input type="hidden" name="_token" value=window.window.Laravel.csrfToken v-model="form.token">
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
             <input
@@ -52,23 +53,25 @@
           </div>
 
           <div class="form-group row mb-0" v-if="!this.$store.getters.isLoggedIn">
-            <button type="submit" class="btn btn-submit" id="submit">
+            <button type="submit" class="btn btn-submit" id="submit" :disabled="loading">
+              <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Ingresar
             </button>
           </div>
-          <router-link :to="{name:'forgot-password'}">
-            <a class="btn btn-link">
-              ¿Olvidó su contraseña?
-            </a>
-          </router-link>
         </form>
+        <router-link  v-if="!this.$store.getters.isLoggedIn" :event="!loading ? 'click' : ''" :to="{name:'forgot-password'}">
+            <button class="btn btn-link" :disabled="loading">
+              ¿Olvidó su contraseña?
+            </button>
+        </router-link>
       </div>
-      <hr class="line" />
+      <hr class="line"/>
       <div class="container">
-        <button class="btn btn-secondary" id="registro-btn" v-on:click="registerBtn">Regístrese</button>
+        <button :disabled="loading" class="btn btn-secondary" id="registro-btn" v-on:click="registerBtn" v-if="!this.$store.getters.isLoggedIn">
+          Regístrese</button>
       </div>
       <div class="container">
-        <button class="btn btn-warning" id="cursos-btn"  v-on:click="coursesBtn">
+        <button :disabled="loading" class="btn btn-warning" id="cursos-btn"  v-on:click="coursesBtn">
           Ingrese a los cursos
         </button>
       </div>
@@ -77,41 +80,41 @@
 </template>
 
 <script>
+import Index from '../views/Index.vue';
 export default {
+  components: { Index },
   data() {
     return {
-      btnMsg: "Ingresar",
       form: {
         email: "",
         password: "",
-        remember:false
+        remember:false,
+        token:'',
       },
       error: "",
+      loading:false,
     };
   },
+  mounted() {
+    console.log(window.window.Laravel.csrfToken);
+    console.log(this.$store.getters.isLoggedIn);
+  },	
   methods: {
-    loginForm() {
+    async loginForm() {
       this.error = "";
-      this.disableBtnSubmit(true);
-      axios
-        .post("/api/vuelogin", this.form)
+      this.loading = true;
+      await axios.get('/sanctum/csrf-cookie');
+      await axios
+        .post("/vuelogin", this.form)
         .then(() => {
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
           this.$router.go({ path: "/" });
+          
         })
         .catch((err) => {
           this.error = err.response.data.message;
-            this.disableBtnSubmit(false,this.btnMsg)
+          this.loading = false;
         });
-    },
-    disableBtnSubmit(value, texto) {
-      const button = document.getElementById("submit");
-      button.disabled = value;
-      if (value) {
-        this.btnText = "";
-      } else {
-        this.btnText = texto;
-      }
     },
     registerBtn(){
       window.location.href = "/";

@@ -18,13 +18,13 @@
         id="userMenu"
       >
         <router-link :to="{path:'/personal'}">
-          <div class="dropdown-item">{{user_name.name}}</div>
+          <a class="dropdown-item">{{user_name.name}}</a>
         </router-link>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/" v-on:click="logout">Cerrar Sesión</a>
+        <a class="dropdown-item" @click.prevent="logout">Cerrar Sesión</a>
       </div>
     </div>
   </div>
@@ -44,9 +44,10 @@ export default {
   methods: {
     logout() {
       axios
-        .post("/api/logout")
+        .post("/logout")
         .then(() => {
           this.$toast.open({message:'See u', type:'info',position:'top'});
+          window.location.href = "/";
         })
         .catch((err) => {
           this.errors = err.response.data.errors;

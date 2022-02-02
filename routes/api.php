@@ -20,13 +20,13 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->middleware('throttle:5,10','guest:web')->name('vuelogin');
+    
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
     
     Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
     
-    Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+    
     
     Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
     
@@ -38,18 +38,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
     
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
-    Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('cursos');
+    Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
     
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
         return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
     })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-    
-        return redirect('/home');
-    })->middleware(['auth', 'signed'])->name('verification.verify');
     
     Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
     

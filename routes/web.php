@@ -12,37 +12,20 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-function authData(){
-    $user = null;
-    if(Auth::check()){
-        $user =['name'=>Auth::user()->name,
-                'username'=>Auth::user()->username];
-    }
-    return $user;
-}
-function profileData(){
-    $user = null;
-    if(Auth::check()){
-        $user =['name'=>Auth::user()->name,
-                'last_name'=>Auth::user()->last_name,
-                'username'=>Auth::user()->username,
-                'email'=>Auth::user()->email,
-                'role'=>Auth::user()->role,];
-    }
-    return $user;
-}
 Route::group(['middleware' => ['web']], function () {
+
+    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin');
     
     Route::get('/', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->name('home');
     
     Route::get('/admin', function(){
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->middleware('can:admin.home')->name('admin.home');
     
     Route::get('/admin/{any}', function(){
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->middleware('can:admin.home')
     ->name('admi')
     ->where(['any'=>'testimonios|cursos|usuarios']);
@@ -52,7 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     })->where(['any'=>'.*'])->name('cursos');
     
     Route::get('/cursos/{category}/{page}', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->where(['category'=>'.*','page' => '[0-9]+']);
     
     Route::get('/cursos/{category}', function ($category) {
@@ -60,15 +43,15 @@ Route::group(['middleware' => ['web']], function () {
     })->where(['category'=>'.*']);
     
     Route::get('/ingreso', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->middleware('guest')->name('ingreso');
     
     Route::get('/curso/{any}', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->where(['any' => '.*']);
     
     Route::get('/email/verify', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->middleware('auth')->name('verification.notice');
     
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -77,14 +60,20 @@ Route::group(['middleware' => ['web']], function () {
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::get('/forgot-password', function () {
-        return view('layouts.master',['auth_user'=>authData()]);
+        return view('layouts.master');
     })->middleware('guest')->name('password.request');
     
     Route::get('/reset-password/{token}', function ($token) {
-        return view('layouts.master', ['token' => $token,'auth_user'=>authData()]);
+        return view('layouts.master', ['token' => $token]);
     })->middleware('guest')->name('password.reset');
 
     Route::get('/personal', function () {
-        return view('layouts.master', ['auth_user'=>profileData()]);
+        return view('layouts.master');
     })->middleware('auth')->name('personal.data');
+
+    Route::post('/change-password', 'App\Http\Controllers\UserController@changePassword')->name('change.password');
+
+    Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->middleware('auth')->name('logout');
+
+    Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
 });

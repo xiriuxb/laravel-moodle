@@ -6,8 +6,14 @@
 
 <script>
 export default {
-  mounted() {
-    this.$store.commit('setAuthUser', window.auth_user);
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  created() {
+    this.$store.commit('setAuthUser', this.user);
   },
 };
 </script>

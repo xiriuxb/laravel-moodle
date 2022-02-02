@@ -71,12 +71,12 @@ export default {
   //     // _.throttle), visit: https://lodash.com/docs#debounce
   //     this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
   //   },
-  created() {
-    axios.get("/api/cursesh").then((response) => {
-      console.log(response.data.data);
-      this.cursos = response.data.data;
-    });
-  },
+  // created() {
+  //   axios.get("/api/cursesh").then((response) => {
+  //     console.log(response.data.data);
+  //     this.cursos = response.data.data;
+  //   });
+  // },
   //   methods: {
   //     getAnswer: function () {
   //       if (this.question.indexOf('?') === -1) {

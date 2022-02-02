@@ -42,8 +42,9 @@ export default {
     this.user_name = this.$store.state.user;
   },
   methods: {
-    logout() {
-      axios
+    async logout() {
+      await axios.get('/sanctum/csrf-cookie');
+      await axios
         .post("/logout")
         .then(() => {
           this.$toast.open({message:'See u', type:'info',position:'top'});

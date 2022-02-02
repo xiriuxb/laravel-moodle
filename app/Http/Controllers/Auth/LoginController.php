@@ -57,11 +57,11 @@ class LoginController extends Controller
         //     return response()->json(['error' => 'Unauthorized'], 422 );
         // }
         // return $this->respondWithToken($token);
+        //dd($request->all());
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
         if (Auth::attempt($credentials, 'remember')) {
             $request->session()->regenerate();
             return redirect('/');
@@ -89,10 +89,10 @@ class LoginController extends Controller
      *
      * @return JsonResponse
      */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
+    // public function refresh()
+    // {
+    //     return $this->respondWithToken(auth()->refresh());
+    // }
 
     /**
      * Get the token array structure.
@@ -101,12 +101,12 @@ class LoginController extends Controller
      *
      * @return JsonResponse
      */
-    protected function respondWithToken(string $token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-        ]);
-    }
+    // protected function respondWithToken(string $token)
+    // {
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'bearer',
+    //         'expires_in' => auth()->factory()->getTTL() * 60,
+    //     ]);
+    // }
 }

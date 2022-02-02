@@ -67,8 +67,10 @@
       </div>
       <hr class="line"/>
       <div class="container">
-        <button :disabled="loading" class="btn btn-secondary" id="registro-btn" v-on:click="registerBtn" v-if="!this.$store.getters.isLoggedIn">
-          Regístrese</button>
+        <router-link :to="{name:'home'}">
+          <button :disabled="loading" class="btn btn-secondary" id="registro-btn" v-if="!this.$store.getters.isLoggedIn">
+            Regístrese</button>
+        </router-link>
       </div>
       <div class="container">
         <button :disabled="loading" class="btn btn-warning" id="cursos-btn"  v-on:click="coursesBtn">
@@ -108,7 +110,7 @@ export default {
         .post("/vuelogin", this.form)
         .then(() => {
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
-          this.$router.go({ path: "/" });
+          this.$router.go({ name: "home" });
           
         })
         .catch((err) => {

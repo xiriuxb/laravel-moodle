@@ -48,11 +48,11 @@ export default {
         .post("/logout")
         .then(() => {
           this.$toast.open({message:'See u', type:'info',position:'top'});
-          window.location.href = "/";
+          window.location.href = window.location.origin;
         })
         .catch((err) => {
           console.log(err)
-          this.errors = err.response.data.errors;
+          this.errors = err.response.data ?  err.response.data.errors: err.response.error;
           alert("Error al cerrar sesión");
         });
     },

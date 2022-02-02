@@ -3489,10 +3489,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: 'top'
                   });
 
-                  window.location.href = "/";
+                  window.location.href = window.location.origin;
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.errors = err.response.data.errors;
+                  _this.errors = err.response.data ? err.response.data.errors : err.response.error;
                   alert("Error al cerrar sesión");
                 });
 
@@ -4164,6 +4164,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -4210,7 +4212,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
 
                   _this.$router.go({
-                    path: "/"
+                    name: "home"
                   });
                 })["catch"](function (err) {
                   console.log(err);
@@ -49204,19 +49206,25 @@ var render = function() {
       _vm._v(" "),
       _c("hr", { staticClass: "line" }),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        !this.$store.getters.isLoggedIn
-          ? _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { disabled: _vm.loading, id: "registro-btn" },
-                on: { click: _vm.registerBtn }
-              },
-              [_vm._v("\n        Regístrese")]
-            )
-          : _vm._e()
-      ]),
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c("router-link", { attrs: { to: { name: "home" } } }, [
+            !this.$store.getters.isLoggedIn
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { disabled: _vm.loading, id: "registro-btn" }
+                  },
+                  [_vm._v("\n          Regístrese")]
+                )
+              : _vm._e()
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c(

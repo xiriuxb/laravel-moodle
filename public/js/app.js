@@ -49210,7 +49210,7 @@ var render = function() {
         "div",
         { staticClass: "container" },
         [
-          _c("router-link", { attrs: { to: { name: "home" } } }, [
+          _c("router-link", { attrs: { to: { name: "home-component" } } }, [
             !this.$store.getters.isLoggedIn
               ? _c(
                   "button",

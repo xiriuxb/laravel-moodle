@@ -67,7 +67,7 @@
       </div>
       <hr class="line"/>
       <div class="container">
-        <router-link :to="{name:'home'}">
+        <router-link :to="{name:'home-component'}">
           <button :disabled="loading" class="btn btn-secondary" id="registro-btn" v-if="!this.$store.getters.isLoggedIn">
             Regístrese</button>
         </router-link>

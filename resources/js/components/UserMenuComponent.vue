@@ -51,6 +51,7 @@ export default {
           window.location.href = "/";
         })
         .catch((err) => {
+          console.log(err)
           this.errors = err.response.data.errors;
           alert("Error al cerrar sesión");
         });

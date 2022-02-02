@@ -3491,6 +3491,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   window.location.href = "/";
                 })["catch"](function (err) {
+                  console.log(err);
                   _this.errors = err.response.data.errors;
                   alert("Error al cerrar sesión");
                 });
@@ -4212,6 +4213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     path: "/"
                   });
                 })["catch"](function (err) {
+                  console.log(err);
                   _this.error = err.response.data.message;
                   _this.loading = false;
                 });

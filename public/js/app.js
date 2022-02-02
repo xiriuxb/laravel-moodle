@@ -4212,11 +4212,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
 
                   _this.$router.go({
-                    name: "home"
+                    name: "home-component"
                   });
                 })["catch"](function (err) {
-                  console.log(err);
-                  _this.error = err.response.data.message;
+                  console.log(err.response);
+                  _this.errors = err.response.data ? err.response.data.message : err.response.error;
                   _this.loading = false;
                 });
 

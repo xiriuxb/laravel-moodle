@@ -110,12 +110,13 @@ export default {
         .post("/vuelogin", this.form)
         .then(() => {
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
-          this.$router.go({ name: "home" });
+          this.$router.go({ name: "home-component" });
+          
           
         })
         .catch((err) => {
-          console.log(err)
-          this.error = err.response.data.message;
+          console.log(err.response)
+          this.errors = err.response.data ?  err.response.data.message: err.response.error;
           this.loading = false;
         });
     },

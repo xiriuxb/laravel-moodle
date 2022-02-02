@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
     // your routes here
+Route::group(['middleware'=>['api']],function(){
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
@@ -25,8 +26,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
     
     Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
-    
-    
     
     Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
     
@@ -85,3 +84,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
                     ? response()->json(['status'=> __($status)])
                     : response()->json(['errors'=>['email' => __($status)]],422);
     })->middleware('guest')->name('password.update');
+});
+
+    

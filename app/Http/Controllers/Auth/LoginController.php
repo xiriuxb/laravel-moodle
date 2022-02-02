@@ -63,7 +63,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials, 'remember')) {
-            $request->session()->regenerate();
+            // $request->session()->regenerate();
             return redirect('/');
         } else {
             $success = false;

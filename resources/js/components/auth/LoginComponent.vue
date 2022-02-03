@@ -112,7 +112,7 @@ export default {
           console.log(response.data)
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
           //this.$store.commit('setAuthUser', response.data);
-          this.$router.go('/');
+          window.location.href = '/';
         })
         .catch((err) => {
           console.log(err)

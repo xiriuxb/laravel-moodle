@@ -111,12 +111,11 @@ export default {
         .then((response) => {
           console.log(response.data)
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
-          //this.$store.commit('setAuthUser', response.data);
           this.$router.go({ name: "home-component" });
         })
         .catch((err) => {
           console.log(err)
-          this.errors = err.response.data ?  err.response.data.message: err;
+          this.error = err.response.data !=null ?  err.response.data.message: err;
           this.loading = false;
         });
     },

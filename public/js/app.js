@@ -4216,9 +4216,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
                   //this.$store.commit('setAuthUser', response.data);
-                  _this.$router.go({
-                    name: "home-component"
-                  });
+                  _this.$router.go('/');
                 })["catch"](function (err) {
                   console.log(err);
                   _this.error = err.response.data ? err.response.data.message : err;

@@ -116,7 +116,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          this.errors = err.response.data ?  err.response.data.message: err;
+          this.error = err.response.data ?  err.response.data.message: err;
           this.loading = false;
         });
     },

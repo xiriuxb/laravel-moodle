@@ -53,7 +53,6 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          this.errors = err.response.data  ?  err.response.data.errors: err.response.error;
           alert("Error al cerrar sesión");
         });
     },

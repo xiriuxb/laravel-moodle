@@ -3494,7 +3494,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$router.go('/');
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.errors = err.response.data ? err.response.data.errors : err.response.error;
                   alert("Error al cerrar sesión");
                 });
 
@@ -4222,7 +4221,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.errors = err.response.data ? err.response.data.message : err;
+                  _this.error = err.response.data ? err.response.data.message : err;
                   _this.loading = false;
                 });
 

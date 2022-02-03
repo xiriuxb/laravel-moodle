@@ -4213,14 +4213,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     type: 'info',
                     position: 'top',
                     duration: 4000
-                  });
+                  }); //this.$store.commit('setAuthUser', response.data);
 
+
+                  //this.$store.commit('setAuthUser', response.data);
                   _this.$router.go({
                     name: "home-component"
                   });
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.error = err.response.data != null ? err.response.data.message : err;
+                  _this.errors = err.response.data ? err.response.data.message : err;
                   _this.loading = false;
                 });
 

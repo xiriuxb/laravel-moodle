@@ -108,20 +108,17 @@ export default {
       await axios.get('/sanctum/csrf-cookie');
       await axios
         .post("/vuelogin", this.form)
-        .then(() => {
+        .then((response) => {
+          console.log(response.data)
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
+          //this.$store.commit('setAuthUser', response.data);
           this.$router.go({ name: "home-component" });
-          
-          
         })
         .catch((err) => {
-          console.log(err.response)
-          this.errors = err.response.data ?  err.response.data.message: err.response.error;
+          console.log(err)
+          this.errors = err.response.data ?  err.response.data.message: err;
           this.loading = false;
         });
-    },
-    registerBtn(){
-      window.location.href = "/";
     },
     coursesBtn(){
       window.location.href = "https://www.academia.octavario.org/login/";

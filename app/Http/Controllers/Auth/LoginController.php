@@ -64,7 +64,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials, 'remember')) {
             // $request->session()->regenerate();
-            return redirect('/');
+            return response()->json(['status' => 'ok'], 200);
         } else {
             $success = false;
             $message = 'Email o password incorrecto(s)';
@@ -81,7 +81,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return response()->json(['status' => 'ok'], 200);
     }
 
     /**

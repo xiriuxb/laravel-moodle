@@ -3489,7 +3489,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     position: 'top'
                   });
 
-                  window.location.href = window.location.origin;
+                  _this.$store.commit('setAuthUser', null);
+
+                  _this.$router.go('/');
                 })["catch"](function (err) {
                   console.log(err);
                   _this.errors = err.response.data ? err.response.data.errors : err.response.error;
@@ -4203,20 +4205,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _context.next = 6;
-                return axios.post("/vuelogin", _this.form).then(function () {
+                return axios.post("/vuelogin", _this.form).then(function (response) {
+                  console.log(response.data);
+
                   _this.$toast.open({
                     message: 'Bienvenido',
                     type: 'info',
                     position: 'top',
                     duration: 4000
-                  });
+                  }); //this.$store.commit('setAuthUser', response.data);
 
+
+                  //this.$store.commit('setAuthUser', response.data);
                   _this.$router.go({
                     name: "home-component"
                   });
                 })["catch"](function (err) {
-                  console.log(err.response);
-                  _this.errors = err.response.data ? err.response.data.message : err.response.error;
+                  console.log(err);
+                  _this.errors = err.response.data ? err.response.data.message : err;
                   _this.loading = false;
                 });
 
@@ -4227,9 +4233,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    },
-    registerBtn: function registerBtn() {
-      window.location.href = "/";
     },
     coursesBtn: function coursesBtn() {
       window.location.href = "https://www.academia.octavario.org/login/";

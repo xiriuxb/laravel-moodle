@@ -51,14 +51,7 @@ export default {
   methods:{
     matricula(){
       if(this.$store.state.user!=null){
-        var crse={
-        moodle_id:this.curso.moodle_id,
-        fullname:this.curso.fullname,
-        shortname:this.curso.shortname,
-        category:this.curso.category,
-        user_id:this.$store.state.user.username,
-      }
-        axios.post('/api/matricula', crse).then(()=> {
+        axios.post('/api/matricula', {curso_id:this.curso.shortname}).then(()=> {
           this.$toast.open({message:'Usted se ha inscrito',position:'top', type:'success'});
         }).catch(error => {
           console.log(error);
@@ -72,7 +65,7 @@ export default {
   },
   beforeMount() {
     axios
-      .get("/api/curse/" + this.$route.params.shortname)
+      .get("/api/curse/"+this.$route.params.shortname)
       .then((response) => {
         this.curso = response.data.data;
         this.existe = true;

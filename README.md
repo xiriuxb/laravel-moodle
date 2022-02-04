@@ -33,6 +33,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
         - X Cambio de correo
         - X Cambio de contraseña
         - X Envío de email de notificacion
+        - X Actualizacion de datos
     - Vista de compras (inscripciones)
 - Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter

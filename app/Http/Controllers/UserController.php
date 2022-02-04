@@ -61,4 +61,32 @@ class UserController extends Controller
         $request->user()->notify(new EmailUpdatedNotification($request->new_email));
         return response( ['message' => 'Emial actualizado'], 200);
     }
+
+    public function update(Request $request)
+    {
+        // Get current user
+        $userId = Auth::id();
+        $user = User::findOrFail($userId);
+
+        // Validate the data submitted by user
+        $request->validate([
+            'country' => 'nullable|string|max:20',
+            'region' => 'nullable|string|max:64',
+            'birth_day'=> 'nullable|date|before:today',
+        ]);
+        
+        // Fill user model
+        $user->fill([
+            'country' => $request->country,
+            'region' => $request->region,
+            'birth_day'=> $request->birth_day,
+        ]);
+        
+
+        // Save user to database
+        $user->save();
+
+        // // Redirect to route
+        return response()->json(['status' => $user->wasChanged(), 'data' => ['message'=>'Su información se actualizó correctamente']], 200);
+    }
 }

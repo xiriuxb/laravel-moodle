@@ -67,7 +67,7 @@ class Cursos extends Controller
         }
     }
 
-    public function show($shortname)
+    public function show($curso_id, $field = 'shortname')
     {
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
@@ -75,8 +75,8 @@ class Cursos extends Controller
                 'wstoken' => '9b2f731935a54e126809b497bd231bd8',
                 'wsfunction' => 'core_course_get_courses_by_field',
                 //Recive los datos del curso especificado desde la API de moodle
-                'field' => 'shortname',
-                'value' => $shortname,
+                'field' => $field,
+                'value' => $curso_id,
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
         ]);

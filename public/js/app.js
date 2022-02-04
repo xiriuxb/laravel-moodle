@@ -2310,9 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('api/visibleComments').then(function (response) {
       _this.comments = response.data.data;
       _this.visible = true;
-    })["catch"](function (err) {
-      _this.visible = false;
-    });
+    })["catch"](function (err) {});
   }
 });
 
@@ -2349,12 +2347,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    name: String,
-    shortname: String,
-    precio: String,
-    image: String,
-    summary: String,
-    categoryname: String
+    curso: Object
   },
   data: function data() {
     return {};
@@ -2376,6 +2369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_CursoCardComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CursoCardComponent.vue */ "./resources/js/components/CursoCardComponent.vue");
 /* harmony import */ var _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+//
 //
 //
 //
@@ -2468,12 +2462,9 @@ __webpack_require__.r(__webpack_exports__);
       _this.cursos2 = response.data.data;
       _this.pages = response.data.pages;
       _this.visible = true;
-      console.log(_this.pages);
-      console.log(_this.page);
     })["catch"](function (err) {
       _this.visible = true;
       _this.mensajeErr = err.response.data.message;
-      console.log(err.response.data.message);
     });
   }
 });
@@ -3778,6 +3769,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_country_region_select__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_country_region_select__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Modals_ChangeEmailModal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Modals/ChangeEmailModal.vue */ "./resources/js/components/User/Modals/ChangeEmailModal.vue");
 /* harmony import */ var _Modals_ChangePasswordModal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Modals/ChangePasswordModal.vue */ "./resources/js/components/User/Modals/ChangePasswordModal.vue");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3913,13 +3926,32 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     fullname: function fullname() {
       return this.user.name + " " + this.user.last_name;
+    },
+    enableButton: function enableButton() {
+      return this.form.country != '' || this.form.region != '' || this.form.birth_day !== '' ? false : true;
+    },
+    formFiltered: function formFiltered() {
+      return Object.fromEntries(Object.entries(this.form).filter(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            _ = _ref2[0],
+            v = _ref2[1];
+
+        return v != '';
+      }));
     }
   },
   data: function data() {
     return {
       user: this.$store.getters.getUser,
       isPModalVisible: false,
-      isEModalVisible: false
+      isEModalVisible: false,
+      form: {
+        country: '',
+        region: '',
+        birth_day: ''
+      },
+      updateUserErrors: {},
+      loading: false
     };
   },
   methods: {
@@ -3934,6 +3966,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeEModal: function closeEModal() {
       this.isEModalVisible = false;
+    },
+    updateUser: function updateUser() {
+      var _this = this;
+
+      this.updateUserErrors = {};
+      this.loading = true;
+      axios.post('/update-user', this.formFiltered).then(function () {
+        _this.$toast.open({
+          message: 'Su información se actualizó correctamente',
+          type: 'info',
+          position: 'top',
+          duration: 4000
+        });
+
+        _this.$router.go();
+      })["catch"](function (err) {
+        _this.updateUserErrors = err.response.data.errors;
+
+        _this.$toast.open({
+          message: 'Su información no se pudo actualizar',
+          type: 'info',
+          position: 'top',
+          duration: 4000
+        });
+
+        _this.loading = false;
+      });
     }
   }
 });
@@ -4568,14 +4627,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.$store.state.user != null) {
-        var crse = {
-          moodle_id: this.curso.moodle_id,
-          fullname: this.curso.fullname,
-          shortname: this.curso.shortname,
-          category: this.curso.category,
-          user_id: this.$store.state.user.username
-        };
-        axios.post('/api/matricula', crse).then(function () {
+        axios.post('/api/matricula', {
+          curso_id: this.curso.shortname
+        }).then(function () {
           _this.$toast.open({
             message: 'Usted se ha inscrito',
             position: 'top',
@@ -46516,23 +46570,25 @@ var render = function() {
         "router-link",
         {
           staticClass: "card",
-          attrs: { to: { name: "curso", params: { shortname: _vm.shortname } } }
+          attrs: {
+            to: { name: "curso", params: { shortname: _vm.curso.shortname } }
+          }
         },
         [
           _c("img", {
             staticClass: "card-img-top",
-            attrs: { src: _vm.image, alt: "Card image cap" }
+            attrs: { src: _vm.curso.image, alt: "Card image cap" }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("p", [_vm._v(_vm._s(this.categoryname))]),
+            _c("p", [_vm._v(_vm._s(_vm.curso.categoryname))]),
             _vm._v(" "),
-            _c("h5", [_vm._v(_vm._s(_vm.name))]),
+            _c("h5", [_vm._v(_vm._s(_vm.curso.fullname))]),
             _vm._v(" "),
-            _c("p", { domProps: { innerHTML: _vm._s(this.summary) } }),
+            _c("p", { domProps: { innerHTML: _vm._s(_vm.curso.summary) } }),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer" }, [
-              _vm._v("$" + _vm._s(_vm.precio) + " USD")
+              _vm._v("$" + _vm._s(_vm.curso.price) + " USD")
             ])
           ])
         ]
@@ -46577,14 +46633,7 @@ var render = function() {
                 _vm._l(_vm.cursos2, function(curso) {
                   return _c("curso-card-component", {
                     key: curso.shortname,
-                    attrs: {
-                      name: curso.fullname,
-                      shortname: curso.shortname,
-                      image: curso.image,
-                      precio: curso.price,
-                      summary: curso.summary,
-                      categoryname: curso.category
-                    }
+                    attrs: { curso: curso }
                   })
                 }),
                 _vm._v(" "),
@@ -48687,6 +48736,13 @@ var render = function() {
                             countryName: true,
                             autocomplete: true,
                             removePlaceholder: false
+                          },
+                          model: {
+                            value: _vm.form.country,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "country", $$v)
+                            },
+                            expression: "form.country"
                           }
                         })
                       ],
@@ -48704,7 +48760,15 @@ var render = function() {
                             regionName: true,
                             name: "region",
                             id: "region",
-                            placeholder: "Provincia"
+                            placeholder: "Provincia",
+                            disabled: _vm.form.country
+                          },
+                          model: {
+                            value: _vm.form.region,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "region", $$v)
+                            },
+                            expression: "form.region"
                           }
                         })
                       ],
@@ -48712,7 +48776,72 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "fechaNacimiento" } }, [
+                      _vm._v("Día de nacimiento")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.birth_day,
+                          expression: "form.birth_day"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "date",
+                        placeholder: "Fecha de nacimiento"
+                      },
+                      domProps: { value: _vm.form.birth_day },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "birth_day", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    this.updateUserErrors.birth_day != null
+                      ? _c("div", { staticClass: "alert alert-danger" }, [
+                          _vm._v(_vm._s(this.updateUserErrors.birth_day[0]))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          type: "submit",
+                          disabled: _vm.enableButton || this.loading
+                        },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.updateUser.apply(null, arguments)
+                          }
+                        }
+                      },
+                      [
+                        _vm.loading
+                          ? _c("span", {
+                              staticClass: "spinner-border spinner-border-sm",
+                              attrs: { role: "status", "aria-hidden": "true" }
+                            })
+                          : _vm._e(),
+                        _vm._v(
+                          "\n                  Guardar Cambios\n                "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ])
             ])
@@ -48738,21 +48867,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("Datos personales")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "fechaNacimiento" } }, [
-        _vm._v("Día de nacimiento")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "date", placeholder: "Fecha de nacimiento" }
-      })
     ])
   }
 ]

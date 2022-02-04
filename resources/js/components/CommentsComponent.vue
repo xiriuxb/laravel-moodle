@@ -81,9 +81,9 @@ export default {
       axios.get('api/visibleComments').then((response) => {
         this.comments = response.data.data;
         this.visible = true;
-      }).catch((err) => {
-        this.visible=false;
-      }); 
+      }).catch((err)=>{
+        
+      });
     },
 }        
 </script>

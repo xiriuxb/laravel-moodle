@@ -69,6 +69,7 @@
                 <div class="row">
                   <div class="from-group col-12 col-sm-6">
                     <country-select
+                    v-model="form.country"
                       class="form-control"
                       name="country"
                       id="country"
@@ -81,24 +82,33 @@
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <region-select
+                    v-model="form.region"
                       class="form-control"
                       defaultRegion="EC"
                       :regionName="true"
                       name="region"
                       id="region"
                       placeholder="Provincia"
+                      :disabled="form.country"
                     />
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label for="fechaNacimiento">Día de nacimiento</label>
                   <input
+                  v-model="form.birth_day"
                     type="date"
                     class="form-control"
                     placeholder="Fecha de nacimiento"
                   />
-                  <!-- <div v-if="this.errors.birth_day!=null" class="alert alert-danger">{{this.errors.birth_day[0]}}</div> -->
+                  <!-- Errors -->
+                  <div v-if="this.updateUserErrors.birth_day!=null" class="alert alert-danger">{{this.updateUserErrors.birth_day[0]}}</div>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-primary" :disabled="enableButton || this.loading" @click.prevent="updateUser">
+                    <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
+                    Guardar Cambios
+                  </button>
                 </div>
               </form>
             </div>
@@ -136,12 +146,25 @@ export default {
     fullname() {
       return this.user.name + " " + this.user.last_name;
     },
+    enableButton(){
+      return this.form.country != ''|| this.form.region != '' || this.form.birth_day !== '' ?false : true;
+    },
+    formFiltered(){
+      return Object.fromEntries(Object.entries(this.form).filter(([_, v]) => v != ''));
+    }
   },
   data() {
     return {
       user:this.$store.getters.getUser,
       isPModalVisible: false,
       isEModalVisible: false,
+      form:{
+        country:'',
+        region:'',
+        birth_day:'',
+      },
+      updateUserErrors:{},
+      loading:false,
     };
   },
   methods: {
@@ -157,6 +180,19 @@ export default {
     closeEModal() {
       this.isEModalVisible = false;
     },
+    updateUser(){
+      this.updateUserErrors={};
+      this.loading = true;
+      axios.post('/update-user',this.formFiltered)
+      .then(()=>{
+        this.$toast.open({message:'Su información se actualizó correctamente', type:'info',position:'top',duration:4000});
+        this.$router.go();
+      }).catch((err)=>{
+        this.updateUserErrors = err.response.data.errors;
+        this.$toast.open({message:'Su información no se pudo actualizar', type:'info',position:'top',duration:4000});
+        this.loading= false;
+      });
+    }
   },
 };
 </script>

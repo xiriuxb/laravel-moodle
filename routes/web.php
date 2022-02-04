@@ -76,4 +76,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->middleware('auth')->name('logout');
 
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
+
+    Route::post('/update-user','App\Http\COntrollers\UserController@update')->middleware('auth');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Cursos;
 
 class MatriculaController extends Controller
 {
@@ -38,13 +39,15 @@ class MatriculaController extends Controller
     public function store(Request $request)
     {
         //
-        //dd($request->all());
         $mensaje = '';
         $status = '';
+        $curso1 =(new Cursos())->show($request->curso_id);
+        dd($curso1);
         $curso = Curso::firstOrCreate(
-            ['moodle_id' => $request->moodle_id],
-            ['fullname' => $request->fullname, 'shortname' => $request->shortname, 'category' => $request->category, 'destacado' => false]
+            ['moodle_id' => $curso1->data->data->moodle_id],
+            ['fullname' => $curso1->fullname, 'shortname' => $curso1->shortname, 'category' => $curso1->category, 'destacado' => false]
         );
+        dd($curso);
         $curso->save();
         $matricula= Matricula::where([['usuario_id',$request->user_id],
         ['curso_id',$request->moodle_id]])->first();

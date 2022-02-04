@@ -5,13 +5,14 @@
         <curso-card-component
           v-for="curso in cursos2"
           :key="curso.shortname"
-          :name="curso.fullname"
+          :curso="curso"
+        >
+          <!-- :name="curso.fullname"
           :shortname="curso.shortname"
           :image="curso.image"
           :precio="curso.price"
           :summary="curso.summary"
-          :categoryname="curso.category"
-        >
+          :categoryname="curso.category" -->
         </curso-card-component>
         <!-- Page navigation -->
         <div class="container">
@@ -92,13 +93,10 @@ export default {
         this.cursos2 = response.data.data;
         this.pages = response.data.pages;
         this.visible = true;
-        console.log(this.pages);
-        console.log(this.page);
       })
       .catch((err) => {
         this.visible = true;
         this.mensajeErr = err.response.data.message;
-        console.log(err.response.data.message);
       });
   },
 };

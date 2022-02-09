@@ -31,13 +31,15 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
     
-    Route::apiResource('curse', 'App\Http\Controllers\Cursos');
+    Route::get('curse/{id}', 'App\Http\Controllers\Cursos@show');
     
     Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
     
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
+
+    Route::get('categorias-test', 'App\Http\Controllers\CategoriaCursoController@indexTest');
     
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();

@@ -14,16 +14,16 @@
               <div id="summary">
                 <div>{{this.curso.summary}}</div>
               </div>
-              <button class="btn btn-primary" v-on:click="matricula">Inscribirse</button>
+              <matricula-component></matricula-component>
             </div>
             <div class="col-12 col-sm-4 justify-content-center">
-              <img :src="curso.image" alt="" />
+              <img :src="image" alt="" />
             </div>
           </div>
         </div>
         <div class="comp">
           <div id="description">
-            <p v-html="this.curso.ex_description"></p>
+            <p v-html="this.curso.value"></p>
           </div>
         </div>
       </div>
@@ -36,6 +36,7 @@
 <script>
 import LoadingComponent from "../LoadingComponent.vue";
 import NotFoundComponent from "../NotFoundComponent.vue";
+import MatriculaComponent from "../MatriculaComponent.vue";
 export default {
   data() {
     return {
@@ -47,34 +48,20 @@ export default {
   components: {
     LoadingComponent,
     NotFoundComponent,
+    MatriculaComponent,
+  },
+  computed: {
+    image() {
+      return 'https://moodle.xiriuxb.org/pluginfile.php/'+ this.curso.context+'/course/overviewfiles/'+this.curso.filename;
+    },
   },
   methods:{
-    matricula(){
-      if(this.$store.state.user!=null){
-        var crse={
-        moodle_id:this.curso.moodle_id,
-        fullname:this.curso.fullname,
-        shortname:this.curso.shortname,
-        category:this.curso.category,
-        user_id:this.$store.state.user.username,
-      }
-        axios.post('/api/matricula', crse).then(()=> {
-          this.$toast.open({message:'Usted se ha inscrito',position:'top', type:'success'});
-        }).catch(error => {
-          console.log(error);
-          this.$toast.open({message:'Debe verificar su email',position:'top', type:'warning'});
-        });
-      }else{
-        this.$toast.open({message:'Debe estar logueado para poder matricularse',position:'top', type:'warning'});
-        this.$router.push({ name:'ingreso-view' });
-      }
-    }
   },
   beforeMount() {
     axios
       .get("/api/curse/" + this.$route.params.shortname)
       .then((response) => {
-        this.curso = response.data.data;
+        this.curso = response.data.data[0];
         this.existe = true;
         this.visible = true;
       })

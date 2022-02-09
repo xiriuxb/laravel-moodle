@@ -1,16 +1,16 @@
 <template>
 <div class="col-12 col-md-4 col-sm-6">
-  <router-link class="card" :to="{name:'curso',params:{shortname:shortname}}">
+  <router-link class="card" :to="{name:'curso',params:{shortname:curso.shortname}}">
     <img
       class="card-img-top"
       v-bind:src="image"
       alt="Card image cap"
     />
     <div class="card-body">
-      <p>{{this.categoryname}}</p>
-      <h5>{{ name }}</h5>
-      <p v-html="this.summary"></p>
-      <div class="card-footer">${{ precio }} USD</div>
+      <p>{{ curso.category }}</p>
+      <h5>{{ curso.fullname }}</h5>
+      <p v-html="curso.summary"></p>
+      <div class="card-footer">${{ curso.precio }} USD</div>
     </div>
   </router-link>
 </div>
@@ -19,15 +19,15 @@
 <script>
 export default {
   props: {
-    name: String,
-    shortname: String,
-    precio:String,
-    image: String,
-    summary: String,
-    categoryname: String,
+    curso:Object,
   },
   data() {
     return {};
+  },
+  computed: {
+    image() {
+      return 'https://moodle.xiriuxb.org/pluginfile.php/'+ this.curso.context+'/course/overviewfiles/'+this.curso.filename;
+    },
   },
 };
 </script>

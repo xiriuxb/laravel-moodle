@@ -9,7 +9,7 @@ class CategoriaCurso extends Model
 {
     use HasFactory;
     protected $connection = 'moodle';
-    protected $table = 'course_categories';
+    protected $table = 'mdl_course_categories';
     protected $fillable = [
         'id',
         'name',

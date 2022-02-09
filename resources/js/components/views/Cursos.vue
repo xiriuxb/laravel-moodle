@@ -18,7 +18,7 @@
 
 <script scoped>
 export default {
-  methods: {},
+
 };
 </script>
 

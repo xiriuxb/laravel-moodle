@@ -41,7 +41,7 @@ export default {
   },
   beforeCreate(){
     console.log('created')
-      axios.get('/api/categorias').then((response) => {
+      axios.get('/api/categorias-test').then((response) => {
         this.categories = response.data.data;
       }).catch((err) => {
         console.log(err);

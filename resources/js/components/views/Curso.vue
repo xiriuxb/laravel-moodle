@@ -12,16 +12,19 @@
                 </div>
               <h2 id="titulo-cursos" class="card-title">{{ curso.fullname }}</h2>
               <div id="summary">
-                <div>{{this.curso.summary}}</div>
+                <div>
+                  <p v-html="this.curso.summary"></p>
+                  <!-- {{this.curso.summary}} -->
+                  </div>
               </div>
-              <matricula-component></matricula-component>
+              <matricula-component :curso="curso.shortname"></matricula-component>
             </div>
             <div class="col-12 col-sm-4 justify-content-center">
               <img :src="image" alt="" />
             </div>
           </div>
         </div>
-        <div class="comp">
+        <div class="row comp">
           <div id="description">
             <p v-html="this.curso.value"></p>
           </div>
@@ -85,7 +88,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.row{
+.card.left .row{
   margin: 20px 50px 20px 50px;
   color: tomato;
   min-height: 200px;

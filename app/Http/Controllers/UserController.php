@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matricula;
+use App\Models\MoodleCurso;
 use App\Models\User;
 use App\Notifications\EmailUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
+use Illuminate\Database\Eloquent\Model;
 
 
 use Illuminate\Http\Request;
@@ -53,12 +56,24 @@ class UserController extends Controller
             'errors' => ['new_email'=>['La contraseña actual no es correcta']]], 422);
         }
         
-        $validate = $request->validate([
+        $request->validate([
             'new_email' => 'required|unique:users,email|string|email',
         ]);
         $request->user()->notify(new EmailUpdatedNotification($request->new_email));
         $request->user()->update(['email' => $request->new_email]);
         $request->user()->notify(new EmailUpdatedNotification($request->new_email));
         return response( ['message' => 'Emial actualizado'], 200);
+    }
+
+    public function matriculas($curso)
+    {
+        //dd(User::find(Auth::user()->id)->matriculas()->where('curso_id',2)->get());
+        //return response()->json(MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id);
+        return response()->json(User::find(Auth::user()->id)->matriculas()->where('curso_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id)->exists());
+        //return response()->json(Matricula::where([['usuario_id',Auth::user()->id],['curso_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id]])->exists());
+    }
+
+    public function matricula($curso){
+        return response()->json(['status' => 'ok', 'data' => Auth::user()->matriculas], 200);
     }
 }

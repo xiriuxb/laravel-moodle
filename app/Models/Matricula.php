@@ -23,4 +23,10 @@ class Matricula extends Model
         'curso_id',
         'usuario_id',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'id',
+    ];
 }

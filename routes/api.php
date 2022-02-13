@@ -34,6 +34,7 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('curse/{id}', 'App\Http\Controllers\Cursos@show');
     
     Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
+    Route::get('cursess/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index2');
     
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
@@ -52,11 +53,9 @@ Route::group(['middleware'=>['api']],function(){
 
     Route::post('/forgot-password', function (Request $request) {
         $request->validate(['email' => 'required|email']);
-    
         $status = Password::sendResetLink(
             $request->only('email')
         );
-    
         return $status === Password::RESET_LINK_SENT
                     ? response()->json(['status' => __($status)])
                     : response()->json(['email' => __($status)]);
@@ -86,6 +85,8 @@ Route::group(['middleware'=>['api']],function(){
                     ? response()->json(['status'=> __($status)])
                     : response()->json(['errors'=>['email' => __($status)]],422);
     })->middleware('guest')->name('password.update');
+
+    Route::get('user/matriculas/{curso}', 'App\Http\Controllers\UserController@matriculas');
 });
 
     

@@ -65,15 +65,16 @@ class UserController extends Controller
         return response( ['message' => 'Emial actualizado'], 200);
     }
 
-    public function matriculas($curso)
+    public function matricula($curso)
     {
         //dd(User::find(Auth::user()->id)->matriculas()->where('curso_id',2)->get());
         //return response()->json(MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id);
-        return response()->json(User::find(Auth::user()->id)->matriculas()->where('curso_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id)->exists());
+        return response()->json(User::find(Auth::user()->id)->cursos()->where('curso_moodle_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id)->exists());
         //return response()->json(Matricula::where([['usuario_id',Auth::user()->id],['curso_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id]])->exists());
     }
 
-    public function matricula($curso){
-        return response()->json(['status' => 'ok', 'data' => Auth::user()->matriculas], 200);
+    public function matriculas(){
+        $userID = Auth::user()->id;
+        return response()->json(['status' => 'ok', 'data' => User::find(1)->cursos()->get()], 200);
     }
 }

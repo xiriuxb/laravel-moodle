@@ -47,7 +47,7 @@ class MatriculaController extends Controller
         $course = $this->sho($request->shortname);
         $userid=Auth::user()->id;
         //Verifico que el usuario no este matriculado en el curso
-        if(Matricula::where([['usuario_id',$userid],['curso_id',$course->id]])->exists()){
+        if(Matricula::where([['usuario_id',$userid],['curso_moodle_id',$course->id]])->exists()){
             return response()->json(['status' =>'error','mensaje' => 'Ya está matriculado en este curso'], 419);
         }
         //Si no esta matriculado, priemero Registro el curso en la base de nuestra app (en caso de que el curso ya esté registrado
@@ -58,7 +58,7 @@ class MatriculaController extends Controller
         );
         $curso->save();
         //Procedo a matricular al usuario en el curso
-        Matricula::create(['curso_id' => $course->id, 'usuario_id' => $userid]);
+        Matricula::create(['curso_id' => $curso->id, 'usuario_id' => $userid, 'curso_moodle_id'=>$curso->moodle_id]);
         return response()->json(['status' => 'ok','mensaje' => 'Matrícula realizada con éxito'], 200);
     }
 

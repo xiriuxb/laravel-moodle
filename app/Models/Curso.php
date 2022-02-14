@@ -9,10 +9,10 @@ class Curso extends Model
 {
     use HasFactory;
 
-    public function matriculas()
-    {
-        return $this->hasMany(Matricula::class);
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'matriculas', 'curso_id', 'usuario_id')->withTimestamps();
+    // }
 
     /**
      * The attributes that are mass assignable.
@@ -27,5 +27,13 @@ class Curso extends Model
         'shortname',
         'category',
         'destacado',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'id',
+        'destacado',
+        'matriculas',
     ];
 }

@@ -17,16 +17,16 @@
                   <!-- {{this.curso.summary}} -->
                   </div>
               </div>
-              <matricula-component :curso="curso.shortname"></matricula-component>
+              <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
             </div>
             <div class="col-12 col-sm-4 justify-content-center">
-              <img :src="image" alt="" />
+              <img :src="curso.image" alt="" />
             </div>
           </div>
         </div>
         <div class="row comp">
-          <div id="description">
-            <p v-html="this.curso.value"></p>
+          <div id="description" class="container">
+            <p v-html="this.curso.ex_description"></p>
           </div>
         </div>
       </div>
@@ -64,9 +64,10 @@ export default {
     axios
       .get("/api/curse/" + this.$route.params.shortname)
       .then((response) => {
-        this.curso = response.data.data[0];
+        this.curso = response.data.data;
         this.existe = true;
         this.visible = true;
+        console.log(this.curso);
       })
       .catch((error) => {
         console.log(error);

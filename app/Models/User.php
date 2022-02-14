@@ -13,9 +13,9 @@ class User extends Authenticatable implements MustVerifyEmail/*, JWTSubject*/
 {
     use HasFactory, Notifiable, HasRoles;
 
-    public function matriculas ()
+    public function cursos()
     {
-        return $this->hasMany(Matricula::class,'usuario_id');
+        return $this->belongsToMany(Curso::class, 'matriculas', 'usuario_id', 'curso_id')->as('matriculas')->withTimestamps();
     }
     /**
      * The attributes that are mass assignable.

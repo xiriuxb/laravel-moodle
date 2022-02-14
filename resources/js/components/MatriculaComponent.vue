@@ -1,12 +1,13 @@
 <template>
 <div>
-  <button v-if="!logged" class="btn btn-primary" v-on:click="matricula" :disabled="btnDisabled">
+  <button v-if="!logged" class="btn btn-primary" v-on:click="matricula">
       <span v-if="!loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Inscribirse</button>
+      Inscribirse ({{price}})</button>
 
-      <button v-if="logged" class="btn btn-primary" v-on:click.prevent="em" :disabled="btnDisabled">
+      <button v-else class="btn btn-primary" v-on:click.prevent="em" :disabled="btnDisabled">
       <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      {{ buttonMessage }}</button>
+      {{ buttonMessage }}
+      </button>
 </div>
 </template>
 
@@ -14,6 +15,10 @@
 export default {
     props:{
         curso: {
+            type: String,
+            required: true,
+        },
+        precio: {
             type: String,
             required: true,
         },
@@ -28,14 +33,18 @@ export default {
             btnDisabled: true,
         };
     },
+    beforeCreate() {
+        this.btnDisabled = this.logged?false:true;
+    },
     mounted() {
+        
         if(this.logged){
             console.log('Esta logueado');
-            axios.get('/api/user/matriculas/'+this.curso)
+            axios.get('/api/user/matricula/'+this.curso)
             .then(response => {
                 this.matriculado = response.data;
                 this.loading = this.btnDisabled = false;
-                this.buttonMessage = this.matriculado ? 'Ir al curso en Moodle': 'Inscribirse';
+                this.buttonMessage = this.matriculado ? 'Ir al curso en Moodle': 'Inscribirse ($'+this.price+')';
             console.log(response.data);
             })
             .catch(error => {
@@ -45,9 +54,10 @@ export default {
         
     },
     computed: {
-        isLoggedIn: function () {
-            return this.$store.getters.isLoggedIn;
-        }
+        price() {
+            return parseFloat(this.precio) > 0 ? this.precio : 'Gratis';
+        },
+
     },
     methods: {
         async matricula(){
@@ -55,6 +65,7 @@ export default {
             this.btnDisabled=true;
             await axios.post('/api/matricula',{'shortname':this.curso}).then(()=> {
               this.$toast.open({message:'Usted se ha inscrito',position:'top', type:'success'});
+              this.$router.go();
             }).catch(error => {
               console.log(error.response.status);
               switch (error.response.status) {
@@ -77,9 +88,7 @@ export default {
             });
         },
         redirectToMoodle(){
-            this.btnDisabled=true;
             window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name='+this.curso;
-            this.btnDisabled=false;
         },
         em(){
             if(this.logged && this.matriculado){
@@ -87,7 +96,7 @@ export default {
                 this.redirectToMoodle();
             }
             else{
-                this.$toast.open({message:'Matricular',position:'top', type:'warning'});
+                this.matricula();
             }
         }
     },
@@ -98,5 +107,9 @@ export default {
 .btn{
     padding: 12px;
     min-width: 150px;
+    margin: 0 0 12px 0;
+}
+.btn-primary:hover{
+
 }
 </style>

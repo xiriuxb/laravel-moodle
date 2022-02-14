@@ -76,4 +76,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->middleware('auth')->name('logout');
 
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
+
+    Route::get('/mis-cursos',function ()
+    {
+        return view('layouts.master');
+    })->middleware('auth')->name('my.courses');
 });

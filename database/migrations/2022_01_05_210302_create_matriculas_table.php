@@ -15,9 +15,10 @@ class CreateMatriculasTable extends Migration
     {
         Schema::create('matriculas', function (Blueprint $table) {
             $table->id();
-            $table->integer('curso_id')->unsigned();
+            $table->BigInteger('curso_id')->unsigned();
             $table->bigInteger('usuario_id')->unsigned();
-            $table->foreign('curso_id')->references('moodle_id')->on('cursos');
+            $table->bigInteger('curso_moodle_id')->unsigned();
+            $table->foreign('curso_id')->references('id')->on('cursos');
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->timestamps();
         });

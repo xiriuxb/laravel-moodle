@@ -34,11 +34,11 @@ class Cursos extends Controller
     }
 
     private function getQuery($categoria = null,$visible = 1,$curseid = null, $page=1){
-        $courseIdFilter = $curseid == null ? "" : " WHERE shortname = '".$curseid."'";
-        $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' where category = "'.$this->getCategoryId($categoria).'"';
+        $courseIdFilter = $curseid == null ? "" : " AND shortname = '".$curseid."'";
+        $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND category = "'.$this->getCategoryId($categoria).'"';
         $categoryCFilter = $categoria == null || $categoria == 'all'? '' : ' where name = "'.$categoria.'"';
         $baseQuery = "SELECT  mdl_crse.id, mdl_cntxt.id AS 'context',filename, mdl_crse_cat.name as 'category',fullname,shortname,summary,precio,value, visible FROM
-        (SELECT id, category, fullname, shortname, summary, visible FROM mdl_course ".$categoryFilter.$courseIdFilter." LIMIT ".$this->calcMin($page).",".$this->ELEMENTS_PER_PAGE.") mdl_crse
+        (SELECT id, category, fullname, shortname, summary, visible FROM mdl_course Where visible = 1 ".$categoryFilter.$courseIdFilter." LIMIT ".$this->calcMin($page).",".$this->ELEMENTS_PER_PAGE.") mdl_crse
         INNER JOIN (SELECT id, name FROM mdl_course_categories" .$categoryCFilter.") mdl_crse_cat ON mdl_crse_cat.id = mdl_crse.category
         INNER JOIN ( SELECT instanceid, 
             MAX(CASe when (fieldid=3) THEN value end) as precio,
@@ -51,10 +51,10 @@ class Cursos extends Controller
         return $baseQuery;
     }
 
-    public function show($id){
-        $cursos = DB::connection('moodle')->select($this->getQuery(null,1,$id,1)); 
-        return response()->json(['data'=>$cursos]);
-    }
+    // public function show($id){
+    //     $cursos = DB::connection('moodle')->select($this->getQuery(null,1,$id,1)); 
+    //     return response()->json(['data'=>$cursos]);
+    // }
 
     private function getCategoryId($categoria){
         $category = CategoriaCurso::where('name', $categoria)->first();
@@ -151,41 +151,41 @@ class Cursos extends Controller
 //     // MAX(CASE when (fieldid=4) then value end) as value
 //     // from mdl_customfield_data GROUP BY instanceid) 
 //     // mdl_cstmfld_dta ON mdl_cstmfld_dta.instanceid = mdl_crse.id GROUP BY mdl_crse.id
-//     public function show($shortname)
-//     {
-//         $client = new \GuzzleHttp\Client();
-//         $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
-//             'query' => [
-//                 'wstoken' => '9b2f731935a54e126809b497bd231bd8',
-//                 'wsfunction' => 'core_course_get_courses_by_field',
-//                 //Recive los datos del curso especificado desde la API de moodle
-//                 'field' => 'shortname',
-//                 'value' => $shortname,
-//                 'moodlewsrestformat' => 'json',
-//             ],'verify'=> false
-//         ]);
-//         $json = json_decode($res->getBody());
-//         if (empty($json->courses) ) {
-//             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
-//         } elseif(!$json->courses[0]->visible){
-//             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
-//         } else {
-//             $curso_aux = $json->courses[0];
-//             //dd($curso_aux);
-//             $curso = new MoodleCurso(
-//                 $curso_aux->id,
-//                 $curso_aux->fullname,
-//                 $curso_aux->shortname,
-//                 $curso_aux->summary,
-//                 $curso_aux->customfields[1]->value,
-//                 $curso_aux->categoryname,
-//                 str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
-//                 $curso_aux->customfields[2]->value,
-//                 //'destacado' => $json->courses[0]->customfields[3]->value,
-//             );
-//             return response()->json(['status' => 'ok', 'data' => $curso], 200);	
-//         }
-//     }
+    public function show($shortname)
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+            'query' => [
+                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wsfunction' => 'core_course_get_courses_by_field',
+                //Recive los datos del curso especificado desde la API de moodle
+                'field' => 'shortname',
+                'value' => $shortname,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+        if (empty($json->courses) ) {
+            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
+        } elseif(!$json->courses[0]->visible){
+            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
+        } else {
+            $curso_aux = $json->courses[0];
+            //dd($curso_aux);
+            $curso = new MoodleCurso(
+                $curso_aux->id,
+                $curso_aux->fullname,
+                $curso_aux->shortname,
+                $curso_aux->summary,
+                $curso_aux->customfields[1]->value,
+                $curso_aux->categoryname,
+                str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
+                $curso_aux->customfields[2]->value,
+                //'destacado' => $json->courses[0]->customfields[3]->value,
+            );
+            return response()->json(['status' => 'ok', 'data' => $curso], 200);	
+        }
+    }
 
 //     public function search()
 //     {

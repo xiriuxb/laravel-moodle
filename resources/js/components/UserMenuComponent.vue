@@ -1,28 +1,20 @@
 <template>
   <div class="nav-item dropdown">
     <div class="dropdown show">
-      <a
-        class="nav-link user-profile"
-        href="#"
-        role="button"
-        id="dropdownMenuLink"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <a class="nav-link user-profile" role="button"
+        id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         <box-icon name="user" type="solid" color="#ffffff"></box-icon>
       </a>
-      <div
-        class="dropdown-menu dropdown-menu-right"
-        aria-labelledby="dropdownMenuLink"
-        id="userMenu"
-      >
-        <router-link :to="{path:'/personal'}">
-          <a class="dropdown-item">{{user_name.name}}</a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" id="userMenu">
+        <router-link class="dropdown-item" :to="{path:'/personal'}">
+          <a>{{user_name.name}}
+          </a>
         </router-link>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
+        <router-link class="dropdown-item" :to="{path:'/mis-cursos'}">
+          <a>Ver mis cursos</a>
+        </router-link>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" @click.prevent="logout">Cerrar Sesión</a>
       </div>
@@ -79,5 +71,8 @@ export default {
 a box-icon {
   position: relative;
   top: 12%;
+}
+.dropdown-item {
+  cursor: pointer;
 }
 </style>

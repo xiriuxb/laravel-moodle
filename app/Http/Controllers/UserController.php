@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(['status' => 'ok', 'data' => User::with('matriculas')->get()], 200);
+        return response()->json(['status' => 'ok', 'data' => User::all()], 200);
     }
 
     public function changePassword(Request $request)
@@ -76,5 +76,12 @@ class UserController extends Controller
     public function matriculas(){
         $userID = Auth::user()->id;
         return response()->json(['status' => 'ok', 'data' => User::find(1)->cursos()->get()], 200);
+    }
+
+    public function role(){
+        return response()->json(['status' => 'ok', 'data' => User::with('roles:name')->where('id',Auth::id())->get()], 200);
+        // return response()->json(['status' => 'ok', 'data' => User::where('id','=',Auth::id())
+        // ->select('birth_day','country','email','last_name','name','phone_number','region','username')
+        // ->with('roles')->get()], 200);
     }
 }

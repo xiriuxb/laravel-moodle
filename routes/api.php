@@ -89,6 +89,8 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth','verified']);
 
     Route::get('user/matriculas', 'App\Http\Controllers\UserController@matriculas');
+
+    Route::get('user/role', 'App\Http\Controllers\UserController@role');
 });
 
     

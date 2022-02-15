@@ -1882,36 +1882,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -1995,16 +1974,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   name: "AdminCommentComponent",
   data: function data() {
     return {
       apiRoute: '/api/testimonials/',
-      id: Number,
-      isHidden: true,
+      isFormHidden: true,
       editMode: true,
-      loading: false,
+      loading: true,
       form: {
         autor: "",
         texto: "",
@@ -2017,18 +1995,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     btnAction: function btnAction() {
-      this.isHidden = !this.isHidden;
+      this.isFormHidden = !this.isFormHidden;
       this.resetInput();
       console.log(this.editMode);
-      var btn = this.$refs["btnNewComment"];
-
-      if (this.isHidden) {
-        btn.classList.replace("btn-secondary", "btn-primary");
-        btn.firstChild.data = "Nuevo";
-      } else {
-        btn.classList.replace("btn-primary", "btn-secondary");
-        btn.firstChild.data = "Ocultar";
-      }
     },
     save: function save() {
       var _this = this;
@@ -2036,8 +2005,15 @@ __webpack_require__.r(__webpack_exports__);
       if (this.editMode) {
         console.log("editmode xD");
       } else {
-        axios.post(this.apiRoute, this.form).then(function (response) {
+        this.loading = true;
+        axios.post(this.apiRoute, this.form).then(function () {
           //this.errors = [];
+          _this.$toast.open({
+            message: "Comentario guardado correctamente",
+            type: "is-success",
+            duration: 5000
+          });
+
           _this.loadComments();
         })["catch"]();
         this.resetInput();
@@ -2046,9 +2022,31 @@ __webpack_require__.r(__webpack_exports__);
     loadComments: function loadComments() {
       var _this2 = this;
 
-      axios.get(this.apiRoute).then(function (response) {
-        _this2.comments = response.data.data;
-      })["catch"](function (err) {});
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.loading = true;
+                _context.next = 3;
+                return axios.get(_this2.apiRoute).then(function (response) {
+                  _this2.comments = response.data.data;
+                  _this2.loading = false;
+                })["catch"](function (err) {
+                  _this2.$toast.open({
+                    message: err.message,
+                    type: "error",
+                    position: "top-right"
+                  });
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     resetInput: function resetInput() {
       this.editMode = false;
@@ -2068,7 +2066,7 @@ __webpack_require__.r(__webpack_exports__);
     getComment: function getComment(index) {
       var _this4 = this;
 
-      this.isHidden = false;
+      this.isFormHidden = false;
       this.loading = true;
       scrollY = 0;
       axios.get(this.apiRoute.concat(index)).then(function (response) {
@@ -2086,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.editMode);
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.loadComments();
   }
 });
@@ -3646,6 +3644,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -3654,7 +3655,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.user_name = this.$store.state.user;
+    this.user_name = this.$store.state.user.name;
+    console.log(this.user_name);
   },
   methods: {
     logout: function logout() {
@@ -3692,6 +3694,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    }
+  },
+  computed: {
+    userRole: function userRole() {
+      return this.$store.getters.getUser.roles[0].name == "user" ? false : true;
     }
   }
 });
@@ -9801,7 +9808,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-acction[data-v-d32f4bdc] {\r\n  padding: 0.2rem;\r\n  font-size: 0.875rem;\r\n  border-radius: 0.2rem;\r\n  max-width: 33px;\n}\n.form-check-label[data-v-d32f4bdc] {\r\n  cursor: pointer;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-acction[data-v-d32f4bdc] {\r\n  padding: 0.2rem;\r\n  font-size: 0.875rem;\r\n  border-radius: 0.2rem;\r\n  max-width: 33px;\n}\n.form-check-label[data-v-d32f4bdc] {\r\n  cursor: pointer;\n}\nform[data-v-d32f4bdc]{\r\n  padding-block: 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46658,253 +46665,284 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h3", [_vm._v("Administración de testimonios")]),
-    _vm._v(" "),
-    _c("div", [
-      _c(
-        "button",
-        {
-          ref: "btnNewComment",
-          staticClass: "btn btn-primary",
-          staticStyle: { "max-width": "240px" },
-          attrs: { id: "btnNewComment" },
-          on: {
-            click: function($event) {
-              return _vm.btnAction()
-            }
-          }
-        },
-        [_vm._v("\n      Nuevo\n    ")]
-      )
-    ]),
-    _vm._v(" "),
-    !_vm.isHidden
-      ? _c(
-          "form",
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("h3", [_vm._v("Administración de testimonios")]),
+      _vm._v(" "),
+      _vm.loading ? _c("loading-component") : _vm._e(),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "button",
           {
-            staticStyle: { dislplay: "none" },
+            ref: "btnNewComment",
+            staticClass: "btn btn-primary",
+            class: _vm.isFormHidden ? "btn btn-primary" : "btn btn-secondary",
+            staticStyle: { "max-width": "240px" },
+            attrs: { id: "btnNewComment", disabled: _vm.loading },
             on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.save.apply(null, arguments)
+              click: function($event) {
+                return _vm.btnAction()
               }
             }
           },
           [
-            _vm.loading ? _c("loading-component") : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "comentarioEstudiante" } }, [
-                _vm._v("Nombre Estudiante:")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.autor,
-                    expression: "form.autor"
-                  }
-                ],
-                ref: "nombreEstudiante",
-                staticClass: "form-control",
-                attrs: { type: "text", id: "nombreEstudiante", required: "" },
-                domProps: { value: _vm.form.autor },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "autor", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.error != ""
-                ? _c("div", { staticClass: "alert alert-danger" }, [
-                    _vm._v(
-                      "\n        " + _vm._s(this.errors.autor[0]) + "\n      "
-                    )
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "comentarioEstudiante" } }, [
-                _vm._v("Comentario:")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.texto,
-                    expression: "form.texto"
-                  }
-                ],
-                ref: "comentarioEstudiante",
-                staticClass: "form-control",
-                attrs: { id: "comentarioEstudiante", rows: "3", required: "" },
-                domProps: { value: _vm.form.texto },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "texto", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              this.errors.texto != null
-                ? _c("div", { staticClass: "alert alert-danger" }, [
-                    _vm._v(
-                      "\n        " + _vm._s(this.errors.texto[0]) + "\n      "
-                    )
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "form-check form-switch" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.is_active,
-                    expression: "form.is_active"
-                  }
-                ],
-                ref: "is_active",
-                staticClass: "form-check-input",
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.form.is_active)
-                    ? _vm._i(_vm.form.is_active, null) > -1
-                    : _vm.form.is_active
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.form.is_active,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(_vm.form, "is_active", $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.form,
-                            "is_active",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.form, "is_active", $$c)
-                    }
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-check-label", attrs: { for: "isActive" } },
-                [_vm._v("¿Comentario visible?")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                  [
-                    !_vm.editMode
-                      ? _c("div", [_vm._v("Guardar")])
-                      : _c("div", [_vm._v("Guardar cambios")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.resetInput.apply(null, arguments)
-                      }
-                    }
-                  },
-                  [_vm._v("\n          Cancelar\n        ")]
-                )
-              ])
-            ])
-          ],
-          1
+            _vm._v(
+              "\n      " +
+                _vm._s(
+                  _vm.isFormHidden ? "Nuevo testimonio" : "Cancelar/Ocultar"
+                ) +
+                "\n    "
+            )
+          ]
         )
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _c("table", { staticClass: "table" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.comments, function(comment) {
-            return _c("tr", { key: comment.id }, [
-              _c("td", [_c("p", [_vm._v(_vm._s(comment.autor))])]),
+      ]),
+      _vm._v(" "),
+      !_vm.isFormHidden
+        ? _c(
+            "form",
+            {
+              staticClass: "container",
+              staticStyle: { dislplay: "none" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.save.apply(null, arguments)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "comentarioEstudiante" } }, [
+                  _vm._v("Nombre Estudiante:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.autor,
+                      expression: "form.autor"
+                    }
+                  ],
+                  ref: "nombreEstudiante",
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "nombreEstudiante", required: "" },
+                  domProps: { value: _vm.form.autor },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "autor", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.error != ""
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(
+                        "\n        " + _vm._s(this.errors.autor[0]) + "\n      "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(comment.texto))]),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "comentarioEstudiante" } }, [
+                  _vm._v("Comentario:")
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.texto,
+                      expression: "form.texto"
+                    }
+                  ],
+                  ref: "comentarioEstudiante",
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "comentarioEstudiante",
+                    rows: "3",
+                    required: ""
+                  },
+                  domProps: { value: _vm.form.texto },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "texto", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                this.errors.texto != null
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(
+                        "\n        " + _vm._s(this.errors.texto[0]) + "\n      "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(comment.is_active == 1 ? "Si" : "No"))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-primary btn-acction",
-                    attrs: { title: "Editar" },
-                    on: {
-                      click: function($event) {
-                        return _vm.onClickEdit(comment.id)
+              _c("label", { staticClass: "form-check form-switch" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.is_active,
+                      expression: "form.is_active"
+                    }
+                  ],
+                  ref: "is_active",
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.form.is_active)
+                      ? _vm._i(_vm.form.is_active, null) > -1
+                      : _vm.form.is_active
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.form.is_active,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.form, "is_active", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.form,
+                              "is_active",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.form, "is_active", $$c)
                       }
                     }
-                  },
-                  [_c("box-icon", { attrs: { name: "edit-alt" } })],
-                  1
-                ),
+                  }
+                }),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "div",
                   {
-                    staticClass: "btn btn-outline-danger btn-acction",
-                    attrs: { title: "Eliminar" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteComment(comment.id)
-                      }
-                    }
+                    staticClass: "form-check-label",
+                    attrs: { for: "isActive" }
                   },
-                  [_c("box-icon", { attrs: { name: "trash" } })],
-                  1
+                  [_vm._v("¿Comentario visible?")]
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit", disabled: _vm.loading }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(
+                            !_vm.editMode ? "Guardar" : "Guardar Cambios"
+                          ) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { disabled: _vm.loading },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.resetInput.apply(null, arguments)
+                        }
+                      }
+                    },
+                    [_vm._v("\n          Cancelar\n        ")]
+                  )
+                ])
               ])
-            ])
-          }),
-          0
-        )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.comments, function(comment) {
+              return _c("tr", { key: comment.id }, [
+                _c("td", [_c("p", [_vm._v(_vm._s(comment.autor))])]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(comment.texto))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(_vm._s(comment.is_active == 1 ? "Si" : "No"))
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary btn-acction",
+                      attrs: { title: "Editar" },
+                      on: {
+                        click: function($event) {
+                          return _vm.onClickEdit(comment.id)
+                        }
+                      }
+                    },
+                    [_c("box-icon", { attrs: { name: "edit-alt" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-danger btn-acction",
+                      attrs: { title: "Eliminar" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteComment(comment.id)
+                        }
+                      }
+                    },
+                    [_c("box-icon", { attrs: { name: "trash" } })],
+                    1
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -48848,7 +48886,7 @@ var render = function() {
               staticClass: "dropdown-item",
               attrs: { to: { path: "/personal" } }
             },
-            [_c("a", [_vm._v(_vm._s(_vm.user_name.name) + "\n        ")])]
+            [_c("a", [_vm._v(_vm._s(_vm.user_name) + "\n        ")])]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "dropdown-divider" }),
@@ -48861,6 +48899,14 @@ var render = function() {
             },
             [_c("a", [_vm._v("Ver mis cursos")])]
           ),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: { name: "admin" } } }, [
+            _vm.userRole
+              ? _c("a", { staticClass: "dropdown-item" }, [
+                  _vm._v("Seccion Admin")
+                ])
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "dropdown-divider" }),
           _vm._v(" "),

@@ -110,7 +110,7 @@ export default {
 
     update(){
       this.loading = true;
-      axios.put(this.apiRoute + this.id, this.form).then(()=>{
+      axios.put('/api/testimonials/' + this.id, this.form).then(()=>{
         this.loading = false;
         this.isFormHidden = true;
         this.resetInput();
@@ -119,6 +119,7 @@ export default {
           type: 'success',
           duration: 5000
         });
+        this.loadComments();
       }).catch(error => {
         this.loading = false;
         this.$toast.open({
@@ -132,11 +133,10 @@ export default {
     save() {
       if (this.editMode) {
         this.update();
-        this.loadComments();
       } else {
         this.loading = true;
         axios
-          .post(this.apiRoute, this.form)
+          .post('/api/testimonials', this.form)
           .then(() => {
             //this.errors = [];
             this.$toast.open({
@@ -173,7 +173,7 @@ export default {
 
     deleteComment(index) {
       axios
-        .delete(this.apiRoute.concat(index))
+        .delete('/api/testimonials/'.concat(index))
         .then((response) => {
           //console.log(response);
           this.loadComments();
@@ -188,7 +188,7 @@ export default {
       this.isFormHidden = false;
       this.loading = true;
       scrollY = 0;
-      axios.get(this.apiRoute.concat(index))
+      axios.get('/api/testimonials/'.concat(index))
         .then((response) => {
           this.id = response.data.data.id;
           this.form.autor = response.data.data.autor;

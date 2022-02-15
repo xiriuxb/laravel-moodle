@@ -2004,7 +2004,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       this.loading = true;
-      axios.put(this.apiRoute + this.id, this.form).then(function () {
+      axios.put('/api/testimonials/' + this.id, this.form).then(function () {
         _this.loading = false;
         _this.isFormHidden = true;
 
@@ -2015,6 +2015,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           type: 'success',
           duration: 5000
         });
+
+        _this.loadComments();
       })["catch"](function (error) {
         _this.loading = false;
 
@@ -2030,10 +2032,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.editMode) {
         this.update();
-        this.loadComments();
       } else {
         this.loading = true;
-        axios.post(this.apiRoute, this.form).then(function () {
+        axios.post('/api/testimonials', this.form).then(function () {
           //this.errors = [];
           _this2.$toast.open({
             message: "Comentario guardado correctamente",
@@ -2083,7 +2084,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteComment: function deleteComment(index) {
       var _this4 = this;
 
-      axios["delete"](this.apiRoute.concat(index)).then(function (response) {
+      axios["delete"]('/api/testimonials/'.concat(index)).then(function (response) {
         //console.log(response);
         _this4.loadComments();
       })["catch"](function (err) {//this.errors = err.response.errors;
@@ -2096,7 +2097,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isFormHidden = false;
       this.loading = true;
       scrollY = 0;
-      axios.get(this.apiRoute.concat(index)).then(function (response) {
+      axios.get('/api/testimonials/'.concat(index)).then(function (response) {
         _this5.id = response.data.data.id;
         _this5.form.autor = response.data.data.autor;
         _this5.form.texto = response.data.data.texto;

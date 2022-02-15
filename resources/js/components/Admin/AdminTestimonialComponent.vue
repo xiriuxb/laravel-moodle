@@ -119,6 +119,7 @@ export default {
           type: 'success',
           duration: 5000
         });
+        this.loadComments();
       }).catch(error => {
         this.loading = false;
         this.$toast.open({
@@ -132,7 +133,6 @@ export default {
     save() {
       if (this.editMode) {
         this.update();
-        this.loadComments();
       } else {
         this.loading = true;
         axios

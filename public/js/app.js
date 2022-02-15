@@ -2015,6 +2015,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           type: 'success',
           duration: 5000
         });
+
+        _this.loadComments();
       })["catch"](function (error) {
         _this.loading = false;
 
@@ -2030,7 +2032,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.editMode) {
         this.update();
-        this.loadComments();
       } else {
         this.loading = true;
         axios.post(this.apiRoute, this.form).then(function () {

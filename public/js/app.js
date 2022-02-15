@@ -2056,7 +2056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this3.loading = true;
                 _context.next = 3;
-                return axios.get(_this3.apiRoute).then(function (response) {
+                return axios.get('/api/testimonials').then(function (response) {
                   _this3.comments = response.data.data;
                   _this3.loading = false;
                 })["catch"](function (err) {

@@ -155,7 +155,7 @@ export default {
 
     async loadComments() {
       this.loading = true;
-      await axios.get(this.apiRoute)
+      await axios.get('/api/testimonials')
         .then((response) => {
           this.comments = response.data.data;
           this.loading = false;

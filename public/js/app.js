@@ -1980,6 +1980,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       apiRoute: '/api/testimonials/',
+      id: 0,
       isFormHidden: true,
       editMode: true,
       loading: true,
@@ -1999,41 +2000,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.resetInput();
       console.log(this.editMode);
     },
-    save: function save() {
+    update: function update() {
       var _this = this;
 
+      this.loading = true;
+      axios.put(this.apiRoute + this.id, this.form).then(function () {
+        _this.loading = false;
+        _this.isFormHidden = true;
+
+        _this.resetInput();
+
+        _this.$toast.open({
+          message: 'Comentario actualizado correctamente',
+          type: 'success',
+          duration: 5000
+        });
+      })["catch"](function (error) {
+        _this.loading = false;
+
+        _this.$toast.open({
+          message: 'Error al actualizar el comentario',
+          type: 'error',
+          duration: 5000
+        });
+      });
+    },
+    save: function save() {
+      var _this2 = this;
+
       if (this.editMode) {
-        console.log("editmode xD");
+        this.update();
+        this.loadComments();
       } else {
         this.loading = true;
         axios.post(this.apiRoute, this.form).then(function () {
           //this.errors = [];
-          _this.$toast.open({
+          _this2.$toast.open({
             message: "Comentario guardado correctamente",
-            type: "is-success",
+            type: "success",
             duration: 5000
           });
 
-          _this.loadComments();
+          _this2.loadComments();
         })["catch"]();
         this.resetInput();
       }
     },
     loadComments: function loadComments() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this2.loading = true;
+                _this3.loading = true;
                 _context.next = 3;
-                return axios.get(_this2.apiRoute).then(function (response) {
-                  _this2.comments = response.data.data;
-                  _this2.loading = false;
+                return axios.get(_this3.apiRoute).then(function (response) {
+                  _this3.comments = response.data.data;
+                  _this3.loading = false;
                 })["catch"](function (err) {
-                  _this2.$toast.open({
+                  _this3.$toast.open({
                     message: err.message,
                     type: "error",
                     position: "top-right"
@@ -2054,27 +2081,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.is_active = false;
     },
     deleteComment: function deleteComment(index) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"](this.apiRoute.concat(index)).then(function (response) {
         //console.log(response);
-        _this3.loadComments();
+        _this4.loadComments();
       })["catch"](function (err) {//this.errors = err.response.errors;
       });
       this.resetInput();
     },
     getComment: function getComment(index) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.isFormHidden = false;
       this.loading = true;
       scrollY = 0;
       axios.get(this.apiRoute.concat(index)).then(function (response) {
-        _this4.id = response.data.data.id;
-        _this4.form.autor = response.data.data.autor;
-        _this4.form.texto = response.data.data.texto;
-        _this4.form.is_active = response.data.data.is_active;
-        _this4.loading = false;
+        _this5.id = response.data.data.id;
+        _this5.form.autor = response.data.data.autor;
+        _this5.form.texto = response.data.data.texto;
+        _this5.form.is_active = response.data.data.is_active;
+        _this5.loading = false;
       })["catch"](function (err) {//this.errors = err.response.errors;
       });
     },

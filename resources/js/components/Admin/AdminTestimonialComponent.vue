@@ -87,6 +87,7 @@ export default {
   data() {
     return {
       apiRoute:'/api/testimonials/',
+      id: 0,
       isFormHidden: true,
       editMode: true,
       loading: true,
@@ -107,9 +108,31 @@ export default {
       console.log(this.editMode);
     },
 
+    update(){
+      this.loading = true;
+      axios.put(this.apiRoute + this.id, this.form).then(()=>{
+        this.loading = false;
+        this.isFormHidden = true;
+        this.resetInput();
+        this.$toast.open({
+          message: 'Comentario actualizado correctamente',
+          type: 'success',
+          duration: 5000
+        });
+      }).catch(error => {
+        this.loading = false;
+        this.$toast.open({
+          message: 'Error al actualizar el comentario',
+          type: 'error',
+          duration: 5000
+        });
+      });
+    },
+
     save() {
       if (this.editMode) {
-        console.log("editmode xD");
+        this.update();
+        this.loadComments();
       } else {
         this.loading = true;
         axios
@@ -118,7 +141,7 @@ export default {
             //this.errors = [];
             this.$toast.open({
               message: "Comentario guardado correctamente",
-              type: "is-success",
+              type: "success",
               duration: 5000,
             });
             this.loadComments();

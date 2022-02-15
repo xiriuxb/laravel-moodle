@@ -22,5 +22,12 @@ class Matricula extends Model
     protected $fillable = [
         'curso_id',
         'usuario_id',
+        'curso_moodle_id',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'id',
     ];
 }

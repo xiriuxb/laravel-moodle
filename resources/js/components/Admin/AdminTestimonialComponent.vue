@@ -1,65 +1,43 @@
 <template>
   <div class="container">
     <h3>Administración de testimonios</h3>
+    <loading-component v-if='loading'></loading-component>
     <div>
-      <button
-        class="btn btn-primary"
-        id="btnNewComment"
-        @click="btnAction()"
-        ref="btnNewComment"
-        style="max-width: 240px"
-      >
-        Nuevo
+      <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment" 
+      style="max-width: 240px" :disabled="loading" v-bind:class="isFormHidden ?'btn btn-primary':'btn btn-secondary'">
+        {{isFormHidden ? 'Nuevo testimonio':'Cancelar/Ocultar'}}
       </button>
     </div>
-    <form v-if="!isHidden" style="dislplay: none" v-on:submit.prevent="save">
-      <loading-component v-if="loading"></loading-component>
+    <form class="container" v-if="!isFormHidden" style="dislplay: none" v-on:submit.prevent="save">
+      
       <div class="form-group">
         <label for="comentarioEstudiante">Nombre Estudiante:</label>
-        <input
-          type="text"
-          v-model="form.autor"
-          class="form-control"
-          id="nombreEstudiante"
-          ref="nombreEstudiante"
-          required
-        />
+        <input type="text" v-model="form.autor" class="form-control"
+          id="nombreEstudiante" ref="nombreEstudiante" required/>
         <div v-if="error != ''" class="alert alert-danger">
           {{ this.errors.autor[0] }}
         </div>
       </div>
       <div class="form-group">
         <label for="comentarioEstudiante">Comentario:</label>
-        <textarea
-          class="form-control"
-          ref="comentarioEstudiante"
-          v-model="form.texto"
-          id="comentarioEstudiante"
-          rows="3"
-          required
-        ></textarea>
+        <textarea class="form-control" ref="comentarioEstudiante" v-model="form.texto"
+          id="comentarioEstudiante" rows="3" required></textarea>
         <div v-if="this.errors.texto != null" class="alert alert-danger">
           {{ this.errors.texto[0] }}
         </div>
       </div>
       <label class="form-check form-switch">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          ref="is_active"
-          v-model="form.is_active"
-        />
+        <input class="form-check-input" type="checkbox" ref="is_active" v-model="form.is_active"/>
         <div class="form-check-label" for="isActive">¿Comentario visible?</div>
       </label>
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-primary">
-            <div v-if="!editMode">Guardar</div>
-            <div v-else>Guardar cambios</div>
+          <button type="submit" class="btn btn-primary" :disabled="loading">
+            {{ !editMode ? 'Guardar':'Guardar Cambios' }}
           </button>
         </div>
         <div class="col">
-          <button class="btn btn-danger" @click.prevent="resetInput">
+          <button class="btn btn-danger" @click.prevent="resetInput" :disabled="loading">
             Cancelar
           </button>
         </div>
@@ -85,18 +63,11 @@
             <td>{{ comment.texto }}</td>
             <td>{{ comment.is_active == 1 ? "Si" : "No" }}</td>
             <td>
-              <button
-                class="btn btn-outline-primary btn-acction"
-                title="Editar"
-                @click="onClickEdit(comment.id)"
-              >
+              <button class="btn btn-outline-primary btn-acction" title="Editar" @click="onClickEdit(comment.id)">
                 <box-icon name="edit-alt"></box-icon>
               </button>
               <button
-                class="btn btn-outline-danger btn-acction"
-                title="Eliminar"
-                @click="deleteComment(comment.id)"
-              >
+                class="btn btn-outline-danger btn-acction" title="Eliminar" @click="deleteComment(comment.id)">
                 <box-icon name="trash"></box-icon>
               </button>
             </td>
@@ -116,10 +87,10 @@ export default {
   data() {
     return {
       apiRoute:'/api/testimonials/',
-      id: Number,
-      isHidden: true,
+      id: 0,
+      isFormHidden: true,
       editMode: true,
-      loading: false,
+      loading: true,
       form: {
         autor: "",
         texto: "",
@@ -132,26 +103,47 @@ export default {
   },
   methods: {
     btnAction() {
-      this.isHidden = !this.isHidden;
+      this.isFormHidden = !this.isFormHidden;
       this.resetInput();
       console.log(this.editMode);
-      const btn = this.$refs["btnNewComment"];
-      if (this.isHidden) {
-        btn.classList.replace("btn-secondary", "btn-primary");
-        btn.firstChild.data = "Nuevo";
-      } else {
-        btn.classList.replace("btn-primary", "btn-secondary");
-        btn.firstChild.data = "Ocultar";
-      }
     },
+
+    update(){
+      this.loading = true;
+      axios.put(this.apiRoute + this.id, this.form).then(()=>{
+        this.loading = false;
+        this.isFormHidden = true;
+        this.resetInput();
+        this.$toast.open({
+          message: 'Comentario actualizado correctamente',
+          type: 'success',
+          duration: 5000
+        });
+      }).catch(error => {
+        this.loading = false;
+        this.$toast.open({
+          message: 'Error al actualizar el comentario',
+          type: 'error',
+          duration: 5000
+        });
+      });
+    },
+
     save() {
       if (this.editMode) {
-        console.log("editmode xD");
+        this.update();
+        this.loadComments();
       } else {
+        this.loading = true;
         axios
           .post(this.apiRoute, this.form)
-          .then((response) => {
+          .then(() => {
             //this.errors = [];
+            this.$toast.open({
+              message: "Comentario guardado correctamente",
+              type: "success",
+              duration: 5000,
+            });
             this.loadComments();
           })
           .catch(
@@ -160,19 +152,25 @@ export default {
         this.resetInput();
       }
     },
-    loadComments() {
-      axios
-        .get(this.apiRoute)
+
+    async loadComments() {
+      this.loading = true;
+      await axios.get(this.apiRoute)
         .then((response) => {
           this.comments = response.data.data;
+          this.loading = false;
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.$toast.open({message: err.message, type: "error",position: "top-right",});
+        });
     },
+
     resetInput() {
       this.editMode = false;
       this.form.autor = this.form.texto = "";
       this.form.is_active= false;
     },
+
     deleteComment(index) {
       axios
         .delete(this.apiRoute.concat(index))
@@ -185,8 +183,9 @@ export default {
         });
       this.resetInput();
     },
+
     getComment(index) {
-      this.isHidden = false;
+      this.isFormHidden = false;
       this.loading = true;
       scrollY = 0;
       axios.get(this.apiRoute.concat(index))
@@ -201,15 +200,17 @@ export default {
           //this.errors = err.response.errors;
         });
     },
+
     onClickEdit(index) {
       this.getComment(index);
       this.editMode = true;
       console.log(this.editMode);
     },
   },
-  mounted() {
+  created() {
     this.loadComments();
   },
+  
 };
 </script>
 
@@ -222,5 +223,8 @@ export default {
 }
 .form-check-label {
   cursor: pointer;
+}
+form{
+  padding-block: 10px;
 }
 </style>

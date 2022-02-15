@@ -28,13 +28,13 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## TODO
-- Menu de usuario
+- X Menu de usuario
     - X  Vista de datos personales
         - X Cambio de correo
         - X Cambio de contraseña
         - X Envío de email de notificacion
         - X Actualizacion de datos
-    - Vista de compras (inscripciones)
+    - X Vista de compras (inscripciones)
 - Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
@@ -53,6 +53,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     - X Reset password
     - O Matrícula-- Revisar todos los errores que pueden llegar en el response
     - X Login
-    - Email de notificacion
+    - ? Email de notificacion
 - Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
-- Cambiar el registro del curso al matricularse al back
+- X Cambiar el registro del curso al matricularse al back

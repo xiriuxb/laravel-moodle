@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="app">
-        <index-view :user="{{ auth()->check() ? auth()->user() : 'null' }}"></index-view>
+        <index-view :user="{{ auth()->check() ?  App\Models\User::with('roles:name')->where('id',Auth::id())->get()[0] : 'null' }}"></index-view>
     </div>
 </body>
 <script src="{{mix('js/app.js')}}"></script>

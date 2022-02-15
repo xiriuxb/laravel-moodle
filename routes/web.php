@@ -31,16 +31,16 @@ Route::group(['middleware' => ['web']], function () {
     ->where(['any'=>'testimonios|cursos|usuarios']);
     
     Route::get('/cursos', function () {
-        return redirect('/cursos/all/1');
+        return redirect('/cursos/all');
     })->where(['any'=>'.*'])->name('cursos');
     
-    Route::get('/cursos/{category}/{page}', function () {
+    Route::get('/cursos/{category}', function () {
         return view('layouts.master');
     })->where(['category'=>'.*','page' => '[0-9]+']);
     
-    Route::get('/cursos/{category}', function ($category) {
-        return redirect('/cursos/'.$category.'/1');
-    })->where(['category'=>'.*']);
+    // Route::get('/cursos/{category}', function ($category) {
+    //     return redirect('/cursos/'.$category.'/1');
+    // })->where(['category'=>'.*']);
     
     Route::get('/ingreso', function () {
         return view('layouts.master');
@@ -78,4 +78,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
 
     Route::post('/update-user','App\Http\COntrollers\UserController@update')->middleware('auth');
+    Route::get('/mis-cursos',function ()
+    {
+        return view('layouts.master');
+    })->middleware('auth')->name('my.courses');
 });

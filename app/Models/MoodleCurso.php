@@ -1,10 +1,22 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 
-class MoodleCurso
+class MoodleCurso extends Model
 {
+    use HasFactory;
+    protected $connection = 'moodle';
+    protected $table = "mdl_course";
+    protected $fillable = [
+        'id',
+        'fullname',
+        'shortname',
+        'summary',
+        'visible',
+    ];
     //se usa solo para los que se obtiene desde moodle
     //en el controlador en las func index y show
     public function __construct()

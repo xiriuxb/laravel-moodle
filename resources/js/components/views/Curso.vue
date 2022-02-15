@@ -12,17 +12,20 @@
                 </div>
               <h2 id="titulo-cursos" class="card-title">{{ curso.fullname }}</h2>
               <div id="summary">
-                <div>{{this.curso.summary}}</div>
+                <div>
+                  <p v-html="this.curso.summary"></p>
+                  <!-- {{this.curso.summary}} -->
+                  </div>
               </div>
-              <button class="btn btn-primary" v-on:click="matricula">Inscribirse</button>
+              <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
             </div>
             <div class="col-12 col-sm-4 justify-content-center">
               <img :src="curso.image" alt="" />
             </div>
           </div>
         </div>
-        <div class="comp">
-          <div id="description">
+        <div class="row comp">
+          <div id="description" class="container">
             <p v-html="this.curso.ex_description"></p>
           </div>
         </div>
@@ -36,6 +39,7 @@
 <script>
 import LoadingComponent from "../LoadingComponent.vue";
 import NotFoundComponent from "../NotFoundComponent.vue";
+import MatriculaComponent from "../MatriculaComponent.vue";
 export default {
   data() {
     return {
@@ -47,6 +51,12 @@ export default {
   components: {
     LoadingComponent,
     NotFoundComponent,
+    MatriculaComponent,
+  },
+  computed: {
+    image() {
+      return 'https://moodle.xiriuxb.org/pluginfile.php/'+ this.curso.context+'/course/overviewfiles/'+this.curso.filename;
+    },
   },
   methods:{
     matricula(){
@@ -70,6 +80,7 @@ export default {
         this.curso = response.data.data;
         this.existe = true;
         this.visible = true;
+        console.log(this.curso);
       })
       .catch((error) => {
         console.log(error);
@@ -91,7 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.row{
+.card.left .row{
   margin: 20px 50px 20px 50px;
   color: tomato;
   min-height: 200px;

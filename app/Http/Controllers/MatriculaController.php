@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Curso;
 use App\Models\Matricula;
+use App\Models\MoodleCurso;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Cursos;
+use Illuminate\Support\Facades\Auth;
 
 class MatriculaController extends Controller
 {
@@ -38,31 +40,28 @@ class MatriculaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $mensaje = '';
-        $status = '';
-        $curso1 =(new Cursos())->show($request->curso_id);
-        dd($curso1);
+        //Primero verifico que el curso existe, si no existe devuelvo error
+        if(!MoodleCurso::where('shortname','=', $request->shortname)->exists()){
+            return response()->json(['status' => 'error','mensaje' => 'El curso no existe'], 419);
+        }
+        //Obtengo el curso con el shortname desde moodle
+        $course = $this->sho($request->shortname);
+        $userid=Auth::user()->id;
+        //Verifico que el usuario no este matriculado en el curso
+        if(Matricula::where([['usuario_id',$userid],['curso_moodle_id',$course->id]])->exists()){
+            return response()->json(['status' =>'error','mensaje' => 'Ya está matriculado en este curso'], 419);
+        }
+        //Si no esta matriculado, priemero Registro el curso en la base de nuestra app (en caso de que el curso ya esté registrado
+        //no hago nada)
         $curso = Curso::firstOrCreate(
-            ['moodle_id' => $curso1->data->data->moodle_id],
-            ['fullname' => $curso1->fullname, 'shortname' => $curso1->shortname, 'category' => $curso1->category, 'destacado' => false]
+            ['shortname' => $request->shortname],
+            ['moodle_id'=> $course->id,'fullname' => $course->fullname, 'shortname' => $course->shortname, 'category' => $course->categoryname, 'destacado' => false]
         );
         dd($curso);
         $curso->save();
-        $matricula= Matricula::where([['usuario_id',$request->user_id],
-        ['curso_id',$request->moodle_id]])->first();
-
-        if ($matricula === null) {
-            Matricula::create(
-            ['curso_id' => $request->moodle_id, 'usuario_id' => $request->user_id]);
-            $mensaje = 'Matricula realizada con éxito';
-            $status = 'ok';
-        }else{
-            $mensaje = 'Ya está matriculado en este curso';
-            $status = 'error';
-        }
-        // Matricula::create(['curso_id' => $request->moodle_id, 'usuario_id' => $request->user_id]);
-        return response()->json(['status' => $status,'mensaje' => $mensaje], 200);
+        //Procedo a matricular al usuario en el curso
+        Matricula::create(['curso_id' => $curso->id, 'usuario_id' => $userid, 'curso_moodle_id'=>$curso->moodle_id]);
+        return response()->json(['status' => 'ok','mensaje' => 'Matrícula realizada con éxito'], 200);
     }
 
     /**
@@ -108,5 +107,24 @@ class MatriculaController extends Controller
     public function destroy(Matricula $matricula)
     {
         //
+    }
+
+    private function sho($shortname)
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+            'query' => [
+                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wsfunction' => 'core_course_get_courses_by_field',
+                //Recive los datos del curso especificado desde la API de moodle
+                'field' => 'shortname',
+                'value' => $shortname,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+            $curso_aux = $json->courses[0];
+            return $curso_aux;
+        
     }
 }

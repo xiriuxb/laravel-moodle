@@ -7,10 +7,10 @@
       alt="Card image cap"
     />
     <div class="card-body">
-      <p>{{curso.categoryname}}</p>
+      <p>{{ curso.category }}</p>
       <h5>{{ curso.fullname }}</h5>
       <p v-html="curso.summary"></p>
-      <div class="card-footer">${{ curso.price }} USD</div>
+      <div class="card-footer">${{ curso.precio }} USD</div>
     </div>
   </router-link>
 </div>
@@ -23,6 +23,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    image() {
+      return 'https://moodle.xiriuxb.org/pluginfile.php/'+ this.curso.context+'/course/overviewfiles/'+this.curso.filename;
+    },
   },
 };
 </script>

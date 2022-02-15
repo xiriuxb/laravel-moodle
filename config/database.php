@@ -90,6 +90,16 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
+        'moodle' => [
+            'driver' => 'mysql',
+            'host' => env('DB_MOODLE_HOST', '127.0.0.1'),
+            'port' => env('DB_MOODLE_PORT', '54900'),
+            'database' => env('DB_MOODLE_DATABASE', 'moodle'),
+            'username' => env('DB_MOODLE_USERNAME', 'root'),
+            'password' => env('DB_MOODLE_PASSWORD', 'admin'),
+            'charset' => 'utf8mb4',
+            'sslmode' => 'prefer',
+        ],
     ],
 
     /*

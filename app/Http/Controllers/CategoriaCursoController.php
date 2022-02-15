@@ -102,4 +102,12 @@ class CategoriaCursoController extends Controller
     {
         //
     }
+
+    public function indexTest()
+    {
+        # code...
+        //$categorias = CategoriaCurso::select('id','name')->get();
+        return response()->json(['status'=>'ok','data'=>CategoriaCurso::select('id','name')->get()], 200);
+
+    }
 }

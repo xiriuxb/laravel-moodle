@@ -20,8 +20,8 @@ class RoleSeeder extends Seeder
         $role3 = Role::create(['name' => 'user']);
 
         Permission::create(['name' => 'admin.home'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'comment.create'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'comment.edit'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'comment.delete'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'testimonial.create'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'testimonial.edit'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'testimonial.delete'])->syncRoles(['su_admin','admin']);
     }
 }

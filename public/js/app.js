@@ -47408,7 +47408,7 @@ var render = function() {
         [
           _c("img", {
             staticClass: "card-img-top",
-            attrs: { src: _vm.curso.image, alt: "Card image cap" }
+            attrs: { src: _vm.image, alt: "Card image cap" }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [

@@ -3,7 +3,7 @@
   <router-link class="card" :to="{name:'curso',params:{shortname:curso.shortname}}">
     <img
       class="card-img-top"
-      v-bind:src="curso.image"
+      v-bind:src="image"
       alt="Card image cap"
     />
     <div class="card-body">

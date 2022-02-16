@@ -2739,6 +2739,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue");
 //
 //
 //
@@ -2766,8 +2767,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {},
+  components: {
+    NavbarComponent: _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   data: function data() {
     return {
       sending: false,
@@ -3554,7 +3561,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.disableBtnSubmit(true);
       axios.post("api/register", this.form).then(function () {
-        window.location.href = "/email/verify";
+        _this.$router.go("/email/verify");
+
         console.log(response);
       })["catch"](function (err) {
         if (err.response != undefined && err.response.status == 422) {
@@ -5390,10 +5398,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
       component: _components_views_Curso__WEBPACK_IMPORTED_MODULE_11__.default,
       name: 'curso'
     }, {
-      path: 'email/verify',
-      component: _components_Email_Notice__WEBPACK_IMPORTED_MODULE_16__.default,
-      name: 'email'
-    }, {
       path: 'forgot-password',
       component: __webpack_require__(/*! ./components/auth/ForgotPasswordComponent.vue */ "./resources/js/components/auth/ForgotPasswordComponent.vue").default,
       name: 'forgot-password'
@@ -5436,6 +5440,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
   }, {
     path: '/personal',
     component: __webpack_require__(/*! ./components/User/ProfileComponent.vue */ "./resources/js/components/User/ProfileComponent.vue").default
+  }, {
+    path: '/email/verify',
+    component: _components_Email_Notice__WEBPACK_IMPORTED_MODULE_16__.default,
+    name: 'email'
   }],
   //{ path: '/test', component: AdminCommentComponent, name: 'test' },
   mode: 'history'
@@ -47898,60 +47906,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid", attrs: { id: "back" } }, [
-    _c("div", { staticClass: "container", attrs: { id: "message" } }, [
-      _c("h1", [_vm._v("FELICITACIONES")]),
+  return _c(
+    "section",
+    [
+      _c("navbar-component"),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("Solo queda un paso más para poder acceder a nuestros cursos.")
-      ]),
-      _vm._v(" "),
-      _c("p", { attrs: { id: "principal" } }, [
-        _vm._v(
-          "\n      Se ha enviado un correo de verificación al email con el que te\n      registraste, por favor sigue los pasos indicados en el mismo.\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("No te olvides de revisar la sección de correo no deseado.")
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "\n      Si no le ha llegado el correo, lo ha perdido o ya no funciona puede\n      volver a enviarlo.\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _vm.message
-        ? _c(
-            "div",
-            { staticClass: "alert alert-success", attrs: { role: "alert" } },
-            [_vm._v("\n      " + _vm._s(_vm.message) + "\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary text-nowrap",
-          attrs: { type: "button" },
-          on: { click: _vm.resend }
-        },
-        [
-          _vm.sending
-            ? _c("span", {
-                staticClass: "spinner-border spinner-border-sm mr-2"
-              })
+      _c("div", { staticClass: "container-fluid", attrs: { id: "back" } }, [
+        _c("div", { staticClass: "container", attrs: { id: "message" } }, [
+          _c("h1", [_vm._v("FELICITACIONES")]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Solo queda un paso más para poder acceder a nuestros cursos."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { attrs: { id: "principal" } }, [
+            _vm._v(
+              "\r\n        Se ha enviado un correo de verificación al email con el que te\r\n        registraste, por favor sigue los pasos indicados en el mismo.\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("No te olvides de revisar la sección de correo no deseado.")
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\r\n        Si no le ha llegado el correo, lo ha perdido o ya no funciona puede\r\n        volver a enviarlo.\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _vm.message
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-success",
+                  attrs: { role: "alert" }
+                },
+                [_vm._v("\r\n        " + _vm._s(_vm.message) + "\r\n      ")]
+              )
             : _vm._e(),
-          _vm._v("\n      Reenviar\n    ")
-        ]
-      )
-    ])
-  ])
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary text-nowrap",
+              attrs: { type: "button" },
+              on: { click: _vm.resend }
+            },
+            [
+              _vm.sending
+                ? _c("span", {
+                    staticClass: "spinner-border spinner-border-sm mr-2"
+                  })
+                : _vm._e(),
+              _vm._v("\r\n        Reenviar\r\n      ")
+            ]
+          )
+        ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

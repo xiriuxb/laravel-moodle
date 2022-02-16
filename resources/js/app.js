@@ -77,7 +77,6 @@ const router = new VueRouter({
                     { path: ":category?/:page?", component: CursosComponent, name: 'cursos-filtered' },
                 ] },
                 { path: 'curso/:shortname', component: Curso, name: 'curso' },
-                { path: 'email/verify', component: Notice, name: 'email' },
                 { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
                 { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },   
                 { path: '/mis-cursos', component: require('./components/User/CursosUserComponent.vue').default }
@@ -95,6 +94,7 @@ const router = new VueRouter({
         },
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
         { path: '/personal', component: require('./components/User/ProfileComponent.vue').default },
+        { path: '/email/verify', component: Notice, name: 'email' },
     ],
 
     //{ path: '/test', component: AdminCommentComponent, name: 'test' },

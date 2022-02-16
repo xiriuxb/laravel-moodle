@@ -167,7 +167,7 @@ export default {
       axios
         .post("api/register", this.form)
         .then(() => {
-          window.location.href = "/email/verify";
+          this.$router.go("/email/verify");
           console.log(response);
         })
         .catch((err) => {

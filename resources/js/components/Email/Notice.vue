@@ -1,4 +1,6 @@
 <template>
+<section>
+  <navbar-component></navbar-component>
   <div class="container-fluid" id="back">
     <div class="container" id="message">
       <h1>FELICITACIONES</h1>
@@ -23,13 +25,16 @@
       </button>
     </div>
   </div>
+</section>
 </template>
 
 <script>
+import NavbarComponent from '../NavbarComponent.vue';
 export default {
-  components: {},
+  components: {NavbarComponent},
   data() {
     return {
+    
       sending: false,
       message: '',
     };

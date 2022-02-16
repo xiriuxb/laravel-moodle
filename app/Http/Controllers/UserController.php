@@ -75,7 +75,7 @@ class UserController extends Controller
 
     public function matriculas(){
         $userID = Auth::user()->id;
-        return response()->json(['status' => 'ok', 'data' => User::find(1)->cursos()->get()], 200);
+        return response()->json(['status' => 'ok', 'data' => User::find($userID)->cursos()->get()], 200);
     }
 
     public function role(){

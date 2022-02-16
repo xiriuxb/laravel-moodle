@@ -19,10 +19,11 @@
       <div class="alert alert-success" role="alert" v-if="message">
         {{message}}
       </div>
-      <button class="btn btn-primary text-nowrap" type="button" v-on:click="resend">
+      <button class="btn btn-primary text-nowrap" type="button" v-on:click="resend" :disabled='sending'>
         <span class="spinner-border spinner-border-sm mr-2" v-if="sending"></span>
         Reenviar
       </button>
+      <p>Luego de reenviár deberá esperar 3 minutos antes de volverlo a enviar.</p>
     </div>
   </div>
 </section>
@@ -44,14 +45,13 @@ export default {
       this.sending = true;
       this.message = "";
       axios.post("/api/email/verification-notification").then((response) => {
-        if (response.data.status == 200) {
           this.sending = false;
           this.message = response.data.message;
-        } else {
-            this.message	="No se ha podido reenviar el correo de verificación."
-          this.sending = false;
-        }
-        
+          this.$toast.open({message: 'E-mail reenviado', type: "success",position: "top",});
+      }).catch((err) => {
+        this.message = err.status = 429 ? "Has excedido el límite de solicitudes" : "Error al reenviar el e-mail";
+        this.$toast.open({message: this.message, type: "error",position: "top",});
+        this.sending = true;
       });
     },
   },

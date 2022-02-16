@@ -2770,6 +2770,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2788,13 +2789,24 @@ __webpack_require__.r(__webpack_exports__);
       this.sending = true;
       this.message = "";
       axios.post("/api/email/verification-notification").then(function (response) {
-        if (response.data.status == 200) {
-          _this.sending = false;
-          _this.message = response.data.message;
-        } else {
-          _this.message = "No se ha podido reenviar el correo de verificación.";
-          _this.sending = false;
-        }
+        _this.sending = false;
+        _this.message = response.data.message;
+
+        _this.$toast.open({
+          message: 'E-mail reenviado',
+          type: "success",
+          position: "top"
+        });
+      })["catch"](function (err) {
+        _this.message = err.status =  true ? "Has excedido el límite de solicitudes" : 0;
+
+        _this.$toast.open({
+          message: _this.message,
+          type: "error",
+          position: "top"
+        });
+
+        _this.sending = true;
       });
     }
   }
@@ -3561,8 +3573,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.disableBtnSubmit(true);
       axios.post("api/register", this.form).then(function () {
-        _this.$router.go("/email/verify");
-
+        window.location.href = "/email/verify";
         console.log(response);
       })["catch"](function (err) {
         if (err.response != undefined && err.response.status == 422) {
@@ -4685,8 +4696,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    console.log(window.window.Laravel.csrfToken);
-    console.log(this.$store.getters.isLoggedIn);
+    console.log(this.$route.query.redirect);
   },
   methods: {
     loginForm: function loginForm() {
@@ -4705,8 +4715,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 _context.next = 6;
                 return axios.post("/vuelogin", _this.form).then(function (response) {
-                  console.log(response.data);
-
                   _this.$toast.open({
                     message: 'Bienvenido',
                     type: 'info',
@@ -4716,7 +4724,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
                   //this.$store.commit('setAuthUser', response.data);
-                  window.location.href = '/';
+                  if (_this.$route.query.redirect) {
+                    window.location.href = _this.$route.query.redirect;
+                  } else {
+                    window.location.href = '/';
+                  }
                 })["catch"](function (err) {
                   console.log(err);
                   _this.error = err.response.data ? err.response.data.message : err;
@@ -47956,7 +47968,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary text-nowrap",
-              attrs: { type: "button" },
+              attrs: { type: "button", disabled: _vm.sending },
               on: { click: _vm.resend }
             },
             [
@@ -47967,7 +47979,13 @@ var render = function() {
                 : _vm._e(),
               _vm._v("\r\n        Reenviar\r\n      ")
             ]
-          )
+          ),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Luego de reenviár deberá esperar 3 minutos antes de volverlo a enviar."
+            )
+          ])
         ])
       ])
     ],

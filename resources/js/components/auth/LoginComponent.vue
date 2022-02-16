@@ -98,8 +98,7 @@ export default {
     };
   },
   mounted() {
-    console.log(window.window.Laravel.csrfToken);
-    console.log(this.$store.getters.isLoggedIn);
+    console.log(this.$route.query.redirect);
   },	
   methods: {
     async loginForm() {
@@ -109,10 +108,13 @@ export default {
       await axios
         .post("/vuelogin", this.form)
         .then((response) => {
-          console.log(response.data)
           this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
           //this.$store.commit('setAuthUser', response.data);
-          window.location.href = '/';
+          if(this.$route.query.redirect){
+            window.location.href = this.$route.query.redirect;
+          }else{
+            window.location.href = '/';
+          }
         })
         .catch((err) => {
           console.log(err)

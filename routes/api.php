@@ -27,7 +27,7 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
     
-    Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController');
+    Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController')->middleware('auth');
     
     Route::get('visibleComments', 'App\Http\Controllers\AdminTestimonioController@visibles')->name('visibles');
     
@@ -45,7 +45,7 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
         return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
-    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+    })->middleware(['auth', 'throttle:1,3'])->name('verification.send');
     
     Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
     

@@ -96,7 +96,7 @@ class RegisterController extends Controller
         ])->assignRole('user');
         event(new Registered($user));
         $this->guard()->login($user);
-        return response()->json(['message'=>'Ok'],200);
+        return route('verification.notice');
     }
 
     

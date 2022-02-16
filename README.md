@@ -54,5 +54,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     - O Matrícula-- Revisar todos los errores que pueden llegar en el response
     - X Login
     - ? Email de notificacion
-- Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
+- O Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
 - X Cambiar el registro del curso al matricularse al back

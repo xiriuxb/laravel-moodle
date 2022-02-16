@@ -81,7 +81,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return response()->json(['status' => 'ok'], 200);
+        return route('home');
     }
 
     /**

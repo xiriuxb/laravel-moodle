@@ -38,14 +38,15 @@ export default {
     console.log(this.user_name);
   },
   methods: {
-    async logout() {
-      await axios.get('/sanctum/csrf-cookie');
-      await axios
+    logout() {
+      this.$router.go('/')
+      axios.get('/sanctum/csrf-cookie');
+      axios
         .post("/logout")
         .then(() => {
+          window.location.href='/'
           this.$toast.open({message:'See u', type:'info',position:'top'});
           this.$store.commit('setAuthUser',null);
-          this.$router.go('/')
         })
         .catch((err) => {
           console.log(err)

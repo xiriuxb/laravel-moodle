@@ -28,6 +28,7 @@ import Curso from "./components/views/Curso";
 import AdminTestimonialComponent from "./components/Admin/AdminTestimonialComponent"
 import AdminCoursesComponent from "./components/Admin/AdminCoursesComponent"
 import AdminUsersComponent from "./components/Admin/AdminUsersComponent"
+import AdminCoursesMoodleComponent from "./components/Admin/AdminCoursesMoodleComponent"
 import Notice from "./components/Email/Notice"
 import CursosComponent from "./components/CursosComponent"
 import 'boxicons';
@@ -89,6 +90,7 @@ const router = new VueRouter({
                 { path: 'testimonios', component: AdminTestimonialComponent, name: 'admin-comment' },
                 { path: 'cursos', component: AdminCoursesComponent, name: 'admin-courses' },
                 { path: 'usuarios', component: AdminUsersComponent, name: 'admin-users' },
+                { path: 'cursos-moodle', component: AdminCoursesMoodleComponent, name: 'admin-courses-moodle' },
             ],
         },
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },

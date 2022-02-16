@@ -33,7 +33,6 @@ class Curso extends Model
         'created_at',
         'updated_at',
         'id',
-        'destacado',
         'matriculas',
     ];
 }

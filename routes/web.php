@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web']], function () {
         return view('layouts.master');
     })->middleware('can:admin.home')
     ->name('admi')
-    ->where(['any'=>'testimonios|cursos|usuarios']);
+    ->where(['any'=>'testimonios|cursos|usuarios|cursos-moodle']);
     
     Route::get('/cursos', function () {
         return redirect('/cursos/all');

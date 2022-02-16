@@ -90,7 +90,13 @@ Route::group(['middleware'=>['api']],function(){
 
     Route::get('user/matriculas', 'App\Http\Controllers\UserController@matriculas');
 
-    Route::get('user/role', 'App\Http\Controllers\UserController@role');
+    //    Route::get('user/role', 'App\Http\Controllers\UserController@role');
+
+    Route::get('cursos-local', 'App\Http\Controllers\CursosLocal@index');
+
+    Route::post('cursos-local/destacado', 'App\Http\Controllers\CursosLocal@setDestacado');
+
+    Route::get('cursos-local/destacados', 'App\Http\Controllers\CursosLocal@destacados');
 });
 
     

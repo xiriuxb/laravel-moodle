@@ -51,6 +51,7 @@ export default {
       menu_items:[
         {name:'Testimonios', component:'admin-comment'},
         {name:'Cursos', component:'admin-courses'},
+        {name:'Cursos Moodle', component:'admin-courses-moodle'},
         {name:'Usuarios',component: 'admin-users'}
       ]
     };

@@ -57,7 +57,6 @@ class MatriculaController extends Controller
             ['shortname' => $request->shortname],
             ['moodle_id'=> $course->id,'fullname' => $course->fullname, 'shortname' => $course->shortname, 'category' => $course->categoryname, 'destacado' => false]
         );
-        dd($curso);
         $curso->save();
         //Procedo a matricular al usuario en el curso
         Matricula::create(['curso_id' => $curso->id, 'usuario_id' => $userid, 'curso_moodle_id'=>$curso->moodle_id]);

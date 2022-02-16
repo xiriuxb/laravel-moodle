@@ -1867,6 +1867,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      courses: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/cursos-local').then(function (response) {
+      _this.courses = response.data.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  methods: {
+    loadCourses: function loadCourses() {
+      var _this2 = this;
+
+      axios.get('/api/cursos-local').then(function (response) {
+        _this2.courses = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    setDestacado: function setDestacado(shortname, destacado) {
+      var _this3 = this;
+
+      axios.post('/api/cursos-local/destacado', {
+        id: shortname,
+        destacado: destacado
+      }).then(function (response) {
+        _this3.loadCourses();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -2547,6 +2641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.css");
 /* harmony import */ var vue_slick_carousel_dist_vue_slick_carousel_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-slick-carousel/dist/vue-slick-carousel-theme.css */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel-theme.css");
+/* harmony import */ var _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
 //
 //
 //
@@ -2567,16 +2662,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    VueSlickCarousel: (vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default())
+    VueSlickCarousel: (vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default()),
+    LoadingComponent: _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   methods: {},
   data: function data() {
     return {
+      visible: false,
       comments2: [],
       //slick carousel settings
       settings: {
@@ -2592,9 +2693,9 @@ __webpack_require__.r(__webpack_exports__);
         "responsive": [{
           "breakpoint": 1024,
           "settings": {
-            "slidesToShow": 3,
-            "slidesToScroll": 3,
-            "infinite": true
+            "slidesToShow": 2,
+            "slidesToScroll": 1,
+            "infinite": false
           }
         }, {
           "breakpoint": 770,
@@ -2612,6 +2713,16 @@ __webpack_require__.r(__webpack_exports__);
         }]
       }
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/cursos-local/destacados').then(function (response) {
+      _this.comments2 = response.data.data;
+      _this.visible = true;
+    })["catch"](function (error) {
+      _this.visible = false;
+    });
   }
 });
 
@@ -4872,6 +4983,9 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Cursos',
         component: 'admin-courses'
       }, {
+        name: 'Cursos Moodle',
+        component: 'admin-courses-moodle'
+      }, {
         name: 'Usuarios',
         component: 'admin-users'
       }]
@@ -5181,10 +5295,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Admin_AdminTestimonialComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Admin/AdminTestimonialComponent */ "./resources/js/components/Admin/AdminTestimonialComponent.vue");
 /* harmony import */ var _components_Admin_AdminCoursesComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Admin/AdminCoursesComponent */ "./resources/js/components/Admin/AdminCoursesComponent.vue");
 /* harmony import */ var _components_Admin_AdminUsersComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Admin/AdminUsersComponent */ "./resources/js/components/Admin/AdminUsersComponent.vue");
-/* harmony import */ var _components_Email_Notice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Email/Notice */ "./resources/js/components/Email/Notice.vue");
-/* harmony import */ var _components_CursosComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/CursosComponent */ "./resources/js/components/CursosComponent.vue");
-/* harmony import */ var boxicons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! boxicons */ "./node_modules/boxicons/dist/boxicons.js");
-/* harmony import */ var boxicons__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(boxicons__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_Admin_AdminCoursesMoodleComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Admin/AdminCoursesMoodleComponent */ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue");
+/* harmony import */ var _components_Email_Notice__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Email/Notice */ "./resources/js/components/Email/Notice.vue");
+/* harmony import */ var _components_CursosComponent__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/CursosComponent */ "./resources/js/components/CursosComponent.vue");
+/* harmony import */ var boxicons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! boxicons */ "./node_modules/boxicons/dist/boxicons.js");
+/* harmony import */ var boxicons__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(boxicons__WEBPACK_IMPORTED_MODULE_18__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -5206,6 +5321,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use((vue_toast_notification__WEBPACK_IM
 
 vue__WEBPACK_IMPORTED_MODULE_3__.default.config.debug = true;
 vue__WEBPACK_IMPORTED_MODULE_3__.default.config.devtools = true;
+
 
 
 
@@ -5266,7 +5382,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
       name: 'cursos',
       children: [{
         path: ":category?/:page?",
-        component: _components_CursosComponent__WEBPACK_IMPORTED_MODULE_16__.default,
+        component: _components_CursosComponent__WEBPACK_IMPORTED_MODULE_17__.default,
         name: 'cursos-filtered'
       }]
     }, {
@@ -5275,7 +5391,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
       name: 'curso'
     }, {
       path: 'email/verify',
-      component: _components_Email_Notice__WEBPACK_IMPORTED_MODULE_15__.default,
+      component: _components_Email_Notice__WEBPACK_IMPORTED_MODULE_16__.default,
       name: 'email'
     }, {
       path: 'forgot-password',
@@ -5308,6 +5424,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
       path: 'usuarios',
       component: _components_Admin_AdminUsersComponent__WEBPACK_IMPORTED_MODULE_14__.default,
       name: 'admin-users'
+    }, {
+      path: 'cursos-moodle',
+      component: _components_Admin_AdminCoursesMoodleComponent__WEBPACK_IMPORTED_MODULE_15__.default,
+      name: 'admin-courses-moodle'
     }]
   }, {
     path: '/ingreso',
@@ -9987,7 +10107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#comments-sm[data-v-97bed9de]{\r\n  width: 91%;\n}\n[data-v-97bed9de] .slick-track\r\n{\r\n    display: flex !important;\n}\nsection[data-v-97bed9de]{\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\n}\n[data-v-97bed9de] .slick-list{\r\n  margin-left: 10px !important;\n}\n[data-v-97bed9de]  div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n    display: block;\r\n    padding: 5px;\r\n    height: inherit !important;\r\n    position: relative;\r\n    background-color: rgb(255, 255, 255);\r\n    flex-direction: column;\r\n    min-width: 0;\r\n    word-wrap: break-word;\r\n    background-clip: border-box;\r\n    border: 1px solid rgba(0,0,0,.125);\r\n    border-radius: .25rem;\n}\n[data-v-97bed9de] .slick-arrow{\r\n    position: absolute;\r\n    margin-top: 0;\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    height: 35px;\r\n    z-index: 10;\r\n    color: transparent;\r\n    background-repeat: no-repeat;\n}\n[data-v-97bed9de] .slick-arrow.slick-prev::before{\r\n  color:rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-arrow.slick-next::before{\r\n  color:rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-97bed9de]  .slick-slide {\r\n  flex: 0 50%;\r\n  background: #fff;\r\n  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),\r\n    0 5px 15px 0 rgba(37, 44, 97, 0.15);\r\n  border-radius: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n  overflow: hidden;\r\n  min-height: 265px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de]  .slick-slide div::before{\r\n  content: \"\";\r\n  position: absolute;\r\n  background: rgb(255 137 36 / 20%);\r\n  width: 200px;\r\n  height: 450px;\r\n  z-index: -1;\r\n  transform: rotate(42deg);\r\n  right: -56px;\r\n  border-radius: 35px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de]  .slick-slide:hover{\n}\n[data-v-97bed9de]  .slick-slide div:first-child:hover:before{\r\n  transform: rotate(42deg);\r\n  top: -56px;\r\n  right: -56px;\r\n  transition: 0.7s;\n}\n.slick-slide h5[data-v-97bed9de]{\r\n  color: #002e45;\r\n  -webkit-text-decoration-color: #002e45;\r\n          text-decoration-color: #002e45;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#comments-sm[data-v-97bed9de]{\r\n  width: 91%;\n}\n[data-v-97bed9de] .slick-track\r\n{\r\n    display: flex !important;\n}\nsection[data-v-97bed9de]{\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\n}\n[data-v-97bed9de] .slick-list{\r\n  margin-left: 10px !important;\n}\n[data-v-97bed9de]  div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n    display: block;\r\n    padding: 5px;\r\n    height: inherit !important;\r\n    position: relative;\r\n    background-color: rgb(255, 255, 255);\r\n    flex-direction: column;\r\n    min-width: 0;\r\n    word-wrap: break-word;\r\n    background-clip: border-box;\r\n    border: 1px solid rgba(0,0,0,.125);\r\n    border-radius: .25rem;\n}\n[data-v-97bed9de] .slick-arrow{\r\n    position: absolute;\r\n    margin-top: 0;\r\n    cursor: pointer;\r\n    min-width: 20px;\r\n    height: 35px;\r\n    z-index: 10;\r\n    color: transparent;\r\n    background-repeat: no-repeat;\n}\n[data-v-97bed9de] .slick-arrow.slick-prev::before{\r\n  color:rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-arrow.slick-next::before{\r\n  color:rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-97bed9de]  .slick-slide {\r\n  flex: 0 50%;\r\n  background: #fff;\r\n  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),\r\n    0 5px 15px 0 rgba(37, 44, 97, 0.15);\r\n  border-radius: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n  overflow: hidden;\r\n  min-height: 265px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de]  .slick-slide div::before{\r\n  content: \"\";\r\n  position: absolute;\r\n  background: rgb(255 137 36 / 20%);\r\n  width: 200px;\r\n  height: 450px;\r\n  z-index: -1;\r\n  transform: rotate(42deg);\r\n  right: -56px;\r\n  border-radius: 35px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de]  .slick-slide div:first-child:hover:before{\r\n  transform: rotate(42deg);\r\n  top: -56px;\r\n  right: -56px;\r\n  transition: 0.7s;\n}\n.slick-slide h5[data-v-97bed9de]{\r\n  color: #002e45;\r\n  -webkit-text-decoration-color: #002e45;\r\n          text-decoration-color: #002e45;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43665,6 +43785,45 @@ component.options.__file = "resources/js/components/Admin/AdminCoursesComponent.
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/Admin/AdminCoursesMoodleComponent.vue ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9& */ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9&");
+/* harmony import */ var _AdminCoursesMoodleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminCoursesMoodleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AdminCoursesMoodleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Admin/AdminCoursesMoodleComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/AdminTestimonialComponent.vue":
 /*!*********************************************************************!*\
   !*** ./resources/js/components/Admin/AdminTestimonialComponent.vue ***!
@@ -45106,6 +45265,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminCoursesMoodleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminCoursesMoodleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminCoursesMoodleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/AdminTestimonialComponent.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************!*\
   !*** ./resources/js/components/Admin/AdminTestimonialComponent.vue?vue&type=script&lang=js& ***!
@@ -46073,6 +46248,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminCoursesMoodleComponent_vue_vue_type_template_id_41332dc9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/AdminTestimonialComponent.vue?vue&type=template&id=d32f4bdc&scoped=true&":
 /*!****************************************************************************************************************!*\
   !*** ./resources/js/components/Admin/AdminTestimonialComponent.vue?vue&type=template&id=d32f4bdc&scoped=true& ***!
@@ -46684,6 +46876,120 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h1", [_vm._v("\r\n      Administración de cursos (Local)\r\n  ")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v(
+        "En este apartado simplemente puede observar la información básica de los cursos, además de establecer como destacado. \r\n    Si desea modificar la información de los cursos debe hacerlo desde Moodle.\r\n  "
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("table", { staticClass: "table" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.courses, function(course) {
+            return _c("tr", { key: course.id }, [
+              _c("th", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(course.id))
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(
+                  "\r\n            " +
+                    _vm._s(course.fullname) +
+                    "\r\n          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(course.shortname))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(course.category))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(course.destacado == "1" ? "Si" : "No"))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    class:
+                      course.destacado == 1
+                        ? "btn btn-outline-danger btn-acction"
+                        : "btn btn-outline-primary btn-acction",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.setDestacado(
+                          course.shortname,
+                          !course.destacado
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\r\n              " +
+                        _vm._s(
+                          course.destacado == 1 ? "No Destacar" : "Destacar"
+                        ) +
+                        "\r\n            "
+                    )
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Id")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre Corto")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Categoria")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Destacado")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/AdminCoursesMoodleComponent.vue?vue&type=template&id=41332dc9& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
   return _vm._m(0)
 }
 var staticRenderFns = [
@@ -46692,11 +46998,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", [_vm._v("\r\n      Administración de cursos\r\n  ")]),
+      _c("h1", [_vm._v("\n    Administración de cursos (Moodle)\n")]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "En este apartado simplemente puede observar la información básica de los cursos, no se puede editar o eliminar. \r\n    Si desea modificar la información de los cursos debe hacerlo desde Moodle.\r\n  "
+          "En este apartado simplemente puede observar la información básica de los cursos de Moodle, además de importarlos a la base de la app Octavario. \n  Si desea modificar la información de los cursos debe hacerlo desde Moodle.\n"
         )
       ])
     ])
@@ -47514,34 +47820,57 @@ var render = function() {
     [
       _c("h3", { staticClass: "topico" }, [_vm._v("Cursos Recomendados:")]),
       _vm._v(" "),
-      _c(
-        "VueSlickCarousel",
-        _vm._b({}, "VueSlickCarousel", _vm.settings, false),
-        _vm._l(_vm.comments, function(comment) {
-          return _c("div", { key: comment.id }, [
-            _c("img", {
-              staticClass: "card-img-top rounded",
-              attrs: { src: "/images/crs-im-test.jpg", alt: "Card image cap" }
+      _vm.visible
+        ? _c(
+            "VueSlickCarousel",
+            _vm._b({}, "VueSlickCarousel", _vm.settings, false),
+            _vm._l(_vm.comments2, function(comment) {
+              return _c("div", { key: comment.shortname }, [
+                _c("img", {
+                  staticClass: "card-img-top rounded",
+                  attrs: { src: comment.file, alt: "Card image cap" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body container" },
+                  [
+                    _c("p", { staticClass: "card-topico" }, [
+                      _c("small", { staticClass: "topico-muted" }, [
+                        _vm._v(_vm._s(comment.category))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            name: "curso",
+                            params: { shortname: comment.shortname }
+                          }
+                        }
+                      },
+                      [
+                        _c("a", [
+                          _c("h5", { staticClass: "card-title" }, [
+                            _vm._v(_vm._s(comment.fullname))
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("p", {
+                      domProps: { innerHTML: _vm._s(comment.summary) }
+                    })
+                  ],
+                  1
+                )
+              ])
             }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body container" }, [
-              _c("p", { staticClass: "card-topico" }, [
-                _c("small", { staticClass: "topico-muted" }, [
-                  _vm._v(_vm._s(comment.topico))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "/" } }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(comment.title))
-                ])
-              ]),
-              _vm._v("\r\n        " + _vm._s(comment.topico) + "\r\n      ")
-            ])
-          ])
-        }),
-        0
-      )
+            0
+          )
+        : _c("loading-component")
     ],
     1
   )

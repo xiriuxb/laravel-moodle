@@ -31,15 +31,15 @@ class MoodleCurso extends Model
     }
     
     public function __construct5(
-        string $moodle_id, string $fullname, 
-        string $shortname, string $category,
-        bool $destacado=false)
+         string $fullname, string $shortname,
+         string $summary,string $category,
+         string $file)
     {
-        $this->moodle_id = $moodle_id;
         $this->fullname = $fullname;
         $this->shortname = $shortname;
+        $this->summary = $summary;
         $this->category = $category;
-        $this->destacado = $destacado;
+        $this->file = $file;
     }
 
     public function __construct7(

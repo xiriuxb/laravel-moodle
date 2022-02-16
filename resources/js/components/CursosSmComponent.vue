@@ -1,19 +1,22 @@
 <template>
 <section class="container" id="comments-sm">
   <h3 class="topico">Cursos Recomendados:</h3>
-  <VueSlickCarousel v-bind="settings">
-    <div v-for="comment in comments" :key="comment.id">
-        <img class="card-img-top rounded" src="/images/crs-im-test.jpg" alt="Card image cap">
+  <VueSlickCarousel v-bind="settings" v-if="visible">
+    <div v-for="comment in comments2" :key="comment.shortname">
+        <img class="card-img-top rounded" :src="comment.file" alt="Card image cap">
       <div class="card-body container">
-        <p class="card-topico"><small class="topico-muted">{{comment.topico}}</small></p>
-        <a href="/">
-        <h5 class="card-title">{{comment.title}}</h5>
+        <p class="card-topico"><small class="topico-muted">{{comment.category}}</small></p>
+        <router-link :to="{name:'curso',params:{shortname:comment.shortname}}">
+          <a>
+        <h5 class="card-title">{{comment.fullname}}</h5>
         </a>
-        {{comment.topico}}
+        </router-link>
+        <p v-html="comment.summary">
+        </p>
       </div>
     </div>
   </VueSlickCarousel>
-
+  <loading-component v-else></loading-component>
 </section>
 
 </template>
@@ -22,16 +25,16 @@
   import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  import LoadingComponent from '../components/LoadingComponent.vue';
 export default {
   
-    components: { VueSlickCarousel},
+    components: { VueSlickCarousel, LoadingComponent},
     methods:{
     },
     data:function(){
         return{
-        comments2:[
-
-        ],
+          visible:false,
+        comments2:[],
         //slick carousel settings
         settings:{
             "infinite": true,
@@ -47,9 +50,9 @@ export default {
               {
                 "breakpoint": 1024,
                 "settings": {
-                "slidesToShow": 3,
-                "slidesToScroll": 3,
-                "infinite": true
+                "slidesToShow": 2,
+                "slidesToScroll": 1,
+                "infinite": false
                 }
               },
               {
@@ -70,6 +73,16 @@ export default {
             ]
         },
       }
+    },
+    created(){
+      axios.get('/api/cursos-local/destacados').then(response => {
+        this.comments2 = response.data.data;
+        this.visible = true;
+      }).catch(
+        error => {
+          this.visible = false;
+        }
+      );
     },
 }        
 
@@ -149,10 +162,6 @@ section{
   right: -56px;
   border-radius: 35px;
   transition: 0.7s;
-}
-
-::v-deep  .slick-slide:hover{
-
 }
 
 ::v-deep  .slick-slide div:first-child:hover:before{

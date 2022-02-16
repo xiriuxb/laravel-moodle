@@ -86,7 +86,7 @@ Route::group(['middleware'=>['api']],function(){
                     : response()->json(['errors'=>['email' => __($status)]],422);
     })->middleware('guest')->name('password.update');
 
-    Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth','verified']);
+    Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth']);
 
     Route::get('user/matriculas', 'App\Http\Controllers\UserController@matriculas');
 

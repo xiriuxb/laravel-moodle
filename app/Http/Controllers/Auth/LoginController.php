@@ -44,20 +44,6 @@ class LoginController extends Controller
 
     public function vuelogin(Request $request)
     {
-        
-        // $validator = Validator::make($request->all(), [
-        //     'email' => ['required', 'email'],
-        //     'password' => ['required', 'string'],
-        // ]);
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(),422);
-        // }
-        // $credentials = $request->only(['email', 'password']);
-        // if (!$token = auth()->attempt($credentials)) {
-        //     return response()->json(['error' => 'Unauthorized'], 422 );
-        // }
-        // return $this->respondWithToken($token);
-        //dd($request->all());
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],

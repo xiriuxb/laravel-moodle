@@ -95,6 +95,7 @@ const router = new VueRouter({
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
         { path: '/personal', component: require('./components/User/ProfileComponent.vue').default },
         { path: '/email/verify', component: Notice, name: 'email' },
+        { path: '/search-temp' , component: require('./components/ExampleComponent.vue').default},
     ],
 
     //{ path: '/test', component: AdminCommentComponent, name: 'test' },

@@ -78,26 +78,16 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:16','alpha'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed','max:24'],
-            /*'country' => ['required', 'string', 'max:20'],
-            'region' => ['required', 'string', 'max:64'],
-            'phone_number'=>['nullable','string','size:8','regex:/[(0-9)]{8}/'],
-            'birth_day'=>['nullable','date','before:today'],*/
         ]);
         $user = User::create([
             'name' => $request->name,
             'last_name'=>$request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            /*'country'=> $request->country'],
-            'region'=> $request->region'],*/
             'username'=> RegisterController::setUsernameAttribute($request->name,$request->last_name),
-            /*'phone_number'=>$request->phone_number'],
-            'birth_day'=>$request->birth_day']*/
         ])->assignRole('user');
         event(new Registered($user));
         $this->guard()->login($user);
         return route('verification.notice');
     }
-
-    
 }

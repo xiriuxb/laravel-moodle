@@ -64,16 +64,6 @@ class CursosLocal extends Controller
             unset($curso_aux);
             return $cursos;
     }
-
-    public function setDestacado(Request $request){
-        $curso = Curso::where('shortname',$request->id)->first();
-        $curso->destacado = $request->destacado;
-        $curso->save();
-        return response()->json(['status' => 'ok', 'data' => $curso], 200);
-    }
-
-
-
     /**
      * Show the form for creating a new resource.
      *

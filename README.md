@@ -46,7 +46,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Frogot password
 - Revisar el uso de tildes en nombres de usuario
 - X Anadir un boton o algo en la pagina de inicio que redirija a los cursos
-- Boton de inscribirse, cambiar cuando ya este inscrito
+- X Boton de inscribirse, cambiar cuando ya este inscrito
 - X Revisar la ruta de email/verify
 - O Add frontend messages on:
     - X Forgot password
@@ -56,3 +56,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     - ? Email de notificacion
 - O Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
 - X Cambiar el registro del curso al matricularse al back
+- ? Cambiar el mensaje del boton "Ir al curso"
+- Notificacion en el perfil cuando no ha verificado el mail
+- Definir el funcionamiento cuando un usuario se elimina
+- Issue cuando 

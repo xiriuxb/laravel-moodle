@@ -17,7 +17,7 @@ class AdminTestimonioController extends Controller
         $this->middleware('can:testimonial.create', ['only' => ['store']]);
         $this->middleware('can:testimonial.delete', ['only' => ['destroy']]);
         $this->middleware('can:testimonial.edit', ['only' => ['update']]);
-        $this->middleware('can:testimonial.edit',['only'=>['index','show']]);
+        $this->middleware('can:testimonial.edit', ['only' => ['index', 'show']]);
     }
     /**
      *
@@ -26,8 +26,7 @@ class AdminTestimonioController extends Controller
      */
     public function index()
     {
-            return response()->json(['status' => 'ok', 'data' => Testimonial::all()], 200);
-        
+        return response()->json(['status' => 'ok', 'data' => Testimonial::all()], 200);
     }
 
     public function visibles()
@@ -60,10 +59,6 @@ class AdminTestimonioController extends Controller
         return response()->json(['status' => 'ok', 'data' => $comment], 200);
     }
 
-    public function edit($id)
-    {
-        echo 'edit';
-    }
     public function update(Request $request, $id)
     {
         $testimonial = Testimonial::find($id);
@@ -82,7 +77,7 @@ class AdminTestimonioController extends Controller
             'autor' => $request->autor,
             'is_active' => $request->is_active
         ]);
-        return response()->json(['status' => 'ok', 'data' => ['message'=>'Se actualizó correctamente']], 200);
+        return response()->json(['status' => 'ok', 'data' => ['message' => 'Se actualizó correctamente']], 200);
     }
     public function destroy($id)
     {

@@ -22,6 +22,12 @@ Route::group(['middleware'=>['api']],function(){
         return $request->user();
     });
     
+    Route::prefix('admin')->group(function(){
+        Route::get('/cursos-moodle', 'App\Http\Controllers\admin\AdminMoodleCursosController@index');
+        Route::get('/cursos-local', 'App\Http\Controllers\CursosLocal@index');
+        Route::post('/cursos-local/destacado', 'App\Http\Controllers\admin\AdminLocalCursosController@setDestacado');
+        Route::post('/cursos-local/importar', 'App\Http\Controllers\admin\AdminLocalCursosController@importFromMoodle');
+    });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
     
@@ -39,8 +45,6 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
-
-    Route::get('categorias-test', 'App\Http\Controllers\CategoriaCursoController@indexTest');
     
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
@@ -91,10 +95,6 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('user/matriculas', 'App\Http\Controllers\UserController@matriculas');
 
     //    Route::get('user/role', 'App\Http\Controllers\UserController@role');
-
-    Route::get('cursos-local', 'App\Http\Controllers\CursosLocal@index');
-
-    Route::post('cursos-local/destacado', 'App\Http\Controllers\CursosLocal@setDestacado');
 
     Route::get('cursos-local/destacados', 'App\Http\Controllers\CursosLocal@destacados');
 });

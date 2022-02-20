@@ -71,6 +71,10 @@ Route::group(['middleware' => ['web']], function () {
         return view('layouts.master');
     })->middleware('auth')->name('personal.data');
 
+    Route::get('/search-temp', function () {
+        return view('layouts.master');
+    });
+
     Route::post('/change-password', 'App\Http\Controllers\UserController@changePassword')->name('change.password');
 
     Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->middleware('auth')->name('logout');
@@ -82,4 +86,6 @@ Route::group(['middleware' => ['web']], function () {
     {
         return view('layouts.master');
     })->middleware('auth')->name('my.courses');
+
+    Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
 });

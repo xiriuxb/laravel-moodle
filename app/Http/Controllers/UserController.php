@@ -30,6 +30,12 @@ class UserController extends Controller
         return response()->json(['status' => 'ok', 'data' => User::all()], 200);
     }
 
+    public function getUsers(Request $request)
+    {
+        $data = User::where('name', 'LIKE','%'.$request->keyword.'%')->get();
+        return response()->json($data); 
+    }
+
     public function changePassword(Request $request)
     {
         if (! Hash::check($request->passwordActual, $request->user()->password)) {

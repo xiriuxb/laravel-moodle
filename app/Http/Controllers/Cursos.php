@@ -22,18 +22,23 @@ class Cursos extends Controller
     public function index($categoria = null,$page){
         // $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND mdl_crs_cat.name = "'.$categoria.'"';
         if($categoria == null || $categoria == 'all'){
-            $cursos = DB::connection('moodle')->select($this->getQuery($categoria,1,null,$page)); 
+            $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
             return response()->json(['data'=>$cursos,'pages'=>$this->pages($categoria)],200);
         }
         elseif (CategoriaCurso::where('name', '=', $categoria)->exists()) {
-            $cursos = DB::connection('moodle')->select($this->getQuery($categoria,1,null,$page)); 
+            $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
             return response()->json(['data'=>$cursos,'pages'=>$this->pages($categoria)]);
         }else{
             return response()->json(['message'=>'Categoria no encontrada'],404);
         }
     }
 
-    private function getQuery($categoria = null,$visible = 1,$curseid = null, $page=1){
+    public function searchCourses(Request $request){
+        $data = MoodleCurso::where('fullname', 'LIKE','%'.$request->keyword.'%')->get();
+        return response()->json($data);
+    }
+
+    private function getQuery($categoria = null,$curseid = null, $page=1){
         $courseIdFilter = $curseid == null ? "" : " AND shortname = '".$curseid."'";
         $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND category = "'.$this->getCategoryId($categoria).'"';
         $categoryCFilter = $categoria == null || $categoria == 'all'? '' : ' where name = "'.$categoria.'"';
@@ -69,7 +74,6 @@ class Cursos extends Controller
             $total = MoodleCurso::where('category','=',$this->getCategoryId($categoria))->count();
         }
         return ceil($total/$this->ELEMENTS_PER_PAGE);
-        
     }
 
     public function index2($categoria=null,$page=1)

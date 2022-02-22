@@ -5,7 +5,6 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Email</th>
             <th scope="col">Nombre usuario</th>
@@ -14,7 +13,6 @@
         </thead>
         <tbody>
           <tr v-for="user in users" v-bind:key="user.id">
-            <th scope="row">{{ user.id }}</th>
             <td>
               <p>{{ user.name }} {{user.last_name}}</p>
             </td>

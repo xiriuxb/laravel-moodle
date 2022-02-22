@@ -39,7 +39,7 @@
           </tr>
         </tbody>
       </table>
-    <nav aria-label="..." class="disabled">
+    <nav aria-label="...">
       <ul class="pagination">
         <li class="page-item" :class="!link.active ? link.url == null ? 'page-item disabled' : 'page-item' : 'page-item active'"
           v-for="link in linksToPages" :key="link.label">
@@ -66,10 +66,7 @@ export default {
       loading:false,
       setting: false,
       baseCursosUrl: "/api/admin/cursos-moodle/",
-      paginaActual: 1,
       linksToPages: [],
-      nextPage: String,
-      prevPage: String,
       searchTerm: "",
     };
   },
@@ -85,7 +82,6 @@ export default {
   },
   methods: {
     getCourses(url=this.baseCursosUrl) {
-      console.log("getCourses");
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
         axios
@@ -93,7 +89,6 @@ export default {
           .then((response) => {
             this.courses = response.data.data;
             this.linksToPages = response.data.links;
-            this.paginaActual = response.current_page;
             this.loadingInit = this.loading = false;
           })
           .catch((error) => {
@@ -103,15 +98,6 @@ export default {
               duration: 5000,
             });
           });
-      }
-    },
-    loadCourses:function() {
-      console.log("Cargando cursos");
-      if (this.searchTerm === "") {
-        console.log("No hay nada que buscar");
-        this.debouncedGetAnswer();
-      }else if(this.searchTerm.length >= 2){
-        this.debouncedGetAnswer();
       }
     },
     importar(id) {

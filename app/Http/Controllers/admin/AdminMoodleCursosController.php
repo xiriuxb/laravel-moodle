@@ -15,6 +15,11 @@ class AdminMoodleCursosController extends Controller
 
     public function index(Request $request)
     {
-        return response()->json(MoodleCurso::where([['format','<>','site'],['visible','=',1],['fullname','LIKE','%'.$request->search.'%']])->select('shortname','fullname')->paginate(10), 200);
+        return response()->json(
+            MoodleCurso::where([
+                ['format','<>','site'],
+                ['visible','=',1],
+                ['fullname','LIKE','%'.$request->search.'%']
+            ])->select('shortname','fullname')->paginate(10), 200);
     }
 }

@@ -12,6 +12,14 @@ class AdminLocalCursosController extends Controller
     {
     }
 
+    public function index(Request $request)
+    {
+        return response()->json(
+            Curso::where([
+                ['fullname','LIKE','%'.$request->search.'%']
+            ])->select('shortname','fullname','category','destacado')->paginate(10), 200);
+    }
+
     public function importFromMoodle(Request $request)
     {
         $course = $this->sho($request->shortname);

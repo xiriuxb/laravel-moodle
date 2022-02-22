@@ -1,20 +1,57 @@
 <template>
-  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  <div class="lds-ring" :style="style">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </template>
 
 <script>
 export default {
-
-}
+  props:{
+    borderColor: {
+      type: String,
+      default: "rgb(180, 52, 52) transparent transparent transparent",
+    },
+    backgroundColor: {
+      type: String,
+      default: '#ffffff00',
+    },
+    width: {
+      type: String,
+      default: '50px',
+    },
+    height: {
+      type: String,
+      default: '50px',
+    },
+  },
+  data() {
+    return {
+      style: {
+        display: 'flex',
+        position: 'absolute',
+        width: this.width,
+        height: this.height,
+        'border-color': this.borderColor,
+        'backgroundColor': this.backgroundColor,
+      },
+    };
+  },
+};
 </script>
 
 <style scoped>
 /*Loading icon */
 .lds-ring {
-  display: inline-block;
-  position: relative;
+  display: flex;
+  position: absolute;
   width: 50px;
   height: 50px;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 .lds-ring div {
   box-sizing: border-box;

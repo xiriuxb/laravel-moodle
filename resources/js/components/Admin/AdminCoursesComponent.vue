@@ -6,7 +6,7 @@
   <p>En este apartado simplemente puede observar la información básica de los cursos, además de establecer como destacado. 
     Si desea modificar la información de los cursos debe hacerlo desde Moodle.
   </p>
-  <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='loading'>
+  <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='setting'>
   <loading-component v-if="loadingInit"></loading-component>
   <div class="container" v-else>
     <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" v-if="setting"></loading-component>

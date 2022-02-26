@@ -27,6 +27,9 @@ Route::group(['middleware'=>['api']],function(){
         Route::get('/cursos-local', 'App\Http\Controllers\admin\AdminLocalCursosController@index');
         Route::post('/cursos-local/destacado', 'App\Http\Controllers\admin\AdminLocalCursosController@setDestacado');
         Route::post('/cursos-local/importar', 'App\Http\Controllers\admin\AdminLocalCursosController@importFromMoodle');
+        Route::get('/users', 'App\Http\Controllers\admin\AdminUsersController@index');
+        Route::post('/users/change-role', 'App\Http\Controllers\admin\AdminUsersController@changeRole');
+        Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');

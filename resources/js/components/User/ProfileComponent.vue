@@ -14,6 +14,11 @@
             <!-- /.card-header -->
             <!-- .card-body -->
             <div class="card-body">
+              <div v-if="!user.email_verified_at" class="alert alert-warning">
+                Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click 
+                <router-link :to="{path:'/email/verify'}"><a href="#">aquí </a></router-link>
+                y siga los pasos.
+              </div>
               <form action="#" method="post">
                 <div class="row">
                   <div class="form-group col-12 col-sm-6">
@@ -119,10 +124,7 @@
         <!-- /.col -->
       </div>
     </div>
-    <change-email-modal
-      v-if="isEModalVisible"
-      @close="closeEModal"
-    ></change-email-modal>
+    <change-email-modal v-if="isEModalVisible" @close="closeEModal"></change-email-modal>
     <change-password-modal v-if="isPModalVisible" @close="closePModal"></change-password-modal>
   </div>
 </template>
@@ -193,6 +195,9 @@ export default {
         this.loading= false;
       });
     }
+  },
+  created() {
+    console.log(this.user.email_verified_at);
   },
 };
 </script>

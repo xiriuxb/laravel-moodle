@@ -1,5 +1,5 @@
 <template>
-<div class="col-12 col-md-4 col-sm-6">
+<div class="col-12 col-lg-4 col-md-6 col-sm-6">
   <router-link class="card" :to="{name:'curso',params:{shortname:curso.shortname}}">
     <img
       class="card-img-top"

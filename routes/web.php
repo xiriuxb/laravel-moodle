@@ -31,12 +31,8 @@ Route::group(['middleware' => ['web']], function () {
     ->where(['any'=>'testimonios|cursos|usuarios|cursos-moodle']);
     
     Route::get('/cursos', function () {
-        return redirect('/cursos/all');
-    })->where(['any'=>'.*'])->name('cursos');
-    
-    Route::get('/cursos/{category}', function () {
         return view('layouts.master');
-    })->where(['category'=>'.*','page' => '[0-9]+']);
+    });
     
     // Route::get('/cursos/{category}', function ($category) {
     //     return redirect('/cursos/'.$category.'/1');

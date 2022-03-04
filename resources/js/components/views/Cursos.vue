@@ -1,24 +1,71 @@
 <template>
-  <div id="cursos">
-    
+  <div id="cursos" class="container-fluid">
     <div id="encabezado-cursos">
-      <div>
-        <div class="col-5 col-md-5 justify-content-center">
-          <h2 id="titulo-cursos">Cursos</h2>
+        <div class="justify-content-center">
+          <p id="titulo-cursos">Cursos</p>
         </div>
-      </div>
+          <h4 v-if="category">({{category}})</h4>
     </div>
-    <div class="comp">
+    <div class="d-flex">
       <filter-component></filter-component>
-      <router-view :key="$route.fullPath"></router-view>
-      <p>{{$data}}</p>
+      <div class="d-flex flex-column">
+        <div>
+          <cursos-component :cursos="cursos2"  v-if="this.visible"></cursos-component>
+          <loading-component :height="'300px'" :width="'100%'" :position="'inherit'" v-else></loading-component>
+        </div>
+        <course-navigation-component :page="page" :pages="pages"></course-navigation-component>
+      </div>
     </div>
   </div>
 </template>
 
 <script scoped>
+import LoadingComponent from "../LoadingComponent.vue";
+import CourseNavigationComponent from '../CourseNavigationComponent.vue';
 export default {
-
+  components: {
+    LoadingComponent,
+    CourseNavigationComponent
+  },
+  data() {
+    return {
+      category: "all",
+      cursos2: [],
+      page: 1,
+      visible: false,
+      pages: 0,
+    };
+  },
+  methods: {
+    loadCourses(){
+      this.visible = false;
+      var ruta = "/api/curses";
+      ruta =
+        ruta + "/" + this.category + "/" + this.page;
+      axios
+        .get(ruta)
+        .then((response) => {
+          this.cursos2 = response.data.data;
+          this.pages = response.data.pages;
+          this.visible = true;
+        })
+        .catch((err) => {
+          this.visible = true;
+          this.mensajeErr = err.response.data.message;
+        });
+    },
+  },
+  created() {
+    this.loadCourses();
+  },
+  watch:{
+    category(){
+      this.loadCourses();
+    },
+    page(){
+      this.loadCourses();
+    },
+  }
 };
 </script>
 
@@ -30,22 +77,23 @@ export default {
   padding-top: 100px;
 }
 
+#encabezado-cursos{
+    display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
 #titulo-cursos {
   font-size: 60px;
-  font-family: montserrat;
   font-weight: 700;
-  margin-left: 25%;
+  padding: 10px 20px;
 }
-.comp {
-  display: flex;
-  margin: 0px 0px 0px;
-  flex-direction: column;
-}
-@media (min-width: 768px) {
-  .comp {
-    display: flex;
-    margin: 0px 0px 0px;
-    flex-direction: row;
+@media (max-width: 750px) {
+  #cursos .d-flex {
+    flex-flow: column;
   }
+}
+.d-flex.flex-column {
+  width: -webkit-fill-available;
 }
 </style>

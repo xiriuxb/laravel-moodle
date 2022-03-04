@@ -1,10 +1,10 @@
 <template>
-  <div id="curso">
-    <div v-if="visible">
+  <div id="curso" class="container-fluid">
+    <div >
       <div v-if="existe">
         <div class="card left">
-          <div class="row">
-            <div class="col-12 col-sm-8 justify-content-center">
+          <div class="row" v-if="visible">
+            <div class="col-12 col-sm-8 col-md-6 justify-content-center">
               <div>
                 <router-link :to="{name:'cursos-filtered',params:{category:curso.category,page:1}}">
                 {{ curso.category }}
@@ -14,25 +14,26 @@
               <div id="summary">
                 <div>
                   <p v-html="this.curso.summary"></p>
-                  <!-- {{this.curso.summary}} -->
                   </div>
               </div>
               <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
             </div>
-            <div class="col-12 col-sm-4 justify-content-center">
+            <div class="col-12 col-sm-4 col-md-6 d-flex align-items-center">
               <img :src="curso.image" alt="" />
             </div>
           </div>
+          <loading-component v-else :position="'inherit'" :height="'250px'"></loading-component>
+
         </div>
         <div class="row comp">
-          <div id="description" class="container">
+          <div id="description" class="container" v-if="visible">
             <p v-html="this.curso.ex_description"></p>
           </div>
+          <loading-component v-else :position="'inherit'" :height="'300px'"></loading-component>
         </div>
       </div>
       <not-found-component v-else></not-found-component>
     </div>
-    <loading-component v-else></loading-component>
   </div>
 </template>
 
@@ -112,10 +113,19 @@ export default {
 }
 img{
   width: 100%;
-  min-height: 200px;
+  min-width: 200px;
+  max-width: 440px;
 }
 #summary{
   color: white;
   font-size: large;
+}
+
+@media (max-width: 675px) {
+  .row{
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
 </style>

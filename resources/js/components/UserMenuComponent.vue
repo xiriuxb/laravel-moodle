@@ -40,7 +40,7 @@ export default {
   methods: {
     logout() {
       this.$router.go('/')
-      axios.get('/sanctum/csrf-cookie');
+      //axios.get('/sanctum/csrf-cookie');
       axios
         .post("/logout")
         .then(() => {

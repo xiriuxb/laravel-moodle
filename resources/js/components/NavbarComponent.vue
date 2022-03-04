@@ -22,15 +22,10 @@
         </button>
         <div class="collapse navbar-collapse" id="mainMenu">
           <ul class="navbar-nav mr-auto f1">
-            <li class="nav-item text-uppercase">
-              <router-link
-                :to="{ name: 'home-component' }"
-                class="active active-first"
-                >inicio
-                </router-link>
-            </li>
-            <li class="nav-item text-uppercase">
-              <router-link :to="{ name: 'cursos-filtered',params: { category:'all' ,page:1}}">Cursos</router-link>
+            <li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase" data-toggle="collapse" data-target="#mainMenu">
+              <router-link  :to="{name:item.name, params:item.params}" :class=" $route.name == item.name ? 'active active-first':''">
+                  {{item.text}}
+              </router-link>
             </li>
           <li class="nav-item">
             <search-component></search-component>
@@ -38,7 +33,7 @@
           </ul>
           <ul class="navbar-nav ms-auto">
             <li v-if="!this.$store.getters.isLoggedIn">
-              <a href="/" v-if="$route.fullPath != '/'">
+              <a href="/">
                 Regístrese
               </a>
             </li>
@@ -66,7 +61,21 @@ import UserMenuComponent from "./UserMenuComponent.vue";
 export default {
   data() {
     return {
-      cursos_link: "/cursos",
+      navElements:[
+        {
+          name: 'home-component',
+          path: '/',
+          text: 'Inicio',
+          params:{}
+        },
+        {
+          name: 'cursos',
+          path: '/cursos',
+          text: 'Cursos',
+          params:{
+          }
+        },
+      ],
     };
   },
   components: { UserMenuComponent, SearchComponent },
@@ -176,7 +185,7 @@ export default {
   .main-header .container {
     align-content: center;
     align-items: center;
-    text-align: center;
+    /* text-align: center; */
   }
 
   .main-header .navbar-nav {
@@ -184,11 +193,16 @@ export default {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-    text-align: center;
+    /* text-align: center; */
   }
 
   .main-header .navbar-nav {
     margin-top: 15px;
+  }
+
+  .main-header .navbar-nav li {
+    display: inline-block;
+    padding-bottom: 10px;
   }
 
   #mainMenu li:not(:last-of-type) {

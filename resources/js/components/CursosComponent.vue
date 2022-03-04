@@ -1,32 +1,30 @@
 <template>
-  <div class="container justify-content-center mb-50">
-    <div v-if="this.visible">
+  <div class="justify-content-center mb-50">
+    <div>
       <div class="row">
         <curso-card-component
-          v-for="curso in cursos2"
+          v-for="curso in cursos"
           :key="curso.shortname"
           :curso="curso"
         >
         </curso-card-component>
-        <!-- Page navigation -->
-        <course-navigation-component  :pages="pages"></course-navigation-component>
-        <!-- End page navigation -->
+
       </div>
       <p v-if="mensajeErr != ''">{{ mensajeErr }}</p>
     </div>
-    <loading-component v-else></loading-component>
   </div>
 </template>
 
 <script>
 import CursoCardComponent from "../components/CursoCardComponent.vue";
-import LoadingComponent from "../components/LoadingComponent.vue";
-import CourseNavigationComponent from './CourseNavigationComponent.vue';
 export default {
   components: {
     CursoCardComponent,
-    LoadingComponent,
-    CourseNavigationComponent,
+  },
+  props: {
+    cursos: {
+      type: Array,
+    },
   },
   data() {
     return {
@@ -37,21 +35,11 @@ export default {
     };
   },
   beforeMount() {
-    var ruta = "/api/curses";
-    ruta =
-      ruta + "/" + this.$route.params.category + "/" + this.$route.params.page;
-    axios
-      .get(ruta)
-      .then((response) => {
-        this.cursos2 = response.data.data;
-        this.pages = response.data.pages;
-        this.visible = true;
-      })
-      .catch((err) => {
-        this.visible = true;
-        this.mensajeErr = err.response.data.message;
-      });
+    
   },
+  methods:{
+    
+  }
 };
 </script>
 

@@ -17,11 +17,9 @@
               <div class="card-body">
                 <ul class="list-menu">
                   <li>
-                    <router-link :to="{path:'/cursos/all/1'}">Todos</router-link>
+                    <button class="btn" @click="updateCurrentCategory('all')">Todos</button>
                   <li v-for="categoria in categories" :key="categoria.id">
-                    <router-link :to="{ name: 'cursos-filtered', params: { category:categoria.name, page:1 } }">
-                      {{ categoria.name }}
-                    </router-link>
+                      <button class="btn" @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</button> 
                     <!-- <a" >{{categoria.name}} </a> -->
                   </li>
                 </ul>
@@ -34,6 +32,11 @@
 
 <script>
 export default {
+  props: {
+    currentCategory: {
+      type: String,
+    },
+  },
   data(){
     return{
       categories:[],
@@ -47,6 +50,12 @@ export default {
         console.log(err);
       }); 
     },
+    methods:{
+      updateCurrentCategory: function (currentCategory) {
+        this.$parent.category = currentCategory;
+        console.log(this.$parent.category);
+    }
+    }
 };
 </script>
 
@@ -54,6 +63,7 @@ export default {
 #filter{
   max-width: 250px;
   min-width: 220px;
+  padding-bottom: 10px;
 }
 .mt-100 {
   margin-top: 30px;

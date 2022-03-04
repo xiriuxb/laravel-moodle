@@ -26,12 +26,16 @@ export default {
       type: String,
       default: '50px',
     },
+    position: {
+      type: String,
+      default: 'absolute',
+    },
   },
   data() {
     return {
       style: {
         display: 'flex',
-        position: 'absolute',
+        position: this.position,
         width: this.width,
         height: this.height,
         'border-color': this.borderColor,

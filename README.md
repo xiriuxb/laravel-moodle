@@ -35,7 +35,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
         - X Envío de email de notificacion
         - X Actualizacion de datos
     - X Vista de compras (inscripciones)
-- Terminar el menu admin
+- O Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
 - X Pagination en vista cursos
@@ -57,6 +57,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - O Verificar registro (el error se genera luego de que el registro se realizó --no loguea)-- login desde host externo CSRF token mismatch
 - X Cambiar el registro del curso al matricularse al back
 - ? Cambiar el mensaje del boton "Ir al curso"
-- Notificacion en el perfil cuando no ha verificado el mail
-- Definir el funcionamiento cuando un usuario se elimina
+- X Notificacion en el perfil cuando no ha verificado el mail
+- Definir el funcionamiento cuando un usuario se elimina (si elimina el usuario su propia cuenta y cuando un admin suspende a un usuario)
 - Issue cuando 

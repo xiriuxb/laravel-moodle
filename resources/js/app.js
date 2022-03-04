@@ -73,9 +73,7 @@ const router = new VueRouter({
             children: [
                 { path: '', component: HomeComponemt, name: 'home-component', },
                 //{ path: '/cursos', component: Cursos, name: 'cursos' },
-                { path: 'cursos', component: Cursos, name: 'cursos' ,children:[
-                    { path: ":category?/:page?", component: CursosComponent, name: 'cursos-filtered' },
-                ] },
+                { path: '/cursos', component: Cursos, name: 'cursos' },
                 { path: 'curso/:shortname', component: Curso, name: 'curso' },
                 { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
                 { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },   

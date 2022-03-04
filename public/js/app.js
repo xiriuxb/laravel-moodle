@@ -2864,47 +2864,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      page: 1
-    };
-  },
-  mounted: function mounted() {
-    this.page = this.$route.params.page;
-    console.log(this.$route.params.page);
-  },
   props: {
     pages: {
+      type: Number,
+      required: true
+    },
+    page: {
       type: Number,
       required: true
     }
   },
   methods: {
-    navigationUp: function navigationUp(page, maxPage) {
-      return page < maxPage ? +page + 1 : +page;
+    navigationUp: function navigationUp() {
+      window.scrollTo(0, 0);
+      this.page < this.pages ? +this.$parent.page++ : +this.page;
+      console.log(this.$parent.page);
     },
-    navigationDown: function navigationDown(page) {
-      return page > 1 ? +page - 1 : 1;
+    navigationDown: function navigationDown() {
+      window.scrollTo(0, 0); // Scroll to top of page
+
+      this.page > 1 ? +this.$parent.page-- : 1;
     }
   }
 });
@@ -2968,8 +2948,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_CursoCardComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CursoCardComponent.vue */ "./resources/js/components/CursoCardComponent.vue");
-/* harmony import */ var _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
-/* harmony import */ var _CourseNavigationComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CourseNavigationComponent.vue */ "./resources/js/components/CourseNavigationComponent.vue");
 //
 //
 //
@@ -2987,17 +2965,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    CursoCardComponent: _components_CursoCardComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    LoadingComponent: _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    CourseNavigationComponent: _CourseNavigationComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    CursoCardComponent: _components_CursoCardComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    cursos: {
+      type: Array
+    }
   },
   data: function data() {
     return {
@@ -3007,20 +2983,8 @@ __webpack_require__.r(__webpack_exports__);
       pages: 0
     };
   },
-  beforeMount: function beforeMount() {
-    var _this = this;
-
-    var ruta = "/api/curses";
-    ruta = ruta + "/" + this.$route.params.category + "/" + this.$route.params.page;
-    axios.get(ruta).then(function (response) {
-      _this.cursos2 = response.data.data;
-      _this.pages = response.data.pages;
-      _this.visible = true;
-    })["catch"](function (err) {
-      _this.visible = true;
-      _this.mensajeErr = err.response.data.message;
-    });
-  }
+  beforeMount: function beforeMount() {},
+  methods: {}
 });
 
 /***/ }),
@@ -3297,7 +3261,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           //vm.answer = _.capitalize(response.data);
           vm.users = response.data;
-          console.log(vm.answer);
+          console.log(vm.users);
           vm.loading = false;
         })["catch"](function (error) {
           vm.answer = "Error! Could not reach the API. " + error;
@@ -3367,9 +3331,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    currentCategory: {
+      type: String
+    }
+  },
   data: function data() {
     return {
       categories: []
@@ -3384,6 +3351,12 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (err) {
       console.log(err);
     });
+  },
+  methods: {
+    updateCurrentCategory: function updateCurrentCategory(currentCategory) {
+      this.$parent.category = currentCategory;
+      console.log(this.$parent.category);
+    }
   }
 });
 
@@ -3618,13 +3591,17 @@ __webpack_require__.r(__webpack_exports__);
     height: {
       type: String,
       "default": '50px'
+    },
+    position: {
+      type: String,
+      "default": 'absolute'
     }
   },
   data: function data() {
     return {
       style: {
         display: 'flex',
-        position: 'absolute',
+        position: this.position,
         width: this.width,
         height: this.height,
         'border-color': this.borderColor,
@@ -3874,17 +3851,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      cursos_link: "/cursos"
+      navElements: [{
+        name: 'home-component',
+        path: '/',
+        text: 'Inicio',
+        params: {}
+      }, {
+        name: 'cursos',
+        path: '/cursos',
+        text: 'Cursos',
+        params: {}
+      }]
     };
   },
   components: {
@@ -4388,8 +4370,8 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var _this = this;
 
-      this.$router.go('/');
-      axios.get('/sanctum/csrf-cookie');
+      this.$router.go('/'); //axios.get('/sanctum/csrf-cookie');
+
       axios.post("/logout").then(function () {
         window.location.href = '/';
 
@@ -5627,6 +5609,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5711,6 +5694,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+/* harmony import */ var _CourseNavigationComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CourseNavigationComponent.vue */ "./resources/js/components/CourseNavigationComponent.vue");
 //
 //
 //
@@ -5729,7 +5714,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    CourseNavigationComponent: _CourseNavigationComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  data: function data() {
+    return {
+      category: "all",
+      cursos2: [],
+      page: 1,
+      visible: false,
+      pages: 0
+    };
+  },
+  methods: {
+    loadCourses: function loadCourses() {
+      var _this = this;
+
+      this.visible = false;
+      var ruta = "/api/curses";
+      ruta = ruta + "/" + this.category + "/" + this.page;
+      axios.get(ruta).then(function (response) {
+        _this.cursos2 = response.data.data;
+        _this.pages = response.data.pages;
+        _this.visible = true;
+      })["catch"](function (err) {
+        _this.visible = true;
+        _this.mensajeErr = err.response.data.message;
+      });
+    }
+  },
+  created: function created() {
+    this.loadCourses();
+  },
+  watch: {
+    category: function category() {
+      this.loadCourses();
+    },
+    page: function page() {
+      this.loadCourses();
+    }
+  }
+});
 
 /***/ }),
 
@@ -5956,14 +5988,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
       name: 'home-component'
     }, //{ path: '/cursos', component: Cursos, name: 'cursos' },
     {
-      path: 'cursos',
+      path: '/cursos',
       component: _components_views_Cursos__WEBPACK_IMPORTED_MODULE_9__.default,
-      name: 'cursos',
-      children: [{
-        path: ":category?/:page?",
-        component: _components_CursosComponent__WEBPACK_IMPORTED_MODULE_17__.default,
-        name: 'cursos-filtered'
-      }]
+      name: 'cursos'
     }, {
       path: 'curso/:shortname',
       component: _components_views_Curso__WEBPACK_IMPORTED_MODULE_11__.default,
@@ -10857,7 +10884,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#filter[data-v-1c992a4a]{\r\n  max-width: 250px;\r\n  min-width: 220px;\n}\n.mt-100[data-v-1c992a4a] {\r\n  margin-top: 30px;\r\n  box-sizing: border-box;\r\n  width: 300px;\r\n  padding-right: 0;\n}\n.filter-group[data-v-1c992a4a] {\r\n    border: 1px solid #343a4071;\r\n    width: 100%;\n}\n.card-header[data-v-1c992a4a] {\r\n  padding: 0.75rem 1.25rem;\r\n  margin-bottom: 0;\r\n  background-color: #fff;\r\n  border-bottom: 4px solid #d44a0b;\r\n  cursor: pointer;\n}\n.icon-control[data-v-1c992a4a] {\r\n  margin-top: 6px;\r\n  float: right;\r\n  font-size: 80%;\n}\n.list-menu[data-v-1c992a4a] {\r\n  list-style: none;\r\n  margin: 0;\r\n  padding-left: 0;\n}\n.list-menu a[data-v-1c992a4a] {\r\n  color: #343a40;\n}\na[data-v-1c992a4a] {\r\n  text-decoration: none !important;\r\n  background-color: transparent;\n}\n.checkbox-btn[data-v-1c992a4a] {\r\n  position: relative;\n}\n.checkbox-btn input[data-v-1c992a4a] {\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\n}\n.checkbox-btn input:checked ~ .btn[data-v-1c992a4a] {\r\n  border-color: #3167eb;\r\n  background-color: #3167eb;\r\n  color: #fff;\n}\n.btn-light[data-v-1c992a4a] {\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #343a40;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  background-color: #eee;\r\n  border: 1px solid #eee;\r\n  padding: 0.45rem 0.85rem;\r\n  font-size: 10px;\r\n  line-height: 1.5;\r\n  border-radius: 0.37rem;\n}\n.btn-light[data-v-1c992a4a]:hover {\r\n  background-color: #fff;\r\n  border-color: #989898;\n}\n.btn-medium[data-v-1c992a4a] {\r\n  font-size: 12px;\r\n  padding: 10px 22px;\r\n  display: inline-block;\r\n  margin-right: 20px;\r\n  letter-spacing: 2px;\r\n  border: 1px solid #157af6;\r\n  width: 100%;\n}\n.highlight-button[data-v-1c992a4a]:hover {\r\n  background-color: #157af6;\r\n  border: 2px solid #157af6;\r\n  color: #fff;\n}\n.custom-control[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: block;\r\n  min-height: 1.5rem;\r\n  padding-left: 1.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#filter[data-v-1c992a4a]{\r\n  max-width: 250px;\r\n  min-width: 220px;\r\n  padding-bottom: 10px;\n}\n.mt-100[data-v-1c992a4a] {\r\n  margin-top: 30px;\r\n  box-sizing: border-box;\r\n  width: 300px;\r\n  padding-right: 0;\n}\n.filter-group[data-v-1c992a4a] {\r\n    border: 1px solid #343a4071;\r\n    width: 100%;\n}\n.card-header[data-v-1c992a4a] {\r\n  padding: 0.75rem 1.25rem;\r\n  margin-bottom: 0;\r\n  background-color: #fff;\r\n  border-bottom: 4px solid #d44a0b;\r\n  cursor: pointer;\n}\n.icon-control[data-v-1c992a4a] {\r\n  margin-top: 6px;\r\n  float: right;\r\n  font-size: 80%;\n}\n.list-menu[data-v-1c992a4a] {\r\n  list-style: none;\r\n  margin: 0;\r\n  padding-left: 0;\n}\n.list-menu a[data-v-1c992a4a] {\r\n  color: #343a40;\n}\na[data-v-1c992a4a] {\r\n  text-decoration: none !important;\r\n  background-color: transparent;\n}\n.checkbox-btn[data-v-1c992a4a] {\r\n  position: relative;\n}\n.checkbox-btn input[data-v-1c992a4a] {\r\n  position: absolute;\r\n  z-index: -1;\r\n  opacity: 0;\n}\n.checkbox-btn input:checked ~ .btn[data-v-1c992a4a] {\r\n  border-color: #3167eb;\r\n  background-color: #3167eb;\r\n  color: #fff;\n}\n.btn-light[data-v-1c992a4a] {\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #343a40;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  background-color: #eee;\r\n  border: 1px solid #eee;\r\n  padding: 0.45rem 0.85rem;\r\n  font-size: 10px;\r\n  line-height: 1.5;\r\n  border-radius: 0.37rem;\n}\n.btn-light[data-v-1c992a4a]:hover {\r\n  background-color: #fff;\r\n  border-color: #989898;\n}\n.btn-medium[data-v-1c992a4a] {\r\n  font-size: 12px;\r\n  padding: 10px 22px;\r\n  display: inline-block;\r\n  margin-right: 20px;\r\n  letter-spacing: 2px;\r\n  border: 1px solid #157af6;\r\n  width: 100%;\n}\n.highlight-button[data-v-1c992a4a]:hover {\r\n  background-color: #157af6;\r\n  border: 2px solid #157af6;\r\n  color: #fff;\n}\n.custom-control[data-v-1c992a4a] {\r\n  position: relative;\r\n  display: block;\r\n  min-height: 1.5rem;\r\n  padding-left: 1.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10929,7 +10956,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/*Loading icon */\n.lds-ring[data-v-8aebcde8] {\r\n  display: flex;\r\n  position: absolute;\r\n  width: 50px;\r\n  height: 50px;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 999;\n}\n.lds-ring div[data-v-8aebcde8] {\r\n  box-sizing: border-box;\r\n  display: block;\r\n  position: absolute;\r\n  width: 34px;\r\n  height: 34px;\r\n  margin: 8px;\r\n  border: 8px solid #fff;\r\n  border-radius: 50%;\r\n  -webkit-animation: lds-ring-data-v-8aebcde8 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\r\n          animation: lds-ring-data-v-8aebcde8 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\r\n  border-color: rgb(180, 52, 52) transparent transparent transparent;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(1) {\r\n  -webkit-animation-delay: -0.45s;\r\n          animation-delay: -0.45s;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(2) {\r\n  -webkit-animation-delay: -0.3s;\r\n          animation-delay: -0.3s;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(3) {\r\n  -webkit-animation-delay: -0.15s;\r\n          animation-delay: -0.15s;\n}\n@-webkit-keyframes lds-ring-data-v-8aebcde8 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes lds-ring-data-v-8aebcde8 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\r\n/*end Loading icon */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/*Loading icon */\n.lds-ring[data-v-8aebcde8] {\r\n  display: flex;\r\n  position: absolute;\r\n  width: 50px;\r\n  height: 50px;\r\n  justify-content: center;\r\n  align-items: center;\r\n  z-index: 999;\n}\n.lds-ring div[data-v-8aebcde8] {\r\n  box-sizing: border-box;\r\n  display: block;\r\n  position: absolute;\r\n  width: 34px;\r\n  height: 34px;\r\n  margin: 8px;\r\n  border: 8px solid #fff;\r\n  border-radius: 50%;\r\n  -webkit-animation: lds-ring-data-v-8aebcde8 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\r\n          animation: lds-ring-data-v-8aebcde8 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\r\n  border-color: rgb(180, 52, 52) transparent transparent transparent;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(1) {\r\n  -webkit-animation-delay: -0.45s;\r\n          animation-delay: -0.45s;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(2) {\r\n  -webkit-animation-delay: -0.3s;\r\n          animation-delay: -0.3s;\n}\n.lds-ring div[data-v-8aebcde8]:nth-child(3) {\r\n  -webkit-animation-delay: -0.15s;\r\n          animation-delay: -0.15s;\n}\n@-webkit-keyframes lds-ring-data-v-8aebcde8 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes lds-ring-data-v-8aebcde8 {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(360deg);\n}\n}\r\n/*end Loading icon */\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10977,7 +11004,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n[data-target=\"#mainMenu\"][data-v-485090b2] {\r\n  position: relative;\r\n  z-index: 999;\n}\n#mainMenu li > a[data-v-485090b2] {\r\n  font-weight: bold;\r\n  letter-spacing: 1px;\r\n  color: rgb(255, 255, 255);\r\n  font-weight: 400;\r\n  position: relative;\r\n  text-decoration: none;\r\n  font-weight: 500;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n  margin-right: 30px;\n}\n#mainMenu li > a[data-v-485090b2]::before {\r\n  position: absolute;\r\n  content: \"\";\r\n  width: calc(100% - 1px);\r\n  height: 1px;\r\n  background: rgb(255, 255, 255);\r\n  bottom: -6px;\r\n  left: 0;\r\n  transform: scale(0, 1);\r\n  transform-origin: right center;\r\n  z-index: -1;\r\n  transition: transform 0.5s ease;\n}\n#mainMenu li > a[data-v-485090b2]:hover::before,\r\n#mainMenu li > a.active[data-v-485090b2]::before {\r\n  transform: scale(1, 1);\r\n  transform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n  position: fixed;\r\n  align-content: center;\r\n  left: 0;\r\n  z-index: 99;\r\n  width: 100%;\r\n  transition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n  color: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n  max-width: 200px;\r\n  -webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n          animation: fadeInLeft 0.4s both 0.4s;\n}\r\n/* main-header end */\n@media (max-width: 991px) {\r\n  /*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n    margin: 0;\r\n    padding: 0;\r\n    width: 40px;\r\n    height: 40px;\r\n    position: absolute;\r\n    top: 25px;\r\n    right: 0;\r\n    border: none;\r\n    border-radius: 0;\r\n    outline: none !important;\n}\n.main-header .container[data-v-485090b2] {\r\n    align-content: center;\r\n    align-items: center;\r\n    text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    float: none;\r\n    width: 100%;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    text-align: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    margin-top: 15px;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n    margin-right: 0px;\n}\r\n\r\n  /**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\r\n    margin: 0 auto 6px;\r\n    border-radius: 0;\r\n    width: 30px;\r\n    height: 3px;\r\n    position: absolute;\r\n    right: 0;\r\n    transition: all 0.2s ease;\n}\n.main-header .navbar .navbar-toggler .icon-bar[data-v-485090b2]:first-child {\r\n    margin-top: 3px;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n    width: 10px;\r\n    top: 0px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n    width: 16px;\r\n    top: 12px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n    width: 20px;\r\n    top: 21px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n    margin-bottom: 5px;\r\n    border-radius: 0;\r\n    display: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n    width: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n    width: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n    width: 10px;\n}\n.main-header .navbar-toggler:hover .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\n.main-header .navbar-toggler:focus .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\r\n\r\n  /*header ends*/\n}\nheader.scroll[data-v-485090b2] {\r\n  background-color: #d95d22;\r\n  color: white !important;\r\n  box-shadow: 0px 4px 7px #777;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n[data-target=\"#mainMenu\"][data-v-485090b2] {\r\n  position: relative;\r\n  z-index: 999;\n}\n#mainMenu li > a[data-v-485090b2] {\r\n  font-weight: bold;\r\n  letter-spacing: 1px;\r\n  color: rgb(255, 255, 255);\r\n  font-weight: 400;\r\n  position: relative;\r\n  text-decoration: none;\r\n  font-weight: 500;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n  margin-right: 30px;\n}\n#mainMenu li > a[data-v-485090b2]::before {\r\n  position: absolute;\r\n  content: \"\";\r\n  width: calc(100% - 1px);\r\n  height: 1px;\r\n  background: rgb(255, 255, 255);\r\n  bottom: -6px;\r\n  left: 0;\r\n  transform: scale(0, 1);\r\n  transform-origin: right center;\r\n  z-index: -1;\r\n  transition: transform 0.5s ease;\n}\n#mainMenu li > a[data-v-485090b2]:hover::before,\r\n#mainMenu li > a.active[data-v-485090b2]::before {\r\n  transform: scale(1, 1);\r\n  transform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n  position: fixed;\r\n  align-content: center;\r\n  left: 0;\r\n  z-index: 99;\r\n  width: 100%;\r\n  transition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n  color: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n  max-width: 200px;\r\n  -webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n          animation: fadeInLeft 0.4s both 0.4s;\n}\r\n/* main-header end */\n@media (max-width: 991px) {\r\n  /*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n    margin: 0;\r\n    padding: 0;\r\n    width: 40px;\r\n    height: 40px;\r\n    position: absolute;\r\n    top: 25px;\r\n    right: 0;\r\n    border: none;\r\n    border-radius: 0;\r\n    outline: none !important;\n}\n.main-header .container[data-v-485090b2] {\r\n    align-content: center;\r\n    align-items: center;\r\n    /* text-align: center; */\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    float: none;\r\n    width: 100%;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    /* text-align: center; */\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    margin-top: 15px;\n}\n.main-header .navbar-nav li[data-v-485090b2] {\r\n    display: inline-block;\r\n    padding-bottom: 10px;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n    margin-right: 0px;\n}\r\n\r\n  /**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\r\n    margin: 0 auto 6px;\r\n    border-radius: 0;\r\n    width: 30px;\r\n    height: 3px;\r\n    position: absolute;\r\n    right: 0;\r\n    transition: all 0.2s ease;\n}\n.main-header .navbar .navbar-toggler .icon-bar[data-v-485090b2]:first-child {\r\n    margin-top: 3px;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n    width: 10px;\r\n    top: 0px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n    width: 16px;\r\n    top: 12px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n    width: 20px;\r\n    top: 21px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n    margin-bottom: 5px;\r\n    border-radius: 0;\r\n    display: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n    width: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n    width: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n    width: 10px;\n}\n.main-header .navbar-toggler:hover .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\n.main-header .navbar-toggler:focus .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\r\n\r\n  /*header ends*/\n}\nheader.scroll[data-v-485090b2] {\r\n  background-color: #d95d22;\r\n  color: white !important;\r\n  box-shadow: 0px 4px 7px #777;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11337,7 +11364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 80px;\n}\n.main-header[data-v-3f7ae320] {\r\n  position: relative !important;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.card.left .row[data-v-3f7ae320]{\r\n  margin: 20px 50px 20px 50px;\r\n  color: tomato;\r\n  min-height: 200px;\n}\n.card[data-v-3f7ae320] {\r\n  background-color: #002e45;\n}\nimg[data-v-3f7ae320]{\r\n  width: 100%;\r\n  min-height: 200px;\n}\n#summary[data-v-3f7ae320]{\r\n  color: white;\r\n  font-size: large;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 80px;\n}\n.main-header[data-v-3f7ae320] {\r\n  position: relative !important;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.card.left .row[data-v-3f7ae320]{\r\n  margin: 20px 50px 20px 50px;\r\n  color: tomato;\r\n  min-height: 200px;\n}\n.card[data-v-3f7ae320] {\r\n  background-color: #002e45;\n}\nimg[data-v-3f7ae320]{\r\n  width: 100%;\r\n  min-width: 200px;\r\n  max-width: 440px;\n}\n#summary[data-v-3f7ae320]{\r\n  color: white;\r\n  font-size: large;\n}\n@media (max-width: 675px) {\n.row[data-v-3f7ae320]{\r\n    flex-direction: column;\r\n    align-items: center;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11361,7 +11388,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-header[data-v-98e5bbfa] {\r\n  position: relative !important;\n}\n#cursos[data-v-98e5bbfa]{\r\n  padding-top: 100px;\n}\n#titulo-cursos[data-v-98e5bbfa] {\r\n  font-size: 60px;\r\n  font-family: montserrat;\r\n  font-weight: 700;\r\n  margin-left: 25%;\n}\n.comp[data-v-98e5bbfa] {\r\n  display: flex;\r\n  margin: 0px 0px 0px;\r\n  flex-direction: column;\n}\n@media (min-width: 768px) {\n.comp[data-v-98e5bbfa] {\r\n    display: flex;\r\n    margin: 0px 0px 0px;\r\n    flex-direction: row;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-header[data-v-98e5bbfa] {\r\n  position: relative !important;\n}\n#cursos[data-v-98e5bbfa]{\r\n  padding-top: 100px;\n}\n#encabezado-cursos[data-v-98e5bbfa]{\r\n    display: flex;\r\n  flex-flow: row;\r\n  align-items: center;\n}\n#titulo-cursos[data-v-98e5bbfa] {\r\n  font-size: 60px;\r\n  font-weight: 700;\r\n  padding: 10px 20px;\n}\n@media (max-width: 750px) {\n#cursos .d-flex[data-v-98e5bbfa] {\r\n    flex-flow: column;\n}\n}\n.d-flex.flex-column[data-v-98e5bbfa] {\r\n  width: -webkit-fill-available;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -49317,26 +49344,24 @@ var render = function() {
       { staticClass: "pagination justify-content-center" },
       [
         _c(
-          "router-link",
+          "li",
           {
-            attrs: {
-              to: {
-                name: "cursos-filtered",
-                params: {
-                  category: _vm.$route.params.category,
-                  page: _vm.navigationDown(_vm.page)
-                }
-              }
-            }
+            staticClass: "page-item",
+            class: { "page-item disabled": _vm.page == 1 }
           },
           [
             _c(
-              "li",
+              "a",
               {
-                staticClass: "page-item",
-                class: { "page-item disabled": _vm.page == 1 }
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.navigationDown()
+                  }
+                }
               },
-              [_c("a", { staticClass: "page-link" }, [_vm._v("Anterior")])]
+              [_vm._v("Anterior")]
             )
           ]
         ),
@@ -49351,47 +49376,41 @@ var render = function() {
             },
             [
               _c(
-                "router-link",
+                "a",
                 {
-                  attrs: {
-                    to: {
-                      name: "cursos-filtered",
-                      params: {
-                        category: _vm.$route.params.category,
-                        page: index
-                      }
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.$parent.page = index
                     }
                   }
                 },
-                [_c("a", { staticClass: "page-link" }, [_vm._v(_vm._s(index))])]
+                [_vm._v(_vm._s(index))]
               )
-            ],
-            1
+            ]
           )
         }),
         _vm._v(" "),
         _c(
-          "router-link",
+          "li",
           {
-            attrs: {
-              disabled: +_vm.page === +_vm.pages,
-              to: {
-                name: "cursos-filtered",
-                params: {
-                  category: _vm.$route.params.category,
-                  page: _vm.navigationUp(_vm.page, _vm.pages)
-                }
-              }
-            }
+            staticClass: "page-item",
+            class: { "page-item disabled": _vm.page == _vm.pages }
           },
           [
             _c(
-              "li",
+              "a",
               {
-                staticClass: "page-item",
-                class: { "page-item disabled": _vm.page == _vm.pages }
+                staticClass: "page-link",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.navigationUp()
+                  }
+                }
               },
-              [_c("a", { staticClass: "page-link" }, [_vm._v("Siguiente")])]
+              [_vm._v("Siguiente")]
             )
           ]
         )
@@ -49425,7 +49444,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-12 col-md-4 col-sm-6" },
+    { staticClass: "col-12 col-lg-4 col-md-6 col-sm-6" },
     [
       _c(
         "router-link",
@@ -49481,38 +49500,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container justify-content-center mb-50" },
-    [
-      this.visible
-        ? _c("div", [
-            _c(
-              "div",
-              { staticClass: "row" },
-              [
-                _vm._l(_vm.cursos2, function(curso) {
-                  return _c("curso-card-component", {
-                    key: curso.shortname,
-                    attrs: { curso: curso }
-                  })
-                }),
-                _vm._v(" "),
-                _c("course-navigation-component", {
-                  attrs: { pages: _vm.pages }
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _vm.mensajeErr != ""
-              ? _c("p", [_vm._v(_vm._s(_vm.mensajeErr))])
-              : _vm._e()
-          ])
-        : _c("loading-component")
-    ],
-    1
-  )
+  return _c("div", { staticClass: "justify-content-center mb-50" }, [
+    _c("div", [
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.cursos, function(curso) {
+          return _c("curso-card-component", {
+            key: curso.shortname,
+            attrs: { curso: curso }
+          })
+        }),
+        1
+      ),
+      _vm._v(" "),
+      _vm.mensajeErr != ""
+        ? _c("p", [_vm._v(_vm._s(_vm.mensajeErr))])
+        : _vm._e()
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49747,47 +49753,46 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "list-menu", attrs: { id: "respuestas" } },
+      { staticClass: "dropdown-menu", attrs: { id: "respuestas" } },
       [
-        _vm.loading
-          ? _c("loading-component")
-          : _c(
-              "div",
-              [
-                _vm.users.length == 0
-                  ? _c("div", { staticClass: "card" }, [
-                      _c("p", { staticClass: "card-body" }, [
-                        _vm._v(
-                          "\n              No se encontraron resultados\n          "
-                        )
-                      ])
-                    ])
-                  : _vm._l(_vm.users, function(user) {
-                      return _c(
-                        "div",
-                        { key: user.username, staticClass: "list-item card" },
-                        [
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("p", [
-                              _vm._v(
-                                _vm._s(user.name) +
-                                  "  " +
-                                  _vm._s(user.last_name)
-                              )
-                            ])
-                          ])
-                        ]
-                      )
-                    })
-              ],
-              2
-            )
+        _c("loading-component"),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.users, function(user) {
+              return _c(
+                "div",
+                { key: user.id, staticClass: "dropdown-item card" },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("p", [_vm._v(_vm._s(user.fullname))])
+                  ])
+                ]
+              )
+            })
+          ],
+          2
+        )
       ],
       1
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card dropdown-item" }, [
+      _c("p", { staticClass: "card-body" }, [
+        _vm._v("\n              No se encontraron resultados\n          ")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -49830,43 +49835,35 @@ var render = function() {
                   "ul",
                   { staticClass: "list-menu" },
                   [
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: { path: "/cursos/all/1" } } },
-                          [_vm._v("Todos")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._l(_vm.categories, function(categoria) {
-                      return _c(
-                        "li",
-                        { key: categoria.id },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "cursos-filtered",
-                                  params: { category: categoria.name, page: 1 }
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    " +
-                                  _vm._s(categoria.name) +
-                                  "\n                  "
-                              )
-                            ]
-                          )
-                        ],
-                        1
+                    _c("li", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn",
+                          on: {
+                            click: function($event) {
+                              return _vm.updateCurrentCategory("all")
+                            }
+                          }
+                        },
+                        [_vm._v("Todos")]
                       )
+                    ]),
+                    _vm._l(_vm.categories, function(categoria) {
+                      return _c("li", { key: categoria.id }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn",
+                            on: {
+                              click: function($event) {
+                                return _vm.updateCurrentCategory(categoria.name)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(categoria.name))]
+                        )
+                      ])
                     })
                   ],
                   2
@@ -50397,59 +50394,62 @@ var render = function() {
                 attrs: { id: "mainMenu" }
               },
               [
-                _c("ul", { staticClass: "navbar-nav mr-auto f1" }, [
-                  _c(
-                    "li",
-                    { staticClass: "nav-item text-uppercase" },
-                    [
-                      _c(
-                        "router-link",
+                _c(
+                  "ul",
+                  { staticClass: "navbar-nav mr-auto f1" },
+                  [
+                    _vm._l(_vm.navElements, function(item) {
+                      return _c(
+                        "li",
                         {
-                          staticClass: "active active-first",
-                          attrs: { to: { name: "home-component" } }
-                        },
-                        [_vm._v("inicio\n              ")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item text-uppercase" },
-                    [
-                      _c(
-                        "router-link",
-                        {
+                          key: item.name,
+                          staticClass: "nav-item text-uppercase",
                           attrs: {
-                            to: {
-                              name: "cursos-filtered",
-                              params: { category: "all", page: 1 }
-                            }
+                            "data-toggle": "collapse",
+                            "data-target": "#mainMenu"
                           }
                         },
-                        [_vm._v("Cursos")]
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              class:
+                                _vm.$route.name == item.name
+                                  ? "active active-first"
+                                  : "",
+                              attrs: {
+                                to: { name: item.name, params: item.params }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(item.text) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [_c("search-component")],
-                    1
-                  )
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [_c("search-component")],
+                      1
+                    )
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("ul", { staticClass: "navbar-nav ms-auto" }, [
                   !this.$store.getters.isLoggedIn
                     ? _c("li", [
-                        _vm.$route.fullPath != "/"
-                          ? _c("a", { attrs: { href: "/" } }, [
-                              _vm._v("\n              Regístrese\n            ")
-                            ])
-                          : _vm._e()
+                        _c("a", { attrs: { href: "/" } }, [
+                          _vm._v("\n              Regístrese\n            ")
+                        ])
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -52847,23 +52847,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "curso" } },
-    [
-      _vm.visible
-        ? _c(
-            "div",
-            [
-              _vm.existe
-                ? _c("div", [
-                    _c("div", { staticClass: "card left" }, [
-                      _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "container-fluid", attrs: { id: "curso" } }, [
+    _c(
+      "div",
+      [
+        _vm.existe
+          ? _c("div", [
+              _c(
+                "div",
+                { staticClass: "card left" },
+                [
+                  _vm.visible
+                    ? _c("div", { staticClass: "row" }, [
                         _c(
                           "div",
                           {
                             staticClass:
-                              "col-12 col-sm-8 justify-content-center"
+                              "col-12 col-sm-8 col-md-6 justify-content-center"
                           },
                           [
                             _c(
@@ -52927,7 +52927,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "col-12 col-sm-4 justify-content-center"
+                              "col-12 col-sm-4 col-md-6 d-flex align-items-center"
                           },
                           [
                             _c("img", {
@@ -52936,10 +52936,19 @@ var render = function() {
                           ]
                         )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row comp" }, [
-                      _c(
+                    : _c("loading-component", {
+                        attrs: { position: "inherit", height: "250px" }
+                      })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row comp" },
+                [
+                  _vm.visible
+                    ? _c(
                         "div",
                         {
                           staticClass: "container",
@@ -52953,16 +52962,18 @@ var render = function() {
                           })
                         ]
                       )
-                    ])
-                  ])
-                : _c("not-found-component")
-            ],
-            1
-          )
-        : _c("loading-component")
-    ],
-    1
-  )
+                    : _c("loading-component", {
+                        attrs: { position: "inherit", height: "300px" }
+                      })
+                ],
+                1
+              )
+            ])
+          : _c("not-found-component")
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52987,34 +52998,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "cursos" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "comp" },
-      [
-        _c("filter-component"),
+  return _c(
+    "div",
+    { staticClass: "container-fluid", attrs: { id: "cursos" } },
+    [
+      _c("div", { attrs: { id: "encabezado-cursos" } }, [
+        _vm._m(0),
         _vm._v(" "),
-        _c("router-view", { key: _vm.$route.fullPath }),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.$data))])
-      ],
-      1
-    )
-  ])
+        _vm.category
+          ? _c("h4", [_vm._v("(" + _vm._s(_vm.category) + ")")])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "d-flex" },
+        [
+          _c("filter-component"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "d-flex flex-column" },
+            [
+              _c(
+                "div",
+                [
+                  this.visible
+                    ? _c("cursos-component", { attrs: { cursos: _vm.cursos2 } })
+                    : _c("loading-component", {
+                        attrs: {
+                          height: "300px",
+                          width: "100%",
+                          position: "inherit"
+                        }
+                      })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("course-navigation-component", {
+                attrs: { page: _vm.page, pages: _vm.pages }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "encabezado-cursos" } }, [
-      _c("div", [
-        _c("div", { staticClass: "col-5 col-md-5 justify-content-center" }, [
-          _c("h2", { attrs: { id: "titulo-cursos" } }, [_vm._v("Cursos")])
-        ])
-      ])
+    return _c("div", { staticClass: "justify-content-center" }, [
+      _c("p", { attrs: { id: "titulo-cursos" } }, [_vm._v("Cursos")])
     ])
   }
 ]

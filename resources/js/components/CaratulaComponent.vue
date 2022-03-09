@@ -7,7 +7,7 @@
             <div class="container">
                 <search-component></search-component>
             </div>
-            <p class="text">O mira nuestro listado de cursos <router-link :to="{name:'cursos-filtered',params:{category:'all',page:1}}"><a>aquí</a> </router-link></p>
+            <p class="text">O mira nuestro listado de cursos <router-link :to="{name:'cursos'}"><a>aquí</a> </router-link></p>
         </div>
         <div class="container col-sm-7 col-xs-12 registro" v-if="!this.$store.getters.isLoggedIn">
             <registro-component></registro-component>

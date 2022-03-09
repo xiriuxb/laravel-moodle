@@ -56,6 +56,9 @@ export default {
     },
   },
   created() {
+    if (this.$route.params.category){
+      this.category = this.$route.params.category;
+    }
     this.loadCourses();
   },
   watch:{

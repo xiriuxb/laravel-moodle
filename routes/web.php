@@ -30,7 +30,7 @@ Route::group(['middleware' => ['web']], function () {
     ->name('admi')
     ->where(['any'=>'testimonios|cursos|usuarios|cursos-moodle']);
     
-    Route::get('/cursos', function () {
+    Route::get('/cursos/{category?}', function () {
         return view('layouts.master');
     });
     
@@ -84,4 +84,9 @@ Route::group(['middleware' => ['web']], function () {
     })->middleware('auth')->name('my.courses');
 
     Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
+
+    Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 });

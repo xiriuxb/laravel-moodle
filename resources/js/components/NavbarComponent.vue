@@ -1,25 +1,23 @@
 <template>
   <header class="main-header scroll" id="navbar">
     <div class="container">
-      <nav class="navbar navbar-expand-lg main-nav px-0">
+      <nav class="navbar navbar-expand-md main-nav pl-0">
         <router-link :to="{name:'home-component'}">
           <a class="navbar-brand">
             <img src="/images/logo.png" alt="Buisiness Logo" />
           </a>
         </router-link>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#mainMenu"
-          aria-controls="mainMenu"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="icon-bar icon-bar-1"></span>
-          <span class="icon-bar icon-bar-2"></span>
-          <span class="icon-bar icon-bar-3"></span>
-        </button>
+        <ul class="flex-row align-items-center navbar-nav">
+          <div id="searchSm">
+            <search-component></search-component>
+          </div>
+          <button class="btn navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#mainMenu"  aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar icon-bar-1"></span>
+            <span class="icon-bar icon-bar-2"></span>
+            <span class="icon-bar icon-bar-3"></span>
+          </button>
+        </ul>
         <div class="collapse navbar-collapse" id="mainMenu">
           <ul class="navbar-nav mr-auto f1">
             <li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase" data-toggle="collapse" data-target="#mainMenu">
@@ -27,11 +25,13 @@
                   {{item.text}}
               </router-link>
             </li>
-          <li class="nav-item">
-            <search-component></search-component>
-          </li>
           </ul>
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ml-0">
+            <li id="searchBig">
+              <search-component></search-component>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-0 ml-0">
             <li v-if="!this.$store.getters.isLoggedIn">
               <a href="/">
                 Regístrese
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import SearchComponent from './SearchComponent.vue';
+import SearchComponent from './search/SearchComponent.vue';
 import UserMenuComponent from "./UserMenuComponent.vue";
 export default {
   data() {
@@ -99,7 +99,7 @@ export default {
 <style scoped>
 [data-target="#mainMenu"] {
   position: relative;
-  z-index: 999;
+  z-index: 700;
 }
 
 #mainMenu li > a {
@@ -162,11 +162,16 @@ export default {
 }
 .main-header .navbar-brand img {
   max-width: 200px;
+  min-width: 200px;
   animation: fadeInLeft 0.4s both 0.4s;
+}
+
+.navbar-nav{
+  align-items: center;
 }
 /* main-header end */
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   /*header starts*/
 
   .navbar-toggler {
@@ -174,8 +179,6 @@ export default {
     padding: 0;
     width: 40px;
     height: 40px;
-    position: absolute;
-    top: 25px;
     right: 0;
     border: none;
     border-radius: 0;
@@ -190,9 +193,9 @@ export default {
 
   .main-header .navbar-nav {
     float: none;
-    width: 100%;
     padding-left: 0;
     padding-right: 0;
+    align-items: flex-start;
     /* text-align: center; */
   }
 
@@ -266,9 +269,18 @@ export default {
   .main-header .navbar-toggler:focus .icon-bar {
     background-color: #fff;
   }
-
+  #searchBig{
+    display: none;
+  }
   /*header ends*/
 }
+
+@media (min-width: 768px) {
+   #searchSm{
+    display: none;
+  }
+}
+
 
 header.scroll {
   background-color: #d95d22;

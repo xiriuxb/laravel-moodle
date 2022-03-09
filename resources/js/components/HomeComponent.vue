@@ -98,7 +98,7 @@
         <cursos-sm-component></cursos-sm-component>
     </section>
     <section class="section-odd">
-        <comments-component></comments-component>
+        <!-- <comments-component></comments-component> -->
     </section>
     <section class="section-pair univ-back">
         <h3 class="titulo">¿Qué contienen nuestros cursos?</h3>

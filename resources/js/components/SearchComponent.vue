@@ -12,14 +12,17 @@
         aria-label="Search"
       />
       <div>
+        <div v-if="question.length>2">
+          <p>buscando</p>
+        </div>
         <div id="lista" class="list-menu" v-if="question">
-          <div v-for="curso in filteredQuestions" :key="curso.shortname">
+          <!-- <div v-for="curso in filteredQuestions" :key="curso.shortname">
             <router-link :to="{ name: 'curso', params: { shortname: curso.shortname } }">
                 <div class="card-header">
                     {{ curso.fullname }}
                 </div>
             </router-link>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -36,22 +39,44 @@ export default {
       answer: "I cannot give you an answer until you ask a question!",
     };
   },
+  watch: {
+        question(after, before) {
+            this.getResults();
+        }
+  },
   computed: {
-    filteredQuestions() {
-      return this.cursos.filter((preg) => {
-        return preg.fullname
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .normalize()
-          .match(
-            this.question
-              .toLowerCase()
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .normalize()
-          );
-      });
+    // filteredQuestions() {
+    //   return this.cursos.filter((preg) => {
+    //     return preg.fullname
+    //       .toLowerCase()
+    //       .normalize("NFD")
+    //       .replace(/[\u0300-\u036f]/g, "")
+    //       .normalize()
+    //       .match(
+    //         this.question
+    //           .toLowerCase()
+    //           .normalize("NFD")
+    //           .replace(/[\u0300-\u036f]/g, "")
+    //           .normalize()
+    //       );
+    //   });
+    // },
+  },
+  methods: {
+    getResults() {
+      axios
+        .get("users/search", {
+          params: {
+            keyword: this.question,
+          },
+        })
+        .then((response) => {
+          this.cursos = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   //   watch: {

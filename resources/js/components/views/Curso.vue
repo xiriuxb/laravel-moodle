@@ -6,7 +6,7 @@
           <div class="row" v-if="visible">
             <div class="col-12 col-sm-8 col-md-6 justify-content-center">
               <div>
-                <router-link :to="{name:'cursos-filtered',params:{category:curso.category,page:1}}">
+                <router-link :to="{name:'cursos',params:{category:curso.category}}">
                 {{ curso.category }}
                 </router-link>
                 </div>
@@ -75,6 +75,7 @@ export default {
     }
   },
   beforeMount() {
+    console.log(this.$route)
     axios
       .get("/api/curse/"+this.$route.params.shortname)
       .then((response) => {

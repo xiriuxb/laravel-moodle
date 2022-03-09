@@ -73,7 +73,7 @@ const router = new VueRouter({
             children: [
                 { path: '', component: HomeComponemt, name: 'home-component', },
                 //{ path: '/cursos', component: Cursos, name: 'cursos' },
-                { path: '/cursos', component: Cursos, name: 'cursos' },
+                { path: '/cursos/:category?', component: Cursos, name: 'cursos' },
                 { path: 'curso/:shortname', component: Curso, name: 'curso' },
                 { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
                 { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },   
@@ -90,10 +90,10 @@ const router = new VueRouter({
                 { path: 'cursos-moodle', component: AdminCoursesMoodleComponent, name: 'admin-courses-moodle' },
             ],
         },
+        { path: '/search-temp' , component: require('./components/search/SearchComponent.vue').default},
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
         { path: '/personal', component: require('./components/User/ProfileComponent.vue').default },
         { path: '/email/verify', component: Notice, name: 'email' },
-        { path: '/search-temp' , component: require('./components/ExampleComponent.vue').default},
     ],
 
     //{ path: '/test', component: AdminCommentComponent, name: 'test' },

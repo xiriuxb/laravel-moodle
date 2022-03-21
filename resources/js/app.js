@@ -77,8 +77,8 @@ const router = new VueRouter({
                 { path: 'curso/:shortname', component: Curso, name: 'curso' },
                 { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
                 { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },   
-                { path: '/mis-cursos', component: require('./components/User/CursosUserComponent.vue').default }
-                
+                { path: '/mis-cursos', component: require('./components/User/CursosUserComponent.vue').default },
+                { path: '/payments/:id', component: require('./components/payments/PaymentSelectorComponent.vue').default, name: 'payments' },
             ],
         },
         {
@@ -94,6 +94,7 @@ const router = new VueRouter({
         { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
         { path: '/personal', component: require('./components/User/ProfileComponent.vue').default },
         { path: '/email/verify', component: Notice, name: 'email' },
+        
     ],
 
     //{ path: '/test', component: AdminCommentComponent, name: 'test' },

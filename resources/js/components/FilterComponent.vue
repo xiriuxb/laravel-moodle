@@ -53,7 +53,6 @@ export default {
     methods:{
       updateCurrentCategory: function (currentCategory) {
         this.$parent.category = currentCategory;
-        console.log(this.$parent.category);
     }
     }
 };
@@ -71,12 +70,18 @@ export default {
   width: 300px;
   padding-right: 0;
 }
-
+.btn{
+  width: 100%;
+  text-align: initial;
+  padding: 0.6rem 1.5rem;
+}
 .filter-group {
     border: 1px solid #343a4071;
     width: 100%;
 }
-
+.card-body{
+  padding: 0;
+}
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
@@ -84,7 +89,6 @@ export default {
   border-bottom: 4px solid #d44a0b;
   cursor: pointer;
 }
-
 
 .icon-control {
   margin-top: 6px;
@@ -105,67 +109,5 @@ export default {
 a {
   text-decoration: none !important;
   background-color: transparent;
-}
-
-.checkbox-btn {
-  position: relative;
-}
-
-.checkbox-btn input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-}
-
-.checkbox-btn input:checked ~ .btn {
-  border-color: #3167eb;
-  background-color: #3167eb;
-  color: #fff;
-}
-
-.btn-light {
-  display: inline-block;
-  font-weight: 600;
-  color: #343a40;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: #eee;
-  border: 1px solid #eee;
-  padding: 0.45rem 0.85rem;
-  font-size: 10px;
-  line-height: 1.5;
-  border-radius: 0.37rem;
-}
-
-.btn-light:hover {
-  background-color: #fff;
-  border-color: #989898;
-}
-
-.btn-medium {
-  font-size: 12px;
-  padding: 10px 22px;
-  display: inline-block;
-  margin-right: 20px;
-  letter-spacing: 2px;
-  border: 1px solid #157af6;
-  width: 100%;
-}
-
-.highlight-button:hover {
-  background-color: #157af6;
-  border: 2px solid #157af6;
-  color: #fff;
-}
-
-.custom-control {
-  position: relative;
-  display: block;
-  min-height: 1.5rem;
-  padding-left: 1.5rem;
 }
 </style>

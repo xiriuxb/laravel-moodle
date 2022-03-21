@@ -4,9 +4,6 @@
         <div class="container tit col-sm-5 col-xs-12">
             <h1 id="titulo1">{{titulo1}}</h1>
             <p class="text">Busca un curso</p>
-            <div class="container">
-                <search-component></search-component>
-            </div>
             <p class="text">O mira nuestro listado de cursos <router-link :to="{name:'cursos'}"><a>aquí</a> </router-link></p>
         </div>
         <div class="container col-sm-7 col-xs-12 registro" v-if="!this.$store.getters.isLoggedIn">
@@ -18,7 +15,7 @@
 
 <script>
 import RegistroComponent from './RegistroComponent.vue'
-import SearchComponent from './SearchComponent.vue'
+import SearchComponent from './search/SearchComponent.vue';
 
 export default {
   components: { RegistroComponent,SearchComponent },

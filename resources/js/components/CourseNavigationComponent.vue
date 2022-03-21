@@ -42,6 +42,18 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.page-item.active .page-link{
+  background-color: #002e45;
+    border-color: #004060;
+}
+.page-item.disabled{
+  cursor: not-allowed;
+}
+.page-item.disabled .page-link{
+  border-color:#7ba9d7;
+}
+.page-item .page-link{
+  border-color:#004060;
+}
 </style>

@@ -23,8 +23,8 @@
                       class="dropdown-menu show"
                       tabindex="-1"
                       id="respuestas"
-                      @click="$emit('close')"
-                      @keypress.enter="$emit('close')"
+                      @click="$emit('close'); $parent.question=''"
+                      @keypress.enter="$emit('close'); $parent.question=''"
                     >
                       <li
                         class="dropdown-item"

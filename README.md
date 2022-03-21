@@ -59,4 +59,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - ? Cambiar el mensaje del boton "Ir al curso"
 - X Notificacion en el perfil cuando no ha verificado el mail
 - Definir el funcionamiento cuando un usuario se elimina (si elimina el usuario su propia cuenta y cuando un admin suspende a un usuario)
-- Issue cuando 
+- X Issue cuando se selecciona la categoria desde la view 'curso', en la pantalla cursos, luego no se puede filtrar a otras categorías
+    (hacer mas pruebas)
+- Revisar que pasa con los cursos sin imágen de curso

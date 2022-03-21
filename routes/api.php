@@ -100,6 +100,10 @@ Route::group(['middleware'=>['api']],function(){
     //    Route::get('user/role', 'App\Http\Controllers\UserController@role');
 
     Route::get('cursos-local/destacados', 'App\Http\Controllers\CursosLocal@destacados');
+
+    Route::get('payment-methods', 'App\Http\Controllers\PaymentMethodsController@index');
+
+
 });
 
     

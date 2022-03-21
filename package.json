@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@paypal/paypal-js": "^5.0.2",
         "boxicons": "^2.0.9",
         "save": "^2.4.0",
         "vue-country-region-select": "^2.0.16",

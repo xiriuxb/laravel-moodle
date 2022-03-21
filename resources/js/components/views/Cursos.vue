@@ -13,7 +13,7 @@
           <cursos-component :cursos="cursos2"  v-if="this.visible"></cursos-component>
           <loading-component :height="'300px'" :width="'100%'" :position="'inherit'" v-else></loading-component>
         </div>
-        <course-navigation-component :page="page" :pages="pages"></course-navigation-component>
+        <course-navigation-component :page="page" :pages="pages" v-if="this.visible"></course-navigation-component>
       </div>
     </div>
   </div>
@@ -58,6 +58,7 @@ export default {
   created() {
     if (this.$route.params.category){
       this.category = this.$route.params.category;
+      this.$route.params.category = '';
     }
     this.loadCourses();
   },

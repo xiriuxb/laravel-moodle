@@ -1,7 +1,7 @@
 <template>
   <div id="misCursos" class="container">
     <h2>Mis cursos</h2>
-    <loading-component v-if="loading"></loading-component>
+    <loading-component v-if="loading" :height="'400px'" :position="'relative'"></loading-component>
     <div v-else class="container">
       <table class="table">
         <tbody>

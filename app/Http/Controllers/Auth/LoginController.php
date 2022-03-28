@@ -55,7 +55,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials, 'remember')) {
             //$request->session()->regenerate();
-            return back()->with('success', 'Login Successful');
+            return redirect()->back()->with('message', 'Login Successful');
         } else {
             $message = 'Email o password incorrecto(s)';
             return back()->withErrors([

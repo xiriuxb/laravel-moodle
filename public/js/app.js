@@ -4573,7 +4573,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _MatriculaComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../MatriculaComponent.vue */ "./resources/js/components/MatriculaComponent.vue");
-/* harmony import */ var _resources_js_components_views_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../resources/js/components/views/Home.vue */ "./resources/js/components/views/Home.vue");
+/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/Home.vue */ "./resources/js/components/views/Home.vue");
 //
 //
 //
@@ -4613,7 +4613,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  layout: _resources_js_components_views_Home_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+  layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_1__.default,
   props: {
     curso: {
       type: Object,
@@ -4743,26 +4743,7 @@ __webpack_require__.r(__webpack_exports__);
       cursos2: [],
       visible: false
     };
-  },
-  methods: {
-    loadCourses: function loadCourses() {
-      var _this = this;
-
-      this.visible = false;
-      var ruta = "/api/curses";
-      ruta = ruta + "/" + this.category + "/" + this.page;
-      axios.get(ruta).then(function (response) {
-        _this.cursos2 = response.data.data;
-        _this.pages = response.data.pages;
-        _this.visible = true;
-      })["catch"](function (err) {
-        _this.visible = true;
-        _this.mensajeErr = err.response.data.message;
-      });
-    }
-  },
-  created: function created() {},
-  watch: {}
+  }
 });
 
 /***/ }),
@@ -52697,13 +52678,7 @@ var render = function() {
             {
               staticClass:
                 "block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300",
-              attrs: { as: "button" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.logout.apply(null, arguments)
-                }
-              }
+              attrs: { as: "button", method: "post", href: "/logout" }
             },
             [_vm._v("Cerrar Sesión")]
           )

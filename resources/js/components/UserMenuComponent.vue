@@ -20,7 +20,7 @@
           Seccion Admin
         </inertia-link>
         <div class="dropdown-divider my-0"></div>
-        <inertia-link as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300" @click.prevent="logout">Cerrar Sesión</inertia-link>
+        <inertia-link as="button" method="post" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300" :href="'/logout'">Cerrar Sesión</inertia-link>
       </div>
     </div>
   </div>

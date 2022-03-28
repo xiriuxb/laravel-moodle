@@ -56,29 +56,6 @@ export default {
       visible: false,
     };
   },
-  methods: {
-    loadCourses(){
-      this.visible = false;
-      var ruta = "/api/curses";
-      ruta =
-        ruta + "/" + this.category + "/" + this.page;
-      axios
-        .get(ruta)
-        .then((response) => {
-          this.cursos2 = response.data.data;
-          this.pages = response.data.pages;
-          this.visible = true;
-        })
-        .catch((err) => {
-          this.visible = true;
-          this.mensajeErr = err.response.data.message;
-        });
-    },
-  },
-  created() {
-  },
-  watch:{
-  }
 };
 </script>
 

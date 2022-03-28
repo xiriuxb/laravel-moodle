@@ -36,7 +36,7 @@
 
 <script>
 import MatriculaComponent from "../MatriculaComponent.vue";
-import Home from "../../../../resources/js/components/views/Home.vue";
+import Home from "../views/Home.vue";
 export default {
   layout: Home,
   props: {

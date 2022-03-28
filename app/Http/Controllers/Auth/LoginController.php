@@ -54,7 +54,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials, 'remember')) {
-            //$request->session()->regenerate();
+            $request->session()->regenerate();
             return inertia('HomeComponent');
         } else {
             $message = 'Email o password incorrecto(s)';

@@ -29,37 +29,6 @@
 <script>
 import "boxicons";
 export default {
-  data() {
-    return {
-      user_name: [],
-    };
-  },
-  mounted(){
-    
-    console.log(this.user_name);
-  },
-  methods: {
-    logout() {
-      this.$router.go('/')
-      //axios.get('/sanctum/csrf-cookie');
-      axios
-        .post("/logout")
-        .then(() => {
-          window.location.href='/'
-          this.$toast.open({message:'See u', type:'info',position:'top'});
-          this.$store.commit('setAuthUser',null);
-        })
-        .catch((err) => {
-          console.log(err)
-          alert("Error al cerrar sesión");
-        });
-    },
-  },
-  computed: {
-    userRole() {
-      
-    },
-  },
 };
 </script>
 

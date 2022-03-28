@@ -4009,41 +4009,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      user_name: []
-    };
-  },
-  mounted: function mounted() {
-    console.log(this.user_name);
-  },
-  methods: {
-    logout: function logout() {
-      var _this = this;
-
-      this.$router.go('/'); //axios.get('/sanctum/csrf-cookie');
-
-      axios.post("/logout").then(function () {
-        window.location.href = '/';
-
-        _this.$toast.open({
-          message: 'See u',
-          type: 'info',
-          position: 'top'
-        });
-
-        _this.$store.commit('setAuthUser', null);
-      })["catch"](function (err) {
-        console.log(err);
-        alert("Error al cerrar sesión");
-      });
-    }
-  },
-  computed: {
-    userRole: function userRole() {}
-  }
-});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
 
@@ -53608,7 +53574,7 @@ var render = function() {
                   [
                     _c(
                       "inertia-link",
-                      { attrs: { href: "cursos/" + _vm.curso.category } },
+                      { attrs: { href: "/cursos/" + _vm.curso.category } },
                       [
                         _vm._v(
                           "\n              " +

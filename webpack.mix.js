@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,5 +13,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .vue({ version: '2.6.14' })
+    .postCss("resources/css/app.css", "public/css", [
+        require("tailwindcss"),
+      ]);
+
+mix.alias({
+    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue")
+})

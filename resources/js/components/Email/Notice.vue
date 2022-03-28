@@ -1,12 +1,11 @@
 <template>
 <section>
-  <navbar-component></navbar-component>
-  <div class="container-fluid" id="back">
-    <div class="container" id="message">
-      <h1>FELICITACIONES</h1>
+  <div class="w-full relative h-screen" id="back">
+    <div class="relative top-1/3 container">
+      <h1 class="font-bold text-4xl text-blue-700">FELICITACIONES</h1>
       <hr />
       <p>Solo queda un paso más para poder acceder a nuestros cursos.</p>
-      <p id="principal">
+      <p class="font-bold text-1xl py-2" >
         Se ha enviado un correo de verificación al email con el que te
         registraste, por favor sigue los pasos indicados en el mismo.
       </p>
@@ -19,25 +18,38 @@
       <div class="alert alert-success" role="alert" v-if="message">
         {{message}}
       </div>
-      <button class="btn btn-primary text-nowrap" type="button" v-on:click="resend" :disabled='sending'>
+      <div class="alert alert-danger" role="alert" v-if="$page.props.errors.message">
+        {{$page.props.errors.message}}
+      </div>
+      <inertia-link
+      as="button"
+      method="POST"
+        class="btn btn-primary"
+        href="/email/verification-notification" >
+        <span class="spinner-border spinner-border-sm mr-2" v-if="sending"></span>ReenviarS</inertia-link>
+      <!-- <button class="btn btn-primary text-nowrap text-zinc-900" type="button" v-on:click="resend" :disabled='sending'>
         <span class="spinner-border spinner-border-sm mr-2" v-if="sending"></span>
         Reenviar
-      </button>
-      <p>Luego de reenviár deberá esperar 3 minutos antes de volverlo a enviar.</p>
+      </button> -->
+      <p>Luego de reenviar deberá esperar 3 minutos antes de volverlo a enviar.</p>
     </div>
   </div>
 </section>
 </template>
 
 <script>
-import NavbarComponent from '../NavbarComponent.vue';
+import Home from '../views/Home.vue';
 export default {
-  components: {NavbarComponent},
+  layout: Home,
+  props: {
+    message: {
+      type: String,
+      default: null,
+    },
+  },
   data() {
     return {
-    
       sending: false,
-      message: '',
     };
   },	
   methods: {
@@ -59,26 +71,7 @@ export default {
 </script>
 
 <style scoped>
-#message {
-  position: relative;
-  top: 30%;
-  margin-right: 50px;
-}
-#message h1 {
-  font-family: montserrat;
-  font-weight: 900;
-}
 #back {
-  position: absolute;
   background-image: url("/images/background.png");
-  width: 100%;
-  height: 100%;
-}
-#back div {
-  font-size: large;
-}
-#principal {
-  font-size: large;
-  font-weight: 700;
 }
 </style>

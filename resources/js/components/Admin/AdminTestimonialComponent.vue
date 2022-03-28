@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{'disabled':loading}">
     <h3>Administración de testimonios</h3>
     <loading-component v-if='loading'></loading-component>
     <div>
@@ -81,7 +81,9 @@
 <script>
 
 import LoadingComponent from "../LoadingComponent.vue";
+import Admin from "../views/Admin.vue";
 export default {
+  layout: Admin,
   components: { LoadingComponent },
   name: "AdminCommentComponent",
   data() {

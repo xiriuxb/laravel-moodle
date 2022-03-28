@@ -17,9 +17,10 @@
               <div class="card-body">
                 <ul class="list-menu">
                   <li>
-                    <button class="btn" @click="updateCurrentCategory('all')">Todos</button>
+                    <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos</inertia-link>
+                  </li>
                   <li v-for="categoria in categories" :key="categoria.id">
-                      <button class="btn" @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</button> 
+                      <inertia-link as="button" class="btn" :href="'/cursos/'+categoria.name" @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link> 
                     <!-- <a" >{{categoria.name}} </a> -->
                   </li>
                 </ul>
@@ -37,11 +38,6 @@ export default {
       type: String,
     },
   },
-  data(){
-    return{
-      categories:[],
-    }
-  },
   beforeCreate(){
     console.log('created')
       axios.get('/api/categorias').then((response) => {
@@ -50,9 +46,15 @@ export default {
         console.log(err);
       }); 
     },
+  data(){
+    return{
+      categories:[],
+    }
+  },
     methods:{
       updateCurrentCategory: function (currentCategory) {
         this.$parent.category = currentCategory;
+        this.$parent.page =1;
     }
     }
 };

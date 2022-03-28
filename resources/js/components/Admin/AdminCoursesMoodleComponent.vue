@@ -55,7 +55,9 @@
 
 <script>
 import LoadingComponent from "../../components/LoadingComponent.vue";
+import Admin from "../views/Admin.vue";
 export default {
+  layout: Admin,
   components: {
     LoadingComponent,
   },

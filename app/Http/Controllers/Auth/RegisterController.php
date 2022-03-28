@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
@@ -88,6 +90,6 @@ class RegisterController extends Controller
         ])->assignRole('user');
         event(new Registered($user));
         $this->guard()->login($user);
-        return route('verification.notice');
+        return Redirect::route('verification.notice');
     }
 }

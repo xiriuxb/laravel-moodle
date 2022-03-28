@@ -42,6 +42,11 @@ class LoginController extends Controller
         //$this->middleware('auth:api', ['except' => ['vuelogin']]);
     }
 
+    public function index()
+    {
+        return inertia('views/LoginView');
+    }
+
     public function vuelogin(Request $request)
     {
         $credentials = $request->validate([
@@ -50,14 +55,12 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials, 'remember')) {
             //$request->session()->regenerate();
-            return response()->json(['status' => 'ok'], 200);
+            return back()->with('success', 'Login Successful');
         } else {
-            $success = false;
             $message = 'Email o password incorrecto(s)';
-            return response()->json([
-                'success' => $success,
+            return back()->withErrors([
                 'message' => $message,
-            ],422);
+            ]);
         }
 
     }

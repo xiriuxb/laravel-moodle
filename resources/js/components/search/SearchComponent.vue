@@ -54,9 +54,7 @@ export default {
       resultados:[],
     };
   },
-  created: function () {
-    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
-  },
+  
   methods: {
     getAnswer: function () {
         if(this.question.length <= 1){

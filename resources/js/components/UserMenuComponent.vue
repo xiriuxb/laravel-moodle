@@ -1,25 +1,26 @@
 <template>
   <div class="nav-item dropdown">
     <div class="dropdown show">
-      <a class="nav-link user-profile" role="button"
-        id="dropdownMenuLink" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <box-icon name="user" type="solid" color="#ffffff"></box-icon>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" id="userMenu">
-        <router-link class="dropdown-item" :to="{path:'/personal'}">
-          <a>{{user_name}}
-          </a>
-        </router-link>
-        <div class="dropdown-divider"></div>
-        <router-link class="dropdown-item" :to="{path:'/mis-cursos'}">
-          <a>Ver mis cursos</a>
-        </router-link>
-        <router-link :to="{name:'admin'}">
-          <a class="dropdown-item" v-if="userRole">Seccion Admin</a>
-        </router-link>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" @click.prevent="logout">Cerrar Sesión</a>
+        <a class="block px-0 user-profile" role="button"
+          id="dropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <img  class="rounded-[50%]" :src="'https://ui-avatars.com/api/?background=002e45&color=fff&name='+$page.props.auth.user" alt="">
+        </a>
+      <div class="dropdown-menu dropdown-menu-right absolute md:fixed md:right-0 mr-1 bg-cyan-900 w-full mt-1 md:w-auto md:bg-slate-100 md:rounded-sm" aria-labelledby="dropdownMenuLink" id="dropdownNavbar">
+        <div class="group">
+          <inertia-link as="button" class="block w-full md:px-1  py-2 text-gray-300  group-hover:bg-slate-500 md:text-black md:right-5" :href="'/personal'">
+            Perfil
+          </inertia-link>
+        </div>
+        <div class="dropdown-divider my-0"></div>
+        <inertia-link as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500" :href="'/mis-cursos'">
+          Ver mis cursos
+        </inertia-link>
+        <inertia-link v-if="$page.props.auth.role!='user'" as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500" :href="'admin'">
+          Seccion Admin
+        </inertia-link>
+        <div class="dropdown-divider my-0"></div>
+        <inertia-link as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300" @click.prevent="logout">Cerrar Sesión</inertia-link>
       </div>
     </div>
   </div>
@@ -34,7 +35,7 @@ export default {
     };
   },
   mounted(){
-    this.user_name = this.$store.state.user.name;
+    
     console.log(this.user_name);
   },
   methods: {
@@ -56,33 +57,21 @@ export default {
   },
   computed: {
     userRole() {
-      return this.$store.getters.getUser.roles[0].name == "user" ? false : true;
+      
     },
   },
 };
 </script>
 
 <style scoped>
-#userMenu {
-  right: 1px;
-}
 .user-profile {
   border-radius: 50%;
   width: 50px;
   height: 50px;
   left: auto;
-  background-color: rgba(107, 107, 107, 0.37);
-  text-align: center;
 }
 .user-profile:hover {
   background-color: rgba(255, 251, 251, 0.37);
   box-shadow: 0px 4px 7px #777;
-}
-a box-icon {
-  position: relative;
-  top: 12%;
-}
-.dropdown-item {
-  cursor: pointer;
 }
 </style>

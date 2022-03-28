@@ -1,19 +1,21 @@
 <template>
-  <div id="cursos" class="container-fluid">
+  <div id="cursos" class="container-fluid bg-slate-100">
     <div id="encabezado-cursos">
         <div class="justify-content-center">
           <p id="titulo-cursos">Cursos</p>
         </div>
-          <h4 v-if="category">({{category}})</h4>
+          <h4 class="align-bottom" v-if="category">({{category}})</h4>
     </div>
     <div class="d-flex">
-      <filter-component></filter-component>
-      <div class="d-flex flex-column">
+      <div class="w-full md:w-1/4">
+        <filter-component></filter-component>
+      </div>
+      <div class="w-full md:w-3/4 d-flex flex-column">
         <div>
-          <cursos-component :cursos="cursos2"  v-if="this.visible"></cursos-component>
-          <loading-component :height="'300px'" :width="'100%'" :position="'inherit'" v-else></loading-component>
+          <cursos-component :cursos="data"></cursos-component>
+          <!-- <loading-component :height="'300px'" :width="'100%'" :position="'inherit'"></loading-component> -->
         </div>
-        <course-navigation-component :page="page" :pages="pages" v-if="this.visible"></course-navigation-component>
+        <course-navigation-component :pages="pages" :currentPage="currentPage"></course-navigation-component>
       </div>
     </div>
   </div>
@@ -22,18 +24,36 @@
 <script scoped>
 import LoadingComponent from "../LoadingComponent.vue";
 import CourseNavigationComponent from '../CourseNavigationComponent.vue';
+import Home from './Home.vue';
 export default {
+  layout: Home,
   components: {
     LoadingComponent,
     CourseNavigationComponent
   },
+  props: {
+    data: {
+      type: Array,
+      required: true
+    },
+    pages: {
+      type: Number,
+      required: true
+    },
+    currentPage: {
+      type: Number,
+      required: true
+    },
+    category: {
+      type: String,
+      required: false,
+      default: 'all'
+    },
+  },
   data() {
     return {
-      category: "all",
       cursos2: [],
-      page: 1,
       visible: false,
-      pages: 0,
     };
   },
   methods: {
@@ -56,19 +76,8 @@ export default {
     },
   },
   created() {
-    if (this.$route.params.category){
-      this.category = this.$route.params.category;
-      this.$route.params.category = '';
-    }
-    this.loadCourses();
   },
   watch:{
-    category(){
-      this.loadCourses();
-    },
-    page(){
-      this.loadCourses();
-    },
   }
 };
 </script>

@@ -1,23 +1,23 @@
 <template>
-<div class="col-12 col-lg-4 col-md-6 col-sm-6">
-  <router-link class="card" :to="{name:'curso',params:{shortname:curso.shortname}}">
-    <div v-if="loading">
-      <loading-component :position="'relative'"></loading-component>
-    </div>
+<div class="col-12 col-lg-4 col-md-6 col-sm-6 pb-2">
+  <inertia-link class="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden" :href="'/curso/'+curso.shortname">
+  <div class="relative pb-48 overflow-hidden">
     <img
-      v-else
-      class="card-img-top"
+      class="absolute inset-0 h-full w-full object-cover"
       v-bind:src="image"
       alt="Card image cap"
       loading="lazy"
     />
+  </div>
     <div class="card-body">
-      <p>{{ curso.category }}</p>
-      <h5>{{ curso.fullname }}</h5>
-      <p v-html="curso.summary"></p>
-      <div class="card-footer">${{ curso.precio }} USD</div>
+      <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{ curso.category }}</span>
+      <h5 class="mt-2 mb-2  font-bold text-slate-900">{{ curso.fullname }}</h5>
+      <p class="pb-2" v-html="curso.summary"></p>
+      <div class="text-right border-t border-l-sky-900 text-base text-gray-700 py-3">
+        ${{ curso.precio }} USD
+      </div>
     </div>
-  </router-link>
+  </inertia-link>
 </div>
 </template>
 
@@ -53,23 +53,14 @@ a{
     text-decoration: none;
     color: #777;
 }
-div:not(.card) {
-  padding-bottom: 12px;
-}
-.card-footer{
-    color: black;
-    text-align: end;
-}
 .card-body{
     padding: 10px;
     padding-bottom: 0 !important;
 }
-.card{
-    border: 0;
-    box-shadow: 0px 2px 3px #777;
-    min-width: 211px;
+a:hover img{
+  transform: scale(1.05);
 }
-.card:hover{
-    box-shadow: 0px 4px 7px #777;
-}
+img {    
+    transition: transform .3s ease-in-out; 
+  }
 </style>

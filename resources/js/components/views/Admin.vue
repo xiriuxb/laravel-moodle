@@ -14,10 +14,10 @@
       </div>
       <ul class="nav-list">
         <li v-for="menu_item in menu_items" :key="menu_item.name">
-          <router-link :to="{ name: menu_item.component }">
+          <inertia-link :href="menu_item.component">
               <i class="bx bx-grid"></i>
               <span class="links_name">{{menu_item.name}}</span>
-          </router-link>
+          </inertia-link>
           <span class="tooltip">{{menu_item.name}}</span>
         </li>
       </ul>
@@ -32,27 +32,25 @@
     </div>
     <div id="admin" class="adm_content container">
       <!-- <keep-alive> -->
-        <router-view></router-view>
+        <slot />
       <!-- </keep-alive> -->
     </div>
   </div>
 </template>
 
 <script>
-import AdminTestimonialComponent from "../Admin/AdminTestimonialComponent.vue";
 
 export default {
   name: "admin",
   components: {
-    AdminTestimonialComponent,
   },
   data() {
     return {
       menu_items:[
-        {name:'Testimonios', component:'admin-comment'},
-        {name:'Cursos', component:'admin-courses'},
-        {name:'Cursos Moodle', component:'admin-courses-moodle'},
-        {name:'Usuarios',component: 'admin-users'}
+        {name:'Testimonios', component:'testimonials'},
+        {name:'Cursos', component:'cursos'},
+        {name:'Cursos Moodle', component:'cursos-moodle'},
+        {name:'Usuarios',component: 'users'}
       ]
     };
   },

@@ -13,21 +13,21 @@ class Cursos extends Controller
     {
     }
 
-    private $ELEMENTS_PER_PAGE = 6;
+    private $ELEMENTS_PER_PAGE = 2;
     /**
      *
      * @param  array  $data
      * @return \App\Models\Comment
      */
-    public function index($categoria = null,$page){
+    public function index($categoria = null,$page=1){
         // $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND mdl_crs_cat.name = "'.$categoria.'"';
         if($categoria == null || $categoria == 'all'){
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
-            return response()->json(['data'=>$cursos,'pages'=>$this->pages($categoria)],200);
+            return inertia('views/Cursos',['data'=>$cursos,'pages'=>$this->pages($categoria), 'currentPage'=>(int)$page, 'category'=>$categoria]);
         }
         elseif (CategoriaCurso::where('name', '=', $categoria)->exists()) {
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
-            return response()->json(['data'=>$cursos,'pages'=>$this->pages($categoria)]);
+            return inertia('views/Cursos',['data'=>$cursos,'pages'=>$this->pages($categoria),'currentPage'=>(int)$page, 'category'=>$categoria]);
         }else{
             return response()->json(['message'=>'Categoria no encontrada'],404);
         }
@@ -43,7 +43,7 @@ class Cursos extends Controller
         $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND category = "'.$this->getCategoryId($categoria).'"';
         $categoryCFilter = $categoria == null || $categoria == 'all'? '' : ' where name = "'.$categoria.'"';
         $baseQuery = "SELECT  mdl_crse.id, mdl_cntxt.id AS 'context',filename, mdl_crse_cat.name as 'category',fullname,shortname,summary,precio,value, visible FROM
-        (SELECT id, category, fullname, shortname, summary, visible FROM mdl_course Where visible = 1 ".$categoryFilter.$courseIdFilter." LIMIT ".$this->calcMin($page).",".$this->ELEMENTS_PER_PAGE.") mdl_crse
+        (SELECT id, category, fullname, shortname, summary, visible FROM mdl_course Where visible = 1 AND id <> 1".$categoryFilter.$courseIdFilter." LIMIT ".$this->calcMin($page).",".$this->ELEMENTS_PER_PAGE.") mdl_crse
         INNER JOIN (SELECT id, name FROM mdl_course_categories" .$categoryCFilter.") mdl_crse_cat ON mdl_crse_cat.id = mdl_crse.category
         INNER JOIN ( SELECT instanceid, 
             MAX(CASe when (fieldid=3) THEN value end) as precio,
@@ -69,9 +69,9 @@ class Cursos extends Controller
     private function pages($categoria){
         $total = 0;
         if ($categoria==null || $categoria=='all') {
-            $total = MoodleCurso::count(); //-1 porque no cuenta el curso de Moodle en sí
+            $total = MoodleCurso::where('visible',1)->count()-1; //-1 porque no cuenta el curso de Moodle en sí
         }else{
-            $total = MoodleCurso::where('category','=',$this->getCategoryId($categoria))->count();
+            $total = MoodleCurso::where([['category','=',$this->getCategoryId($categoria)],['visible',1]])->count();
         }
         return ceil($total/$this->ELEMENTS_PER_PAGE);
     }
@@ -154,7 +154,7 @@ class Cursos extends Controller
         ]);
         $json = json_decode($res->getBody());
         if (empty($json->courses) ) {
-            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
+            return redirect('/not-found')->withErrors(['message' => 'No existe el curso']);
         } elseif(!$json->courses[0]->visible){
             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
         } else {
@@ -171,7 +171,7 @@ class Cursos extends Controller
                 $curso_aux->customfields[2]->value,
                 //'destacado' => $json->courses[0]->customfields[3]->value,
             );
-            return response()->json(['status' => 'ok', 'data' => $curso], 200);	
+            return inertia('views/Curso',['status' => 'ok', 'curso' => $curso], 200);	
         }
     }
 

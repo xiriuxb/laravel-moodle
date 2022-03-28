@@ -1,13 +1,15 @@
 <template>
   <section class="container-fluid d-flex justify-content-center">
-    <div class="signup-content">
+    <div class="signup-content shadow-lg shadow-indigo-500/40">
+    <h2 class="font-bold">Regístrese</h2>
       <form
         autocomplete="off"
         id="signup-form"
         class="signup-form"
         @submit.prevent="saveFrom"
+        preserve-scroll
       >
-        <h2 class="form-title">Regístrese</h2>
+        
         <div class="row" v-on:keypress="isLetter($event)">
           <div class="col compartido form-group">
             <label for="name">*Primer nombre</label>
@@ -23,8 +25,8 @@
               autocomplete="first_name"
               maxlength="16"
             />
-            <div v-if="this.errors.name != null" class="alert alert-danger">
-              {{ this.errors.name[0] }}
+            <div v-if="$page.props.errors.name" class="alert alert-danger">
+              {{ $page.props.errors.name }}
             </div>
           </div>
           <div class="col form-group" v-on:keypress="isLetter($event)">
@@ -39,10 +41,10 @@
               v-on:keypress="isLetter($event)"
             />
             <div
-              v-if="this.errors.last_name != null"
+              v-if="$page.props.errors.last_name"
               class="alert alert-danger"
             >
-              {{ this.errors.last_name[0] }}
+              {{ $page.props.errors.last_name }}
             </div>
           </div>
         </div>
@@ -58,8 +60,8 @@
             placeholder="user@example.com"
             label="Email"
           />
-          <div v-if="this.errors.email != null" class="alert alert-danger">
-            {{ this.errors.email[0] }}
+          <div v-if="$page.props.errors.email" class="alert alert-danger">
+            {{ $page.props.errors.email }}
           </div>
         </div>
         <div class="form-group">
@@ -73,8 +75,8 @@
             id="password"
             ref="password"
           />
-          <div v-if="this.errors.password != null" class="alert alert-danger">
-            {{ this.errors.password[0] }}
+          <div v-if="$page.props.errors.password" class="alert alert-danger">
+            {{ $page.props.errors.password }}
           </div>
         </div>
         <div class="form-group">
@@ -87,38 +89,9 @@
             v-model="form.password_confirmation"
             data-vv-as="password"
             required
+            preserve-scroll
           />
         </div>
-        <!--
-        <div class="row form-group">
-          <div class="col compartido">
-            <country-select class="form-control" name="country" id="country"
-             v-model="form.country" :country="form.country" placeholder="*País" required
-             :whiteList='["EC"]' :countryName='true' :autocomplete='true' :removePlaceholder='true'/>
-          </div>
-          <div class="col">
-            <region-select class="form-control" v-model="form.region" :country="form.country" 
-            :region="form.region" defaultRegion='EC' :regionName='true' name="region" id="region" 
-            placeholder="*Provincia" />
-            <div v-if="this.errors.region!=null" class="alert alert-danger">Seleccione una opción</div>
-          </div>
-        </div>
-        <div class="row" v-if="this.form.region!=''">
-          <div class="col form-group compartido" v-on:keypress="isNumber($event)" id="telefono">
-              <label for="telephone">Teléfono</label>
-              <div class="row">
-                <div class="col" id="tlf09">09-</div>
-                <input type="text" class="col form-control" maxlength="8" v-model="form.phone_number"/>
-              </div>
-              <div v-if="this.errors.phone_number!=null" class="alert alert-danger">{{this.errors.phone_number[0]}}</div>
-          </div>
-          <div class="col form-group">
-            <label for="fechaNacimiento">Día de nacimiento</label>
-            <input type="date" class="form-control" placeholder="Fecha de nacimiento" v-model="form.birth_day">
-            <div v-if="this.errors.birth_day!=null" class="alert alert-danger">{{this.errors.birth_day[0]}}</div>
-          </div>
-        </div>
-        -->
         <button
           type="submit"
           name="submit"
@@ -126,18 +99,20 @@
           class="form-submit btn btn-submit"
           value="Registrar"
           role="button"
+           :disabled="form.processing"
+          preserve-scroll
         >
           {{ this.btnText }}
-          <loading-component v-if="this.loading"></loading-component>
+          <loading-component v-if="this.loading" :position="'relative'"></loading-component>
         </button>
       </form>
-      <div id="requerido">*Requerido</div>
+      <div class="relative font-[14px] top-1 bottom-1">*Requerido</div>
       <hr />
       <p class="loginhere" id="registered">
         ¿Ya tiene una cuenta?
-        <router-link :to="{name:'ingreso-view'}">
+        <inertia-link :href="'/ingreso'">
           <a class="loginhere-link">Ingrese aquí</a>
-        </router-link>
+        </inertia-link>
       </p>
     </div>
   </section>
@@ -151,34 +126,22 @@ export default {
     return {
       loading: false,
       btnText: "Registrarse",
-      form: {
+      form: this.$inertia.form({
         name: "",
         last_name: "",
         email: "",
         password: "",
         password_confirmation: "",
-      },
-      errors: [],
+      }),
     };
   },
   methods: {
-    saveFrom() {
-      this.disableBtnSubmit(true);
-      axios
-        .post("api/register", this.form)
-        .then(() => {
-          window.location.href = "/email/verify";
-          console.log(response);
-        })
-        .catch((err) => {
-          if (err.response != undefined && err.response.status == 422) {
-            this.errors = err.response.data.errors;
-            this.disableBtnSubmit(false);
-          }
-          if (err.response != undefined && err.response.status == 500) {
-            this.disableBtnSubmit(false);
-          }
-        });
+      saveFrom() {
+        this.errors = {};
+      this.form.post('/api/register',{
+        onStart: () => (this.disableBtnSubmit(true)),
+        onFinish: () => (this.disableBtnSubmit(false)),
+    });
     },
     isLetter(e) {
       let char = String.fromCharCode(e.keyCode);
@@ -233,7 +196,6 @@ h2 {
   padding: 0;
   font-weight: 900;
   color: #222;
-  font-family: montserrat;
   font-size: 24px;
   text-transform: uppercase;
   text-align: center;

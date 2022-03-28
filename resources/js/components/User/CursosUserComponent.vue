@@ -26,10 +26,15 @@
 </template>
 
 <script>
-import LoadingComponent from "../LoadingComponent.vue";
-import "boxicons";
+import Home from "../views/Home.vue";
 export default {
-  components: { LoadingComponent },
+  layout: Home,
+  props: {
+    data: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       misCursos: [],
@@ -37,10 +42,10 @@ export default {
     };
   },
   async created() {
-    await axios.get("/api/user/matriculas").then((response) => {
-      this.misCursos = response.data.data;
-      this.loading = false;
-    });
+    // await axios.get("/api/user/matriculas").then((response) => {
+    //   this.misCursos = response.data.data;
+    //   this.loading = false;
+    // });
   },
   methods: {
       redirectToMoodle(cursoShortname){

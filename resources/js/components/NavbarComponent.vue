@@ -2,17 +2,17 @@
   <header class="main-header scroll" id="navbar">
     <div class="container">
       <nav class="navbar navbar-expand-md main-nav pl-0">
-        <router-link :to="{name:'home-component'}">
+        <inertia-link href="/">
           <a class="navbar-brand">
             <img src="/images/logo.png" alt="Buisiness Logo" />
           </a>
-        </router-link>
+        </inertia-link>
         <ul class="flex-row align-items-center navbar-nav">
           <div id="searchSm">
             <search-component></search-component>
           </div>
-          <button class="btn navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#mainMenu"  aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="btn navbar-toggler" type="button" @click="sidebarHandler"
+             aria-label="Toggle navigation">
             <span class="icon-bar icon-bar-1"></span>
             <span class="icon-bar icon-bar-2"></span>
             <span class="icon-bar icon-bar-3"></span>
@@ -20,10 +20,10 @@
         </ul>
         <div class="collapse navbar-collapse" id="mainMenu">
           <ul class="navbar-nav mr-auto f1">
-            <li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase" data-toggle="collapse" data-target="#mainMenu">
-              <router-link  :to="{name:item.name, params:item.params}" :class=" $route.name == item.name ? 'active active-first':''">
+            <li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase">
+              <inertia-link :href="item.path">
                   {{item.text}}
-              </router-link>
+              </inertia-link>
             </li>
           </ul>
           <ul class="navbar-nav ml-0">
@@ -31,20 +31,22 @@
               <search-component></search-component>
             </li>
           </ul>
-          <ul class="navbar-nav mr-0 ml-0">
-            <li v-if="!this.$store.getters.isLoggedIn">
+          <ul class="navbar-nav mr-0 ml-0" v-if="!$page.props.auth.user">
+            <li>
               <a href="/">
                 Regístrese
               </a>
             </li>
             <li>
-              <router-link :to="{name:'ingreso-view'}" v-if="!this.$store.getters.isLoggedIn">
+              <inertia-link :href="'/ingreso'">
                 <a class="btn btn-primary"  id="loginBtn">
                   Ingrese
                 </a>
-              </router-link>
+              </inertia-link>
             </li>
-            <li v-if="this.$store.getters.isLoggedIn">
+          </ul>
+          <ul>
+            <li class="navbar-nav" v-if="$page.props.auth.user">
               <user-menu-component></user-menu-component>
             </li>
           </ul>
@@ -52,15 +54,18 @@
       </nav>
     </div>
     <!-- /.container -->
+    <sidebar-component></sidebar-component>
   </header>
 </template>
 
 <script>
 import SearchComponent from './search/SearchComponent.vue';
+import SidebarComponent from './User/SidebarComponent.vue';
 import UserMenuComponent from "./UserMenuComponent.vue";
 export default {
   data() {
     return {
+      movedSidebar: true,
       navElements:[
         {
           name: 'home-component',
@@ -78,17 +83,22 @@ export default {
       ],
     };
   },
-  components: { UserMenuComponent, SearchComponent },
+  components: { UserMenuComponent, SearchComponent, SidebarComponent},
   mounted(){
+    console.log(this.$children);
   },
   methods: {
-    changeTheme() {
-      const nav = document.querySelector("#navbar");
-      if (nav != null && nav.className == "main-header" && scrollY < 10) {
-        nav.className = "main-header scroll";
-        nav.style.position = "relative !important";
-      }
-    },
+    sidebarHandler() {
+      var sideBar = document.getElementById("mobile-nav");
+      sideBar.style.transform = "translateX(-260px)";
+      if (this.$data.movedSidebar) {
+             sideBar.style.transform = "translateX(0px)";
+                this.$data.movedSidebar = false;
+            } else {
+                sideBar.style.transform = "translateX(-260px)";
+                this.$data.movedSidebar = true;
+            }
+        },
     loginBtn() {
       window.location.href = "/ingreso";
     },
@@ -183,6 +193,7 @@ export default {
     border: none;
     border-radius: 0;
     outline: none !important;
+    position: relative;
   }
 
   .main-header .container {

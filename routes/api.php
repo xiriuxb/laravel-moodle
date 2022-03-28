@@ -34,7 +34,7 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
     
-    Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+    // Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
     
     Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController')->middleware('auth');
     
@@ -42,17 +42,14 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::get('curse/{id}', 'App\Http\Controllers\Cursos@show');
     
-    Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
+    //Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
     Route::get('cursess/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index2');
     
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
     
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-        return response()->json(['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
-    })->middleware(['auth', 'throttle:1,3'])->name('verification.send');
+    
     
     Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
     

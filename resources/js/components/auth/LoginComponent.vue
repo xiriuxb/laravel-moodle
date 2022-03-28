@@ -2,10 +2,10 @@
   <div class="container">
     <div>
       <div class="card-body">
-      <div class="alert alert-danger" role="alert" v-if="error">
-        {{error}}
+      <div class="alert alert-danger" role="alert" v-if="$page.props.errors.message">
+        {{$page.props.errors.message}}
       </div>
-        <form v-if="!this.$store.getters.isLoggedIn" autocomplete id="login-form" @submit.prevent="loginForm()">
+        <form autocomplete="true" id="login-form" @submit.prevent="loginForm()">
           <!--@csrf-->
           <input type="hidden" name="_token" value=window.window.Laravel.csrfToken v-model="form.token">
           <div class="form-group row">
@@ -52,30 +52,30 @@
             </div>
           </div>
 
-          <div class="form-group row mb-0" v-if="!this.$store.getters.isLoggedIn">
+          <div class="form-group row mb-0">
             <button type="submit" class="btn btn-submit" id="submit" :disabled="loading">
               <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Ingresar
             </button>
           </div>
         </form>
-        <router-link  v-if="!this.$store.getters.isLoggedIn" :event="!loading ? 'click' : ''" :to="{name:'forgot-password'}">
+        <inertia-link>
             <button class="btn btn-link" :disabled="loading">
               ¿Olvidó su contraseña?
             </button>
-        </router-link>
+        </inertia-link>
       </div>
       <hr class="line"/>
       <div class="container">
-        <router-link :to="{name:'home-component'}">
-          <button :disabled="loading" class="btn btn-secondary" id="registro-btn" v-if="!this.$store.getters.isLoggedIn">
+        <inertia-link :href="'/'">
+          <button :disabled="loading" class="btn btn-secondary" id="registro-btn">
             Regístrese</button>
-        </router-link>
+        </inertia-link>
       </div>
       <div class="container">
-        <button :disabled="loading" class="btn btn-warning" id="cursos-btn"  v-on:click="coursesBtn">
+        <a :disabled="loading" class="btn btn-warning w-full" id="cursos-btn"  :href="'https://www.academia.octavario.org/login/'">
           Ingrese a los cursos
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -87,43 +87,28 @@ export default {
   components: { Index },
   data() {
     return {
-      form: {
+      form: this.$inertia.form({
         email: "",
         password: "",
         remember:false,
         token:'',
-      },
+      }),
       error: "",
       loading:false,
     };
   },
   mounted() {
-    console.log(this.$route.query.redirect);
+    
   },	
   methods: {
-    async loginForm() {
-      this.error = "";
-      this.loading = true;
-      await axios.get('/sanctum/csrf-cookie');
-      await axios
-        .post("/vuelogin", this.form)
-        .then((response) => {
-          this.$toast.open({message:'Bienvenido', type:'info',position:'top',duration:4000});
-          //this.$store.commit('setAuthUser', response.data);
-          if(this.$route.query.redirect){
-            window.location.href = this.$route.query.redirect;
-          }else{
-            window.location.href = '/';
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-          this.error = err.response.data ?  err.response.data.message: err;
-          this.loading = false;
-        });
-    },
     coursesBtn(){
       window.location.href = "https://www.academia.octavario.org/login/";
+    },
+    loginForm(){
+      this.form.post('/vuelogin',{
+        onStart: () => (this.loading = true),
+        onFinish: () => (this.loading = false),
+    });
     }
   },
 };

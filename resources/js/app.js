@@ -4,33 +4,23 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 //Librerias
+require('./bootstrap');
 import Vue from 'vue';
-import Vuex from 'vuex';
-import VueRouter from 'vue-router'
+import { createInertiaApp, Link } from '@inertiajs/inertia-vue'
+import { ZiggyVue } from "ziggy";
+import { Ziggy } from "./ziggy";
 import vueCountryRegionSelect from 'vue-country-region-select'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
-Vue.use(Vuex);
-Vue.use(VueRouter);
+import { InertiaProgress } from '@inertiajs/progress'
 Vue.use(vueCountryRegionSelect);
 Vue.use(VueToast);
+Vue.use(ZiggyVue, Ziggy);
+Vue.use(Link);
 //Componentes del sitio
 Vue.config.debug = true;
 Vue.config.devtools = true;
-import LoginView from "./components/views/LoginView";
-import HomeComponemt from "./components/HomeComponent";
-import Home from "./components/views/Home";
-import Cursos from "./components/views/Cursos";
-import Admin from "./components/views/Admin.vue"
-import Curso from "./components/views/Curso";
-import AdminTestimonialComponent from "./components/Admin/AdminTestimonialComponent"
-import AdminCoursesComponent from "./components/Admin/AdminCoursesComponent"
-import AdminUsersComponent from "./components/Admin/AdminUsersComponent"
-import AdminCoursesMoodleComponent from "./components/Admin/AdminCoursesMoodleComponent"
-import Notice from "./components/Email/Notice"
-import CursosComponent from "./components/CursosComponent"
 import 'boxicons';
 /**
  * The following block of code may be used to automatically register your
@@ -47,7 +37,6 @@ Vue.component('comments-component', require('./components/CommentsComponent.vue'
 Vue.component('login-component', require('./components/auth/LoginComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('cursos-sm-component', require('./components/CursosSmComponent.vue').default);
-Vue.component('success-reg-component', require('./components/SuccessRegisterComponent.vue').default);
 Vue.component('home', require('./components/views/Home.vue').default);
 Vue.component('index-view', require('./components/views/Index.vue').default);
 Vue.component('login-view', require('./components/views/LoginView.vue').default);
@@ -59,80 +48,29 @@ Vue.component('user-menu-component', require('./components/UserMenuComponent.vue
 Vue.component('filter-component', require('./components/FilterComponent.vue').default);
 Vue.component('cursos-component', require('./components/CursosComponent.vue').default);
 Vue.component('notice', require('./components/Email/Notice.vue').default);
+Vue.component('inertia-link',Link)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-const router = new VueRouter({
-    routes: [
-
-        {
-            path: '/', component: Home,
-            children: [
-                { path: '', component: HomeComponemt, name: 'home-component', },
-                //{ path: '/cursos', component: Cursos, name: 'cursos' },
-                { path: '/cursos/:category?', component: Cursos, name: 'cursos' },
-                { path: 'curso/:shortname', component: Curso, name: 'curso' },
-                { path: 'forgot-password', component: require('./components/auth/ForgotPasswordComponent.vue').default, name: 'forgot-password' },
-                { path: 'reset-password/:token', component: require('./components/auth/ResetPasswordComponent.vue').default, name: 'reset-password' },   
-                { path: '/mis-cursos', component: require('./components/User/CursosUserComponent.vue').default },
-                { path: '/payments/:id', component: require('./components/payments/PaymentSelectorComponent.vue').default, name: 'payments' },
-            ],
-        },
-        {
-            path: '/admin', component: Admin, name: 'admin', meta: { title: 'Octavario Admin' },
-            children: [
-                { path: 'testimonios', component: AdminTestimonialComponent, name: 'admin-comment' },
-                { path: 'cursos', component: AdminCoursesComponent, name: 'admin-courses' },
-                { path: 'usuarios', component: AdminUsersComponent, name: 'admin-users' },
-                { path: 'cursos-moodle', component: AdminCoursesMoodleComponent, name: 'admin-courses-moodle' },
-            ],
-        },
-        { path: '/search-temp' , component: require('./components/search/SearchComponent.vue').default},
-        { path: '/ingreso', component: LoginView, name: 'ingreso-view' },
-        { path: '/personal', component: require('./components/User/ProfileComponent.vue').default },
-        { path: '/email/verify', component: Notice, name: 'email' },
-        
-    ],
-
-    //{ path: '/test', component: AdminCommentComponent, name: 'test' },
-
-    mode: 'history'
-})
-
 // s
+createInertiaApp({
+    resolve: name => import(`./components/${name}`),
+    setup({ el, App, props, plugin }) {
+      Vue.use(plugin)
+      Vue.use(ZiggyVue, Ziggy)
+      Vue.component('inertia-link',Link)
+  
+      new Vue({
+        render: h => h(App, props),
+      }).$mount(el)
+    },
+  });
 
-const store = new Vuex.Store({
-    strict: true,
-    state: {
-        user: null,
-        token: null,
-    },
-    mutations: {
-        setAuthUser(state, user) {
-            state.user = user;
-        },
-        setResetToken(state, token) {
-            state.token = token;
-        }	
-    },
-    getters: {
-        isLoggedIn(state) {
-            if (state.user == null) {
-                return false;
-            } else {
-                return true;
-            }
-        },
-        getUser(state) {
-            return state.user;
-        }
-    }
-});
-new Vue({
-    el: '#app',
-    router: router,
-    store: store,
-});
+  InertiaProgress.init();
+// new Vue({
+//     el: '#app',
+//     router: router,
+//     store: store,
+// });

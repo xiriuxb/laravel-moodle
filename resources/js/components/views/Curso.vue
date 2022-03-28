@@ -1,57 +1,57 @@
 <template>
   <div id="curso" class="container-fluid">
     <div >
-      <div v-if="existe">
+      <div>
         <div class="card left">
-          <div class="row" v-if="visible">
+          <div class="row">
             <div class="col-12 col-sm-8 col-md-6 justify-content-center">
               <div>
-                <router-link :to="{name:'cursos',params:{category:curso.category}}">
+                <inertia-link :href="'cursos/'+curso.category">
                 {{ curso.category }}
-                </router-link>
-                </div>
-              <h2 id="titulo-cursos" class="card-title">{{ curso.fullname }}</h2>
-              <div id="summary">
-                <div>
-                  <p v-html="this.curso.summary"></p>
-                  </div>
+                </inertia-link>
               </div>
-              <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
+              <h2 id="titulo-cursos" class="text-orange-600 font-bold text-3xl sm:text-4xl">{{ curso.fullname }}</h2>
+              <div id="summary">
+                  <p v-html="this.curso.summary"></p>
+              </div>
+              <div class="mt-0 md:mt-6">
+                <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
+              </div>
             </div>
             <div class="col-12 col-sm-4 col-md-6 d-flex align-items-center">
               <img :src="curso.image" alt="" />
             </div>
           </div>
-          <loading-component v-else :position="'inherit'" :height="'250px'"></loading-component>
-
         </div>
         <div class="row comp">
-          <div id="description" class="container" v-if="visible">
+          <div id="description" class="container">
             <p v-html="this.curso.ex_description"></p>
           </div>
-          <loading-component v-else :position="'inherit'" :height="'300px'"></loading-component>
+          <!-- <loading-component v-else :position="'inherit'" :height="'300px'"></loading-component> -->
         </div>
       </div>
-      <not-found-component v-else></not-found-component>
     </div>
   </div>
 </template>
 
 <script>
-import LoadingComponent from "../LoadingComponent.vue";
-import NotFoundComponent from "../NotFoundComponent.vue";
 import MatriculaComponent from "../MatriculaComponent.vue";
+import Home from "../../../../resources/js/components/views/Home.vue";
 export default {
+  layout: Home,
+  props: {
+    curso: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      curso: [],
       visible: false,
       existe: true,
     };
   },
   components: {
-    LoadingComponent,
-    NotFoundComponent,
     MatriculaComponent,
   },
   computed: {
@@ -75,20 +75,6 @@ export default {
     }
   },
   beforeMount() {
-    console.log(this.$route)
-    axios
-      .get("/api/curse/"+this.$route.params.shortname)
-      .then((response) => {
-        this.curso = response.data.data;
-        this.existe = true;
-        this.visible = true;
-        console.log(this.curso);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.existe = false;
-        this.visible = true;
-      });
   },
 };
 </script>

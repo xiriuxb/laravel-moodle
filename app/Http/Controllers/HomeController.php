@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        
     }
 
     /**
@@ -23,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        echo 'Hello World';
-        return view('home');
+        return Inertia::render('/views/Home');
     }
 }

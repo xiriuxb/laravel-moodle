@@ -6,45 +6,23 @@
         <h3 class="titulo">BIENVENIDO</h3>
         <div class="container">
             <p class="bienvenido">
-                Inicia tu aprendizaje de calidad y bajo costo.
+                Inicia tu aprendizaje de calidad.
             </p>
         </div>
     </div>
     <section class="section-pair">
-        <div class="card-group justify-content-center">
-                <div class="card sp-card mb-3 sm-12">
-                <div class="card-header bg-transparent">
-                     <img src="/images/step1-1.png" alt="regístrese">
+        <div class="flex flex-col sm:flex-row px-10 justify-content-center">
+            <div v-for="paso in pasos" :key="paso.titulo" class="w-full md:w-1/3 border-2 my-1 sm:my-0 mx-1 rounded">
+                <div class="">
+                    <div class="card-header bg-transparent self-center">
+                     <img class="inline" :src="'/images/'+paso.imagen" alt="regístrese">
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">1. Regístrese</h5>
-                    <p class="card-text">
-                        Solo necesitas un correo electrónico.
-                    </p>
+                    <div class="card-body">
+                        <h5 class="card-title font-bold">{{ paso.titulo }}</h5>
+                        <p class="card-text">{{ paso.descripcion }}</p>
+                    </div>
                 </div>
-                </div>
-                <div class="card sp-card mb-3">
-                <div class="card-header bg-transparent">
-                    <img src="/images/step2.png" alt="inscríbase">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">2. Inscríbase en un curso</h5>
-                    <p class="card-text">
-                        Tenemos cursos gratuitos y de pago que se adaptan a tus necesidades.
-                    </p>
-                </div>
-                </div>
-                <div class=" card sp-card mb-3">
-                <div class="card-header bg-transparent">
-                     <img  class="card-img-top" src="/images/step3.png" alt="aprenda">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">3. Comience a aprender</h5>
-                    <p class="card-text">
-                        Todos nuestros cursos tienen lecciones en video y recursos educativos.
-                    </p>
-                </div>
-                </div>
+            </div>
         </div>
     </section>
     <section class="section-odd benefits" id="benefits">
@@ -98,7 +76,7 @@
         <cursos-sm-component></cursos-sm-component>
     </section>
     <section class="section-odd">
-        <!-- <comments-component></comments-component> -->
+        <comments-component></comments-component>
     </section>
     <section class="section-pair univ-back">
         <h3 class="titulo">¿Qué contienen nuestros cursos?</h3>
@@ -113,20 +91,78 @@
 <script>
 import CaratulaComponent from './CaratulaComponent.vue'
 import CursosSmComponent from './CursosSmComponent.vue'
+import Home from './views/Home.vue';
 
 export default {
-    mounted(){
-        console.log('HomeComponent')
+    layout: Home,
+    props:{
+        message: {
+            type: String,
+            required: false,
+            default: ''
+        }
+    },
+    data() {
+        return {
+            pasos:[
+                {
+                    titulo:'Regístrese',
+                    descripcion:'Solo necesitas un correo electrónico.',
+                    imagen:'step1-1.png'
+                },
+                {
+                    titulo:'Inscríbase en un curso',
+                    descripcion:'Tenemos cursos gratuitos y de pago que se adaptan a tus necesidades.',
+                    imagen:'step2.png'
+                },
+                {
+                    titulo:'Comience a aprender',
+                    descripcion:'Todos nuestros cursos tienen lecciones en video y recursos educativos.',
+                    imagen:'step3.png'
+                }
+            ],
+        }
+    },
+    computed: {
+        message2() {
+            return this.message;
+        }
     },
     components: { CursosSmComponent,CaratulaComponent },
     watch: {
-        $route: {
-            immediate: true,
-            handler(to, from) {
-                document.title = to.meta.title || 'Academia Octavario';
-            }
-        },
     },
+    beforeCreate(){
+        console.log('message2 beforeCreate: ' + this.message2);
+        if(this.message2 != ''){
+            this.$toast.open({
+              message: "beforCreate",
+              type: "error",
+              duration: 5000,
+            })
+        }
+    },
+    created(){
+        console.log('message2 created: ' + this.message2);
+    },
+    beforeMount(){
+        console.log('message2 beforeMount: ' + this.message2);
+    },
+    mounted(){
+        console.log('message2 mounted: ' + this.message2);
+    },
+    beforeUpdate(){
+        console.log('message2 beforeUpdate: ' + this.message2);
+    },
+    updated(){
+        console.log('message2 updated: ' + this.message2);
+    },
+    beforeDestroy(){
+        console.log('message2 beforeDestroy: ' + this.message2);
+    },
+    destroyed(){
+        console.log('message2 destroyed: ' + this.message2);
+    }
+
 }
 </script>
 
@@ -189,7 +225,6 @@ body{
 }
 
   div p.bienvenido{
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 35px;
       text-align: center;
       padding-bottom: 15px;

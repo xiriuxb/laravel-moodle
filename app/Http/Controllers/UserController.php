@@ -9,8 +9,6 @@ use App\Notifications\EmailUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
-use Illuminate\Database\Eloquent\Model;
-
 
 use Illuminate\Http\Request;
 
@@ -27,48 +25,41 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(['status' => 'ok', 'data' => User::all()], 200);
-    }
-
-    public function getUsers(Request $request)
-    {
-        $data = User::where('name', 'LIKE','%'.$request->keyword.'%')->get();
-        return response()->json($data); 
+        return inertia('User/ProfileComponent',['user' => User::all()]);
     }
 
     public function changePassword(Request $request)
     {
         if (! Hash::check($request->passwordActual, $request->user()->password)) {
-            return response( ['message' => 'La informacion es inválida', 
-            'errors' => ['new_password'=>['La contraseña actual no es correcta']]], 422);
+            return back()->withErrors(['new_password'=>'La contraseña actual no es correcta']);
         }
         $request-> validate( [
             'new_password' => ['required', 'string', 'min:8', 'confirmed','max:24'],
         ]);
         if(strcmp($request->passwordActual, $request->new_password) == 0){
             // Current password and new password same
-            return response( ['message' => 'La informacion es inválida', 
-            'errors' => ['new_password'=>['La contraseña no puede ser igual a la anterior']]], 422);
+            return back()->withErrors(['new_password'=>'La contraseña no puede ser igual a la anterior']);
         }
         $request->user()->update(['password' => Hash::make($request->new_password)]);
-        $request->user()->notify(new PasswordChanged($request->user()));
-        return response( ['message' => 'Su contraseña ha sido actualizada'], 200);
+        //$request->user()->notify(new PasswordChanged($request->user()));
+        return redirect()->back()->with('message', 'Contraseña cambiada correctamente');
     }
 
     public function changeEmail(Request $request)
     {
         if (! Hash::check($request->password, Auth::user()->password)) {
-            return response( ['message' => 'La informacion es inválida', 
-            'errors' => ['new_email'=>['La contraseña actual no es correcta']]], 422);
+            return back()->withErrors(['context'=>'email','new_email'=>'La contraseña actual no es correcta']);
         }
         
-        $request->validate([
+        $is_valid = $request->validate([
             'new_email' => 'required|unique:users,email|string|email',
         ]);
-        $request->user()->notify(new EmailUpdatedNotification($request->new_email));
+        if(!$is_valid){
+            return back()->withErrors(['context'=>'email','new-email'=>'El correo electrónico ya está en uso']);
+        }
         $request->user()->update(['email' => $request->new_email]);
         $request->user()->notify(new EmailUpdatedNotification($request->new_email));
-        return response( ['message' => 'Emial actualizado'], 200);
+        return redirect()->back()->with('message', 'Dirección de correo cambiado correctamente');
     }
 
     public function matricula($curso)
@@ -81,15 +72,9 @@ class UserController extends Controller
 
     public function matriculas(){
         $userID = Auth::user()->id;
-        return response()->json(['status' => 'ok', 'data' => User::find($userID)->cursos()->get()], 200);
+        return inertia('User/CursosUserComponent',['data' => User::find($userID)->cursos()->get()]);
     }
 
-    public function role(){
-        return response()->json(['status' => 'ok', 'data' => User::with('roles:name')->where('id',Auth::id())->get()], 200);
-        // return response()->json(['status' => 'ok', 'data' => User::where('id','=',Auth::id())
-        // ->select('birth_day','country','email','last_name','name','phone_number','region','username')
-        // ->with('roles')->get()], 200);
-    }
     public function update(Request $request)
     {
         // Get current user
@@ -109,10 +94,9 @@ class UserController extends Controller
             'region' => $request->region,
             'birth_day'=> $request->birth_day,
         ]);
-        
 
         // Save user to database
         $user->save();
-        return response()->json(['status' => $user->wasChanged(), 'data' => ['message'=>'Su información se actualizó correctamente']], 200);
+        return redirect()->back()->with('message','Su información se actualizó correctamente');
     }
 }

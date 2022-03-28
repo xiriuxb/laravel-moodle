@@ -1,11 +1,18 @@
 <template>
   <div id="profile">
-    <navbar-component></navbar-component>
-    <sidebar-component></sidebar-component>
     <div id="datosP" class="container">
       <!-- User data form -->
       <div class="row">
         <div class="col-sm-12">
+              <div v-if="$page.props.errors.new_email" class="alert alert-danger">
+                Su correo no fue actualizado, por favor intente de nuevo.
+              </div>
+              <div v-if="$page.props.errors.new_password" class="alert alert-danger">
+                Su contraseña no fue actualizada, por favor intente de nuevo.
+              </div>
+              <div v-if="$page.props.flash.message" class="alert alert-success">
+                Su información se actualizó correctamente.
+              </div>
           <div class="card">
             <!-- .card-header -->
             <div class="card-header">
@@ -14,22 +21,19 @@
             <!-- /.card-header -->
             <!-- .card-body -->
             <div class="card-body">
-              <div v-if="!user.email_verified_at" class="alert alert-warning">
+              <!-- Mensaje de verificación de correo -->
+              <div v-if="!user[0].email_verified_at" class="alert alert-warning">
                 Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click 
-                <router-link :to="{path:'/email/verify'}"><a href="#">aquí </a></router-link>
+                <inertia-link class="text-sky-900" :href="'/email/verification-notification'">aquí</inertia-link>
                 y siga los pasos.
               </div>
-              <form action="#" method="post">
+              <!-- /.mensaje de verificación de correo -->
+              <form :class="{'disabled':loading}" action="#" method="post" @submit.prevent="updateUser">
                 <div class="row">
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputName">Nombre</label>
                     <input
-                      type="text"
-                      class="form-control"
-                      id="inputName"
-                      placeholder="Nombre Completo"
-                      disabled
-                      :value="fullname"
+                      type="text" class="form-control" id="inputName" placeholder="Nombre Completo" disabled :value="fullname"
                     />
                   </div>
                   <div class="form-group col-12 col-sm-6">
@@ -39,7 +43,7 @@
                       class="form-control"
                       id="inputUsername"
                       placeholder="Nombre de usuario"
-                      :value="user.username"
+                      :value="user[0].username"
                       readonly
                     />
                   </div>
@@ -53,9 +57,10 @@
                       id="inputEmail"
                       placeholder="Correo electrónico"
                       disabled
-                      :value="user.email"
+                      :value="user[0].email"
                     />
-                    <a v-on:click="showEmailModal()">Cambiar correo</a>
+                    <change-email-modal-2></change-email-modal-2>
+                    <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showEmailModal()">Cambiar correo</a> -->
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputPassword">Contraseña</label>
@@ -68,7 +73,8 @@
                       disabled
                       readonly
                     />
-                    <a v-on:click="showPasswordModal()">Cambiar contraseña</a>
+                    <change-password-modal-2></change-password-modal-2>
+                    <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showPasswordModal()">Cambiar contraseña</a> -->
                   </div>
                 </div>
                 <div class="row">
@@ -83,34 +89,25 @@
                       :countryName="true"
                       :autocomplete="true"
                       :removePlaceholder="false"
+                      :country="user[0].country"
                     />
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <region-select
-                    v-model="form.region"
-                      class="form-control"
-                      defaultRegion="EC"
-                      :regionName="true"
-                      name="region"
-                      id="region"
-                      placeholder="Provincia"
-                      :disabled="form.country"
+                    v-model="form.region" :region="user[0].region" class="form-control" defaultRegion="EC" :regionName="true" name="region" id="region" placeholder="Provincia" :disabled="!form.country"
                     />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="fechaNacimiento">Día de nacimiento</label>
                   <input
-                  v-model="form.birth_day"
-                    type="date"
-                    class="form-control"
-                    placeholder="Fecha de nacimiento"
+                  v-model="form.birth_day" type="date" class="form-control" placeholder="Fecha de nacimiento"
                   />
                   <!-- Errors -->
-                  <div v-if="this.updateUserErrors.birth_day!=null" class="alert alert-danger">{{this.updateUserErrors.birth_day[0]}}</div>
+                  <div v-if="$page.props.errors.birth_day!=null" class="alert alert-danger">{{$page.props.errors.birth_day}}</div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-primary" :disabled="enableButton || this.loading" @click.prevent="updateUser">
+                  <button type="submit" class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200" :disabled="enableButton || this.loading">
                     <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
                     Guardar Cambios
                   </button>
@@ -124,32 +121,36 @@
         <!-- /.col -->
       </div>
     </div>
-    <change-email-modal v-if="isEModalVisible" @close="closeEModal"></change-email-modal>
-    <change-password-modal v-if="isPModalVisible" @close="closePModal"></change-password-modal>
   </div>
 </template>
 
 <script>
-import NavbarComponent from "../NavbarComponent.vue";
-import SidebarComponent from "./SidebarComponent.vue";
 import vueCountryRegionSelect from "vue-country-region-select";
-import ChangeEmailModal from "./Modals/ChangeEmailModal.vue";
-import ChangePasswordModal from "./Modals/ChangePasswordModal.vue";
+import ChangeEmailModal2 from "./Modals/ChangeEmailModal2.vue";
+import ChangePasswordModal2 from "./Modals/ChangePasswordModal2.vue";
+import Home from "../views/Home.vue";
 export default {
+  layout: Home,
   components: {
-    SidebarComponent,
-    NavbarComponent,
     vueCountryRegionSelect,
-    ChangeEmailModal,
-    ChangePasswordModal,
+    ChangeEmailModal2,
+    ChangePasswordModal2
   },
-
+  props: {
+    user: {
+      type: Array,
+      required: true,
+    },
+    message: {
+      type: String,
+    },
+  },
   computed: {
     fullname() {
-      return this.user.name + " " + this.user.last_name;
+      return this.user[0].name + " " + this.user[0].last_name;
     },
     enableButton(){
-      return this.form.country != ''|| this.form.region != '' || this.form.birth_day !== '' ?false : true;
+      return this.form.country != this.user[0].country|| this.form.region != this.user[0].region || this.form.birth_day !== this.user[0].birth_day ?false : true;
     },
     formFiltered(){
       return Object.fromEntries(Object.entries(this.form).filter(([_, v]) => v != ''));
@@ -157,47 +158,26 @@ export default {
   },
   data() {
     return {
-      user:this.$store.getters.getUser,
-      isPModalVisible: false,
-      isEModalVisible: false,
-      form:{
+      form:this.$inertia.form({
         country:'',
         region:'',
         birth_day:'',
-      },
-      updateUserErrors:{},
+      }),
       loading:false,
     };
   },
   methods: {
-    showPasswordModal() {
-      this.isPModalVisible = true;
-    },
-    closePModal() {
-      this.isPModalVisible = false;
-    },
-    showEmailModal() {
-      this.isEModalVisible = true;
-    },
-    closeEModal() {
-      this.isEModalVisible = false;
-    },
     updateUser(){
-      this.updateUserErrors={};
-      this.loading = true;
-      axios.post('/update-user',this.formFiltered)
-      .then(()=>{
-        this.$toast.open({message:'Su información se actualizó correctamente', type:'info',position:'top',duration:4000});
-        this.$router.go();
-      }).catch((err)=>{
-        this.updateUserErrors = err.response.data.errors;
-        this.$toast.open({message:'Su información no se pudo actualizar', type:'info',position:'top',duration:4000});
-        this.loading= false;
-      });
+      this.form.post('/update-user',{
+        onStart: () => (this.loading =true),
+        onFinish: () => (this.loading = false),
+    });
     }
   },
   created() {
-    console.log(this.user.email_verified_at);
+    this.form.country = this.user[0].country;
+    this.form.region = this.user[0].region;
+    this.form.birth_day = this.user[0].birth_day;
   },
 };
 </script>
@@ -213,5 +193,9 @@ export default {
 
 .card-header .card-title {
   margin-bottom: 0;
+}
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div>
     <navbar-component></navbar-component>
-      <router-view :key="$route.fullPath"></router-view>
+      <!-- <router-view></router-view> -->
+      <slot />
     <footer-component></footer-component>
   </div>
 </template>
@@ -9,15 +10,8 @@
 <script>
 import NavbarComponent from "../NavbarComponent.vue";
 import FooterComponent from "../FooterComponent.vue";
-import NotFoundComponent from "../NotFoundComponent.vue";
 export default {
   components: { FooterComponent, NavbarComponent},
-  data() {
-    return {
-      logged: Boolean,
-    };
-  },
-  
 };
 // window.onscroll = () => {
 //   const nav = document.querySelector("#navbar");

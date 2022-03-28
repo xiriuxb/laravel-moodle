@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
+  <div class="container pb-2">
           <ul class="pagination justify-content-center">
 
-              <li class="page-item" :class="{'page-item disabled': page==1}">
-                <a class="page-link" href="#" @click="navigationDown()">Anterior</a>
+              <li class="page-item" :class="{'page-item disabled': currentPage==1}">
+                <inertia-link class="page-link" :href="'/cursos/'+$parent.category+'/'+(+currentPage-1)">Anterior</inertia-link>
               </li>
             <li v-for="index in pages" :key="index" class="page-item"
-              v-bind:class="{ 'page-item active': index == page }">
-                <a class="page-link" href="#" @click="$parent.page = index">{{ index }}</a>
+              v-bind:class="{ 'page-item active': index == currentPage }">
+                <inertia-link class="page-link" :href="'/cursos/'+$parent.category+'/'+index">{{ index }}</inertia-link>
             </li>
-              <li class="page-item" :class="{'page-item disabled': page==pages}">
-                <a class="page-link" href="#" @click="navigationUp()">Siguiente</a>
+              <li class="page-item" :class="{'page-item disabled': currentPage==pages}">
+                <inertia-link class="page-link" :href="'/cursos/'+$parent.category+'/'+(+currentPage+1)">Siguiente</inertia-link>
               </li>
           </ul>
         </div>
@@ -23,7 +23,7 @@ export default {
             type: Number,
             required: true,
         },
-        page: {
+        currentPage: {
             type: Number,
             required: true,
         },
@@ -45,15 +45,14 @@ export default {
 <style scoped>
 .page-item.active .page-link{
   background-color: #002e45;
-    border-color: #004060;
 }
 .page-item.disabled{
   cursor: not-allowed;
 }
 .page-item.disabled .page-link{
-  border-color:#7ba9d7;
+  
 }
-.page-item .page-link{
-  border-color:#004060;
+.page-item:not(.disabled) .page-link{
+  box-shadow: gray 0 0 3px 0;
 }
 </style>

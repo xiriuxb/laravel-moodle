@@ -1,106 +1,60 @@
 <template>
-    <div id="burger"
-         :class="{ 'active' : isBurgerActive }"
-         @click.prevent="toggle">
-        <slot>
-            <button type="button" class="burger-button" title="Menu">
-                <span class="burger-bar burger-bar--1"></span>
-                <span class="burger-bar burger-bar--2"></span>
-                <span class="burger-bar burger-bar--3"></span>
-            </button>
-        </slot>
+    <div class="flex flex-no-wrap md:hidden bg-gray-200">
+        <!-- Sidebar starts -->
+        <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
+        <div class="w-64 z-40 absolute bg-gray-800 shadow h-screen md:h-full flex-col justify-between md:hidden transition duration-150 ease-in-out" id="mobile-nav">
+            <div @click.prevent="$parent.sidebarHandler()">
+                <ul>
+                    <inertia-link v-for="item in $parent.navElements" :key="item.name" :href="item.path">
+                    <li class="flex w-full justify-between text-gray-300 cursor-pointer hover:bg-slate-500 items-center py-3 px-5 text-uppercase">
+                            {{item.text}}
+                    </li>
+                    </inertia-link>
+                </ul>
+            </div>
+            <div class="flex flex-col bottom-0" @click.prevent="$parent.sidebarHandler()" v-if="!$page.props.auth.user">
+              <inertia-link href="/">
+                <li class="flex w-full justify-between text-gray-300 cursor-pointer hover:bg-slate-500 items-center py-3 px-5">
+                Regístrese
+            </li>
+              </inertia-link>
+            <li class="list-none justify-between py-3 px-5">
+              <inertia-link :href="'/ingreso'" as="button"  class="btn btn-primary flex w-full">
+                  Ingrese
+              </inertia-link>
+            </li>
+            </div>
+            <ul>
+                <li class="list-none" v-if="$page.props.auth.user">
+                <user-menu-component></user-menu-component>
+                </li>
+            </ul>
+        </div>
+        <!-- Sidebar ends -->
+        <!-- Remove class [ h-64 ] when adding a card block -->
+        <div class="absolute bg-[#0000005c] h-screen md:hidden w-full" v-if="!$parent.movedSidebar" @click.prevent="$parent.sidebarHandler()">
+            <!-- Remove class [ border-dashed border-2 border-gray-300 ] to remove dotted border -->
+
+        </div>
     </div>
 </template>
+
 <script>
-    export default {
-        data: () => ({
-            isBurgerActive: false
-        }),
-        methods: {
-            toggle() {
-                this.isBurgerActive = !this.isBurgerActive
-            }
-        }
-    }
+export default {
+    name: "LightWithIconsAtBottom",
+    data() {
+        return {
+            
+        };
+    },
+    methods: {
+        
+    },
+};
 </script>
-<style>
-   .hidden {
-        visibility: hidden;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-    /* remove blue outline */
-    button:focus {
-        outline: 0;
-    }
-
-    .burger-button {
-        position: relative;
-        height: 30px;
-        width: 32px;
-        display: block;
-        z-index: 999;
-        border: 0;
-        border-radius: 0;
-        background-color: transparent;
-        pointer-events: all;
-        transition: transform .6s cubic-bezier(.165,.84,.44,1);
-    }
-
-    .burger-bar {
-        background-color: #130f40;
-        position: absolute;
-        top: 50%;
-        right: 6px;
-        left: 6px;
-        height: 2px;
-        width: auto;
-        margin-top: -1px;
-        transition: transform .6s cubic-bezier(.165,.84,.44,1),opacity .3s cubic-bezier(.165,.84,.44,1),background-color .6s cubic-bezier(.165,.84,.44,1);
-    }
-
-    .burger-bar--1 {
-        -webkit-transform: translateY(-6px);
-        transform: translateY(-6px);
-    }
-
-    .burger-bar--2 {
-        transform-origin: 100% 50%;
-        transform: scaleX(.8);
-    }
-
-    .burger-button:hover .burger-bar--2 {
-        transform: scaleX(1);
-    }
-
-    .no-touchevents .burger-bar--2:hover {
-        transform: scaleX(1);
-    }
-
-    .burger-bar--3 {
-        transform: translateY(6px);
-    }
-
-    #burger.active .burger-button {
-        transform: rotate(-180deg);
-    }
-
-    #burger.active .burger-bar {
-        background-color: rgb(237, 14, 14);
-    }
-
-    #burger.active .burger-bar--1 {
-        transform: rotate(45deg)
-    }
-
-    #burger.active .burger-bar--2 {
-        opacity: 0;
-    }
-
-    #burger.active .burger-bar--3 {
-        transform: rotate(-45deg)
-    }
+<style scoped>
+#mobile-nav {
+    transform: translateX(-260px);
+    transition: transform 0.3s ease-in-out;
+}
 </style>

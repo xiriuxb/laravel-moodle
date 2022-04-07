@@ -15,17 +15,17 @@ use Illuminate\Http\Request;
 */
 Route::inertia('/home', 'LoginT');
 Route::group(['middleware' => ['web']], function () {
-
-    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin');
-    
     Route::get('/', function () {
         return inertia('HomeComponent');
     })->name('home');
 
+    Route::get('/ingreso','App\Http\Controllers\Auth\LoginController@index')->middleware('guest')->name('ingreso');
+
+    Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin');
+    
     Route::get('/mis-cursos', 'App\Http\Controllers\UserController@matriculas')->name('mis-cursos');
     
     // Route::get('/home', 'App\Http\Controllers\HomeController@index');
-
     
     Route::prefix('admin')->group(function(){
         Route::get('/testimonials', function(){
@@ -41,24 +41,15 @@ Route::group(['middleware' => ['web']], function () {
             return inertia('Admin/AdminUsersComponent');
         })->middleware('can:admin.home');
     });
-
     
-    
-    Route::get('/admin/{any}', function(){
-        return view('layouts.master');
-    })->middleware('can:admin.home')
-    ->name('admi')
-    ->where(['any'=>'testimonios|cursos|usuarios|cursos-moodle']);
+    Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');
+    Route::post('/matricula', 'App\Http\Controllers\MatriculaController@store')->name('matricula');
     
     Route::get('/cursos/{category?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursess');
+
+    Route::redirect('/cursos', '/cursos/all/1');
     
-    // Route::get('/cursos/{category}', function ($category) {
-    //     return redirect('/cursos/'.$category.'/1');
-    // })->where(['category'=>'.*']);
-    
-    Route::get('/ingreso','App\Http\Controllers\Auth\LoginController@index')->middleware('guest')->name('ingreso');
-    
-    Route::get('/curso/{any}', 'App\Http\Controllers\Cursos@show')->where(['any' => '.*']);
+    Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*']);
     
     Route::get('/email/verification-notification', function () {
         return inertia('Email/Notice');
@@ -101,10 +92,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
 
-    Route::get('/payments/{id}',function ()
+    Route::get('/payments',function ()
     {
-        return view('layouts.master');
-    });
+        return inertia('payments/PaymentSelectorComponent');
+    })->name('payments');
 
     Route::get('not-found', function () {
         return inertia('NotFoundComponent');
@@ -114,8 +105,4 @@ Route::group(['middleware' => ['web']], function () {
         return back()->withErrors(['message' => 'Error al enviar el formulario']);
     });
 
-    Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
-Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
-Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
-Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
 });

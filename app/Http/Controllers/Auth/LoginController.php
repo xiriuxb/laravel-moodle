@@ -54,8 +54,8 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials, 'remember')) {
-            $request->session()->regenerate();
-            return inertia('HomeComponent');
+            //$request->session()->regenerate();
+            return redirect()->intended('/');
         } else {
             $message = 'Email o password incorrecto(s)';
             return back()->withErrors([
@@ -68,9 +68,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return route('home');
+        //$request->session()->invalidate();
+        //$request->session()->regenerateToken();
+        return redirect('/');
     }
 
     /**

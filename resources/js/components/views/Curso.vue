@@ -15,7 +15,7 @@
                   <p v-html="this.curso.summary"></p>
               </div>
               <div class="mt-0 md:mt-6">
-                <matricula-component :curso="curso.shortname" :precio="curso.price"></matricula-component>
+                <slot></slot>
               </div>
             </div>
             <div class="col-12 col-sm-4 col-md-6 d-flex align-items-center">
@@ -25,9 +25,9 @@
         </div>
         <div class="row comp">
           <div id="description" class="container">
+            <p class="text-4xl text-orange-600 font-bold pb-2">Lo que aprenderá</p>
             <p v-html="this.curso.ex_description"></p>
           </div>
-          <!-- <loading-component v-else :position="'inherit'" :height="'300px'"></loading-component> -->
         </div>
       </div>
     </div>
@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import MatriculaComponent from "../MatriculaComponent.vue";
-import Home from "../views/Home.vue";
 export default {
-  layout: Home,
   props: {
     curso: {
       type: Object,
       required: true
-    }
+    },
+    message: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -51,28 +51,12 @@ export default {
       existe: true,
     };
   },
-  components: {
-    MatriculaComponent,
-  },
   computed: {
     image() {
       return 'https://moodle.xiriuxb.org/pluginfile.php/'+ this.curso.context+'/course/overviewfiles/'+this.curso.filename;
     },
   },
   methods:{
-    matricula(){
-      if(this.$store.state.user!=null){
-        axios.post('/api/matricula', {curso_id:this.curso.shortname}).then(()=> {
-          this.$toast.open({message:'Usted se ha inscrito',position:'top', type:'success'});
-        }).catch(error => {
-          console.log(error);
-          this.$toast.open({message:'Debe verificar su email',position:'top', type:'warning'});
-        });
-      }else{
-        this.$toast.open({message:'Debe estar logueado para poder matricularse',position:'top', type:'warning'});
-        this.$router.push({ name:'ingreso-view' });
-      }
-    }
   },
   beforeMount() {
   },
@@ -113,6 +97,12 @@ img{
     flex-direction: column;
     align-items: center;
   }
+}
 
+::v-deep ul{
+  list-style: square !important;
+}
+::v-deep li{
+  font-size: 1.1rem !important;
 }
 </style>

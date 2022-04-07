@@ -23,11 +23,11 @@ class Cursos extends Controller
         // $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND mdl_crs_cat.name = "'.$categoria.'"';
         if($categoria == null || $categoria == 'all'){
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
-            return inertia('views/Cursos',['data'=>$cursos,'pages'=>$this->pages($categoria), 'currentPage'=>(int)$page, 'category'=>$categoria]);
+            return inertia('CursosComponent',['data'=>$cursos,'pages'=>$this->pages($categoria), 'currentPage'=>(int)$page, 'category'=>$categoria]);
         }
         elseif (CategoriaCurso::where('name', '=', $categoria)->exists()) {
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
-            return inertia('views/Cursos',['data'=>$cursos,'pages'=>$this->pages($categoria),'currentPage'=>(int)$page, 'category'=>$categoria]);
+            return inertia('CursosComponent',['data'=>$cursos,'pages'=>$this->pages($categoria),'currentPage'=>(int)$page, 'category'=>$categoria]);
         }else{
             return response()->json(['message'=>'Categoria no encontrada'],404);
         }
@@ -171,7 +171,7 @@ class Cursos extends Controller
                 $curso_aux->customfields[2]->value,
                 //'destacado' => $json->courses[0]->customfields[3]->value,
             );
-            return inertia('views/Curso',['status' => 'ok', 'curso' => $curso], 200);	
+            return inertia('MatriculaComponent',['status' => 'ok', 'curso' => $curso]);	
         }
     }
 

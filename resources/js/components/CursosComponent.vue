@@ -1,9 +1,9 @@
-<template>
-  <div class="justify-content-center mb-50">
+<template slot-scope="{cursos}">
+  <div  class="justify-content-center mb-50" >
     <div>
       <div class="row">
         <curso-card-component
-          v-for="curso in cursos"
+          v-for="curso in $parent.data"
           :key="curso.shortname"
           :curso="curso"
         >
@@ -16,8 +16,11 @@
 </template>
 
 <script>
+import Home from './views/Home.vue';
+import Cursos from "./views/Cursos.vue";
 import CursoCardComponent from "../components/CursoCardComponent.vue";
 export default {
+  layout: [Home, Cursos],
   components: {
     CursoCardComponent,
   },
@@ -34,7 +37,7 @@ export default {
       pages: 0,
     };
   },
-  beforeMount() {
+  beforeCreate() {
     
   },
   methods:{

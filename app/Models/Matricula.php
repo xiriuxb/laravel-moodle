@@ -18,16 +18,20 @@ class Matricula extends Model
     {
         return $this->belongsTo(User::class,'username');
     }
-
+    public function pago(){
+        return $this->hasOne(Pago::class,'id');
+    }
     protected $fillable = [
         'curso_id',
         'usuario_id',
         'curso_moodle_id',
+        'pago_id',
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
         'id',
+        'pago_id',
     ];
 }

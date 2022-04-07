@@ -12,8 +12,9 @@
       </div>
       <div class="w-full md:w-3/4 d-flex flex-column">
         <div>
-          <cursos-component :cursos="data"></cursos-component>
-          <!-- <loading-component :height="'300px'" :width="'100%'" :position="'inherit'"></loading-component> -->
+          <!-- <cursos-component :cursos="data"></cursos-component> -->
+          
+          <slot v-bind:cursos="data"></slot>
         </div>
         <course-navigation-component :pages="pages" :currentPage="currentPage"></course-navigation-component>
       </div>
@@ -24,9 +25,9 @@
 <script scoped>
 import LoadingComponent from "../LoadingComponent.vue";
 import CourseNavigationComponent from '../CourseNavigationComponent.vue';
-import Home from './Home.vue';
+//import Home from './Home.vue';
 export default {
-  layout: Home,
+  //layout: Home,
   components: {
     LoadingComponent,
     CourseNavigationComponent

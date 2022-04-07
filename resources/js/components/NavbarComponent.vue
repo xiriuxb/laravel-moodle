@@ -75,7 +75,7 @@ export default {
         },
         {
           name: 'cursos',
-          path: '/cursos',
+          path: '/cursos/all',
           text: 'Cursos',
           params:{
           }
@@ -109,7 +109,7 @@ export default {
 <style scoped>
 [data-target="#mainMenu"] {
   position: relative;
-  z-index: 500;
+  z-index: 200;
 }
 
 #mainMenu li > a {
@@ -161,7 +161,7 @@ export default {
   position: fixed;
   align-content: center;
   left: 0;
-  z-index: 500;
+  z-index: 200;
   width: 100%;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;

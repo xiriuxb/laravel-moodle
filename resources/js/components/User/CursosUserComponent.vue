@@ -1,17 +1,16 @@
 <template>
   <div id="misCursos" class="container">
     <h2>Mis cursos</h2>
-    <loading-component v-if="loading" :height="'400px'" :position="'relative'"></loading-component>
-    <div v-else class="container">
+    <div class="container">
       <table class="table">
         <tbody>
-          <tr v-for="curso in misCursos" :key="curso.shortname">
+          <tr v-for="curso in data" :key="curso.shortname">
             <td>{{ curso.fullname }}</td>
             <td>{{ curso.category }}</td>
             <td>
-              <router-link :to="{ name: 'curso', params: { shortname: curso.shortname } }" >
+              <inertia-link :href="'/curso/'+curso.shortname" >
                 <button class="btn btn-primary">Ver en este sitio</button>
-              </router-link>
+              </inertia-link>
             </td>
             <td>
               <button class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">

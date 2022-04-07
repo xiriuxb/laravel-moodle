@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_components_payments_PaymentSelectorComponent_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_components_payments_PaymentsModal_vue"],{
 
 /***/ "./node_modules/@babel/runtime/regenerator/index.js":
 /*!**********************************************************!*\
@@ -299,10 +299,10 @@ var version = "5.0.2";
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -313,8 +313,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _paypal_paypal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @paypal/paypal-js */ "./node_modules/@paypal/paypal-js/dist/esm/paypal-js.js");
-/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/Home.vue */ "./resources/js/components/views/Home.vue");
-/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -343,45 +342,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__.default,
   components: {
-    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    PaypalPaymentComponent: PaypalPaymentComponent
-  },
-  props: {
-    matriculado: {
-      type: Boolean,
-      "default": false
-    }
+    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
     return {
-      itemSelected: undefined,
-      loading: true,
-      isActive: false,
-      paymentMethods: []
+      curso: {},
+      loading: true
     };
   },
   methods: {
@@ -400,83 +370,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   "currency": "USD",
                   "buyer-country": "EC",
                   "locale": "es_EC",
-                  "shipping-preference": "NO_SHIPPING"
+                  "commit": true
                 });
 
               case 2:
                 paypalSdk = _context2.sent;
 
-                if (paypalSdk) {
-                  try {
-                    amount = _this.$page.props.flash.curso.price;
-                    desc = _this.$page.props.flash.curso.fullname;
-                    paypalSdk.Buttons({
-                      createOrder: function createOrder(data, actions) {
-                        // Set up the transaction
-                        return actions.order.create({
-                          purchase_units: [{
-                            description: desc,
-                            amount: {
-                              value: amount
-                            }
-                          }]
-                        });
-                      },
-                      onApprove: function () {
-                        var _onApprove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data, actions, resp) {
-                          var transaction;
-                          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-                            while (1) {
-                              switch (_context.prev = _context.next) {
-                                case 0:
-                                  _context.next = 2;
-                                  return actions.order.capture();
-
-                                case 2:
-                                  transaction = _context.sent;
-                                  console.log(transaction);
-                                  _this.isActive = true;
-                                  _this.itemSelected = '';
-
-                                case 6:
-                                case "end":
-                                  return _context.stop();
-                              }
-                            }
-                          }, _callee);
-                        }));
-
-                        function onApprove(_x, _x2, _x3) {
-                          return _onApprove.apply(this, arguments);
-                        }
-
-                        return onApprove;
-                      }()
-                    }).render("#paypal-button-container");
-                  } catch (error) {
-                    console.error("failed to render the PayPal Buttons", error);
-
-                    _this.$toast.open({
-                      message: "Error",
-                      type: "danger",
-                      duration: 5000
-                    });
-                  }
+                if (!paypalSdk) {
+                  _context2.next = 15;
+                  break;
                 }
 
-              case 4:
+                _context2.prev = 4;
+                amount = _this.$parent.$page.props.curso.price;
+                desc = _this.$parent.$page.props.curso.fullname;
+                _context2.next = 9;
+                return paypalSdk.Buttons({
+                  style: {
+                    label: 'buynow'
+                  },
+                  createOrder: function createOrder(data, actions) {
+                    // Set up the transaction
+                    return actions.order.create({
+                      purchase_units: [{
+                        description: desc,
+                        amount: {
+                          value: amount
+                        }
+                      }],
+                      application_context: {
+                        shipping_preference: 'NO_SHIPPING'
+                      }
+                    });
+                  },
+                  onApprove: function () {
+                    var _onApprove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data, actions, resp) {
+                      var transaction;
+                      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                        while (1) {
+                          switch (_context.prev = _context.next) {
+                            case 0:
+                              _context.next = 2;
+                              return actions.order.capture();
+
+                            case 2:
+                              transaction = _context.sent;
+                              console.log(transaction);
+                              _this.$parent.$data.payment_form.payment_method = 'paypal';
+                              _this.$parent.$data.payment_form.payment_id = transaction.id;
+                              _this.$parent.$data.payment_form.payment_status = transaction.status;
+                              _this.$parent.$data.payment_form.amount = transaction.purchase_units[0].amount.value;
+                              _this.$parent.$data.payment_form.currency = transaction.purchase_units[0].amount.currency_code;
+                              _this.$parent.$data.payment_form.payer_id = transaction.payer.payer_id;
+                              _this.$parent.$data.payment_form.payer_email = transaction.payer.email_address;
+                              _this.$parent.$data.payment_form.payer_name = transaction.payer.name.given_name + ' ' + transaction.payer.name.surname;
+                              _this.$parent.$data.payment_form.transaction_id = transaction.purchase_units[0].payments.captures[0].id;
+                              _context.next = 15;
+                              return _this.$parent.em();
+
+                            case 15:
+                              _this.$emit('close');
+
+                              _this.isActive = true;
+                              _this.itemSelected = '';
+
+                            case 18:
+                            case "end":
+                              return _context.stop();
+                          }
+                        }
+                      }, _callee);
+                    }));
+
+                    function onApprove(_x, _x2, _x3) {
+                      return _onApprove.apply(this, arguments);
+                    }
+
+                    return onApprove;
+                  }()
+                }).render("#paypal-button-container");
+
+              case 9:
+                _context2.next = 15;
+                break;
+
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](4);
+                console.error("failed to render the PayPal Buttons", _context2.t0);
+
+                _this.$toast.open({
+                  message: "Error",
+                  type: "danger",
+                  duration: 5000
+                });
+
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[4, 11]]);
       }))();
-    },
-    selectPayment: function selectPayment() {
-      this.isActive = !this.isActive;
     }
   },
-  beforeCreate: function beforeCreate() {},
   mounted: function mounted() {
     var _this2 = this;
 
@@ -486,9 +483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return axios.get("/api/payment-methods").then(function (response) {
-                _this2.paymentMethods = response.data.paymentMethods;
-              });
+              return _this2.loadPaypalButtons();
 
             case 2:
             case "end":
@@ -502,10 +497,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -519,7 +514,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#payments[data-v-bf7a4d02] {\r\n  padding-top: 100px;\r\n  padding-bottom: 30px;\n}\n.card-body[data-v-bf7a4d02] {\r\n  padding: 1rem;\n}\nli[data-v-bf7a4d02] {\r\n  list-style: none;\r\n  padding: 10px 0 10px 0;\n}\n.selector[data-v-bf7a4d02] {\r\n  display: grid;\r\n  border: 1px solid rgb(220, 147, 13);\r\n  cursor: pointer;\r\n  grid-template-columns: 53px 1fr 20px;\r\n  height: 70px;\r\n  align-items: center;\r\n  padding: 20px;\n}\n.selector[data-v-bf7a4d02]:hover {\r\n  background-color: #d45c0074;\r\n  transition: background-color 120ms ease-in-out;\n}\n.selector:hover .radio[data-v-bf7a4d02] {\r\n  border: 2px solid black;\n}\n.selector.selected[data-v-bf7a4d02]{\r\n  background-color: #002e45;\r\n  color: aliceblue;\r\n  fill: aliceblue;\n}\n.selector.selected .radio[data-v-bf7a4d02] {\r\n  border: 2px solid aliceblue;\n}\n.selector.selected .radioCenter[data-v-bf7a4d02]{\r\n  border: 5px solid aliceblue;\n}\n.radio[data-v-bf7a4d02] {\r\n  display: inline-block;\r\n  width: 20px;\r\n  height: 20px;\r\n  border: 2px solid grey;\r\n  transition: border-color 150ms ease-in-out;\r\n  border-radius: 50%;\r\n  font-size: 0;\r\n  flex: none;\n}\n.radioCenter[data-v-bf7a4d02] {\r\n  position: absolute;\r\n  border: 5px solid rgba(128, 128, 128, 0);\r\n  border-radius: 50%;\n}\n.selector:hover:not(.selected) .radioCenter[data-v-bf7a4d02] {\r\n  border: 5px solid gray;\n}\n.card[data-v-bf7a4d02] {\r\n  border: 1px solid #002e45;\r\n  border-radius: 0;\n}\n.card li[data-v-bf7a4d02] {\r\n  display: flex;\r\n  padding: 10px;\r\n  justify-content: space-around;\r\n  align-items: center;\n}\n@media (max-width: 575px) {\n.card img[data-v-bf7a4d02]{\r\n    display: none;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#modal[data-v-3fad05ee]{\r\n  z-index: 300;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1284,10 +1279,10 @@ try {
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1297,7 +1292,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_style_index_0_id_bf7a4d02_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_style_index_0_id_3fad05ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&");
 
             
 
@@ -1306,18 +1301,18 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_style_index_0_id_bf7a4d02_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_style_index_0_id_3fad05ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_style_index_0_id_bf7a4d02_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_style_index_0_id_3fad05ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
-/***/ "./resources/js/components/payments/PaymentSelectorComponent.vue":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/payments/PaymentSelectorComponent.vue ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/payments/PaymentsModal.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/payments/PaymentsModal.vue ***!
+  \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1325,9 +1320,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true& */ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true&");
-/* harmony import */ var _PaymentSelectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentSelectorComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js&");
-/* harmony import */ var _PaymentSelectorComponent_vue_vue_type_style_index_0_id_bf7a4d02_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& */ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&");
+/* harmony import */ var _PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true& */ "./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true&");
+/* harmony import */ var _PaymentsModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentsModal.vue?vue&type=script&lang=js& */ "./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _PaymentsModal_vue_vue_type_style_index_0_id_3fad05ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& */ "./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1338,27 +1333,27 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _PaymentSelectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _PaymentsModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "bf7a4d02",
+  "3fad05ee",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/payments/PaymentSelectorComponent.vue"
+component.options.__file = "resources/js/components/payments/PaymentsModal.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************!*\
-  !*** ./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************/
+/***/ "./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1366,45 +1361,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentSelectorComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentsModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
-/***/ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&":
-/*!********************************************************************************************************************************!*\
-  !*** ./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& ***!
-  \********************************************************************************************************************************/
+/***/ "./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_style_index_0_id_bf7a4d02_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=style&index=0&id=bf7a4d02&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_style_index_0_id_3fad05ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=style&index=0&id=3fad05ee&scoped=true&lang=css&");
 
 
 /***/ }),
 
-/***/ "./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true& ***!
-  \******************************************************************************************************************/
+/***/ "./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true& ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentSelectorComponent_vue_vue_type_template_id_bf7a4d02_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentsModal_vue_vue_type_template_id_3fad05ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true&":
-/*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentSelectorComponent.vue?vue&type=template&id=bf7a4d02&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/payments/PaymentsModal.vue?vue&type=template&id=3fad05ee&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1419,88 +1414,76 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container-fluid", attrs: { id: "payments" } },
+    {
+      staticClass:
+        "bg-[#000000a8] fade fixed top-0 left-0  w-full h-full outline-none overflow-x-hidden overflow-y-auto show",
+      attrs: {
+        id: "modal",
+        tabindex: "-1",
+        "aria-labelledby": "paymentSelectorModalTitle",
+        "aria-modal": "true",
+        role: "dialog"
+      }
+    },
     [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "ul",
-          { staticClass: "col-12 col-sm-8" },
-          _vm._l(_vm.paymentMethods, function(paymentMethod) {
-            return _c("li", { key: paymentMethod.name }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "modal-dialog modal-dialog-centered relative w-auto pointer-events-none"
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
+            },
+            [
               _c(
                 "div",
                 {
-                  staticClass: "selector",
-                  class: { selected: _vm.itemSelected == paymentMethod.name },
-                  on: {
-                    click: function($event) {
-                      _vm.itemSelected = paymentMethod.name
-                      _vm.loadPaypalButtons()
-                    }
-                  }
+                  staticClass:
+                    "modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md"
                 },
                 [
                   _c(
-                    "div",
-                    [
-                      _c("box-icon", {
-                        attrs: { name: paymentMethod.icon, type: "logo" }
-                      })
-                    ],
-                    1
+                    "h5",
+                    {
+                      staticClass:
+                        "text-xl font-medium leading-normal text-gray-800",
+                      attrs: { id: "paymentSelectorModalScrollableLabel" }
+                    },
+                    [_vm._v("\r\n          Elija la forma de pago\r\n        ")]
                   ),
                   _vm._v(" "),
-                  _c("div", [
-                    _c("strong", [_vm._v(_vm._s(paymentMethod.label))])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0, true)
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "modal",
+                        "aria-label": "Close"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("close")
+                        }
+                      }
+                    },
+                    [_c("box-icon", { attrs: { name: "x" } })],
+                    1
+                  )
                 ]
-              )
-            ])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _vm.itemSelected == "paypal"
-          ? _c("div", {
-              staticClass: "col-12 col-sm-8",
-              attrs: { id: "paypal-button-container" }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-sm-4" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              attrs: { src: _vm.$page.props.flash.curso.image, alt: "" }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(_vm.$page.props.flash.curso.fullname))
-              ]),
+              ),
               _vm._v(" "),
-              _c("p", {
-                staticClass: "card-text",
-                domProps: {
-                  innerHTML: _vm._s(_vm.$page.props.flash.curso.summary)
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-group list-group-flush" }, [
-              _c("li", { staticClass: "list-group-item" }, [
-                _c("h5", [_vm._v("Total")]),
-                _vm._v(
-                  "\n            " +
-                    _vm._s(_vm.$page.props.flash.curso.price) +
-                    "\n          "
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
+              _vm._m(0)
+            ]
+          )
+        ]
+      )
     ]
   )
 }
@@ -1509,18 +1492,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex align-items-center justify-content-center" },
-      [
-        _c("span", { staticClass: "radioCenter" }),
-        _vm._v(" "),
-        _c("span", {
-          staticClass: "radio",
-          attrs: { name: "flexRadioDisabled", id: "flexRadioDisabled" }
-        })
-      ]
-    )
+    return _c("div", { staticClass: "modal-body relative p-4" }, [
+      _c("div", { attrs: { id: "paypal-button-container" } })
+    ])
   }
 ]
 render._withStripped = true

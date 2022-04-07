@@ -38,11 +38,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $user = User::with('roles:name')->where('id',Auth::id())->get()->toArray();
         $username = '';
         $role = "";
-
+        
         if (Auth::check()) {
+            $user = User::with('roles:name')->where('id',Auth::id())->get()->toArray();
             $username = $user[0]['username'];
             $role =$user[0]['roles'][0]['name'];
         }
@@ -53,7 +53,8 @@ class HandleInertiaRequests extends Middleware
                 'role' => $role,
             ],
             'flash' => [
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
+                'curso' => fn () => $request->session()->get('curso'),
             ],
         ]);
     }

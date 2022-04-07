@@ -4,7 +4,7 @@
       <!-- <div id="paypal-button-container" class="col-12 col-sm-8"></div> -->
       <ul class="col-12 col-sm-8">
         <li v-for="paymentMethod in paymentMethods" :key="paymentMethod.name">
-          <div class="selector" @click="itemSelected = paymentMethod.name" v-bind:class="{'selected': itemSelected == paymentMethod.name}">
+          <div class="selector" @click="itemSelected = paymentMethod.name; loadPaypalButtons()" v-bind:class="{'selected': itemSelected == paymentMethod.name}">
             <div><box-icon :name="paymentMethod.icon" type="logo"></box-icon></div>
             <div><strong>{{paymentMethod.label}}</strong></div>
             <div class="d-flex align-items-center justify-content-center">
@@ -15,24 +15,21 @@
         </li>
           
       </ul>
-      <paypal-payment-component ></paypal-payment-component>
+      <div v-if="itemSelected == 'paypal'" id="paypal-button-container" class="col-12 col-sm-8"></div>
       <!--  -->
       <!--  -->
       <div class="col-12 col-sm-4">
-        <loading-component
-          v-if="loading"
-          :position="'relative'"
-        ></loading-component>
-        <div class="card" v-else>
-          <img v-bind:src="curso.image" alt="" />
+        <!-- <loading-component v-if="loading" :position="'relative'"></loading-component> -->
+        <div class="card" >
+          <img v-bind:src="$page.props.flash.curso.image" alt="" />
           <div class="card-body">
-            <h5 class="card-title">{{ curso.fullname }}</h5>
-            <p class="card-text" v-html="curso.summary"></p>
+            <h5 class="card-title">{{ $page.props.flash.curso.fullname }}</h5>
+            <p class="card-text" v-html="$page.props.flash.curso.summary"></p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <h5>Total</h5>
-              {{ curso.price }}
+              {{ $page.props.flash.curso.price }}
             </li>
           </ul>
         </div>
@@ -43,14 +40,20 @@
 
 <script>
 import { loadScript } from "@paypal/paypal-js";
+import Home from "../views/Home.vue";
 import LoadingComponent from "../LoadingComponent.vue";
-import PaypalPaymentComponent from './PaypalPaymentComponent.vue';
 
 export default {
+  layout: Home,
   components: { LoadingComponent, PaypalPaymentComponent },
+  props: {
+    matriculado: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      curso: {},
       itemSelected: undefined,
       loading: true,
       isActive: false,
@@ -63,27 +66,37 @@ export default {
       const paypalSdk = await loadScript({
         "client-id":
           "AVHOaY81YacxtP77iqiJvu2EV5RE5KRKZSfotE06iB-iyfBoYDb-d-3etrTAQd11c8eCLv5gcp6arRAG",
-        currency: "USD",
+        "currency": "USD",
         "buyer-country": "EC",
-        debug: true,
-        locale: "es_EC",
-        "merchant-id": this.curso.id,
+        "locale": "es_EC",
+        "shipping-preference": "NO_SHIPPING",
       });
-      if (paypalSdk && this.curso.price) {
+      if (paypalSdk) {
         try {
-          await paypalSdk
+          let amount = this.$page.props.flash.curso.price;
+          let desc = this.$page.props.flash.curso.fullname;
+          paypalSdk
             .Buttons({
               createOrder: function (data, actions) {
                 // Set up the transaction
                 return actions.order.create({
                   purchase_units: [
                     {
+                      description : desc,
                       amount: {
-                        value: this.curso.price,
+                        value: amount,
                       },
                     },
                   ],
                 });
+              },
+              onApprove: async (data, actions, resp) => {
+                // Capture the funds from the transaction
+                const transaction = await actions.order.capture();
+                console.log(transaction);
+                this.isActive = true;
+                this.itemSelected = '';
+                
               },
             })
             .render("#paypal-button-container");
@@ -98,23 +111,11 @@ export default {
       }
     },
     selectPayment() {
+      
       this.isActive = !this.isActive;
     },
   },
   beforeCreate() {
-    axios
-      .get("/api/curse/" + this.$route.params.id)
-      .then((response) => {
-        this.curso = response.data.data;
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.$toast.open({
-          message: "Error al cargar el curso",
-          type: "danger",
-          duration: 5000,
-        });
-      });
   },
   async mounted() {
     await axios.get("/api/payment-methods").then((response) => {

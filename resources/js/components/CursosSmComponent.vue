@@ -6,11 +6,9 @@
         <img class="card-img-top rounded" :src="comment.file" alt="Card image cap">
       <div class="card-body container">
         <p class="card-topico"><small class="topico-muted">{{comment.category}}</small></p>
-        <router-link :to="{name:'curso',params:{shortname:comment.shortname}}">
-          <a>
-        <h5 class="card-title">{{comment.fullname}}</h5>
-        </a>
-        </router-link>
+        <inertia-link :href="'/curso/'+comment.shortname">
+          <h5 class="card-title">{{comment.fullname}}</h5>
+        </inertia-link>
         <p v-html="comment.summary">
         </p>
       </div>

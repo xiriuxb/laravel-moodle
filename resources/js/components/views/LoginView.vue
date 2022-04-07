@@ -18,15 +18,7 @@
 
 <script>
 export default {
-    route: {
-        activate() {
-            $.trigger('NavbarComponent.hide')
-        },
 
-        deactivate() {
-            $.trigger('NavbarComponent.show')
-        }
-    }
 
 }
 </script>

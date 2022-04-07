@@ -5,26 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentMethod extends Model
+class EstadoMatricula extends Model
 {
     use HasFactory;
 
-    public function matriculas()
-    {
-        return $this->belongsToMany(Matricula::class);
-    }
-
     protected $fillable = [
-        'name',
-        'label',
-        'icon',
-        'active',
+        'nombre',
+        'descripcion'
     ];
 
     protected $hidden = [
-        'active',
-        'id',
         'created_at',
         'updated_at',
+        'id',
+        'descripcion',
     ];
 }

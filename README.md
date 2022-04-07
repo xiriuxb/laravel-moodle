@@ -62,3 +62,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Issue cuando se selecciona la categoria desde la view 'curso', en la pantalla cursos, luego no se puede filtrar a otras categorías
     (hacer mas pruebas)
 - Revisar que pasa con los cursos sin imágen de curso
+- X Cambiar ruta al curso de moodle
+- cambiar al env las credenciales para acceder a los servicios de moodle

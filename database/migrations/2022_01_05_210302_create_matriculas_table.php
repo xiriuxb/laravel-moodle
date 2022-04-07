@@ -19,9 +19,11 @@ class CreateMatriculasTable extends Migration
             $table->bigInteger('usuario_id')->unsigned();
             $table->bigInteger('curso_moodle_id')->unsigned();
             $table->bigInteger('estado_matricula_id')->unsigned();
+            $table->bigInteger('pago_id')->unsigned()->nullable();
+            $table->foreign('pago_id')->references('id')->on('pago');
             $table->foreign('curso_id')->references('id')->on('cursos');
             $table->foreign('usuario_id')->references('id')->on('users');
-            $table->foreign('estado_matricula_id')->references('id')->on('estado_matricula');
+            $table->foreign('estado_matricula_id')->references('id')->on('estado_matriculas');
             $table->timestamps();
         });
     }

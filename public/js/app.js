@@ -3963,8 +3963,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -51810,13 +51808,17 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("inertia-link", [
-            _c(
-              "button",
-              { staticClass: "btn btn-link", attrs: { disabled: _vm.loading } },
-              [_vm._v("\n            ¿Olvidó su contraseña?\n          ")]
-            )
-          ])
+          _c(
+            "inertia-link",
+            {
+              attrs: {
+                href: "/forgot-password",
+                as: _vm.button,
+                disabled: _vm.loading
+              }
+            },
+            [_vm._v("\n        ¿Olvidó su contraseña?\n      ")]
+          )
         ],
         1
       ),

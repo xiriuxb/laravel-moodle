@@ -66,11 +66,11 @@ Route::group(['middleware' => ['web']], function () {
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::get('/forgot-password', function () {
-        return view('layouts.master');
+        return inertia('auth/ForgotPasswordComponent');
     })->middleware('guest')->name('password.request');
     
-    Route::get('/reset-password/{token}', function ($token) {
-        return view('layouts.master', ['token' => $token]);
+    Route::get('/reset-password/{token}', function ($token, Request $request) {
+        return inertia('auth/ResetPasswordComponent',['tokenRecive' => $token, 'emailRecive' => $request->only('email')['email']]);
     })->middleware('guest')->name('password.reset');
 
     Route::get('/personal', 'App\Http\Controllers\UserController@index')->middleware('auth')->name('personal.data');

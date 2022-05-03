@@ -771,12 +771,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(22 78 99 / var(--tw-bg-opacity));
 }
-.bg-\[\#000000a8\] {
-  background-color: #000000a8;
+.bg-sky-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(7 89 133 / var(--tw-bg-opacity));
 }
 .bg-sky-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(3 105 161 / var(--tw-bg-opacity));
+}
+.bg-\[\#000000a8\] {
+  background-color: #000000a8;
 }
 .bg-gray-200 {
   --tw-bg-opacity: 1;
@@ -801,6 +805,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+}
 .bg-clip-padding {
   background-clip: padding-box;
 }
@@ -813,6 +821,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .p-1 {
   padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-72 {
+  padding: 18rem;
 }
 .px-10 {
   padding-left: 2.5rem;
@@ -865,6 +879,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-2\.5 {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+.px-72 {
+  padding-left: 18rem;
+  padding-right: 18rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .pt-\[120px\] {
   padding-top: 120px;
@@ -1303,6 +1325,15 @@ Ensure the default browser behavior of the `hidden` attribute.
     background-color: rgb(241 245 249 / var(--tw-bg-opacity));
   }
 
+  .md\:bg-red-200 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+  }
+
+  .md\:p-11 {
+    padding: 2.75rem;
+  }
+
   .md\:px-3 {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -1316,6 +1347,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .md\:px-1 {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+  }
+
+  .md\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
   }
 
   .md\:text-5xl {

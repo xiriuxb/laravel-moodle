@@ -59,10 +59,8 @@
             </button>
           </div>
         </form>
-        <inertia-link>
-            <button class="btn btn-link" :disabled="loading">
-              ¿Olvidó su contraseña?
-            </button>
+        <inertia-link :href="'/forgot-password'" :as="button" :disabled="loading">
+          ¿Olvidó su contraseña?
         </inertia-link>
       </div>
       <hr class="line"/>

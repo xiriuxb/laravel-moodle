@@ -61,8 +61,8 @@ Route::group(['middleware'=>['api']],function(){
             $request->only('email')
         );
         return $status === Password::RESET_LINK_SENT
-                    ? response()->json(['status' => __($status)])
-                    : response()->json(['email' => __($status)]);
+                    ? redirect()->back()->with('message',__($status))//response()->json(['status' => __($status)])
+                    : redirect()->back()->withErrors(__($status));
     })->middleware('guest')->name('password.email');
 
     Route::post('/reset-password', function (Request $request) {
@@ -78,16 +78,14 @@ Route::group(['middleware'=>['api']],function(){
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ])->setRememberToken(Str::random(60));
-    
                 $user->save();
-    
-                event(new PasswordReset($user));
+                // event(new PasswordReset($user));
             }
         );
     
         return $status === Password::PASSWORD_RESET
-                    ? response()->json(['status'=> __($status)])
-                    : response()->json(['errors'=>['email' => __($status)]],422);
+                    ? redirect()->back()->with('message', __($status))
+                    : redirect()->back()->withErrors(['email'=>__($status)]);
     })->middleware('guest')->name('password.update');
 
     Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth']);

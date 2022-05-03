@@ -6,13 +6,11 @@
         <h3>¿Olvidó su contraseña?</h3>
         <div
           id="alert"
-          v-if="errorMessage"
-          v-bind:class="{
-            'alert alert-success': this.stat,
-            'alert alert-danger': !this.stat,
-          }"
+          v-if="errorMessage || successMessage"
+          class="alert"
+          v-bind:class="{ 'alert-danger': errorMessage, 'alert-success': successMessage }"
         >
-          {{ this.errorMessage }}
+          {{ this.errorMessage + this.successMessage }}
         </div>
         <form class="form-group" @submit.prevent="sendRequest" v-if="!this.stat">
           <input
@@ -24,17 +22,17 @@
             v-model="form.email"
             required
           />
-          <button type="submit" class="btn btn-primary" :disabled="visible">
+          <button type="submit" class="btn btn-primary bg-sky-800" :disabled="form.processing">
             <span
-              class="spinner-border spinner-border-sm" v-if="visible"
+              class="spinner-border spinner-border-sm" v-if="form.processing"
               role="status" aria-hidden="true"></span>
             Enviar
           </button>
         </form>
         <div>
-          O <router-link :to="{ name: 'ingreso-view' }">
+          O <inertia-link :href="'/ingreso'">
           <a>Ingrese</a>
-        </router-link>
+        </inertia-link>
         </div>
         
       </div>
@@ -43,31 +41,35 @@
 </template>
 
 <script>
+import Home from '../views/Home.vue';
 export default {
+  layout: Home,
   data() {
     return {
-      form: {
+      form: this.$inertia.form({
         email: "",
-      },
+      }),
       stat: false,
       errorMessage: "",
-      visible: false,
+      successMessage: "",
     };
   },
   methods: {
     sendRequest() {
       this.visible = true;
-      axios
-        .post("api/forgot-password", this.form)
-        .then((response) => {
-          response.data.status ? (this.stat = true) : (this.stat = false);
-          this.errorMessage = response.data[Object.keys(response.data)[0]];
-          this.visible = false;
-        })
-        .catch((error) => {
+      this.form.post('/api/forgot-password',{
+        onError: (error) => {
+          this.errorMessage = error[0];
           this.stat = false;
-          this.visible = false;
-        });
+          this.form.reset();
+        },
+        onSuccess: page=>{
+          this.errorMessage = "";
+          this.successMessage = this.$page.props.flash.message;
+          this.stat = true;
+          this.form.reset();
+        },
+      });
     },
   },
 };

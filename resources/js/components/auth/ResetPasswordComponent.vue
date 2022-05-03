@@ -1,83 +1,50 @@
 <template>
   <div id="reset-password">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="card-form">
         <div class="container" v-if="message">
           <div class="alert alert-success" role="success" >
             {{message}}
           </div>
-          <router-link :to="{name:'ingreso-view'}">
-            <button class="btn btn-primary">Ingresar</button>
-          </router-link>
+          <inertia-link :as="'button'" :href="'/ingreso'">
+            Ingresar
+          </inertia-link>
         </div>
         <div class="card" v-if="!message">
           <div class="card-header">Restaurar Contraseña</div>
           <div class="card-body">
-            <div class="alert alert-danger" role="alert" v-if="errors.email">
-              {{ errors.email }} Por favor vuelva a repetir el proceso.
+            <div class="alert alert-danger" role="alert" v-if="$page.props.errors.email">
+              {{ $page.props.errors.email }} Por favor, vuelva a repetir el proceso.
             </div>
-            <form @submit.prevent="sendRequest()" v-if="!errors.email">
+            <form @submit.prevent="sendRequest()" v-if="!$page.props.errors.email" >
               <input type="hidden" name="token" />
 
               <div class="form-group row">
-                <label
-                  for="email"
-                  class="col-md-4 col-form-label text-md-right"
-                >
-                  Dirección e-mail</label
-                >
+                <label for="email" class="col-md-4 col-form-label text-md-right">
+                  Dirección e-mail
+                </label>
 
                 <div class="col-md-6">
-                  <input
-                    id="email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    required
-                    autocomplete="email"
-                    v-model="form.email"
-                    :disabled="true"
-                  />
+                  <input id="email" type="email" class="form-control" name="email"
+                    required autocomplete="email" :value=" $page.props.emailRecive " :disabled="'disabled'"/>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label
-                  for="password"
-                  class="col-md-4 col-form-label text-md-right"
-                  >Contraseña</label
-                >
-
+                <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña</label>
                 <div class="col-md-6">
                   <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    autocomplete="new-password"
-                    v-model="form.password"
-                    autofocus
-                  />
-
-                  <div
-                    class="alert alert-danger"
-                    role="alert"
-                    v-if="errors.password"
-                  >
-                    <li v-for="error in errors.password" :key="error">
-                      {{ error }}
-                    </li>
+                    id="password" type="password" class="form-control" name="password" required autocomplete="new-password"
+                    v-model="form.password" autofocus/>
+                  <div class="alert alert-danger" role="alert" v-if="$page.props.errors.password">
+                    <p>
+                      {{ $page.props.errors.password }}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label
-                  for="password-confirm"
-                  class="col-md-4 col-form-label text-md-right"
-                  >Confirmar contraseña</label
-                >
+                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>
 
                 <div class="col-md-6">
                   <input
@@ -96,12 +63,12 @@
                 <div class="col-md-6 offset-md-4">
                   <button
                     type="submit"
-                    class="btn btn-primary"
-                    :disabled="visible"
+                    class="btn btn-primary bg-sky-700"
+                    :disabled="form.processing"
                   >
                     <span
                       class="spinner-border spinner-border-sm"
-                      v-if="visible"
+                      v-if="form.processing"
                       role="status"
                       aria-hidden="true"
                     ></span>
@@ -114,69 +81,72 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
+import Home from "../views/Home.vue";
 export default {
+  layout: Home,
+  props: {
+    tokenRecive: {
+      type: String,
+    },
+    emailRecive: {
+      type: String,
+    },
+  },
   data() {
     return {
-      form: {
-        token: String,
-        email: this.$route.query.email,
+      form: this.$inertia.form({
+        token: this.tokenRecive,
+        email: this.emailRecive,
         password: "",
         password_confirmation: "",
-      },
-      errors: [],
+      }),
+      errors: "",
       message: "",
       visible: false,
     };
   },
   methods: {
     sendRequest() {
-      (this.visible = true),
-        (this.errors = []),
-        axios
-          .post("/api/reset-password", this.form)
-          .then((response) => {
-            this.message = response.data.status;
-          })
-          .catch((error) => {
-            this.visible = false;
-            this.errors = error.response.data.errors;
-          });
+      this.form.post("/api/reset-password",{
+        onStart: () => {
+          this.errors = "";
+        },
+        onSuccess: () => {
+          this.message = this.$page.props.flash.message;
+        },
+        onError: (error) => {
+          this.errors = error[0];
+        },
+      })
     },
-  },
-  mounted() {
-    this.$store.commit("setResetToken", window.resetPasswordToken);
-    this.form.token = this.$store.state.token;
   },
 };
 </script>
 
 <style scoped>
 #reset-password {
-  width: 100%;
-  min-height: 480px;
-  background-color: #fff;
   padding-top: 100px;
-  flex-direction: column;
   margin-bottom: 1rem;
 }
-
-#reset-password .container {
-  width: 100%;
-  height: 200px;
+#reset-password .card-form {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding-bottom: 50px;
 }
+#reset-password .card-form .card {
+  width: 500px;
+  max-width: 500px;
+}
+
 .alert.alert-danger {
   top: 0.2rem;
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   margin-bottom: 0;
 }
+
 
 </style>

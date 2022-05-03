@@ -11,6 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../views/Home.vue */ "./resources/js/components/views/Home.vue");
 //
 //
 //
@@ -53,17 +54,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
   data: function data() {
     return {
-      form: {
+      form: this.$inertia.form({
         email: ""
-      },
+      }),
       stat: false,
       errorMessage: "",
-      visible: false
+      successMessage: ""
     };
   },
   methods: {
@@ -71,13 +72,20 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.visible = true;
-      axios.post("api/forgot-password", this.form).then(function (response) {
-        response.data.status ? _this.stat = true : _this.stat = false;
-        _this.errorMessage = response.data[Object.keys(response.data)[0]];
-        _this.visible = false;
-      })["catch"](function (error) {
-        _this.stat = false;
-        _this.visible = false;
+      this.form.post('/api/forgot-password', {
+        onError: function onError(error) {
+          _this.errorMessage = error[0];
+          _this.stat = false;
+
+          _this.form.reset();
+        },
+        onSuccess: function onSuccess(page) {
+          _this.errorMessage = "";
+          _this.successMessage = _this.$page.props.flash.message;
+          _this.stat = true;
+
+          _this.form.reset();
+        }
       });
     }
   }
@@ -247,17 +255,24 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _c("h3", [_vm._v("¿Olvidó su contraseña?")]),
         _vm._v(" "),
-        _vm.errorMessage
+        _vm.errorMessage || _vm.successMessage
           ? _c(
               "div",
               {
+                staticClass: "alert",
                 class: {
-                  "alert alert-success": this.stat,
-                  "alert alert-danger": !this.stat
+                  "alert-danger": _vm.errorMessage,
+                  "alert-success": _vm.successMessage
                 },
                 attrs: { id: "alert" }
               },
-              [_vm._v("\n        " + _vm._s(this.errorMessage) + "\n      ")]
+              [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(this.errorMessage + this.successMessage) +
+                    "\n      "
+                )
+              ]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -305,11 +320,11 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "submit", disabled: _vm.visible }
+                    staticClass: "btn btn-primary bg-sky-800",
+                    attrs: { type: "submit", disabled: _vm.form.processing }
                   },
                   [
-                    _vm.visible
+                    _vm.form.processing
                       ? _c("span", {
                           staticClass: "spinner-border spinner-border-sm",
                           attrs: { role: "status", "aria-hidden": "true" }
@@ -326,7 +341,7 @@ var render = function() {
           "div",
           [
             _vm._v("\n        O "),
-            _c("router-link", { attrs: { to: { name: "ingreso-view" } } }, [
+            _c("inertia-link", { attrs: { href: "/ingreso" } }, [
               _c("a", [_vm._v("Ingrese")])
             ])
           ],

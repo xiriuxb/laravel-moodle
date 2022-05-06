@@ -2,15 +2,11 @@
   <div  class="justify-content-center mb-50" >
     <div>
       <div class="row">
-        <curso-card-component
-          v-for="curso in $parent.data"
-          :key="curso.shortname"
-          :curso="curso"
-        >
+        <curso-card-component v-for="curso in $parent.data" :key="curso.shortname" :curso="curso">
         </curso-card-component>
 
       </div>
-      <p v-if="mensajeErr != ''">{{ mensajeErr }}</p>
+      <p v-if="mensajeErr">{{mensajeErr }}</p>
     </div>
   </div>
 </template>
@@ -33,8 +29,7 @@ export default {
     return {
       visible: false,
       cursos2: [],
-      mensajeErr: "",
-      pages: 0,
+      mensajeErr: this.$page.props.errors[0],
     };
   },
   beforeCreate() {

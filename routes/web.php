@@ -49,6 +49,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::redirect('/cursos', '/cursos/all/1');
     
+    Route::get('/eliminar-cuenta', function(){
+        return inertia('User/EliminarCuentaComponent');
+    })->middleware('auth')->name('eliminar-cuenta');
+
+    Route::post('/user/delete', 'App\Http\Controllers\UserController@deleteProfile')->name('user.delete');
     Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*']);
     
     Route::get('/email/verification-notification', function () {

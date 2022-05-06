@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="">
-  <a href="#" class="inline-block font-medium leading-tight" data-toggle="modal" data-target="#passwordModalCenter">
+  <a href="#" class="inline-block font-medium leading-tight" data-toggle="modal" data-target="#passwordModalCenter" @click="message=''">
     Cambiar contraseña
   </a>
 </div>
@@ -22,10 +22,10 @@
         <div class="alert alert-danger" role="alert" v-if="$page.props.errors.new_password">
           {{$page.props.errors.new_password}}
         </div>
-        <div v-if="$page.props.flash.message" class="alert alert-success">
-          {{$page.props.flash.message}}
+        <div v-if="message" class="alert alert-success">
+          {{message}}
         </div>
-       <form :class="{'disabled':loading}" @submit.prevent="updateForm">
+       <form :class="{'disabled':form.processing}" @submit.prevent="updateForm">
                     <div class="form-group">
                       <input type="password" class="form-control" v-model="form.passwordActual"
                       id="passwordActual" placeholder="Escriba su contraseñá actual" required >
@@ -43,8 +43,8 @@
                       data-dismiss="modal">
                       Close
                     </button>
-                    <button type="submit" class="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1" :disabled="loading || form.passwordActual.length==0" >
-                      <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
+                    <button type="submit" class="btn inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1" :disabled="form.processing || form.passwordActual.length==0" >
+                      <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status" aria-hidden="true"></span>
                       Aceptar</button>
                   </form>
         <!-- /Body -->
@@ -67,18 +67,23 @@ export default {
             }),
             loading:false,
             errors:[],
+            message:''
         }
     },
     methods:{
       updateForm() {
         this.$page.props.errors = {};
         this.form.post('/change-password',{
-          onStart: () => (this.loading =true),
-          onFinish: () => (this.loading = false),
+          onSrart:()=>{
+            this.message = '';
+          },
+          onSuccess: () => {
+            this.message = 'Contraseña actualizada';
+            this.form.reset();
+          }
         });
-      },
-    }
-
+      }
+    },
 }
 </script>
 

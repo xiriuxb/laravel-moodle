@@ -70,6 +70,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      message: null,
       loading: false,
       form: this.$inertia.form({
         new_email: '',
@@ -85,6 +86,10 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post('/change-email', {
         onStart: function onStart() {
           return _this.loading = true;
+        },
+        onSuccess: function onSuccess() {
+          _this.message = 'Se ha cambiado el correo electrónico';
+          yhis.form.reset();
         },
         onFinish: function onFinish() {
           return _this.loading = false;
@@ -113,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\r\n  pointer-events: none;\r\n  opacity: 0.5;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -254,7 +259,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", {}, [
+      _c(
+        "a",
+        {
+          staticClass: "inline-block font-medium leading-tight",
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#exampleModalCenter"
+          }
+        },
+        [_vm._v("\n    Cambiar correo\n  ")]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -284,7 +302,7 @@ var render = function() {
                   "modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
               },
               [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body relative p-4" }, [
                   _vm.$page.props.errors.new_email
@@ -296,20 +314,18 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n          " +
+                            "\n          " +
                               _vm._s(_vm.$page.props.errors.new_email) +
-                              "\r\n        "
+                              "\n        "
                           )
                         ]
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.$page.props.flash.message
+                  _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\r\n          " +
-                            _vm._s(_vm.$page.props.flash.message) +
-                            "\r\n        "
+                          "\n          " + _vm._s(_vm.message) + "\n        "
                         )
                       ])
                     : _vm._e(),
@@ -317,8 +333,8 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      staticClass: "card-body disabled",
-                      class: { disabled: true },
+                      staticClass: "card-body",
+                      class: { disabled: _vm.form.processing },
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -340,7 +356,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "email",
-                            id: "inputEmail",
+                            id: "inputNewEmail",
                             placeholder: "Escriba su nuevo correo electrónico"
                           },
                           domProps: { value: _vm.form.new_email },
@@ -372,7 +388,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "password",
-                            id: "inputPassword",
+                            id: "inputOldPassword",
                             placeholder: "Escriba su contraseña"
                           },
                           domProps: { value: _vm.form.password },
@@ -402,7 +418,7 @@ var render = function() {
                             "data-dismiss": "modal"
                           }
                         },
-                        [_vm._v("\r\n          Close\r\n        ")]
+                        [_vm._v("\n          Close\n        ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -419,7 +435,7 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("\r\n          Save changes\r\n          "),
+                          _vm._v("\n          Save changes\n          "),
                           _vm.form.processing
                             ? _c("span", {
                                 staticClass: "spinner-border spinner-border-sm",
@@ -444,25 +460,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c(
-        "a",
-        {
-          staticClass: "inline-block font-medium leading-tight",
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#exampleModalCenter"
-          }
-        },
-        [_vm._v("\r\n    Cambiar correo\r\n  ")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -476,7 +473,7 @@ var staticRenderFns = [
             staticClass: "text-xl font-medium leading-normal text-gray-800",
             attrs: { id: "exampleModalScrollableLabel" }
           },
-          [_vm._v("\r\n          Cambia tu correo electrónico\r\n        ")]
+          [_vm._v("\n          Cambia tu correo electrónico\n        ")]
         ),
         _vm._v(" "),
         _c(

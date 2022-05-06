@@ -36,9 +36,9 @@ class CursosLocal extends Controller
     {
         $cursos = [];
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
-                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wstoken' => env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_course_get_courses_by_field',
                 //Recive los datos del curso especificado desde la API de moodle
                 'field' => 'ids',

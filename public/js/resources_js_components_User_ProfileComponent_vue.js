@@ -70,6 +70,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      message: null,
       loading: false,
       form: this.$inertia.form({
         new_email: '',
@@ -85,6 +86,10 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post('/change-email', {
         onStart: function onStart() {
           return _this.loading = true;
+        },
+        onSuccess: function onSuccess() {
+          _this.message = 'Se ha cambiado el correo electrónico';
+          yhis.form.reset();
         },
         onFinish: function onFinish() {
           return _this.loading = false;
@@ -174,7 +179,8 @@ __webpack_require__.r(__webpack_exports__);
         new_password_confirmation: ''
       }),
       loading: false,
-      errors: []
+      errors: [],
+      message: ''
     };
   },
   methods: {
@@ -183,11 +189,13 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$page.props.errors = {};
       this.form.post('/change-password', {
-        onStart: function onStart() {
-          return _this.loading = true;
+        onSrart: function onSrart() {
+          _this.message = '';
         },
-        onFinish: function onFinish() {
-          return _this.loading = false;
+        onSuccess: function onSuccess() {
+          _this.message = 'Contraseña actualizada';
+
+          _this.form.reset();
         }
       });
     }
@@ -350,6 +358,46 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -383,16 +431,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
             _ = _ref2[0],
             v = _ref2[1];
 
-        return v != '';
+        return v != "";
       }));
     }
   },
   data: function data() {
     return {
       form: this.$inertia.form({
-        country: '',
-        region: '',
-        birth_day: ''
+        country: "",
+        region: "",
+        birth_day: ""
       }),
       loading: false
     };
@@ -401,7 +449,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     updateUser: function updateUser() {
       var _this = this;
 
-      this.form.post('/update-user', {
+      this.form.post("/update-user", {
         onStart: function onStart() {
           return _this.loading = true;
         },
@@ -437,7 +485,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\r\n  pointer-events: none;\r\n  opacity: 0.5;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -461,7 +509,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#datosP[data-v-3141addd] {\r\n  padding-top: 100px;\n}\n.card-header[data-v-3141addd] {\r\n  background-color: rgb(0 46 69);\r\n  color: white;\n}\n.card-header .card-title[data-v-3141addd] {\r\n  margin-bottom: 0;\n}\n.disabled[data-v-3141addd] {\r\n  pointer-events: none;\r\n  cursor: not-allowed;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#datosP[data-v-3141addd] {\n  padding-top: 100px;\n}\n.card-header[data-v-3141addd] {\n  background-color: rgb(0 46 69);\n  color: white;\n}\n.card-header .card-title[data-v-3141addd] {\n  margin-bottom: 0;\n}\n.disabled[data-v-3141addd] {\n  pointer-events: none;\n  cursor: not-allowed;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -791,7 +839,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", {}, [
+      _c(
+        "a",
+        {
+          staticClass: "inline-block font-medium leading-tight",
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#exampleModalCenter"
+          }
+        },
+        [_vm._v("\n    Cambiar correo\n  ")]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -821,7 +882,7 @@ var render = function() {
                   "modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
               },
               [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body relative p-4" }, [
                   _vm.$page.props.errors.new_email
@@ -833,20 +894,18 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n          " +
+                            "\n          " +
                               _vm._s(_vm.$page.props.errors.new_email) +
-                              "\r\n        "
+                              "\n        "
                           )
                         ]
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.$page.props.flash.message
+                  _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\r\n          " +
-                            _vm._s(_vm.$page.props.flash.message) +
-                            "\r\n        "
+                          "\n          " + _vm._s(_vm.message) + "\n        "
                         )
                       ])
                     : _vm._e(),
@@ -854,8 +913,8 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      staticClass: "card-body disabled",
-                      class: { disabled: true },
+                      staticClass: "card-body",
+                      class: { disabled: _vm.form.processing },
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -877,7 +936,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "email",
-                            id: "inputEmail",
+                            id: "inputNewEmail",
                             placeholder: "Escriba su nuevo correo electrónico"
                           },
                           domProps: { value: _vm.form.new_email },
@@ -909,7 +968,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "password",
-                            id: "inputPassword",
+                            id: "inputOldPassword",
                             placeholder: "Escriba su contraseña"
                           },
                           domProps: { value: _vm.form.password },
@@ -939,7 +998,7 @@ var render = function() {
                             "data-dismiss": "modal"
                           }
                         },
-                        [_vm._v("\r\n          Close\r\n        ")]
+                        [_vm._v("\n          Close\n        ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -956,7 +1015,7 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("\r\n          Save changes\r\n          "),
+                          _vm._v("\n          Save changes\n          "),
                           _vm.form.processing
                             ? _c("span", {
                                 staticClass: "spinner-border spinner-border-sm",
@@ -981,25 +1040,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c(
-        "a",
-        {
-          staticClass: "inline-block font-medium leading-tight",
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#exampleModalCenter"
-          }
-        },
-        [_vm._v("\r\n    Cambiar correo\r\n  ")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -1013,7 +1053,7 @@ var staticRenderFns = [
             staticClass: "text-xl font-medium leading-normal text-gray-800",
             attrs: { id: "exampleModalScrollableLabel" }
           },
-          [_vm._v("\r\n          Cambia tu correo electrónico\r\n        ")]
+          [_vm._v("\n          Cambia tu correo electrónico\n        ")]
         ),
         _vm._v(" "),
         _c(
@@ -1056,7 +1096,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", {}, [
+      _c(
+        "a",
+        {
+          staticClass: "inline-block font-medium leading-tight",
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#passwordModalCenter"
+          },
+          on: {
+            click: function($event) {
+              _vm.message = ""
+            }
+          }
+        },
+        [_vm._v("\n    Cambiar contraseña\n  ")]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -1086,7 +1144,7 @@ var render = function() {
                   "modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
               },
               [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body relative p-4" }, [
                   _vm.$page.props.errors.new_password
@@ -1106,12 +1164,10 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.$page.props.flash.message
+                  _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.$page.props.flash.message) +
-                            "\n        "
+                          "\n          " + _vm._s(_vm.message) + "\n        "
                         )
                       ])
                     : _vm._e(),
@@ -1119,7 +1175,7 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      class: { disabled: _vm.loading },
+                      class: { disabled: _vm.form.processing },
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -1256,11 +1312,12 @@ var render = function() {
                           attrs: {
                             type: "submit",
                             disabled:
-                              _vm.loading || _vm.form.passwordActual.length == 0
+                              _vm.form.processing ||
+                              _vm.form.passwordActual.length == 0
                           }
                         },
                         [
-                          _vm.loading
+                          _vm.form.processing
                             ? _c("span", {
                                 staticClass: "spinner-border spinner-border-sm",
                                 attrs: { role: "status", "aria-hidden": "true" }
@@ -1281,25 +1338,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c(
-        "a",
-        {
-          staticClass: "inline-block font-medium leading-tight",
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#passwordModalCenter"
-          }
-        },
-        [_vm._v("\n    Cambiar contraseña\n  ")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -1366,7 +1404,7 @@ var render = function() {
           _vm.$page.props.errors.new_email
             ? _c("div", { staticClass: "alert alert-danger" }, [
                 _vm._v(
-                  "\n              Su correo no fue actualizado, por favor intente de nuevo.\n            "
+                  "\n          Su correo no fue actualizado, por favor intente de nuevo.\n        "
                 )
               ])
             : _vm._e(),
@@ -1374,7 +1412,7 @@ var render = function() {
           _vm.$page.props.errors.new_password
             ? _c("div", { staticClass: "alert alert-danger" }, [
                 _vm._v(
-                  "\n              Su contraseña no fue actualizada, por favor intente de nuevo.\n            "
+                  "\n          Su contraseña no fue actualizada, por favor intente de nuevo.\n        "
                 )
               ])
             : _vm._e(),
@@ -1382,7 +1420,7 @@ var render = function() {
           _vm.$page.props.flash.message
             ? _c("div", { staticClass: "alert alert-success" }, [
                 _vm._v(
-                  "\n              Su información se actualizó correctamente.\n            "
+                  "\n          Su información se actualizó correctamente.\n        "
                 )
               ])
             : _vm._e(),
@@ -1397,7 +1435,7 @@ var render = function() {
                     { staticClass: "alert alert-warning" },
                     [
                       _vm._v(
-                        "\n              Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click \n              "
+                        "\n              Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click\n              "
                       ),
                       _c(
                         "inertia-link",
@@ -1602,7 +1640,11 @@ var render = function() {
                     _vm._v(" "),
                     _vm.$page.props.errors.birth_day != null
                       ? _c("div", { staticClass: "alert alert-danger" }, [
-                          _vm._v(_vm._s(_vm.$page.props.errors.birth_day))
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(_vm.$page.props.errors.birth_day) +
+                              "\n                "
+                          )
                         ])
                       : _vm._e()
                   ]),
@@ -1612,7 +1654,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200",
+                          "\n                    btn btn-pimary\n                    bg-sky-700\n                    text-slate-200\n                    hover:bg-sky-900 hover:text-slate-200\n                  ",
                         attrs: {
                           type: "submit",
                           disabled: _vm.enableButton || this.loading
@@ -1633,7 +1675,18 @@ var render = function() {
                   ])
                 ]
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex flex-row-reverse pr-2" },
+              [
+                _c("inertia-link", { attrs: { href: "/eliminar-cuenta" } }, [
+                  _vm._v("Eliminar Cuenta")
+                ])
+              ],
+              1
+            )
           ])
         ])
       ])
@@ -1646,7 +1699,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Datos personales")])
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Datos del usuario")])
     ])
   }
 ]

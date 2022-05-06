@@ -78,7 +78,8 @@ __webpack_require__.r(__webpack_exports__);
         new_password_confirmation: ''
       }),
       loading: false,
-      errors: []
+      errors: [],
+      message: ''
     };
   },
   methods: {
@@ -87,11 +88,13 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$page.props.errors = {};
       this.form.post('/change-password', {
-        onStart: function onStart() {
-          return _this.loading = true;
+        onSrart: function onSrart() {
+          _this.message = '';
         },
-        onFinish: function onFinish() {
-          return _this.loading = false;
+        onSuccess: function onSuccess() {
+          _this.message = 'Contraseña actualizada';
+
+          _this.form.reset();
         }
       });
     }
@@ -189,7 +192,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", {}, [
+      _c(
+        "a",
+        {
+          staticClass: "inline-block font-medium leading-tight",
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#passwordModalCenter"
+          },
+          on: {
+            click: function($event) {
+              _vm.message = ""
+            }
+          }
+        },
+        [_vm._v("\n    Cambiar contraseña\n  ")]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -219,7 +240,7 @@ var render = function() {
                   "modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
               },
               [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body relative p-4" }, [
                   _vm.$page.props.errors.new_password
@@ -239,12 +260,10 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.$page.props.flash.message
+                  _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\n          " +
-                            _vm._s(_vm.$page.props.flash.message) +
-                            "\n        "
+                          "\n          " + _vm._s(_vm.message) + "\n        "
                         )
                       ])
                     : _vm._e(),
@@ -252,7 +271,7 @@ var render = function() {
                   _c(
                     "form",
                     {
-                      class: { disabled: _vm.loading },
+                      class: { disabled: _vm.form.processing },
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
@@ -389,11 +408,12 @@ var render = function() {
                           attrs: {
                             type: "submit",
                             disabled:
-                              _vm.loading || _vm.form.passwordActual.length == 0
+                              _vm.form.processing ||
+                              _vm.form.passwordActual.length == 0
                           }
                         },
                         [
-                          _vm.loading
+                          _vm.form.processing
                             ? _c("span", {
                                 staticClass: "spinner-border spinner-border-sm",
                                 attrs: { role: "status", "aria-hidden": "true" }
@@ -414,25 +434,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c(
-        "a",
-        {
-          staticClass: "inline-block font-medium leading-tight",
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#passwordModalCenter"
-          }
-        },
-        [_vm._v("\n    Cambiar contraseña\n  ")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

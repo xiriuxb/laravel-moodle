@@ -99,4 +99,14 @@ class UserController extends Controller
         $user->save();
         return redirect()->back()->with('message','Su información se actualizó correctamente');
     }
+
+    public function deleteProfile(Request $request){
+        $request -> validate([
+            'password' => 'required|string|min:8',
+        ]);
+        if (! Hash::check($request->password, Auth::user()->password)) {
+            return back()->withErrors(['password'=>'La contraseña no es correcta']);
+        }
+    }
+
 }

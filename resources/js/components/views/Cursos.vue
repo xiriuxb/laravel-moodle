@@ -16,7 +16,7 @@
           
           <slot v-bind:cursos="data"></slot>
         </div>
-        <course-navigation-component :pages="pages" :currentPage="currentPage"></course-navigation-component>
+        <course-navigation-component v-if="pages" :pages="pages" :currentPage="currentPage"></course-navigation-component>
       </div>
     </div>
   </div>

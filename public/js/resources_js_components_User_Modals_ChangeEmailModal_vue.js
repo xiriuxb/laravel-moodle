@@ -141,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1a9f2071] {\r\n  position: fixed;\r\n  z-index: 9998;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1a9f2071] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container[data-v-1a9f2071] {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1a9f2071] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-1a9f2071] {\r\n  margin:8px 0;\n}\n.modal-default-button[data-v-1a9f2071] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-1a9f2071] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-1a9f2071] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1a9f2071],\r\n.modal-leave-active .modal-container[data-v-1a9f2071] {\r\n  transform: scale(1.1);\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1a9f2071] {\n  position: fixed;\n  z-index: 9998;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: table;\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1a9f2071] {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container[data-v-1a9f2071] {\n  width: 300px;\n  margin: 0px auto;\n  background-color: #fff;\n  border-radius: 2px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1a9f2071] {\n  margin-top: 0;\n  color: #42b983;\n}\n.modal-body[data-v-1a9f2071] {\n  margin:8px 0;\n}\n.modal-default-button[data-v-1a9f2071] {\n  float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-1a9f2071] {\n  opacity: 0;\n}\n.modal-leave-active[data-v-1a9f2071] {\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1a9f2071],\n.modal-leave-active .modal-container[data-v-1a9f2071] {\n  transform: scale(1.1);\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1051,7 +1051,7 @@ var render = function() {
                 return [
                   _c("strong", [
                     _vm._v(
-                      "\r\n                        Cambia tu correo electrónico\r\n                    "
+                      "\n                        Cambia tu correo electrónico\n                    "
                     )
                   ]),
                   _vm._v(" "),
@@ -1089,9 +1089,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n                        " +
+                            "\n                        " +
                               _vm._s(_vm.errors.new_email[0]) +
-                              "\r\n                  "
+                              "\n                  "
                           )
                         ]
                       )
@@ -1187,7 +1187,7 @@ var render = function() {
                             attrs: { role: "status", "aria-hidden": "true" }
                           })
                         : _vm._e(),
-                      _vm._v("\r\n                    Aceptar")
+                      _vm._v("\n                    Aceptar")
                     ]
                   )
                 ]

@@ -29,7 +29,7 @@ class Cursos extends Controller
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
             return inertia('CursosComponent',['data'=>$cursos,'pages'=>$this->pages($categoria),'currentPage'=>(int)$page, 'category'=>$categoria]);
         }else{
-            return response()->json(['message'=>'Categoria no encontrada'],404);
+            return inertia('CursosComponent',['errors'=>['Categoria no encontrada']]);
         }
     }
 
@@ -84,9 +84,9 @@ class Cursos extends Controller
         //dd($categoria);
         //Recive todos los cursos desde la API de moodle
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
-                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wstoken' => env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_course_get_courses_by_field',
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
@@ -142,9 +142,9 @@ class Cursos extends Controller
     public function show($curso_id, $field = 'shortname')
     {
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
-                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
+                'wstoken' => env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_course_get_courses_by_field',
                 //Recive los datos del curso especificado desde la API de moodle
                 'field' => $field,

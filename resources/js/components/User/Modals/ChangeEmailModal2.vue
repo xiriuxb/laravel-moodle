@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="">
-  <a href="#" class="inline-block font-medium leading-tight" data-toggle="modal" data-target="#exampleModalCenter">
+  <a href="#" class="inline-block font-medium leading-tight" :data-toggle="'modal'" data-target="#exampleModalCenter">
     Cambiar correo
   </a>
 </div>
@@ -22,15 +22,15 @@
         <div class="alert alert-danger" role="alert" v-if="$page.props.errors.new_email">
           {{ $page.props.errors.new_email}}
         </div>
-        <div v-if="$page.props.flash.message" class="alert alert-success">
-          {{$page.props.flash.message}}
+        <div v-if="message" class="alert alert-success">
+          {{message}}
         </div>
-        <form class="card-body disabled" @submit.prevent="saveForm" :class="{'disabled':true}">
+        <form class="card-body" :class="{'disabled':form.processing}" @submit.prevent="saveForm">
           <div class="form-group">
-            <input v-model="form.new_email" type="email" class="form-control" id="inputEmail" placeholder="Escriba su nuevo correo electrónico">
+            <input v-model="form.new_email" type="email" class="form-control" id="inputNewEmail" placeholder="Escriba su nuevo correo electrónico">
           </div>
           <div class="form-group">
-            <input v-model="form.password" type="password" class="form-control" id="inputPassword" placeholder="Escriba su contraseña">
+            <input v-model="form.password" type="password" class="form-control" id="inputOldPassword" placeholder="Escriba su contraseña">
           </div>
         <button type="button" :disabled="loading"
           class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -58,6 +58,7 @@
 export default {
     data() {
         return {
+            message: null,
             loading: false,
             form: this.$inertia.form({
             new_email: '',
@@ -70,6 +71,8 @@ export default {
         this.$page.props.errors = {};
       this.form.post('/change-email',{
         onStart: () => (this.loading =true),
+        onSuccess: () => {this.message = 'Se ha cambiado el correo electrónico';
+        yhis.form.reset();},
         onFinish: () => (this.loading = false),
     });
     },

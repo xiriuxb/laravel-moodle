@@ -152,7 +152,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#lista[data-v-89b0c3cc] {\r\n  position: absolute;\r\n  max-height: 200px;\r\n  overflow-y: scroll;\r\n  border-radius: 0.1px ;\r\n  z-index: 10;\n}\n#lista div[data-v-89b0c3cc] {\r\n  color: black;\r\n  display: block;\r\n  background-color: #fff;\n}\n.card-header[data-v-89b0c3cc] {\r\n  margin-bottom: 0;\r\n  background-color: #fff;\r\n  cursor: pointer;\n}\n.list-menu[data-v-89b0c3cc] {\r\n  list-style: none;\r\n  margin: 0;\r\n  padding-left: 0;\n}\n.list-menu a[data-v-89b0c3cc] {\r\n  color: #343a40;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#lista[data-v-89b0c3cc] {\n  position: absolute;\n  max-height: 200px;\n  overflow-y: scroll;\n  border-radius: 0.1px ;\n  z-index: 10;\n}\n#lista div[data-v-89b0c3cc] {\n  color: black;\n  display: block;\n  background-color: #fff;\n}\n.card-header[data-v-89b0c3cc] {\n  margin-bottom: 0;\n  background-color: #fff;\n  cursor: pointer;\n}\n.list-menu[data-v-89b0c3cc] {\n  list-style: none;\n  margin: 0;\n  padding-left: 0;\n}\n.list-menu a[data-v-89b0c3cc] {\n  color: #343a40;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

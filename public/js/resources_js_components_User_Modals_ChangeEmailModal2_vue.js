@@ -85,14 +85,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$page.props.errors = {};
       this.form.post('/change-email', {
         onStart: function onStart() {
-          return _this.loading = true;
+          return _this.message = "";
         },
         onSuccess: function onSuccess() {
           _this.message = 'Se ha cambiado el correo electrónico';
-          yhis.form.reset();
-        },
-        onFinish: function onFinish() {
-          return _this.loading = false;
+
+          _this.form.reset();
         }
       });
     }

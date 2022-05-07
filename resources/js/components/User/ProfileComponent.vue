@@ -24,7 +24,7 @@
             <!-- .card-body -->
             <div class="card-body">
               <!-- Mensaje de verificación de correo -->
-              <div v-if="!user[0].email_verified_at" class="alert alert-warning">
+              <div v-if="!user.email_verified_at" class="alert alert-warning">
                 Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click
                 <inertia-link class="text-sky-900" :href="'/email/verification-notification'">aquí</inertia-link>
                 y siga los pasos.
@@ -50,7 +50,7 @@
                       class="form-control"
                       id="inputUsername"
                       placeholder="Nombre de usuario"
-                      :value="user[0].username"
+                      :value="user.username"
                       readonly
                     />
                   </div>
@@ -64,7 +64,7 @@
                       id="inputEmail"
                       placeholder="Correo electrónico"
                       disabled
-                      :value="user[0].email"
+                      :value="user.email"
                     />
                     <change-email-modal-2></change-email-modal-2>
                     <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showEmailModal()">Cambiar correo</a> -->
@@ -96,13 +96,13 @@
                       :countryName="true"
                       :autocomplete="true"
                       :removePlaceholder="false"
-                      :country="user[0].country"
+                      :country="user.country"
                     />
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <region-select
                       v-model="form.region"
-                      :region="user[0].region"
+                      :region="user.region"
                       class="form-control"
                       defaultRegion="EC"
                       :regionName="true"
@@ -178,7 +178,7 @@ export default {
   },
   props: {
     user: {
-      type: Array,
+      type: Object,
       required: true,
     },
     message: {
@@ -187,12 +187,12 @@ export default {
   },
   computed: {
     fullname() {
-      return this.user[0].name + " " + this.user[0].last_name;
+      return this.user.name + " " + this.user.last_name;
     },
     enableButton() {
-      return this.form.country != this.user[0].country ||
-        this.form.region != this.user[0].region ||
-        this.form.birth_day !== this.user[0].birth_day
+      return this.form.country != this.user.country ||
+        this.form.region != this.user.region ||
+        this.form.birth_day !== this.user.birth_day
         ? false
         : true;
     },
@@ -221,9 +221,9 @@ export default {
     },
   },
   created() {
-    this.form.country = this.user[0].country;
-    this.form.region = this.user[0].region;
-    this.form.birth_day = this.user[0].birth_day;
+    this.form.country = this.user.country;
+    this.form.region = this.user.region;
+    this.form.birth_day = this.user.birth_day;
   },
 };
 </script>

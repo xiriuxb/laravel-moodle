@@ -62,7 +62,7 @@ export default {
             loading: false,
             form: this.$inertia.form({
             new_email: '',
-            password: ''
+            password: '',
           }), 
         }
     },
@@ -70,10 +70,9 @@ export default {
         saveForm() {
         this.$page.props.errors = {};
       this.form.post('/change-email',{
-        onStart: () => (this.loading =true),
+        onStart: () => (this.message=""),
         onSuccess: () => {this.message = 'Se ha cambiado el correo electrónico';
-        yhis.form.reset();},
-        onFinish: () => (this.loading = false),
+        this.form.reset();},
     });
     },
     }

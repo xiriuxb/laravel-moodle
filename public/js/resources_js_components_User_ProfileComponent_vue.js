@@ -85,14 +85,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$page.props.errors = {};
       this.form.post('/change-email', {
         onStart: function onStart() {
-          return _this.loading = true;
+          return _this.message = "";
         },
         onSuccess: function onSuccess() {
           _this.message = 'Se ha cambiado el correo electrónico';
-          yhis.form.reset();
-        },
-        onFinish: function onFinish() {
-          return _this.loading = false;
+
+          _this.form.reset();
         }
       });
     }
@@ -411,7 +409,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   props: {
     user: {
-      type: Array,
+      type: Object,
       required: true
     },
     message: {
@@ -420,10 +418,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   computed: {
     fullname: function fullname() {
-      return this.user[0].name + " " + this.user[0].last_name;
+      return this.user.name + " " + this.user.last_name;
     },
     enableButton: function enableButton() {
-      return this.form.country != this.user[0].country || this.form.region != this.user[0].region || this.form.birth_day !== this.user[0].birth_day ? false : true;
+      return this.form.country != this.user.country || this.form.region != this.user.region || this.form.birth_day !== this.user.birth_day ? false : true;
     },
     formFiltered: function formFiltered() {
       return Object.fromEntries(Object.entries(this.form).filter(function (_ref) {
@@ -460,9 +458,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   created: function created() {
-    this.form.country = this.user[0].country;
-    this.form.region = this.user[0].region;
-    this.form.birth_day = this.user[0].birth_day;
+    this.form.country = this.user.country;
+    this.form.region = this.user.region;
+    this.form.birth_day = this.user.birth_day;
   }
 });
 
@@ -1429,7 +1427,7 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
-              !_vm.user[0].email_verified_at
+              !_vm.user.email_verified_at
                 ? _c(
                     "div",
                     { staticClass: "alert alert-warning" },
@@ -1495,7 +1493,7 @@ var render = function() {
                           placeholder: "Nombre de usuario",
                           readonly: ""
                         },
-                        domProps: { value: _vm.user[0].username }
+                        domProps: { value: _vm.user.username }
                       })
                     ])
                   ]),
@@ -1517,7 +1515,7 @@ var render = function() {
                             placeholder: "Correo electrónico",
                             disabled: ""
                           },
-                          domProps: { value: _vm.user[0].email }
+                          domProps: { value: _vm.user.email }
                         }),
                         _vm._v(" "),
                         _c("change-email-modal-2")
@@ -1566,7 +1564,7 @@ var render = function() {
                             countryName: true,
                             autocomplete: true,
                             removePlaceholder: false,
-                            country: _vm.user[0].country
+                            country: _vm.user.country
                           },
                           model: {
                             value: _vm.form.country,
@@ -1587,7 +1585,7 @@ var render = function() {
                         _c("region-select", {
                           staticClass: "form-control",
                           attrs: {
-                            region: _vm.user[0].region,
+                            region: _vm.user.region,
                             defaultRegion: "EC",
                             regionName: true,
                             name: "region",

@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return inertia('User/ProfileComponent',['user' => User::all()]);
+        return inertia('User/ProfileComponent',['user' => Auth::user()]);
     }
 
     public function changePassword(Request $request)
@@ -106,7 +106,46 @@ class UserController extends Controller
         ]);
         if (! Hash::check($request->password, Auth::user()->password)) {
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
+        } else{
+            $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
+            $request->user()->update(['deleted' => true]);
+            $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time()]);
+            Auth::logout();
+            return redirect()->route('home')->with('message','Su perfil se eliminó correctamente');
         }
+    }
+
+    private function deleteUserFromMoodle(int $userID){
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_delete_users',
+                'userids[0]' => $userID,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+    }
+
+    /**
+     *
+     * @param  string  $username
+     * @return int
+     */
+    private function getUserId(string $userName){
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_get_users_by_field',
+                'field' => 'username',
+                'values[0]' => $userName,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $jsonResponse = json_decode($res->getBody());
+        return $jsonResponse[0]->id;
     }
 
 }

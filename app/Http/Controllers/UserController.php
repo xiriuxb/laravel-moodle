@@ -9,7 +9,7 @@ use App\Notifications\EmailUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
-
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -107,6 +107,7 @@ class UserController extends Controller
         if (! Hash::check($request->password, Auth::user()->password)) {
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
         } else{
+            
             $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
             $request->user()->update(['deleted' => true]);
             $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time()]);
@@ -117,7 +118,7 @@ class UserController extends Controller
 
     private function deleteUserFromMoodle(int $userID){
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+        $request = new Psr7Request('GET', env('MOODLE_WS_URL'), [
             'query' => [
                 'wstoken' => (string)env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_user_delete_users',
@@ -125,7 +126,11 @@ class UserController extends Controller
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
         ]);
-        $json = json_decode($res->getBody());
+        $client->sendAsync($request)->then(
+            function ($response) {
+                dd($response->getBody());
+            }
+        );
     }
 
     /**

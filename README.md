@@ -63,4 +63,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     (hacer mas pruebas)
 - Revisar que pasa con los cursos sin imágen de curso
 - X Cambiar ruta al curso de moodle
-- cambiar al env las credenciales para acceder a los servicios de moodle
+- X cambiar al env las credenciales para acceder a los servicios de moodle

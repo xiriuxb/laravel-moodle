@@ -62,7 +62,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
-        return redirect("/email/verification-notification",['message' => 'Se a reenviado el mail de verificación.', 'status' => 200]);
+        return redirect()->back()->with(['message' => 'Se a reenviado el mail de verificación.']);
     })->middleware(['auth', 'throttle:1,3'])->name('verification.resend');
     
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {

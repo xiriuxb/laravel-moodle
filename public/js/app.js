@@ -3209,51 +3209,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-  props: {
-    message: {
-      type: String,
-      "default": null
-    }
-  },
   data: function data() {
     return {
       sending: false
     };
   },
   methods: {
-    resend: function resend() {
+    sendEmail: function sendEmail() {
       var _this = this;
 
-      this.sending = true;
-      this.message = "";
-      axios.post("/api/email/verification-notification").then(function (response) {
-        _this.sending = false;
-        _this.message = response.data.message;
-
-        _this.$toast.open({
-          message: 'E-mail reenviado',
-          type: "success",
-          position: "top"
-        });
-      })["catch"](function (err) {
-        _this.message = err.status =  true ? "Has excedido el límite de solicitudes" : 0;
-
-        _this.$toast.open({
-          message: _this.message,
-          type: "error",
-          position: "top"
-        });
-
-        _this.sending = true;
+      this.$inertia.visit('/email/verification-notification', {
+        method: 'POST',
+        onStart: function onStart() {
+          _this.sending = true;
+        },
+        onFinish: function onFinish() {
+          _this.sending = false;
+        }
       });
     }
   }
@@ -50415,98 +50390,97 @@ var render = function() {
       "div",
       { staticClass: "w-full relative h-screen", attrs: { id: "back" } },
       [
-        _c(
-          "div",
-          { staticClass: "relative top-1/3 container" },
-          [
-            _c("h1", { staticClass: "font-bold text-4xl text-blue-700" }, [
-              _vm._v("FELICITACIONES")
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Solo queda un paso más para poder acceder a nuestros cursos."
+        _c("div", { staticClass: "relative top-1/3 container" }, [
+          _c("h1", { staticClass: "font-bold text-4xl text-blue-700" }, [
+            _vm._v("FELICITACIONES")
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Solo queda un paso más para poder acceder a nuestros cursos."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "font-bold text-1xl py-2" }, [
+            _vm._v(
+              "\r\n        Se ha enviado un correo de verificación al email con el que te\r\n        registraste, por favor sigue los pasos indicados en el mismo.\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("No te olvides de revisar la sección de correo no deseado.")
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\r\n        Si no le ha llegado el correo, lo ha perdido o ya no funciona puede\r\n        volver a enviarlo.\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _vm.$page.props.flash.message
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-success",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\r\n        " +
+                      _vm._s(_vm.$page.props.flash.message) +
+                      "\r\n      "
+                  )
+                ]
               )
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-bold text-1xl py-2" }, [
-              _vm._v(
-                "\r\n        Se ha enviado un correo de verificación al email con el que te\r\n        registraste, por favor sigue los pasos indicados en el mismo.\r\n      "
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$page.props.errors.message
+            ? _c(
+                "div",
+                { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+                [
+                  _vm._v(
+                    "\r\n        " +
+                      _vm._s(_vm.$page.props.errors.message) +
+                      "\r\n      "
+                  )
+                ]
               )
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "No te olvides de revisar la sección de correo no deseado."
-              )
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\r\n        Si no le ha llegado el correo, lo ha perdido o ya no funciona puede\r\n        volver a enviarlo.\r\n      "
-              )
-            ]),
-            _vm._v(" "),
-            _vm.message
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-success",
-                    attrs: { role: "alert" }
-                  },
-                  [_vm._v("\r\n        " + _vm._s(_vm.message) + "\r\n      ")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.$page.props.errors.message
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-danger",
-                    attrs: { role: "alert" }
-                  },
-                  [
-                    _vm._v(
-                      "\r\n        " +
-                        _vm._s(_vm.$page.props.errors.message) +
-                        "\r\n      "
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "inertia-link",
-              {
-                staticClass: "btn btn-primary",
-                attrs: {
-                  as: "button",
-                  method: "POST",
-                  href: "/email/verification-notification"
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { disabled: _vm.sending },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.sendEmail()
                 }
-              },
-              [
-                _vm.sending
-                  ? _c("span", {
-                      staticClass: "spinner-border spinner-border-sm mr-2"
-                    })
-                  : _vm._e(),
-                _vm._v("ReenviarS")
-              ]
-            ),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Luego de reenviar deberá esperar 3 minutos antes de volverlo a enviar."
-              )
-            ])
-          ],
-          1
-        )
+              }
+            },
+            [
+              _vm.sending
+                ? _c("span", {
+                    staticClass: "spinner-border spinner-border-sm",
+                    attrs: { role: "status", "aria-hidden": "true" }
+                  })
+                : _vm._e(),
+              _vm._v("\r\n        Enviar correo de verificación\r\n      ")
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Luego de reenviar deberá esperar 3 minutos antes de volverlo a enviar."
+            )
+          ])
+        ])
       ]
     )
   ])

@@ -10,6 +10,7 @@ class AdminLocalCursosController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('can:cursoslocal.all');
     }
 
     public function index(Request $request)

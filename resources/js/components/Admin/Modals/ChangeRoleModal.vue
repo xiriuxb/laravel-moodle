@@ -5,7 +5,7 @@
             <div class="modal-container">
               <div class="modal-header">
                 <slot name="header">
-                  <strong>xD</strong>
+                  <strong>Opciones</strong>
                     <button class="btn" @click.prevent="$emit('close')">
                     <box-icon name='x'></box-icon>
                   </button>
@@ -25,8 +25,7 @@
                     </div>
                     <div class="form-group">
                       <select v-model="form.role" class="custom-select" :disabled="loading">
-                        <option value="2">Administrador</option>
-                        <option value="3">Usuario</option>
+                        <option v-for="role in roles" :value="role.name">{{role.name}}</option>
                       </select>
                     </div>
                   </form>
@@ -51,6 +50,10 @@ export default {
   props:{
     id: {
       type: String,
+      required: true
+    },
+    roles: {
+      type: Array,
       required: true
     }
   },
@@ -86,15 +89,15 @@ export default {
           oldRole: '',
         }
     },
-    async created(){
-      this.loading = true;
-        await axios.get('/api/admin/users/get-user-role',{params:{id:this.id}}).then(response => {
+    created(){
+        this.loading = true;
+        axios.get('/api/admin/users/get-user-role',{params:{id:this.id}}).then(response => {
             this.form.role = response.data.role;
             this.oldRole = response.data.role;
             this.loading = false;
         }).catch(error => {
             console.log(error);
-        })
+        });
     },
 };
 </script>

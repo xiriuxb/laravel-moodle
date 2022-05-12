@@ -92,9 +92,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -105,37 +102,51 @@ __webpack_require__.r(__webpack_exports__);
     ChangeRoleModal: _components_Admin_Modals_ChangeRoleModal_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   created: function created() {
+    var _this = this;
+
     this.loadUsers();
+    axios.get('/api/admin/roles').then(function (response) {
+      _this.roles = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
   },
   data: function data() {
     return {
       loadingInit: true,
+      roles: [],
       users: [],
       linksToPages: [],
       baseUrl: '/api/admin/users',
-      role: 0,
+      role: 999,
       search: '',
       setting: false,
       isModalVisible: false,
-      selectedUser: null
+      selectedUser: null,
+      usersDeleted: false,
+      usersSuspended: false,
+      totalResultados: 0
     };
   },
   methods: {
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this2 = this;
 
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseUrl;
       this.setting = true;
       axios.get(url, {
         params: {
           role: this.role,
-          keyword: this.search
+          keyword: this.search,
+          deleted: this.usersDeleted,
+          suspended: this.usersSuspended
         }
       }).then(function (response) {
-        _this.users = response.data.data;
-        _this.linksToPages = response.data.links;
-        _this.loadingInit = false;
-        _this.setting = false;
+        _this2.users = response.data.data;
+        _this2.linksToPages = response.data.links;
+        _this2.loadingInit = false;
+        _this2.setting = false;
+        _this2.totalResultados = response.data.total;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -220,11 +231,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: {
       type: String,
+      required: true
+    },
+    roles: {
+      type: Array,
       required: true
     }
   },
@@ -281,32 +295,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _this2.loading = true;
-              _context2.next = 3;
-              return axios.get('/api/admin/users/get-user-role', {
-                params: {
-                  id: _this2.id
-                }
-              }).then(function (response) {
-                _this2.form.role = response.data.role;
-                _this2.oldRole = response.data.role;
-                _this2.loading = false;
-              })["catch"](function (error) {
-                console.log(error);
-              });
-
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }))();
+    this.loading = true;
+    axios.get('/api/admin/users/get-user-role', {
+      params: {
+        id: this.id
+      }
+    }).then(function (response) {
+      _this2.form.role = response.data.role;
+      _this2.oldRole = response.data.role;
+      _this2.loading = false;
+    })["catch"](function (error) {
+      console.log(error);
+    });
   }
 });
 
@@ -329,7 +329,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849] {\n  padding: 1rem;\n}\n.container[data-v-2d9df849]{\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  align-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849]{\r\n  font-size: small;\n}\n#adminUsers[data-v-2d9df849] {\r\n  padding: 1rem;\n}\n.container[data-v-2d9df849]{\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -353,7 +353,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\n  position: fixed;\n  z-index: 600;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: table;\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\n  width: 300px;\n  margin: 0px auto;\n  background-color: #fff;\n  border-radius: 2px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\n  margin-top: 0;\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\n  margin:8px 0;\n}\n.modal-default-button[data-v-1ce68b09] {\n  float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-1ce68b09] {\n  opacity: 0;\n}\n.modal-leave-active[data-v-1ce68b09] {\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1ce68b09],\n.modal-leave-active .modal-container[data-v-1ce68b09] {\n  transform: scale(1.1);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\r\n  position: fixed;\r\n  z-index: 600;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\r\n  margin:8px 0;\n}\n.modal-default-button[data-v-1ce68b09] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1ce68b09],\r\n.modal-leave-active .modal-container[data-v-1ce68b09] {\r\n  transform: scale(1.1);\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1397,126 +1397,182 @@ var render = function() {
                   attrs: { disabled: _vm.setting }
                 },
                 [
-                  _c("div", { staticClass: "input-group-prepend" }, [
-                    _c(
-                      "select",
-                      {
+                  _c("div", [
+                    _c("label", [
+                      _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.role,
-                            expression: "role"
+                            value: _vm.usersDeleted,
+                            expression: "usersDeleted"
                           }
                         ],
-                        staticClass: "custom-select",
-                        attrs: { id: "roleSelect" },
+                        attrs: {
+                          type: "checkbox",
+                          name: "deletedFilter",
+                          id: "deletedFilter"
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.usersDeleted)
+                            ? _vm._i(_vm.usersDeleted, null) > -1
+                            : _vm.usersDeleted
+                        },
                         on: {
                           change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.role = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
+                            var $$a = _vm.usersDeleted,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.usersDeleted = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.usersDeleted = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.usersDeleted = $$c
+                            }
                           }
                         }
-                      },
-                      [
-                        _c("option", { attrs: { value: "0" } }, [
-                          _vm._v("Todos")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [
-                          _vm._v("Usuarios")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Administradores")
-                        ])
-                      ]
-                    )
+                      }),
+                      _vm._v("Eliminados")
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.search,
-                        expression: "search"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Buscar usuario",
-                      "aria-label": "Text input with dropdown button"
-                    },
-                    domProps: { value: _vm.search },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.search = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary",
-                        attrs: { type: "submit", id: "inputButtonSearch" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.loadUsers()
+                  _c("div", { staticClass: "input-group flex-row flex-wrap" }, [
+                    _c("div", { staticClass: "input-group-prepend" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.role,
+                              expression: "role"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          attrs: { id: "roleSelect" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.role = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
                           }
+                        },
+                        [
+                          _c("option", { attrs: { value: "999" } }, [
+                            _vm._v("Todos")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.roles, function(role) {
+                            return _c(
+                              "option",
+                              { domProps: { value: role.id } },
+                              [_vm._v(_vm._s(role.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search,
+                          expression: "search"
                         }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Buscar usuario",
+                        "aria-label": "Text input with dropdown button"
                       },
-                      [_vm._v("Buscar")]
-                    )
+                      domProps: { value: _vm.search },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group-append" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          attrs: { type: "submit", id: "inputButtonSearch" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.loadUsers()
+                            }
+                          }
+                        },
+                        [_vm._v("Buscar")]
+                      )
+                    ])
                   ])
                 ]
               ),
               _vm._v(" "),
-              _c("table", { staticClass: "table container" }, [
-                _c("thead", [
+              _c("div", [
+                _vm._v(
+                  "\n      Total Resultados: " +
+                    _vm._s(_vm.totalResultados) +
+                    "\n    "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table" },
+                [
                   _c("tr", [
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+                    _c("th", [_vm._v("Nombre")]),
                     _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+                    _c("th", [_vm._v("Email")]),
                     _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [
-                      _vm._v("Nombre usuario")
-                    ]),
+                    _c("th", [_vm._v("Nombre usuario")]),
                     _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [
-                      _vm._v("e-mail verificado?")
-                    ]),
+                    _c("th", [_vm._v("e-mail verificado?")]),
                     _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
+                    _c("th", [_vm._v("Acciones")])
+                  ]),
+                  _vm._v(" "),
                   _vm._l(_vm.users, function(user) {
                     return _c("tr", { key: user.username }, [
                       _c("td", [
-                        _c("p", [
-                          _vm._v(
-                            _vm._s(user.name) + " " + _vm._s(user.last_name)
-                          )
-                        ])
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(user.name) +
+                            " " +
+                            _vm._s(user.last_name) +
+                            "\n          "
+                        )
                       ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(user.email))]),
@@ -1533,7 +1589,8 @@ var render = function() {
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-outline-primary btn-acction",
+                            staticClass:
+                              "btn btn-outline-primary btn-acction border-0 p-0",
                             attrs: { title: "Editar" },
                             on: {
                               click: function($event) {
@@ -1543,23 +1600,13 @@ var render = function() {
                           },
                           [_c("box-icon", { attrs: { name: "edit-alt" } })],
                           1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-danger btn-acction",
-                            attrs: { title: "Eliminar" }
-                          },
-                          [_c("box-icon", { attrs: { name: "trash" } })],
-                          1
                         )
                       ])
                     ])
-                  }),
-                  0
-                )
-              ]),
+                  })
+                ],
+                2
+              ),
               _vm._v(" "),
               _c("nav", { attrs: { "aria-label": "..." } }, [
                 _c(
@@ -1607,7 +1654,7 @@ var render = function() {
       _vm._v(" "),
       _vm.isModalVisible
         ? _c("change-role-modal", {
-            attrs: { id: _vm.selectedUser },
+            attrs: { id: _vm.selectedUser, roles: this.roles },
             on: { close: _vm.closeModal }
           })
         : _vm._e()
@@ -1648,7 +1695,7 @@ var render = function() {
             [
               _vm._t("header", function() {
                 return [
-                  _c("strong", [_vm._v("xD")]),
+                  _c("strong", [_vm._v("Opciones")]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -1697,9 +1744,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                        " +
+                            "\r\n                        " +
                               _vm._s(_vm.errors.message) +
-                              "\n                  "
+                              "\r\n                  "
                           )
                         ]
                       )
@@ -1768,15 +1815,14 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("Administrador")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "3" } }, [
-                            _vm._v("Usuario")
-                          ])
-                        ]
+                        _vm._l(_vm.roles, function(role) {
+                          return _c(
+                            "option",
+                            { domProps: { value: role.name } },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        }),
+                        0
                       )
                     ])
                   ])
@@ -1811,7 +1857,7 @@ var render = function() {
                             attrs: { role: "status", "aria-hidden": "true" }
                           })
                         : _vm._e(),
-                      _vm._v("\n                    Aceptar")
+                      _vm._v("\r\n                    Aceptar")
                     ]
                   )
                 ]

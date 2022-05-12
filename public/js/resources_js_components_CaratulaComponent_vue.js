@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\n  content: \"\";\n  width: 100%;\n  height: 100%;\n  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\n  filter: brightness(56%);\n  position: absolute;\n  background-repeat: repeat;\n  z-index: 0;\n}\n.registro[data-v-4fb6ec1f] {\n  position: relative;\n  max-width: 500px;\n  margin-top: 60px;\n}\n.img-fluid[data-v-4fb6ec1f] {\n  min-height: 400px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.registro[data-v-4fb6ec1f] {\r\n  position: relative;\r\n  max-width: 500px;\r\n  margin-top: 60px;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

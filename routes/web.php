@@ -51,7 +51,7 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::get('/eliminar-cuenta', function(){
         return inertia('User/EliminarCuentaComponent');
-    })->middleware('auth')->name('eliminar-cuenta');
+    })->middleware('auth','can:user.deleteprofileview')->name('eliminar-cuenta');
 
     Route::post('/user/delete', 'App\Http\Controllers\UserController@deleteProfile')->name('user.delete');
     Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*']);
@@ -100,7 +100,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/payments',function ()
     {
         return inertia('payments/PaymentSelectorComponent');
-    })->name('payments');
+    })->middleware('auth')->name('payments');
 
     Route::get('not-found', function () {
         return inertia('NotFoundComponent');

@@ -483,7 +483,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.disabled {\r\n  pointer-events: none;\r\n  opacity: 0.5;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -507,7 +507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#datosP[data-v-3141addd] {\n  padding-top: 100px;\n}\n.card-header[data-v-3141addd] {\n  background-color: rgb(0 46 69);\n  color: white;\n}\n.card-header .card-title[data-v-3141addd] {\n  margin-bottom: 0;\n}\n.disabled[data-v-3141addd] {\n  pointer-events: none;\n  cursor: not-allowed;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#datosP[data-v-3141addd] {\r\n  padding-top: 100px;\n}\n.card-header[data-v-3141addd] {\r\n  background-color: rgb(0 46 69);\r\n  color: white;\n}\n.card-header .card-title[data-v-3141addd] {\r\n  margin-bottom: 0;\n}\n.disabled[data-v-3141addd] {\r\n  pointer-events: none;\r\n  cursor: not-allowed;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -848,7 +848,7 @@ var render = function() {
             "data-target": "#exampleModalCenter"
           }
         },
-        [_vm._v("\n    Cambiar correo\n  ")]
+        [_vm._v("\r\n    Cambiar correo\r\n  ")]
       )
     ]),
     _vm._v(" "),
@@ -892,9 +892,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n          " +
+                            "\r\n          " +
                               _vm._s(_vm.$page.props.errors.new_email) +
-                              "\n        "
+                              "\r\n        "
                           )
                         ]
                       )
@@ -903,7 +903,9 @@ var render = function() {
                   _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\n          " + _vm._s(_vm.message) + "\n        "
+                          "\r\n          " +
+                            _vm._s(_vm.message) +
+                            "\r\n        "
                         )
                       ])
                     : _vm._e(),
@@ -996,7 +998,7 @@ var render = function() {
                             "data-dismiss": "modal"
                           }
                         },
-                        [_vm._v("\n          Close\n        ")]
+                        [_vm._v("\r\n          Close\r\n        ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -1013,7 +1015,7 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("\n          Save changes\n          "),
+                          _vm._v("\r\n          Save changes\r\n          "),
                           _vm.form.processing
                             ? _c("span", {
                                 staticClass: "spinner-border spinner-border-sm",
@@ -1051,7 +1053,7 @@ var staticRenderFns = [
             staticClass: "text-xl font-medium leading-normal text-gray-800",
             attrs: { id: "exampleModalScrollableLabel" }
           },
-          [_vm._v("\n          Cambia tu correo electrónico\n        ")]
+          [_vm._v("\r\n          Cambia tu correo electrónico\r\n        ")]
         ),
         _vm._v(" "),
         _c(

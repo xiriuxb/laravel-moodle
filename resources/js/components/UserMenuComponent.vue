@@ -16,7 +16,7 @@
         <inertia-link as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500" :href="'/mis-cursos'">
           Ver mis cursos
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.role!='user'" as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500" :href="'admin'">
+        <inertia-link v-if="$page.props.auth.role!='user'" as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500" :href="'/admin/testimonials'">
           Seccion Admin
         </inertia-link>
         <div class="dropdown-divider my-0"></div>

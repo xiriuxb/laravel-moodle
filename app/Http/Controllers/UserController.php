@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matricula;
 use App\Models\MoodleCurso;
 use App\Models\User;
 use App\Notifications\EmailUpdatedNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
-use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        
+        $this->middleware('can:user.updates',['except' => ['index','matriculas']]);
+        $this->middleware('can:user.profiledata',['only' => ['index','matriculas']]);
     }
     /**
      *
@@ -42,7 +41,26 @@ class UserController extends Controller
         }
         $request->user()->update(['password' => Hash::make($request->new_password)]);
         //$request->user()->notify(new PasswordChanged($request->user()));
+        try {
+            $this->updateMoodlePassword($request->new_password,$request->user()->username);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors(['new_password'=>'Ocurrió un error']);
+        }
         return redirect()->back()->with('message', 'Contraseña cambiada correctamente');
+    }
+
+    protected function updateMoodlePassword(string $newPassword, string $username){
+        $userID = $this->getUserId($username);
+        $client = new \GuzzleHttp\Client();
+        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_update_users',
+                'users[0][id]' => $userID,
+                'users[0][password]'=>$newPassword,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
     }
 
     public function changeEmail(Request $request)
@@ -55,11 +73,30 @@ class UserController extends Controller
             'new_email' => 'required|unique:users,email|string|email',
         ]);
         if(!$is_valid){
-            return back()->withErrors(['context'=>'email','new-email'=>'El correo electrónico ya está en uso']);
+            return back()->withErrors(['context'=>'email','new_email'=>'El correo electrónico ya está en uso']);
         }
         $request->user()->update(['email' => $request->new_email]);
+        try {
+            $this->updateMoodleEmail($request->new_email,$request->user()->username);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors(['new_email'=>'Ocurrió un error']);
+        }
         $request->user()->notify(new EmailUpdatedNotification($request->new_email));
         return redirect()->back()->with('message', 'Dirección de correo cambiado correctamente');
+    }
+    
+    protected function updateMoodleEmail(string $newEmail, string $username){
+        $userID = $this->getUserId($username);
+        $client = new \GuzzleHttp\Client();
+        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_update_users',
+                'users[0][id]' => $userID,
+                'users[0][email]'=>$newEmail,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
     }
 
     public function matricula($curso)
@@ -107,18 +144,20 @@ class UserController extends Controller
         if (! Hash::check($request->password, Auth::user()->password)) {
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
         } else{
-            
-            $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
+            try {
+                $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
+            } catch (\Throwable $th) {
+            }
             $request->user()->update(['deleted' => true]);
-            $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time()]);
-            Auth::logout();
+                $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time()]);
+                Auth::logout();
             return redirect()->route('home')->with('message','Su perfil se eliminó correctamente');
         }
     }
 
     private function deleteUserFromMoodle(int $userID){
         $client = new \GuzzleHttp\Client();
-        $request = new Psr7Request('GET', env('MOODLE_WS_URL'), [
+        $request = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
                 'wstoken' => (string)env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_user_delete_users',
@@ -126,11 +165,6 @@ class UserController extends Controller
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
         ]);
-        $client->sendAsync($request)->then(
-            function ($response) {
-                dd($response->getBody());
-            }
-        );
     }
 
     /**
@@ -150,7 +184,11 @@ class UserController extends Controller
             ],'verify'=> false
         ]);
         $jsonResponse = json_decode($res->getBody());
-        return $jsonResponse[0]->id;
+        if(!empty($jsonResponse)){
+            return $jsonResponse[0]->id;
+        }else{
+            
+        }
     }
 
 }

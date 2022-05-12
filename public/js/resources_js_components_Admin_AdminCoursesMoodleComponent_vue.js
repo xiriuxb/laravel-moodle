@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adminCMoodle[data-v-41332dc9] {\n  padding: 1rem;\n}\n.container[data-v-41332dc9]{\n  display: flex;\n  position: relative;\n  flex-direction: column;\n  align-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adminCMoodle[data-v-41332dc9] {\r\n  padding: 1rem;\n}\n.container[data-v-41332dc9]{\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

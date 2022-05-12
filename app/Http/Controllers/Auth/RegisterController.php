@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Psr7\Request as Psr7Request;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class RegisterController extends Controller
 {
@@ -28,18 +31,16 @@ class RegisterController extends Controller
 
     use RegistersUsers;
     //crea el username. Ejemplo: John Doe -> jdoe, si hay mas con ese nombre se crean como jdoe1, jdoe2, etc.
-    protected static function setUsernameAttribute($name, $lastname)
+    protected function setUsernameAttribute($name, $lastname)
     {
         $firstName = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE',strtolower($name) );
         $lastName = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE',strtolower($lastname) );
         $username =  iconv('ISO-8859-1','UTF-8', $firstName[0] . $lastName);
-        $i = 0;
-        while(User::whereUsername($username)->exists())
-        {
-            $i++;
-            $username = $username . $i;
+        $users_same_username = User::where('username','LIKE',$username.'%')->count();
+        if($users_same_username==0){
+            return $username;
         }
-        return$username;
+        return $username.$users_same_username;
     }
 
     /**
@@ -75,6 +76,7 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
+        $username = $this->setUsernameAttribute($request->name,$request->last_name);
         $request-> validate( [
             'name' => ['required', 'string', 'max:16', 'alpha'],
             'last_name' => ['required', 'string', 'max:16','alpha'],
@@ -86,10 +88,27 @@ class RegisterController extends Controller
             'last_name'=>$request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'username'=> RegisterController::setUsernameAttribute($request->name,$request->last_name),
+            'username'=> $username,
         ])->assignRole('user');
         event(new Registered($user));
         $this->guard()->login($user);
+        $this->createMoodleUser($request,$username);
         return Redirect::route('verification.notice');
+    }
+
+    private function createMoodleUser(Request $request, string $username){
+        $client = new \GuzzleHttp\Client();
+        $guzzleRequest = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_create_users',
+                'users[0][username]'=>$username,
+                'users[0][password]'=> $request->password,
+                'users[0][firstname]'=>$request->name,
+                'users[0][lastname]'=>$request->last_name,
+                'users[0][email]'=> $request->email,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
     }
 }

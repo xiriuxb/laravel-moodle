@@ -11,6 +11,7 @@ class AdminMoodleCursosController extends Controller
 
     public function __construct()
     {
+        $this->middleware('can:cursosmoodle.getcursos', ['only' => ['store']]);
     }
 
     public function index(Request $request)

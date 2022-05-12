@@ -159,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#reset-password[data-v-8a114902] {\n  padding-top: 100px;\n  margin-bottom: 1rem;\n}\n#reset-password .card-form[data-v-8a114902] {\n  display: flex;\n  justify-content: center;\n  padding-bottom: 50px;\n}\n#reset-password .card-form .card[data-v-8a114902] {\n  width: 500px;\n  max-width: 500px;\n}\n.alert.alert-danger[data-v-8a114902] {\n  top: 0.2rem;\n  padding-top: 0.2rem;\n  padding-bottom: 0.2rem;\n  margin-bottom: 0;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#reset-password[data-v-8a114902] {\r\n  padding-top: 100px;\r\n  margin-bottom: 1rem;\n}\n#reset-password .card-form[data-v-8a114902] {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding-bottom: 50px;\n}\n#reset-password .card-form .card[data-v-8a114902] {\r\n  width: 500px;\r\n  max-width: 500px;\n}\n.alert.alert-danger[data-v-8a114902] {\r\n  top: 0.2rem;\r\n  padding-top: 0.2rem;\r\n  padding-bottom: 0.2rem;\r\n  margin-bottom: 0;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

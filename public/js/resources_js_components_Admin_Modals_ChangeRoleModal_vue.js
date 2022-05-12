@@ -77,11 +77,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     id: {
       type: String,
+      required: true
+    },
+    roles: {
+      type: Array,
       required: true
     }
   },
@@ -138,32 +141,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _this2.loading = true;
-              _context2.next = 3;
-              return axios.get('/api/admin/users/get-user-role', {
-                params: {
-                  id: _this2.id
-                }
-              }).then(function (response) {
-                _this2.form.role = response.data.role;
-                _this2.oldRole = response.data.role;
-                _this2.loading = false;
-              })["catch"](function (error) {
-                console.log(error);
-              });
-
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }))();
+    this.loading = true;
+    axios.get('/api/admin/users/get-user-role', {
+      params: {
+        id: this.id
+      }
+    }).then(function (response) {
+      _this2.form.role = response.data.role;
+      _this2.oldRole = response.data.role;
+      _this2.loading = false;
+    })["catch"](function (error) {
+      console.log(error);
+    });
   }
 });
 
@@ -186,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\n  position: fixed;\n  z-index: 600;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: table;\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\n  display: table-cell;\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\n  width: 300px;\n  margin: 0px auto;\n  background-color: #fff;\n  border-radius: 2px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\n  transition: all 0.3s ease;\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\n  margin-top: 0;\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\n  margin:8px 0;\n}\n.modal-default-button[data-v-1ce68b09] {\n  float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-1ce68b09] {\n  opacity: 0;\n}\n.modal-leave-active[data-v-1ce68b09] {\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1ce68b09],\n.modal-leave-active .modal-container[data-v-1ce68b09] {\n  transform: scale(1.1);\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\r\n  position: fixed;\r\n  z-index: 600;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\r\n  margin:8px 0;\n}\n.modal-default-button[data-v-1ce68b09] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1ce68b09],\r\n.modal-leave-active .modal-container[data-v-1ce68b09] {\r\n  transform: scale(1.1);\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1094,7 +1083,7 @@ var render = function() {
             [
               _vm._t("header", function() {
                 return [
-                  _c("strong", [_vm._v("xD")]),
+                  _c("strong", [_vm._v("Opciones")]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -1143,9 +1132,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                        " +
+                            "\r\n                        " +
                               _vm._s(_vm.errors.message) +
-                              "\n                  "
+                              "\r\n                  "
                           )
                         ]
                       )
@@ -1214,15 +1203,14 @@ var render = function() {
                             }
                           }
                         },
-                        [
-                          _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("Administrador")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "3" } }, [
-                            _vm._v("Usuario")
-                          ])
-                        ]
+                        _vm._l(_vm.roles, function(role) {
+                          return _c(
+                            "option",
+                            { domProps: { value: role.name } },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        }),
+                        0
                       )
                     ])
                   ])
@@ -1257,7 +1245,7 @@ var render = function() {
                             attrs: { role: "status", "aria-hidden": "true" }
                           })
                         : _vm._e(),
-                      _vm._v("\n                    Aceptar")
+                      _vm._v("\r\n                    Aceptar")
                     ]
                   )
                 ]

@@ -17,7 +17,7 @@ class AdminTestimonioController extends Controller
         $this->middleware('can:testimonial.create', ['only' => ['store']]);
         $this->middleware('can:testimonial.delete', ['only' => ['destroy']]);
         $this->middleware('can:testimonial.edit', ['only' => ['update']]);
-        $this->middleware('can:testimonial.edit', ['only' => ['index', 'show']]);
+        $this->middleware('can:testimonial.read', ['only' => ['index', 'show']]);
     }
     /**
      *

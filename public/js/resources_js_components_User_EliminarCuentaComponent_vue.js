@@ -82,7 +82,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#deleteProfile[data-v-1f86d83b] {\n    padding:120px 50px 50px 50px;\n}\n#currentPassword[data-v-1f86d83b] {\n    max-width:300px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#deleteProfile[data-v-1f86d83b] {\r\n    padding:120px 50px 50px 50px;\n}\n#currentPassword[data-v-1f86d83b] {\r\n    max-width:300px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -13,7 +13,7 @@ class CreatePagoTable extends Migration
      */
     public function up()
     {
-        Schema::create('pagos', function (Blueprint $table) {
+        Schema::create('pago', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('metodo_pago_id');
             $table->float('amount');

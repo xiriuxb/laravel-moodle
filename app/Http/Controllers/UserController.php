@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MoodleServicesTrait;
 use App\Models\MoodleCurso;
 use App\Models\User;
 use App\Notifications\EmailUpdatedNotification;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use MoodleServicesTrait;
     public function __construct()
     {
         $this->middleware('can:user.updates',['except' => ['index','matriculas']]);
@@ -50,7 +52,7 @@ class UserController extends Controller
     }
 
     protected function updateMoodlePassword(string $newPassword, string $username){
-        $userID = $this->getUserId($username);
+        $userID = MoodleServicesTrait::getUserId($username);
         $client = new \GuzzleHttp\Client();
         $request = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
@@ -86,9 +88,9 @@ class UserController extends Controller
     }
     
     protected function updateMoodleEmail(string $newEmail, string $username){
-        $userID = $this->getUserId($username);
+        $userID = MoodleServicesTrait::getUserId($username);
         $client = new \GuzzleHttp\Client();
-        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+        $request = $client->request('POST', env('MOODLE_WS_URL'), [
             'query' => [
                 'wstoken' => (string)env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_user_update_users',
@@ -145,7 +147,7 @@ class UserController extends Controller
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
         } else{
             try {
-                $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
+                $this->deleteUserFromMoodle(MoodleServicesTrait::getUserId($request->user()->username));
             } catch (\Throwable $th) {
             }
             $request->user()->update(['deleted' => true]);
@@ -166,29 +168,4 @@ class UserController extends Controller
             ],'verify'=> false
         ]);
     }
-
-    /**
-     *
-     * @param  string  $username
-     * @return int
-     */
-    private function getUserId(string $userName){
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
-            'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
-                'wsfunction' => 'core_user_get_users_by_field',
-                'field' => 'username',
-                'values[0]' => $userName,
-                'moodlewsrestformat' => 'json',
-            ],'verify'=> false
-        ]);
-        $jsonResponse = json_decode($res->getBody());
-        if(!empty($jsonResponse)){
-            return $jsonResponse[0]->id;
-        }else{
-            
-        }
-    }
-
 }

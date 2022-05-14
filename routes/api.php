@@ -99,6 +99,7 @@ Route::group(['middleware'=>['api']],function(){
 
     Route::get('payment-methods', 'App\Http\Controllers\PaymentMethodsController@index');
 
+    Route::get('paypal-data', 'App\Http\Controllers\PaymentMethodsController@getPaypalData');
 
 });
 

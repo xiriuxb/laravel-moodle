@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
         $response = parent::render($request, $e);
 
        if ($response->getStatusCode() === 419) {
-            return back()->with([
+            return back()->withErrors([
                 'message' => 'The page expired, please try again.',
             ]);
         // } else if ($response->getStatusCode() === 401) {

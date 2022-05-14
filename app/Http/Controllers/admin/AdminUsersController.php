@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\MoodleServicesTrait;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ use phpDocumentor\Reflection\Types\Boolean;
 
 class AdminUsersController extends Controller
 {
-
+    use MoodleServicesTrait;
     private $su_admin_name='su_admin';
     public function __construct()
     {
@@ -101,7 +102,7 @@ class AdminUsersController extends Controller
     }
     
     public function suspendOnMoodle(string $userName, int $suspended ){
-        $userMoodleId = $this->getUserId($userName);
+        $userMoodleId = MoodleServicesTrait::getUserId($userName);
         
         $client = new \GuzzleHttp\Client();
         try {
@@ -122,22 +123,4 @@ class AdminUsersController extends Controller
         return response()->json(['message' => 'El usuario ha sido suspendido', 'status' => 200]);
     }
     
-    private function getUserId(string $userName){
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
-            'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
-                'wsfunction' => 'core_user_get_users_by_field',
-                'field' => 'username',
-                'values[0]' => $userName,
-                'moodlewsrestformat' => 'json',
-            ],'verify'=> false
-        ]);
-        $jsonResponse = json_decode($res->getBody());
-        if(!empty($jsonResponse)){
-            return $jsonResponse[0]->id;
-        }else{
-            
-        }
-    }
 }

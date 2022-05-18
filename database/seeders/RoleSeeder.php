@@ -31,7 +31,6 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'user.profiledata'])->syncRoles(['user','su_admin','admin','suspended']);
         Permission::create(['name' => 'user.deleteprofileview'])->syncRoles(['user','su_admin','admin']);
         // Matriculas actions
-        Permission::create(['name' => 'matricula.getcomponent'])->syncRoles(['user','su_admin','admin']);
         Permission::create(['name' => 'matricula.generarmatricula'])->syncRoles(['user','su_admin','admin']);
         // Admin CursosLocal actions
         Permission::create(['name' => 'cursoslocal.all'])->syncRoles(['su_admin','admin']);

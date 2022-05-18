@@ -7,7 +7,7 @@ trait MoodleServicesTrait {
      * @param  string  $username
      * @return int
      */
-    private function getUserId(string $userName){
+    public function getUserId(string $userName){
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
@@ -24,5 +24,24 @@ trait MoodleServicesTrait {
         }else{
             
         }
+    }
+
+    public function getCourseFromMoodle($shortname)
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_course_get_courses_by_field',
+                //Recive los datos del curso especificado desde la API de moodle
+                'field' => 'shortname',
+                'value' => $shortname,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
+        $json = json_decode($res->getBody());
+            $curso_aux = $json->courses;
+            return $curso_aux[0];
+        
     }
 }

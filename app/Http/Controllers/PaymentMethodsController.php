@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MoodleServicesTrait;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 
 class PaymentMethodsController extends Controller
 {
+    use MoodleServicesTrait;
     public function index()
     {
         $paymentMethods = PaymentMethod::where('active', 1)->get();
@@ -20,8 +22,20 @@ class PaymentMethodsController extends Controller
             'client_id' => (string) env('PAYPAL_CLIENT_ID'),
             'currency' => (string) env('PAYPAL_CURRENCY'),
             'buyer_country' => (string) env('PAYPAL_BUYER_COUNTRY'),
-            'locale' => (string) env('PAYPAL_locale'),
+            'locale' => (string) env('PAYPAL_LOCALE'),
         ];
         return response()->json( $datos);   
+    }
+
+    public function depositoTransferenciaPaymentData($curso_id){
+        $curso_aux = $this->getCourseFromMoodle($curso_id);
+        $curso_data = ['shortname'=>$curso_aux->shortname,'fullname'=>$curso_aux->fullname, 'precio'=>$curso_aux->customfields[1]->value];
+        $paymentData = [
+            'user'=>str_replace('_',' ',(string)env('TRANSFER_NAME')) ,
+            'user_id'=>(string)env('TRANSFER_ID'),
+            'user_account'=>(string)env('TRANSFER_ACCOUNT'),
+            'user_bank'=>str_replace('_',' ',(string)env('TRANSFER_BANK')) ,
+        ];
+        return inertia('payments/DepositoTransferenciaComponent',['pago_data'=>$paymentData, 'curso_data'=>$curso_data]);
     }
 }

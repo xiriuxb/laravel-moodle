@@ -102,7 +102,7 @@ class AdminUsersController extends Controller
     }
     
     public function suspendOnMoodle(string $userName, int $suspended ){
-        $userMoodleId = MoodleServicesTrait::getUserId($userName);
+        $userMoodleId = $this->getUserId($userName);
         
         $client = new \GuzzleHttp\Client();
         try {

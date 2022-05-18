@@ -14,7 +14,7 @@ class Matricula extends Model
         return $this->belongsTo(Curso::class,'moodle_id');
     }
 
-    public function usuario()
+    public function username()
     {
         return $this->belongsTo(User::class,'username');
     }
@@ -26,6 +26,7 @@ class Matricula extends Model
         'usuario_id',
         'curso_moodle_id',
         'pago_id',
+        'username',
     ];
 
     protected $hidden = [

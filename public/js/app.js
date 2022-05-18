@@ -4638,11 +4638,14 @@ vue__WEBPACK_IMPORTED_MODULE_7__.default.component('inertia-link', _inertiajs_in
     }).$mount(el);
   }
 });
-_inertiajs_progress__WEBPACK_IMPORTED_MODULE_6__.InertiaProgress.init(); // new Vue({
-//     el: '#app',
-//     router: router,
-//     store: store,
-// });
+_inertiajs_progress__WEBPACK_IMPORTED_MODULE_6__.InertiaProgress.init({
+  showSpinner: true
+});
+Inertia.on('progress', function (event) {
+  if (event.detail.progress.percentage) {
+    NProgress.set(event.detail.progress.percentage / 100 * 0.9);
+  }
+});
 
 /***/ }),
 
@@ -76103,6 +76106,14 @@ var map = {
 	"./auth/VerificationSendView.vue": [
 		"./resources/js/components/auth/VerificationSendView.vue"
 	],
+	"./payments/DepositoTransferenciaComponent": [
+		"./resources/js/components/payments/DepositoTransferenciaComponent.vue",
+		"resources_js_components_payments_DepositoTransferenciaComponent_vue"
+	],
+	"./payments/DepositoTransferenciaComponent.vue": [
+		"./resources/js/components/payments/DepositoTransferenciaComponent.vue",
+		"resources_js_components_payments_DepositoTransferenciaComponent_vue"
+	],
 	"./payments/PaymentSelectorComponent": [
 		"./resources/js/components/payments/PaymentSelectorComponent.vue",
 		"resources_js_components_payments_PaymentSelectorComponent_vue"
@@ -76305,7 +76316,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_CommentCard_vue":1,"resources_js_components_ExampleComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_LoginT_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_SearchComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_Modals_EmailModalSlot_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_PaymentSelectorComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_CommentCard_vue":1,"resources_js_components_ExampleComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_LoginT_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_SearchComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_Modals_EmailModalSlot_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentSelectorComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

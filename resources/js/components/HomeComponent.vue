@@ -131,38 +131,6 @@ export default {
     components: { CursosSmComponent,CaratulaComponent },
     watch: {
     },
-    beforeCreate(){
-        console.log('message2 beforeCreate: ' + this.message2);
-        if(this.message2 != ''){
-            this.$toast.open({
-              message: "beforCreate",
-              type: "error",
-              duration: 5000,
-            })
-        }
-    },
-    created(){
-        console.log('message2 created: ' + this.message2);
-    },
-    beforeMount(){
-        console.log('message2 beforeMount: ' + this.message2);
-    },
-    mounted(){
-        console.log('message2 mounted: ' + this.message2);
-    },
-    beforeUpdate(){
-        console.log('message2 beforeUpdate: ' + this.message2);
-    },
-    updated(){
-        console.log('message2 updated: ' + this.message2);
-    },
-    beforeDestroy(){
-        console.log('message2 beforeDestroy: ' + this.message2);
-    },
-    destroyed(){
-        console.log('message2 destroyed: ' + this.message2);
-    }
-
 }
 </script>
 

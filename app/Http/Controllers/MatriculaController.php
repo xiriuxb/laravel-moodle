@@ -6,14 +6,15 @@ use App\Models\Curso;
 use App\Models\Matricula;
 use App\Models\MoodleCurso;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Cursos;
+use App\Http\Traits\MoodleServicesTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pago;
-use Inertia\Inertia;
-use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Storage;
 
 class MatriculaController extends Controller
 {
+
+    use MoodleServicesTrait;
 
     public function __construct()
     {
@@ -26,14 +27,16 @@ class MatriculaController extends Controller
      */
     public function index($curso_id)
     {
-        $curso = $this->getFromMoodle($curso_id);
+        $curso = $this->makeCourseFromMoodleData($curso_id);
         if ($curso == []) {
             return inertia('NotFoundComponent');
         }
-        //return inertia('views/Curso',['status' => 'ok', 'curso' => $curso], 200);	
         if (Auth::check()) {
             if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id]])->exists()) {
                 return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => true]);
+            }
+            if(Matricula::where([['username', Auth::user()->username], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id',3]])->exists()){
+                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'pago' => true]);
             }
             if ($curso->price == 0) {
                 return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula-free']);
@@ -45,15 +48,6 @@ class MatriculaController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,9 +56,9 @@ class MatriculaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function storeF(Request $request)
+    public function storeFree(Request $request)
     {
-        $curso_aux = $this->getFromMoodle($request->shortname);
+        $curso_aux = $this->makeCourseFromMoodleData($request->shortname);
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
@@ -90,9 +84,9 @@ class MatriculaController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function storePaypalOrCreditCard(Request $request)
     {
-        $curso_aux = $this->getFromMoodle($request->shortname);
+        $curso_aux = $this->makeCourseFromMoodleData($request->shortname);
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
@@ -140,89 +134,45 @@ class MatriculaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Matricula $matricula)
+    public function storeDepositoTransferencia(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Matricula $matricula)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Matricula $matricula)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Matricula $matricula)
-    {
-        //
-    }
-
-    /**
-     * Get the specified resource from moodle.
-     *
-     * @param  String  $shortname
-     * @return MoodleCurso if found if not empty array
-     */
-    private function getFromMoodle($shortname)
-    {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
-            'query' => [
-                'wstoken' => '9b2f731935a54e126809b497bd231bd8',
-                'wsfunction' => 'core_course_get_courses_by_field',
-                //Recive los datos del curso especificado desde la API de moodle
-                'field' => 'shortname',
-                'value' => $shortname,
-                'moodlewsrestformat' => 'json',
-            ], 'verify' => false
-        ]);
-        $json = json_decode($res->getBody());
-        if (empty($json->courses)) {
-            return [];
+        $curso_aux = $this->makeCourseFromMoodleData($request->curso_id);
+        if ($curso_aux == []) {
+            return inertia('NotFoundComponent');
         }
-        if (!$json->courses[0]->visible) {
-            return [];
+        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])->exists()) {
+            return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
         }
-        return $this->makeCourseFromMoodleData($json->courses[0]);
+        if ($curso_aux->price > 0) {
+            $curso = Curso::firstOrCreate(
+                ['shortname' => $request->curso_id],
+                ['moodle_id'=> $curso_aux->moodle_id,'fullname' => $curso_aux->fullname, 'shortname' => $curso_aux->shortname, 'category' => $curso_aux->category, 'destacado' => false]
+            );
+            $curso->save();
+            $time = time();
+            $temp_id = $temp_id = Curso::where('id', $curso->id)->get()->first()->id;
+            $pago = $this->storePago($request, $time, 3);
+            try{
+                $matricula = new Matricula();
+                $matricula->curso_id = $temp_id;
+                $matricula->username = Auth::user()->username;
+                $matricula->curso_moodle_id = $curso->moodle_id;
+                $matricula->estado_matricula_id = 3;
+                $matricula->pago_id = $pago->id;
+                $matricula->save();
+                return redirect('/curso/'.$request->curso_id)->with(['curso' => $curso, 'matriculado' => true]);
+            }
+            catch (\Exception $e) {
+                return redirect()->back()->withErrors('Ocurrió un error en la matrícula');
+            }
+        } else {
+            return redirect()->back()->withErrors('message', 'ocurrio un error xD');
+        }
     }
 
-    /**
-     * Make a course from the data from moodle
-     *
-     * @param  Object  $data
-     * @return MoodleCurso
-     */
-
-    private function makeCourseFromMoodleData($curso_aux)
+    private function makeCourseFromMoodleData($shortname)
     {
+        $curso_aux = $this->getCourseFromMoodle($shortname);
         $curso = new MoodleCurso(
             $curso_aux->id,
             $curso_aux->fullname,
@@ -235,5 +185,26 @@ class MatriculaController extends Controller
             //'destacado' => $json->courses[0]->customfields[3]->value,
         );
         return $curso;
+    }
+
+    private function storePago(Request $request, $nombre_archivo, int $metodo_pago_id){
+        $pago_id = $metodo_pago_id == 3? Auth::user()->username.'_'.$nombre_archivo : $request->payment_id;
+        try{
+            $pago = new Pago();
+            $pago->metodo_pago_id = $metodo_pago_id;
+            $pago->amount = $request->amount;
+            $pago->currency = $request->currency;
+            $pago->payment_status = $request->payment_status;
+            $pago->payment_id = $pago_id;
+            $pago->payer_id = $request->payer_id;
+            $pago->payer_email = $request->payer_email;
+            $pago->payer_name = $request->payer_name;
+            $pago->transaction_id = $request->transaction_id;
+            $pago->file = 'pago_'.Auth::user()->username.'_'.$nombre_archivo;
+            $pago->save();
+            return $pago;
+        }catch (\Exception $e){
+            return redirect()->back()->withErrors('Ocurrió un error en el pago');
+        }
     }
 }

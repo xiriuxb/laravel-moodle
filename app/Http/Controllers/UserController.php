@@ -52,7 +52,7 @@ class UserController extends Controller
     }
 
     protected function updateMoodlePassword(string $newPassword, string $username){
-        $userID = MoodleServicesTrait::getUserId($username);
+        $userID = $this->getUserId($username);
         $client = new \GuzzleHttp\Client();
         $request = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
@@ -88,7 +88,7 @@ class UserController extends Controller
     }
     
     protected function updateMoodleEmail(string $newEmail, string $username){
-        $userID = MoodleServicesTrait::getUserId($username);
+        $userID = $this->getUserId($username);
         $client = new \GuzzleHttp\Client();
         $request = $client->request('POST', env('MOODLE_WS_URL'), [
             'query' => [
@@ -111,7 +111,7 @@ class UserController extends Controller
 
     public function matriculas(){
         $userID = Auth::user()->id;
-        return inertia('User/CursosUserComponent',['data' => User::find($userID)->cursos()->get()]);
+        return inertia('User/CursosUserComponent',['data' => User::find($userID)->cursos()->where('fullname','LIKE','%'.request('b').'%')->get()]);
     }
 
     public function update(Request $request)
@@ -147,7 +147,7 @@ class UserController extends Controller
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
         } else{
             try {
-                $this->deleteUserFromMoodle(MoodleServicesTrait::getUserId($request->user()->username));
+                $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
             } catch (\Throwable $th) {
             }
             $request->user()->update(['deleted' => true]);

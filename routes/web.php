@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');
     Route::post('/matricula', 'App\Http\Controllers\MatriculaController@store')->name('matricula');
+    Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula-dep-transf');
     
     Route::get('/cursos/{category?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursess');
 
@@ -93,7 +94,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
 
-    Route::post('/update-user','App\Http\COntrollers\UserController@update')->middleware('auth');
+    Route::post('/update-user','App\Http\Controllers\UserController@update')->middleware('auth');
 
     Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
 
@@ -109,5 +110,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('post-test', function () {
         return back()->withErrors(['message' => 'Error al enviar el formulario']);
     });
+
+    Route::get('/pago-deposito-transferencia/{curso_id}', 'App\Http\Controllers\PaymentMethodsController@depositoTransferenciaPaymentData')->where(['curso_id' => '.*'])->middleware('auth')->name('deposito-transferencia');
 
 });

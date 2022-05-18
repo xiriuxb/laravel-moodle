@@ -1,15 +1,21 @@
 <template>
   <div id="misCursos" class="container">
-    <h2>Mis cursos</h2>
+    <h2 class="text-2xl">Mis cursos <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span></h2>
+    <form action="#" @submit.prevent="busquedaCurso">
+      <input v-model="termino_busqueda" type="search" class="form-control" placeholder="Buscar curso">
+      <button type="submit" class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200" :disabled="this.loading">
+        <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
+        Buscar
+      </button>
+    </form>
     <div class="container">
       <table class="table">
         <tbody>
           <tr v-for="curso in data" :key="curso.shortname">
-            <td>{{ curso.fullname }}</td>
             <td>{{ curso.category }}</td>
             <td>
-              <inertia-link :href="'/curso/'+curso.shortname" >
-                <button class="btn btn-primary">Ver en este sitio</button>
+              <inertia-link class="text-blue-700" :href="'/curso/'+curso.shortname" >
+                {{ curso.fullname }}
               </inertia-link>
             </td>
             <td>
@@ -26,8 +32,13 @@
 
 <script>
 import Home from "../views/Home.vue";
+import { Inertia } from '@inertiajs/inertia'
+import LoadingComponent from "../LoadingComponent.vue";
 export default {
   layout: Home,
+  components: {
+    LoadingComponent,
+  },
   props: {
     data: {
       type: Array,
@@ -37,19 +48,25 @@ export default {
   data() {
     return {
       misCursos: [],
-      loading: true,
+      loading: false,
+      termino_busqueda: '',
     };
-  },
-  async created() {
-    // await axios.get("/api/user/matriculas").then((response) => {
-    //   this.misCursos = response.data.data;
-    //   this.loading = false;
-    // });
   },
   methods: {
       redirectToMoodle(cursoShortname){
-            window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name='+cursoShortname;
-        },
+        window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name='+cursoShortname;
+      },
+      busquedaCurso(){
+        if(this.termino_busqueda.length >=2 || this.termino_busqueda === ""){
+          this.loading = true;
+          Inertia.visit('/mis-cursos?b='+this.termino_busqueda, 
+          {only: ['data'], onStart: () => {
+            this.loading = true;
+          }, onComplete: () => {
+            this.loading = false;
+          }});
+        }
+      },
   },
 };
 </script>

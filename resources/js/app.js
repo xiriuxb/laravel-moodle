@@ -68,9 +68,12 @@ createInertiaApp({
     },
   });
 
-  InertiaProgress.init();
-// new Vue({
-//     el: '#app',
-//     router: router,
-//     store: store,
-// });
+  InertiaProgress.init({
+    showSpinner: true,
+  });
+
+  Inertia.on('progress', (event) => {
+    if (event.detail.progress.percentage) {
+      NProgress.set((event.detail.progress.percentage / 100) * 0.9)
+    }
+  })

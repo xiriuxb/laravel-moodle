@@ -198,39 +198,7 @@ __webpack_require__.r(__webpack_exports__);
     CursosSmComponent: _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     CaratulaComponent: _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  watch: {},
-  beforeCreate: function beforeCreate() {
-    console.log('message2 beforeCreate: ' + this.message2);
-
-    if (this.message2 != '') {
-      this.$toast.open({
-        message: "beforCreate",
-        type: "error",
-        duration: 5000
-      });
-    }
-  },
-  created: function created() {
-    console.log('message2 created: ' + this.message2);
-  },
-  beforeMount: function beforeMount() {
-    console.log('message2 beforeMount: ' + this.message2);
-  },
-  mounted: function mounted() {
-    console.log('message2 mounted: ' + this.message2);
-  },
-  beforeUpdate: function beforeUpdate() {
-    console.log('message2 beforeUpdate: ' + this.message2);
-  },
-  updated: function updated() {
-    console.log('message2 updated: ' + this.message2);
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log('message2 beforeDestroy: ' + this.message2);
-  },
-  destroyed: function destroyed() {
-    console.log('message2 destroyed: ' + this.message2);
-  }
+  watch: {}
 });
 
 /***/ }),

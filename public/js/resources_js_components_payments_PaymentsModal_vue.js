@@ -313,7 +313,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _paypal_paypal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @paypal/paypal-js */ "./node_modules/@paypal/paypal-js/dist/esm/paypal-js.js");
-/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -342,16 +344,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   data: function data() {
     return {
-      curso: {},
-      loading: true
+      curso: this.$parent.$page.props.curso.shortname,
+      loading: true,
+      paypalData: {}
     };
   },
   methods: {
@@ -366,10 +376,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return (0,_paypal_paypal_js__WEBPACK_IMPORTED_MODULE_1__.loadScript)({
-                  "client-id": "AVHOaY81YacxtP77iqiJvu2EV5RE5KRKZSfotE06iB-iyfBoYDb-d-3etrTAQd11c8eCLv5gcp6arRAG",
-                  "currency": "USD",
-                  "buyer-country": "EC",
-                  "locale": "es_EC",
+                  "client-id": _this.paypalData.client_id,
+                  "currency": _this.paypalData.currency,
+                  "buyer-country": _this.paypalData.buyer_country,
+                  "locale": _this.paypalData.locale,
                   "commit": true
                 });
 
@@ -477,21 +487,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _this2.loadPaypalButtons();
+    this.loading = true;
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/paypal-data/").then(function (response) {
+      _this2.paypalData = response.data;
+      console.log(_this2.curso);
+      _this2.loading = false;
 
-            case 2:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }))();
+      _this2.loadPaypalButtons();
+    });
   }
 });
 
@@ -1479,7 +1482,48 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "div",
+                { staticClass: "modal-body relative p-4" },
+                [
+                  _vm.loading
+                    ? _c("loading-component", {
+                        attrs: { position: "relative" }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { attrs: { id: "paypal-button-container" } }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "inertia-link",
+                        {
+                          staticClass:
+                            "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
+                          attrs: {
+                            as: _vm.button,
+                            href: "/pago-deposito-transferencia/" + this.curso
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\r\n          Depósito/Transferencia Bancaria "
+                          ),
+                          _c("box-icon", {
+                            staticClass: "fill-orange-400 fixed",
+                            attrs: { name: "right-arrow-alt" }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ]
           )
         ]
@@ -1487,16 +1531,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body relative p-4" }, [
-      _c("div", { attrs: { id: "paypal-button-container" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -1,14 +1,20 @@
 <template>
+
   <div class="d-flex justify-content-center">
     <button v-if="!logged" class="btn btn-primary" v-on:click="matricula">
       <span v-if="!loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Inscribirses ({{ price }})
+      Inscribirse ({{ price }})
     </button>
+    <div v-else>
+      <div v-if="pago && !matriculado">
+        <p>Su matricula está siendo procesada.</p>
+      </div>
+      <button v-else class="btn btn-primary" v-on:click.prevent="em" :disabled="loading">
+        <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <div v-html="buttonMessage"></div>
+      </button>
+    </div>
 
-    <button v-else class="btn btn-primary" v-on:click.prevent="em" :disabled="loading">
-      <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      <div v-html="buttonMessage"></div>
-    </button>
   <payments-modal v-if="modalVisible" @close="closeModal"></payments-modal>
   </div>
 </template>
@@ -35,6 +41,10 @@ export default {
     ruta: {
       type: String,
       default: "",
+    },
+    pago: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -72,7 +82,7 @@ export default {
   },
   methods: {
     matricula() {
-      console.log(this.ruta);
+      this.loading = true;
       if (!this.logged) {
         this.$toast.open({message: "Debe estar logueado para poder matricularse",position: "top",type: "warning",});
       } else {
@@ -88,7 +98,8 @@ export default {
             }
           );
         } else {
-          this.modalVisible = true;
+            this.modalVisible = true;
+            this.loading = false;
         }
       }
     },

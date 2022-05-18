@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\MoodleServicesTrait;
 use App\Models\CategoriaCurso;
 use App\Models\MoodleCurso;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 
 class Cursos extends Controller
 {
+    use MoodleServicesTrait;
     public function __construct()
     {
     }
@@ -141,25 +143,12 @@ class Cursos extends Controller
 // // GROUP BY instanceid
     public function show($curso_id, $field = 'shortname')
     {
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
-            'query' => [
-                'wstoken' => env('MOODLE_WS_TOKEN'),
-                'wsfunction' => 'core_course_get_courses_by_field',
-                //Recive los datos del curso especificado desde la API de moodle
-                'field' => $field,
-                'value' => $curso_id,
-                'moodlewsrestformat' => 'json',
-            ],'verify'=> false
-        ]);
-        $json = json_decode($res->getBody());
-        if (empty($json->courses) ) {
+        $curso_aux = MoodleServicesTrait::getCourseFromModle();
+        if ($curso_aux==[] ) {
             return redirect('/not-found')->withErrors(['message' => 'No existe el curso']);
-        } elseif(!$json->courses[0]->visible){
+        } elseif(!$curso_aux->visible){
             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
         } else {
-            $curso_aux = $json->courses[0];
-            //dd($curso_aux);
             $curso = new MoodleCurso(
                 $curso_aux->id,
                 $curso_aux->fullname,
@@ -169,7 +158,6 @@ class Cursos extends Controller
                 $curso_aux->categoryname,
                 str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
                 $curso_aux->customfields[2]->value,
-                //'destacado' => $json->courses[0]->customfields[3]->value,
             );
             return inertia('MatriculaComponent',['status' => 'ok', 'curso' => $curso]);	
         }

@@ -13,13 +13,17 @@ class CreatePagoTable extends Migration
      */
     public function up()
     {
-        Schema::create('pago', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('metodo_pago_id');
             $table->float('amount');
             $table->string('currency');
-            $table->string('status');
-            $table->string('transaction_id');
+            $table->string('payment_status')->nullable();
+            $table->string('payment_id')->nullable();
+            $table->string('payer_id')->nullable();
+            $table->string('payer_email')->nullable();
+            $table->string('payer_name')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->string('file')->nullable();
             $table->foreign('metodo_pago_id')->references('id')->on('payment_methods');
             $table->timestamps();

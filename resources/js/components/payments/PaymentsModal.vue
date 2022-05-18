@@ -12,7 +12,13 @@
       </div>
       <div class="modal-body relative p-4">
         <!-- Body -->
+        <loading-component v-if="loading" :position="'relative'"></loading-component>
         <div id="paypal-button-container"></div>
+        <div>
+          <inertia-link :as="button" :href="'/pago-deposito-transferencia/'+this.curso"  class="relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white">
+          Depósito/Transferencia Bancaria <box-icon class="fill-orange-400 fixed" name='right-arrow-alt'></box-icon>
+          </inertia-link>
+        </div>
         <!-- /Body -->
       </div>
     </div>
@@ -22,24 +28,27 @@
 
 <script>
 import { loadScript } from "@paypal/paypal-js";
+import axios from "axios";
 import LoadingComponent from "../LoadingComponent.vue";
 
 export default {
   components: { LoadingComponent },
   data() {
     return {
-      curso: {},
+      curso: this.$parent.$page.props.curso.shortname,
       loading: true,
+      paypalData: {
+      },
     };
   },
   methods:{
     async loadPaypalButtons(){
       const paypalSdk = await loadScript({
       "client-id":
-          "AVHOaY81YacxtP77iqiJvu2EV5RE5KRKZSfotE06iB-iyfBoYDb-d-3etrTAQd11c8eCLv5gcp6arRAG",
-        "currency": "USD",
-        "buyer-country": "EC",
-        "locale": "es_EC",
+          this.paypalData.client_id,
+        "currency": this.paypalData.currency,
+        "buyer-country": this.paypalData.buyer_country,
+        "locale": this.paypalData.locale,
           "commit":true,
     });
     if (paypalSdk) {
@@ -96,8 +105,15 @@ export default {
     }
     }
   },
-  async mounted() {
-    await this.loadPaypalButtons();
+
+  mounted() {
+    this.loading = true;
+    axios.get("/api/paypal-data/").then((response) => {
+      this.paypalData = response.data;
+      console.log(this.curso);
+      this.loading = false;
+      this.loadPaypalButtons();
+    });
   },
 }; 
 </script>

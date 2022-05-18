@@ -14,6 +14,7 @@ use Illuminate\Validation\ValidationException;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -107,6 +108,7 @@ class RegisterController extends Controller
                 'users[0][firstname]'=>$request->name,
                 'users[0][lastname]'=>$request->last_name,
                 'users[0][email]'=> $request->email,
+                'users[0][idnumber]'=>Auth::user()->id,
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
         ]);

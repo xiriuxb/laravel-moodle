@@ -1497,27 +1497,30 @@ var render = function() {
                   _c(
                     "div",
                     [
-                      _c(
-                        "inertia-link",
-                        {
-                          staticClass:
-                            "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
-                          attrs: {
-                            as: _vm.button,
-                            href: "/pago-deposito-transferencia/" + this.curso
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\r\n          Depósito/Transferencia Bancaria "
-                          ),
-                          _c("box-icon", {
-                            staticClass: "fill-orange-400 fixed",
-                            attrs: { name: "right-arrow-alt" }
-                          })
-                        ],
-                        1
-                      )
+                      !_vm.loading
+                        ? _c(
+                            "inertia-link",
+                            {
+                              staticClass:
+                                "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
+                              attrs: {
+                                as: _vm.button,
+                                href:
+                                  "/pago-deposito-transferencia/" + this.curso
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n          Depósito/Transferencia Bancaria "
+                              ),
+                              _c("box-icon", {
+                                staticClass: "fill-orange-400 fixed",
+                                attrs: { name: "right-arrow-alt" }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
                     ],
                     1
                   )

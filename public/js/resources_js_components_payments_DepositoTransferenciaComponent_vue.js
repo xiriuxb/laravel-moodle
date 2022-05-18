@@ -53,6 +53,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -61,8 +67,12 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    pago_data: {
+    account_pago_data: {
       type: Object
+    },
+    pago: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
@@ -272,135 +282,149 @@ var render = function() {
     _c("h3", { staticClass: "text-2xl" }, [
       _vm._v("Pago por Transferencia/Depósito")
     ]),
-    _vm._v(
-      "\r\n    Para realizar el pago por transferencia o depósito debe realizar la transacción en su lugar preferido y luego añadir la foto del documento de la transacción en el formulario que está mas abajo.\r\n    "
-    ),
-    _c("div", [
-      _vm._v(
-        "Luego de esto su pago será verificado por un administrador y realizará la inscripción."
-      )
-    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "m-6", attrs: { id: "userData" } }, [
-      _c("div", [_vm._v("El pago debe realizarse a la siguiente cuenta:")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("b", [_vm._v("Institución Financiera: ")]),
-        _vm._v(_vm._s(_vm.pago_data.user_bank))
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("b", [_vm._v("Número de cuenta: ")]),
-        _vm._v(_vm._s(_vm.pago_data.user_account))
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("b", [_vm._v("Nombre: ")]),
-        _vm._v(_vm._s(_vm.pago_data.user))
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("b", [_vm._v("Cédula: ")]),
-        _vm._v(_vm._s(_vm.pago_data.user_id))
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { attrs: { id: "pagoForm" } }, [
-      _c("div", { staticClass: "border-2 border-blue-800 rounded-sm" }, [
-        _c(
-          "form",
-          {
-            attrs: { action: "#", method: "post" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.matricula.apply(null, arguments)
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
-                _c("label", { attrs: { for: "nombreCurso" } }, [
-                  _vm._v("Curso")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "nombreCurso",
-                    placeholder: "Nombre Completo",
-                    disabled: ""
-                  },
-                  domProps: { value: _vm.curso_data.fullname }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
-                _c("label", { attrs: { for: "precioCurso" } }, [
-                  _vm._v("Precio")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "precioCurso",
-                    placeholder: "Nombre Completo",
-                    disabled: ""
-                  },
-                  domProps: { value: _vm.curso_data.precio }
-                })
-              ])
+    _vm.pago
+      ? _c("div", [
+          _vm._v("\r\n        Usted ya ha pagado por este curso "),
+          _c("b", [_vm._v(_vm._s(_vm.curso_data.fullname))]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Debe esperar a que un administrador revise sus datos.")
+          ])
+        ])
+      : _c("div", [
+          _vm._v(
+            "\r\n        Para realizar el pago por transferencia o depósito debe realizar la transacción en su lugar preferido y luego añadir la foto del documento de la transacción en el formulario que está mas abajo.\r\n        "
+          ),
+          _c("div", [
+            _vm._v(
+              "Luego de esto su pago será verificado por un administrador y realizará la inscripción."
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "m-6", attrs: { id: "userData" } }, [
+            _c("div", [
+              _vm._v("El pago debe realizarse a la siguiente cuenta:")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "comprobantePagoFile" } }, [
-                _vm._v("Foto del comprobante:")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  accept: ".png,.jpg,.jpeg",
-                  id: "comprobantePagoFile",
-                  required: ""
-                },
-                on: {
-                  input: function($event) {
-                    _vm.form.file = $event.target.files[0]
-                  }
-                }
-              })
+            _c("div", [
+              _c("b", [_vm._v("Institución Financiera: ")]),
+              _vm._v(_vm._s(_vm.account_pago_data.user_bank))
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
+            _c("div", [
+              _c("b", [_vm._v("Número de cuenta: ")]),
+              _vm._v(_vm._s(_vm.account_pago_data.user_account))
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("b", [_vm._v("Nombre: ")]),
+              _vm._v(_vm._s(_vm.account_pago_data.user))
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("b", [_vm._v("Cédula: ")]),
+              _vm._v(_vm._s(_vm.account_pago_data.user_id))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "pagoForm" } }, [
+            _c("div", { staticClass: "border-2 border-blue-800 rounded-sm" }, [
               _c(
-                "button",
+                "form",
                 {
-                  staticClass:
-                    "btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200",
-                  attrs: { type: "submit", disabled: _vm.loading }
+                  attrs: { action: "#", method: "post" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.matricula.apply(null, arguments)
+                    }
+                  }
                 },
                 [
-                  _vm.loading
-                    ? _c("span", {
-                        staticClass: "spinner-border spinner-border-sm",
-                        attrs: { role: "status", "aria-hidden": "true" }
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
+                      _c("label", { attrs: { for: "nombreCurso" } }, [
+                        _vm._v("Curso")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "nombreCurso",
+                          placeholder: "Nombre Completo",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.curso_data.fullname }
                       })
-                    : _vm._e(),
-                  _vm._v(
-                    "\r\n                            Aceptar\r\n                        "
-                  )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
+                      _c("label", { attrs: { for: "precioCurso" } }, [
+                        _vm._v("Precio")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "precioCurso",
+                          placeholder: "Nombre Completo",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.curso_data.precio }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "comprobantePagoFile" } }, [
+                      _vm._v("Foto del comprobante:")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control-file",
+                      attrs: {
+                        type: "file",
+                        accept: ".png,.jpg,.jpeg",
+                        id: "comprobantePagoFile",
+                        required: ""
+                      },
+                      on: {
+                        input: function($event) {
+                          _vm.form.file = $event.target.files[0]
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200",
+                        attrs: { type: "submit", disabled: _vm.loading }
+                      },
+                      [
+                        _vm.loading
+                          ? _c("span", {
+                              staticClass: "spinner-border spinner-border-sm",
+                              attrs: { role: "status", "aria-hidden": "true" }
+                            })
+                          : _vm._e(),
+                        _vm._v(
+                          "\r\n                                Aceptar\r\n                            "
+                        )
+                      ]
+                    )
+                  ])
                 ]
               )
             ])
-          ]
-        )
-      ])
-    ])
+          ])
+        ])
   ])
 }
 var staticRenderFns = []

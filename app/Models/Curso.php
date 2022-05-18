@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Curso extends Model
 {
     use HasFactory;
+    protected $table= 'curso';
 
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'matriculas', 'curso_id', 'usuario_id')->withTimestamps();
-    // }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'matricula', 'curso_id', 'username')->withTimestamps();
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -33,6 +34,5 @@ class Curso extends Model
         'created_at',
         'updated_at',
         'id',
-        'matriculas',
     ];
 }

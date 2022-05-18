@@ -46,6 +46,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -344,29 +347,35 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.redirectToMoodle(curso.shortname)
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { staticClass: "align-middle" }, [
-                      _vm._v(" Ver en Moodle")
-                    ]),
-                    _vm._v(" "),
-                    _c("box-icon", {
-                      staticClass: "align-middle",
-                      attrs: { name: "link-external", color: "#fff" }
-                    })
-                  ],
-                  1
-                )
+                curso.pivot.estado_matricula_id == 3
+                  ? _c("div", { staticClass: "text-red-700" }, [
+                      _vm._v(
+                        "\n               Su matrícula esta pendiente. \n            "
+                      )
+                    ])
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.redirectToMoodle(curso.shortname)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { staticClass: "align-middle" }, [
+                          _vm._v(" Ver en Moodle")
+                        ]),
+                        _vm._v(" "),
+                        _c("box-icon", {
+                          staticClass: "align-middle",
+                          attrs: { name: "link-external", color: "#fff" }
+                        })
+                      ],
+                      1
+                    )
               ])
             ])
           }),

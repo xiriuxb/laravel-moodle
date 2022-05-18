@@ -50,7 +50,8 @@ export default {
         {name:'Testimonios', component:'testimonials'},
         {name:'Cursos', component:'cursos'},
         {name:'Cursos Moodle', component:'cursos-moodle'},
-        {name:'Usuarios',component: 'users'}
+        {name:'Usuarios',component: 'users'},
+        {name:'Matriculas Pendientes',component: 'matriculas-pendientes'}
       ]
     };
   },

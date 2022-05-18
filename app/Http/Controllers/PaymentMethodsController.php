@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Traits\MoodleServicesTrait;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
+use App\Models\Matricula;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentMethodsController extends Controller
 {
@@ -36,6 +38,10 @@ class PaymentMethodsController extends Controller
             'user_account'=>(string)env('TRANSFER_ACCOUNT'),
             'user_bank'=>str_replace('_',' ',(string)env('TRANSFER_BANK')) ,
         ];
-        return inertia('payments/DepositoTransferenciaComponent',['pago_data'=>$paymentData, 'curso_data'=>$curso_data]);
+        if(Matricula::where([['username', Auth::user()->username], ['curso_moodle_id', $curso_aux->id], ['estado_matricula_id',3]])->exists()){
+            return inertia('payments/DepositoTransferenciaComponent', ['curso_data' => $curso_data, 'pago' => true]);
+        }else{
+            return inertia('payments/DepositoTransferenciaComponent',['account_pago_data'=>$paymentData, 'curso_data'=>$curso_data]);
+        }
     }
 }

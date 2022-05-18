@@ -40,10 +40,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/users', function(){
             return inertia('Admin/AdminUsersComponent');
         })->middleware('can:admin.home');
+        Route::get('/matriculas-pendientes', function(){
+            return inertia('Admin/AdminMatriculasPendientesComponent');
+        })->middleware('can:admin.home');
     });
     
     Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');
-    Route::post('/matricula', 'App\Http\Controllers\MatriculaController@store')->name('matricula');
+    Route::post('/matricula', 'App\Http\Controllers\MatriculaController@storePaypalOrCreditCard')->name('matricula');
     Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula-dep-transf');
     
     Route::get('/cursos/{category?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursess');

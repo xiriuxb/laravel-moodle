@@ -19,7 +19,10 @@
               </inertia-link>
             </td>
             <td>
-              <button class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">
+              <div v-if="curso.pivot.estado_matricula_id==3" class="text-red-700">
+                 Su matrícula esta pendiente. 
+              </div>
+              <button v-else class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">
                  <span class="align-middle"> Ver en Moodle</span> <box-icon class="align-middle" name='link-external' color="#fff"></box-icon>
               </button>
             </td>

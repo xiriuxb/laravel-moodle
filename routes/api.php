@@ -31,6 +31,7 @@ Route::group(['middleware'=>['api']],function(){
         Route::post('/users/change-role', 'App\Http\Controllers\admin\AdminUsersController@changeRole');
         Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole');
         Route::get('/roles', 'App\Http\Controllers\admin\RolesController@index');
+        Route::get('/matriculas-pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');

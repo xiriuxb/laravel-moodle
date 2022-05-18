@@ -9,17 +9,18 @@ class Matricula extends Model
 {
     use HasFactory;
 
+    protected $table= 'matricula';
     public function cursos()
     {
-        return $this->belongsTo(Curso::class,'moodle_id');
+        return $this->belongsTo(Curso::class,'curso_id');
     }
 
     public function username()
     {
-        return $this->belongsTo(User::class,'username');
+        return $this->belongsTo(User::class,'usuario_id');
     }
     public function pago(){
-        return $this->hasOne(Pago::class,'id');
+        return $this->belongsTo(Pago::class,'pago_id');
     }
     protected $fillable = [
         'curso_id',
@@ -30,9 +31,6 @@ class Matricula extends Model
     ];
 
     protected $hidden = [
-        'created_at',
         'updated_at',
-        'id',
-        'pago_id',
     ];
 }

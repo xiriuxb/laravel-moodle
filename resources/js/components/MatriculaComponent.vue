@@ -1,11 +1,10 @@
 <template>
 
-  <div class="d-flex justify-content-center">
+  <div>
     <button v-if="!logged" class="btn btn-primary" v-on:click="matricula">
-      <span v-if="!loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Inscribirse ({{ price }})
     </button>
-    <div v-else>
+    <div class="d-flex justify-content-center" v-else>
       <div v-if="pago && !matriculado">
         <p>Su matricula está siendo procesada.</p>
       </div>
@@ -15,7 +14,7 @@
       </button>
     </div>
 
-  <payments-modal v-if="modalVisible" @close="closeModal"></payments-modal>
+    <payments-modal v-if="modalVisible" @close="closeModal"></payments-modal>
   </div>
 </template>
 
@@ -46,6 +45,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    verificado: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -53,7 +56,7 @@ export default {
       loading: false,
       btnDisabled: true,
       modalVisible: false,
-      payment_form: {
+      payment_form: this.$inertia.form({
         amount: "",
         currency: "",
         payment_method: "",	
@@ -64,7 +67,8 @@ export default {
         payer_name: "",
         transaction_id: "",
         file: "",
-      },
+        curso_id: this.curso.shortname,
+      }),
     };
   },
   beforeCreate() {
@@ -82,24 +86,29 @@ export default {
   },
   methods: {
     matricula() {
-      this.loading = true;
       if (!this.logged) {
         this.$toast.open({message: "Debe estar logueado para poder matricularse",position: "top",type: "warning",});
       } else {
-        if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00"|| this.payment_form.payment_id != "") {
-          this.$inertia.post(this.ruta,{ shortname: this.curso.shortname, payment_form: this.payment_form  },
-            {
-              onStart: () => {this.loading = true;},
-              onSuccess: () => (this.loading = false),
-              onError: () => {
-                this.loading = false;
-                this.$toast.open({message: "Error, intente nuevamente", position: "top", type: "error",});
-              },
-            }
-          );
-        } else {
-            this.modalVisible = true;
-            this.loading = false;
+        if(!this.verificado){
+          this.$toast.open({message: "Debe verificar su correo para poder matricularse",position: "top",type: "warning",});
+        }else{
+          this.loading = true;
+
+          if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00"|| this.payment_form.payment_id != "") {
+            this.payment_form.post(this.ruta,
+              {
+                onStart: () => {this.loading = true;},
+                onSuccess: () => (this.loading = false),
+                onError: () => {
+                  this.loading = false;
+                  this.$toast.open({message: "Error, intente nuevamente", position: "top", type: "error",});
+                },
+              }
+            );
+          } else {
+              this.modalVisible = true;
+              this.loading = false;
+          }
         }
       }
     },

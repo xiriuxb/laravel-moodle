@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-// use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements MustVerifyEmail/*, JWTSubject*/
 {
     use HasFactory, Notifiable, HasRoles;
+    protected $table= 'users';
 
     public function cursos()
     {
-        return $this->belongsToMany(Curso::class, 'matriculas', 'usuario_id', 'curso_id')->as('matriculas')->withTimestamps();
+        return $this->belongsToMany(Curso::class, 'matricula', 'usuario_id', 'curso_id', 'id', 'id')->withPivot('estado_matricula_id');
     }
     /**
      * The attributes that are mass assignable.

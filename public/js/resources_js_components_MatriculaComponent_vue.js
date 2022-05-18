@@ -333,7 +333,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -361,6 +360,10 @@ __webpack_require__.r(__webpack_exports__);
     pago: {
       type: Boolean,
       "default": false
+    },
+    verificado: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
@@ -369,7 +372,7 @@ __webpack_require__.r(__webpack_exports__);
       loading: false,
       btnDisabled: true,
       modalVisible: false,
-      payment_form: {
+      payment_form: this.$inertia.form({
         amount: "",
         currency: "",
         payment_method: "",
@@ -379,8 +382,9 @@ __webpack_require__.r(__webpack_exports__);
         payer_email: "",
         payer_name: "",
         transaction_id: "",
-        file: ""
-      }
+        file: "",
+        curso_id: this.curso.shortname
+      })
     };
   },
   beforeCreate: function beforeCreate() {
@@ -398,8 +402,6 @@ __webpack_require__.r(__webpack_exports__);
     matricula: function matricula() {
       var _this = this;
 
-      this.loading = true;
-
       if (!this.logged) {
         this.$toast.open({
           message: "Debe estar logueado para poder matricularse",
@@ -407,30 +409,37 @@ __webpack_require__.r(__webpack_exports__);
           type: "warning"
         });
       } else {
-        if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00" || this.payment_form.payment_id != "") {
-          this.$inertia.post(this.ruta, {
-            shortname: this.curso.shortname,
-            payment_form: this.payment_form
-          }, {
-            onStart: function onStart() {
-              _this.loading = true;
-            },
-            onSuccess: function onSuccess() {
-              return _this.loading = false;
-            },
-            onError: function onError() {
-              _this.loading = false;
-
-              _this.$toast.open({
-                message: "Error, intente nuevamente",
-                position: "top",
-                type: "error"
-              });
-            }
+        if (!this.verificado) {
+          this.$toast.open({
+            message: "Debe verificar su correo para poder matricularse",
+            position: "top",
+            type: "warning"
           });
         } else {
-          this.modalVisible = true;
-          this.loading = false;
+          this.loading = true;
+
+          if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00" || this.payment_form.payment_id != "") {
+            this.payment_form.post(this.ruta, {
+              onStart: function onStart() {
+                _this.loading = true;
+              },
+              onSuccess: function onSuccess() {
+                return _this.loading = false;
+              },
+              onError: function onError() {
+                _this.loading = false;
+
+                _this.$toast.open({
+                  message: "Error, intente nuevamente",
+                  position: "top",
+                  type: "error"
+                });
+              }
+            });
+          } else {
+            this.modalVisible = true;
+            this.loading = false;
+          }
         }
       }
     },
@@ -1716,23 +1725,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "d-flex justify-content-center" },
     [
       !_vm.logged
         ? _c(
             "button",
             { staticClass: "btn btn-primary", on: { click: _vm.matricula } },
-            [
-              !_vm.loading
-                ? _c("span", {
-                    staticClass: "spinner-border spinner-border-sm",
-                    attrs: { role: "status", "aria-hidden": "true" }
-                  })
-                : _vm._e(),
-              _vm._v("\n    Inscribirse (" + _vm._s(_vm.price) + ")\n  ")
-            ]
+            [_vm._v("\n    Inscribirse (" + _vm._s(_vm.price) + ")\n  ")]
           )
-        : _c("div", [
+        : _c("div", { staticClass: "d-flex justify-content-center" }, [
             _vm.pago && !_vm.matriculado
               ? _c("div", [
                   _c("p", [_vm._v("Su matricula está siendo procesada.")])
@@ -1876,27 +1876,30 @@ var render = function() {
                   _c(
                     "div",
                     [
-                      _c(
-                        "inertia-link",
-                        {
-                          staticClass:
-                            "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
-                          attrs: {
-                            as: _vm.button,
-                            href: "/pago-deposito-transferencia/" + this.curso
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\r\n          Depósito/Transferencia Bancaria "
-                          ),
-                          _c("box-icon", {
-                            staticClass: "fill-orange-400 fixed",
-                            attrs: { name: "right-arrow-alt" }
-                          })
-                        ],
-                        1
-                      )
+                      !_vm.loading
+                        ? _c(
+                            "inertia-link",
+                            {
+                              staticClass:
+                                "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
+                              attrs: {
+                                as: _vm.button,
+                                href:
+                                  "/pago-deposito-transferencia/" + this.curso
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n          Depósito/Transferencia Bancaria "
+                              ),
+                              _c("box-icon", {
+                                staticClass: "fill-orange-400 fixed",
+                                attrs: { name: "right-arrow-alt" }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
                     ],
                     1
                   )

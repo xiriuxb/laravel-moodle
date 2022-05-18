@@ -13,7 +13,7 @@ class CreateMatriculasTable extends Migration
      */
     public function up()
     {
-        Schema::create('matriculas', function (Blueprint $table) {
+        Schema::create('matricula', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('curso_id')->unsigned();
             $table->bigInteger('usuario_id')->unsigned()->nullable();
@@ -22,9 +22,9 @@ class CreateMatriculasTable extends Migration
             $table->bigInteger('estado_matricula_id')->unsigned();
             $table->bigInteger('pago_id')->unsigned()->nullable();
             $table->foreign('pago_id')->references('id')->on('pago');
-            $table->foreign('curso_id')->references('id')->on('cursos');
-            $table->foreign('username')->references('username')->on('users');
-            $table->foreign('estado_matricula_id')->references('id')->on('estado_matriculas');
+            $table->foreign('curso_id')->references('id')->on('curso');
+            $table->foreign('username')->references('username')->on('user');
+            $table->foreign('estado_matricula_id')->references('id')->on('estado_matricula');
             $table->timestamps();
         });
     }
@@ -36,6 +36,6 @@ class CreateMatriculasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matriculas');
+        Schema::dropIfExists('matricula');
     }
 }

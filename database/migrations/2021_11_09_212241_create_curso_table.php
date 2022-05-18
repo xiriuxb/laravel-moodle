@@ -13,7 +13,7 @@ class CreateCursoTable extends Migration
      */
     public function up()
     {
-        Schema::create('cursos', function (Blueprint $table) {
+        Schema::create('curso', function (Blueprint $table) {
             $table->id();
             $table->integer('moodle_id')->unsigned()->unique();
             $table->string('fullname',255);

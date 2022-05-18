@@ -9,6 +9,8 @@ class PaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $table= 'payment_method'; 
+
     public function matriculas()
     {
         return $this->belongsToMany(Matricula::class);

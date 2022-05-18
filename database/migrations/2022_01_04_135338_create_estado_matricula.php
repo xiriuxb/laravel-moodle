@@ -13,7 +13,7 @@ class CreateEstadoMatricula extends Migration
      */
     public function up()
     {
-        Schema::create('estado_matriculas', function (Blueprint $table) {
+        Schema::create('estado_matricula', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 50);
             $table->string('descripcion', 100);

@@ -27,12 +27,12 @@ class MatriculaController extends Controller
      */
     public function index($curso_id)
     {
-        $user_verified = Auth::user()->email_verified_at==null?false:true;
         $curso = $this->makeCourseFromMoodleData($curso_id);
         if ($curso == []) {
             return inertia('NotFoundComponent');
         }
         if (Auth::check()) {
+            $user_verified = Auth::user()->email_verified_at==null?false:true;
             //Si el usuario ya está matriculado
             if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id',1]])->exists()) {
                 return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => true]);

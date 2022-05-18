@@ -31,7 +31,7 @@ trait MoodleServicesTrait {
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_course_get_courses_by_field',
                 //Recive los datos del curso especificado desde la API de moodle
                 'field' => 'shortname',

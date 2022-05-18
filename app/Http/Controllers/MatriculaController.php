@@ -18,7 +18,6 @@ class MatriculaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:matricula.getcomponent');
     }
     /**
      * Display a listing of the resource.

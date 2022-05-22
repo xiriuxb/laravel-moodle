@@ -151,7 +151,7 @@ class UserController extends Controller
             } catch (\Throwable $th) {
             }
             $request->user()->update(['deleted' => true]);
-                $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time()]);
+                $request->user()->update(['email' => $request->user()->email.'_'.'deleted_'.time(),'password' => '$deleted_'.time()]);
                 Auth::logout();
             return redirect()->route('home')->with('message','Su perfil se eliminó correctamente');
         }

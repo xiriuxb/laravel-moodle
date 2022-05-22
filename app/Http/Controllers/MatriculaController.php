@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Ui\AuthRouteMethods;
+use App\Models\User;
+use App\Notifications\NewPagoDepositoNotification;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Notification;
 
 class MatriculaController extends Controller
 {
@@ -141,16 +145,22 @@ class MatriculaController extends Controller
             );
             $curso->save();
             $time = time();
-            $temp_id = $temp_id = Curso::where('id', $curso->id)->get()->first()->id;
             $pago = $this->storePago($request, $time, 3);
             try{
                 $matricula = new Matricula();
-                $matricula->curso_id = $temp_id;
+                $matricula->curso_id = $curso->id;
                 $matricula->usuario_id = Auth::user()->id;
                 $matricula->curso_moodle_id = $curso->moodle_id;
                 $matricula->estado_matricula_id = 3;
                 $matricula->pago_id = $pago->id;
                 $matricula->save();
+                $admin_users_emails = User::role(['admin','su_admin'])->select('email')->get();
+                foreach ($admin_users_emails as $admin_user_email) {
+
+                    Notification::route('mail' , $admin_user_email->email) //Sending mail to subscriber
+                          ->notify(new NewPagoDepositoNotification()); //With new post
+                }
+                unset($admin_users_emails);
                 return redirect('/curso/'.$request->curso_id)->with(['curso' => $curso, 'matriculado' => true]);
             }
             catch (\Exception $e) {
@@ -185,8 +195,14 @@ class MatriculaController extends Controller
     }
 
     private function storePago(Request $request, $nombre_archivo, int $metodo_pago_id){
-        $pago_id = $metodo_pago_id == 3? Auth::user()->username.'_'.$nombre_archivo : $request->payment_id;
-        $file = $metodo_pago_id == 3? 'pago_'.Auth::user()->username.'_'.$nombre_archivo : null;
+        if($metodo_pago_id == 3){
+            $pago_id = Auth::user()->username.'_'.$nombre_archivo;
+            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.'.jpg';
+            $path = Storage::putFileAs('pagos', $request->file, $file_name);
+        }else{
+            $pago_id = $request->payment_id;
+            $path = null;
+        }
         try{
             $pago = new Pago();
             $pago->metodo_pago_id = $metodo_pago_id;
@@ -198,7 +214,7 @@ class MatriculaController extends Controller
             $pago->payer_email = $request->payer_email;
             $pago->payer_name = $request->payer_name;
             $pago->transaction_id = $request->transaction_id;
-            $pago->file = $file;
+            $pago->file = $path;
             $pago->save();
             return $pago;
         }catch (\Exception $e){

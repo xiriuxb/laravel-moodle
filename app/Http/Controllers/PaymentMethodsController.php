@@ -38,7 +38,7 @@ class PaymentMethodsController extends Controller
             'user_account'=>(string)env('TRANSFER_ACCOUNT'),
             'user_bank'=>str_replace('_',' ',(string)env('TRANSFER_BANK')) ,
         ];
-        if(Matricula::where([['username', Auth::user()->username], ['curso_moodle_id', $curso_aux->id], ['estado_matricula_id',3]])->exists()){
+        if(Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id], ['estado_matricula_id',3]])->exists()){
             return inertia('payments/DepositoTransferenciaComponent', ['curso_data' => $curso_data, 'pago' => true]);
         }else{
             return inertia('payments/DepositoTransferenciaComponent',['account_pago_data'=>$paymentData, 'curso_data'=>$curso_data]);

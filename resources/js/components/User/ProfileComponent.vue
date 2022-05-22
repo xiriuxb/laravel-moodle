@@ -34,118 +34,56 @@
                 <div class="row">
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputName">Nombre</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputName"
-                      placeholder="Nombre Completo"
-                      disabled
-                      :value="fullname"
-                    />
+                    <input type="text" class="form-control" id="inputName" placeholder="Nombre Completo" disabled
+                      :value="fullname" />
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputUsername">Nombre de usuario</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputUsername"
-                      placeholder="Nombre de usuario"
-                      :value="user.username"
-                      readonly
-                    />
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Nombre de usuario"
+                      :value="user.username" readonly />
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputEmail">Correo electrónico</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="inputEmail"
-                      placeholder="Correo electrónico"
-                      disabled
-                      :value="user.email"
-                    />
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" disabled
+                      :value="user.email" />
                     <change-email-modal-2></change-email-modal-2>
                     <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showEmailModal()">Cambiar correo</a> -->
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputPassword">Contraseña</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="inputPassword"
-                      placeholder="Contraseña"
-                      value="********"
-                      disabled
-                      readonly
-                    />
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña"
+                      value="********" disabled readonly />
                     <change-password-modal-2></change-password-modal-2>
                     <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showPasswordModal()">Cambiar contraseña</a> -->
                   </div>
                 </div>
                 <div class="row">
                   <div class="from-group col-12 col-sm-6">
-                    <country-select
-                      v-model="form.country"
-                      class="form-control"
-                      name="country"
-                      id="country"
-                      placeholder="País"
-                      :whiteList="['EC']"
-                      :countryName="true"
-                      :autocomplete="true"
-                      :removePlaceholder="false"
-                      :country="user.country"
-                    />
+                    <country-select v-model="form.country" class="form-control" name="country" id="country"
+                      placeholder="País" :whiteList="['EC']" :countryName="true" :autocomplete="true"
+                      :removePlaceholder="false" :country="user.country" />
                   </div>
                   <div class="form-group col-12 col-sm-6">
-                    <region-select
-                      v-model="form.region"
-                      :region="user.region"
-                      class="form-control"
-                      defaultRegion="EC"
-                      :regionName="true"
-                      name="region"
-                      id="region"
-                      placeholder="Provincia"
-                      :disabled="!form.country"
-                    />
+                    <region-select v-model="form.region" :region="user.region" class="form-control" defaultRegion="EC"
+                      :regionName="true" name="region" id="region" placeholder="Provincia" :disabled="!form.country" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="fechaNacimiento">Día de nacimiento</label>
-                  <input
-                    v-model="form.birth_day"
-                    type="date"
-                    class="form-control"
-                    placeholder="Fecha de nacimiento"
-                  />
+                  <input v-model="form.birth_day" type="date" class="form-control" placeholder="Fecha de nacimiento" />
                   <!-- Errors -->
-                  <div
-                    v-if="$page.props.errors.birth_day != null"
-                    class="alert alert-danger"
-                  >
+                  <div v-if="$page.props.errors.birth_day != null" class="alert alert-danger">
                     {{ $page.props.errors.birth_day }}
                   </div>
                 </div>
                 <div>
-                  <button
-                    type="submit"
-                    class="
-                      btn btn-pimary
-                      bg-sky-700
-                      text-slate-200
-                      hover:bg-sky-900 hover:text-slate-200
-                    "
-                    :disabled="enableButton || this.loading"
-                  >
-                    <span
-                      class="spinner-border spinner-border-sm"
-                      v-if="loading"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+                  <button type="submit"
+                    class=" btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200"
+                    :disabled="enableButton || this.loading">
+                    <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
+                      aria-hidden="true"></span>
                     Guardar Cambios
                   </button>
                 </div>
@@ -232,6 +170,7 @@ export default {
 #datosP {
   padding-top: 100px;
 }
+
 .card-header {
   background-color: rgb(0 46 69);
   color: white;
@@ -240,6 +179,7 @@ export default {
 .card-header .card-title {
   margin-bottom: 0;
 }
+
 .disabled {
   pointer-events: none;
   cursor: not-allowed;

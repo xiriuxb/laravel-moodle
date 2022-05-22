@@ -32,6 +32,8 @@ Route::group(['middleware'=>['api']],function(){
         Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole');
         Route::get('/roles', 'App\Http\Controllers\admin\RolesController@index');
         Route::get('/matriculas-pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index');
+        Route::get('/get-matricula-pendiente-pago/{id}', 'App\Http\Controllers\PagoController@getImage');
+        Route::put('/matriculas-pendientes/{id}/{estado}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@update');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');

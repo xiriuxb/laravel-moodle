@@ -334,68 +334,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1654,7 +1592,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "\n                    btn btn-pimary\n                    bg-sky-700\n                    text-slate-200\n                    hover:bg-sky-900 hover:text-slate-200\n                  ",
+                          " btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200",
                         attrs: {
                           type: "submit",
                           disabled: _vm.enableButton || this.loading

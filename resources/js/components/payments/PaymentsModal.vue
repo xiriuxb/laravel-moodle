@@ -115,9 +115,8 @@ export default {
 
   mounted() {
     this.loading = true;
-    axios.get("/api/paypal-data/").then((response) => {
+    axios.get("/api/paypal-data").then((response) => {
       this.paypalData = response.data;
-      console.log(this.curso);
       this.loading = false;
       this.loadPaypalButtons();
     });

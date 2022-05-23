@@ -495,9 +495,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this2 = this;
 
     this.loading = true;
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/paypal-data/").then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/paypal-data").then(function (response) {
       _this2.paypalData = response.data;
-      console.log(_this2.curso);
       _this2.loading = false;
 
       _this2.loadPaypalButtons();

@@ -72,7 +72,7 @@ export default {
       searchTerm: "",
     };
   },
-  created: function() {
+  created() {
     this.getCourses();
     this.debouncedGetAnswer = _.debounce(this.getCourses, 500);
   },

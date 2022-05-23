@@ -23,7 +23,7 @@ Route::group(['middleware'=>['api']],function(){
     });
     
     Route::prefix('admin')->group(function(){
-        Route::get('/cursos-moodle', 'App\Http\Controllers\admin\AdminMoodleCursosController@index');
+        Route::get('/admin-cursos-moodle', 'App\Http\Controllers\admin\AdminMoodleCursosController@index');
         Route::get('/cursos-local', 'App\Http\Controllers\admin\AdminLocalCursosController@index');
         Route::post('/cursos-local/destacado', 'App\Http\Controllers\admin\AdminLocalCursosController@setDestacado');
         Route::post('/cursos-local/importar', 'App\Http\Controllers\admin\AdminLocalCursosController@importFromMoodle');

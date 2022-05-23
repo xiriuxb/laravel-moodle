@@ -81,22 +81,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -159,7 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#reset-password[data-v-8a114902] {\r\n  padding-top: 100px;\r\n  margin-bottom: 1rem;\n}\n#reset-password .card-form[data-v-8a114902] {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding-bottom: 50px;\n}\n#reset-password .card-form .card[data-v-8a114902] {\r\n  width: 500px;\r\n  max-width: 500px;\n}\n.alert.alert-danger[data-v-8a114902] {\r\n  top: 0.2rem;\r\n  padding-top: 0.2rem;\r\n  padding-bottom: 0.2rem;\r\n  margin-bottom: 0;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#reset-password[data-v-8a114902] {\r\n  padding-top: 100px;\r\n  margin-bottom: 1rem;\n}\n#reset-password .card-form[data-v-8a114902] {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding-bottom: 50px;\n}\n#reset-password .card-form .card[data-v-8a114902] {\r\n  width: 500px;\r\n  max-width: 500px;\n}\n.alert.alert-danger[data-v-8a114902] {\r\n  top: 0.2rem;\r\n  padding-top: 0.2rem;\r\n  padding-bottom: 0.2rem;\r\n  margin-bottom: 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -312,13 +296,13 @@ var render = function() {
                   staticClass: "alert alert-success",
                   attrs: { role: "success" }
                 },
-                [_vm._v("\n          " + _vm._s(_vm.message) + "\n        ")]
+                [_vm._v("\n        " + _vm._s(_vm.message) + "\n      ")]
               ),
               _vm._v(" "),
               _c(
                 "inertia-link",
                 { attrs: { as: "button", href: "/ingreso" } },
-                [_vm._v("\n          Ingresar\n        ")]
+                [_vm._v("\n        Ingresar\n      ")]
               )
             ],
             1
@@ -341,9 +325,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n          " +
                           _vm._s(_vm.$page.props.errors.email) +
-                          " Por favor, vuelva a repetir el proceso.\n          "
+                          " Por favor, vuelva a repetir el proceso.\n        "
                       )
                     ]
                   )
@@ -373,7 +357,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                Dirección e-mail\n              "
+                              "\n              Dirección e-mail\n            "
                             )
                           ]
                         ),
@@ -449,11 +433,11 @@ var render = function() {
                                 [
                                   _c("p", [
                                     _vm._v(
-                                      "\n                    " +
+                                      "\n                  " +
                                         _vm._s(
                                           _vm.$page.props.errors.password
                                         ) +
-                                        "\n                  "
+                                        "\n                "
                                     )
                                   ])
                                 ]
@@ -531,7 +515,7 @@ var render = function() {
                                   })
                                 : _vm._e(),
                               _vm._v(
-                                "\n                  Restaurar\n                "
+                                "\n                Restaurar\n              "
                               )
                             ]
                           )

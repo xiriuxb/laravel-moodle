@@ -69,6 +69,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -208,7 +216,7 @@ var render = function() {
             }
           }
         },
-        [_vm._v("\n    Cambiar contraseña\n  ")]
+        [_vm._v("\n      Cambiar contraseña\n    ")]
       )
     ]),
     _vm._v(" "),
@@ -252,9 +260,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(_vm.$page.props.errors.new_password) +
-                              "\n        "
+                              "\n          "
                           )
                         ]
                       )
@@ -263,7 +271,9 @@ var render = function() {
                   _vm.message
                     ? _c("div", { staticClass: "alert alert-success" }, [
                         _vm._v(
-                          "\n          " + _vm._s(_vm.message) + "\n        "
+                          "\n            " +
+                            _vm._s(_vm.message) +
+                            "\n          "
                         )
                       ])
                     : _vm._e(),
@@ -393,11 +403,7 @@ var render = function() {
                             "data-dismiss": "modal"
                           }
                         },
-                        [
-                          _vm._v(
-                            "\n                      Close\n                    "
-                          )
-                        ]
+                        [_vm._v("\n              Close\n            ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -419,7 +425,7 @@ var render = function() {
                                 attrs: { role: "status", "aria-hidden": "true" }
                               })
                             : _vm._e(),
-                          _vm._v("\n                      Aceptar")
+                          _vm._v("\n              Aceptar")
                         ]
                       )
                     ]
@@ -451,7 +457,7 @@ var staticRenderFns = [
             staticClass: "text-xl font-medium leading-normal text-gray-800",
             attrs: { id: "passwordModalScrollableLabel" }
           },
-          [_vm._v("\n          Cambia tu contraseña\n        ")]
+          [_vm._v("\n            Cambia tu contraseña\n          ")]
         ),
         _vm._v(" "),
         _c(

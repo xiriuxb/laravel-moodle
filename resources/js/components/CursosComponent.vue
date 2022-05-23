@@ -45,9 +45,6 @@ export default {
 section {
   width: 289px;
 }
-.mt-30 {
-  margin-top: 30px;
-}
 
 .mb-50 {
   margin-bottom: 50px;

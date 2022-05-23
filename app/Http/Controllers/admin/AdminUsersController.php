@@ -36,7 +36,7 @@ class AdminUsersController extends Controller
                     $query->where([['name','<>',$this->su_admin_name]]);
                 if($role)
                     $query->where('name','=',$role);
-                }     
+                }
             )->orderBy('name')->where([[function($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->keyword . '%')
                     ->orWhere('last_name', 'LIKE', '%' . $request->keyword . '%')

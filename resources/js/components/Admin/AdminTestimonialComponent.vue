@@ -1,39 +1,40 @@
 <template>
-  <div class="container" :class="{'disabled':loading}">
+  <div class="container" :class="{ 'disabled': loading }">
     <h3>Administración de testimonios</h3>
     <loading-component v-if='loading'></loading-component>
     <div>
-      <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment" 
-      style="max-width: 240px" :disabled="loading" v-bind:class="isFormHidden ?'btn btn-primary':'btn btn-secondary'">
-        {{isFormHidden ? 'Nuevo testimonio':'Cancelar/Ocultar'}}
+      <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment"
+        style="max-width: 240px" :disabled="loading"
+        v-bind:class="isFormHidden ? 'btn btn-primary' : 'btn btn-secondary'">
+        {{ isFormHidden ? 'Nuevo testimonio' : 'Cancelar/Ocultar' }}
       </button>
     </div>
     <form class="container" v-if="!isFormHidden" style="dislplay: none" v-on:submit.prevent="save">
-      
+
       <div class="form-group">
         <label for="comentarioEstudiante">Nombre Estudiante:</label>
-        <input type="text" v-model="form.autor" class="form-control"
-          id="nombreEstudiante" ref="nombreEstudiante" required/>
+        <input type="text" v-model="form.autor" class="form-control" id="nombreEstudiante" ref="nombreEstudiante"
+          required />
         <div v-if="error != ''" class="alert alert-danger">
           {{ this.errors.autor[0] }}
         </div>
       </div>
       <div class="form-group">
         <label for="comentarioEstudiante">Comentario:</label>
-        <textarea class="form-control" ref="comentarioEstudiante" v-model="form.texto"
-          id="comentarioEstudiante" rows="3" required></textarea>
+        <textarea class="form-control" ref="comentarioEstudiante" v-model="form.texto" id="comentarioEstudiante"
+          rows="3" required></textarea>
         <div v-if="this.errors.texto != null" class="alert alert-danger">
           {{ this.errors.texto[0] }}
         </div>
       </div>
       <label class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" ref="is_active" v-model="form.is_active"/>
+        <input class="form-check-input" type="checkbox" ref="is_active" v-model="form.is_active" />
         <div class="form-check-label" for="isActive">¿Comentario visible?</div>
       </label>
       <div class="row">
         <div class="col">
           <button type="submit" class="btn btn-primary" :disabled="loading">
-            {{ !editMode ? 'Guardar':'Guardar Cambios' }}
+            {{ !editMode ? 'Guardar' : 'Guardar Cambios' }}
           </button>
         </div>
         <div class="col">
@@ -66,8 +67,7 @@
               <button class="btn btn-outline-primary btn-acction" title="Editar" @click="onClickEdit(comment.id)">
                 <box-icon name="edit-alt"></box-icon>
               </button>
-              <button
-                class="btn btn-outline-danger btn-acction" title="Eliminar" @click="deleteComment(comment.id)">
+              <button class="btn btn-outline-danger btn-acction" title="Eliminar" @click="deleteComment(comment.id)">
                 <box-icon name="trash"></box-icon>
               </button>
             </td>
@@ -88,7 +88,7 @@ export default {
   name: "AdminCommentComponent",
   data() {
     return {
-      apiRoute:'/api/testimonials/',
+      apiRoute: '/api/testimonials/',
       id: 0,
       isFormHidden: true,
       editMode: true,
@@ -99,7 +99,7 @@ export default {
         is_active: false,
       },
       error: '',
-      errors:[],
+      errors: [],
       comments: [],
     };
   },
@@ -110,9 +110,9 @@ export default {
       console.log(this.editMode);
     },
 
-    update(){
+    update() {
       this.loading = true;
-      axios.put('/api/testimonials/' + this.id, this.form).then(()=>{
+      axios.put('/api/testimonials/' + this.id, this.form).then(() => {
         this.loading = false;
         this.isFormHidden = true;
         this.resetInput();
@@ -163,14 +163,14 @@ export default {
           this.loading = false;
         })
         .catch((err) => {
-          this.$toast.open({message: err.message, type: "error",position: "top-right",});
+          this.$toast.open({ message: err.message, type: "error", position: "top-right", });
         });
     },
 
     resetInput() {
       this.editMode = false;
       this.form.autor = this.form.texto = "";
-      this.form.is_active= false;
+      this.form.is_active = false;
     },
 
     deleteComment(index) {
@@ -196,7 +196,7 @@ export default {
           this.form.autor = response.data.data.autor;
           this.form.texto = response.data.data.texto;
           this.form.is_active = response.data.data.is_active;
-          this.loading= false;
+          this.loading = false;
         })
         .catch((err) => {
           //this.errors = err.response.errors;
@@ -212,7 +212,7 @@ export default {
   created() {
     this.loadComments();
   },
-  
+
 };
 </script>
 
@@ -223,10 +223,12 @@ export default {
   border-radius: 0.2rem;
   max-width: 33px;
 }
+
 .form-check-label {
   cursor: pointer;
 }
-form{
+
+form {
   padding-block: 10px;
 }
 </style>

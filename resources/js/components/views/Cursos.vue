@@ -1,10 +1,10 @@
 <template>
   <div id="cursos" class="container-fluid bg-slate-100">
     <div id="encabezado-cursos">
-        <div class="justify-content-center">
-          <p id="titulo-cursos">Cursos</p>
-        </div>
-          <h4 class="align-bottom" v-if="category">({{category}})</h4>
+      <div class="justify-content-center">
+        <p id="titulo-cursos">Cursos</p>
+      </div>
+      <h4 class="align-bottom" v-if="category">({{ category }})</h4>
     </div>
     <div class="d-flex">
       <div class="w-full md:w-1/4">
@@ -12,11 +12,10 @@
       </div>
       <div class="w-full md:w-3/4 d-flex flex-column">
         <div>
-          <!-- <cursos-component :cursos="data"></cursos-component> -->
-          
           <slot v-bind:cursos="data"></slot>
         </div>
-        <course-navigation-component v-if="pages" :pages="pages" :currentPage="currentPage"></course-navigation-component>
+        <course-navigation-component v-if="pages" :pages="pages" :currentPage="currentPage">
+        </course-navigation-component>
       </div>
     </div>
   </div>
@@ -64,12 +63,13 @@ export default {
 .main-header {
   position: relative !important;
 }
-#cursos{
+
+#cursos {
   padding-top: 100px;
 }
 
-#encabezado-cursos{
-    display: flex;
+#encabezado-cursos {
+  display: flex;
   flex-flow: row;
   align-items: center;
 }
@@ -79,11 +79,13 @@ export default {
   font-weight: 700;
   padding: 10px 20px;
 }
+
 @media (max-width: 750px) {
   #cursos .d-flex {
     flex-flow: column;
   }
 }
+
 .d-flex.flex-column {
   width: -webkit-fill-available;
 }

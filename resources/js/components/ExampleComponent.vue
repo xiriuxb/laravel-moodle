@@ -1,40 +1,32 @@
 <template>
   <div class="container">
     <div class="dropdown">
-      <input
-      class="dropdown-toggle"
-      data-toggle="dropdown"
-            type="text"
-            name="search"
-            placeholder="Buscar xD"
-            v-model="question"
-            id="dropdownMenuSearch" 
-            autocomplete="off"
-      />
-    <div class="dropdown-menu" id="respuestas">
-      <loading-component v-if="loading" :position="'relative'" class="dropdown-item"></loading-component>
-      <div>
-        <div class="dropdown-item" v-if="!users">
-                No se encontraron resultados
-        </div>
-        <div class="dropdown-item" v-for="user in users" :key="user.id" v-else>
-          <div>
+      <input class="dropdown-toggle" data-toggle="dropdown" type="text" name="search" placeholder="Buscar xD"
+        v-model="question" id="dropdownMenuSearch" autocomplete="off" />
+      <div class="dropdown-menu" id="respuestas">
+        <loading-component v-if="loading" :position="'relative'" class="dropdown-item"></loading-component>
+        <div>
+          <div class="dropdown-item" v-if="!users">
+            No se encontraron resultados
+          </div>
+          <div class="dropdown-item" v-for="user in users" :key="user.id" v-else>
+            <div>
               {{ user.fullname }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    
+
   </div>
 </template>
 
 <script>
 import LoadingComponent from '../components/LoadingComponent.vue';
 export default {
-    components:{
-        LoadingComponent
-    },
+  components: {
+    LoadingComponent
+  },
   data() {
     return {
       loading: false,
@@ -46,7 +38,7 @@ export default {
     // whenever question changes, this function will run
     question: function (newQuestion, oldQuestion) {
       this.answer = "Waiting for you to stop typing...";
-      this.users=[];
+      this.users = [];
       this.loading = true;
       this.debouncedGetAnswer();
     },
@@ -63,14 +55,14 @@ export default {
   },
   methods: {
     getAnswer: function () {
-        if(this.question.length < 0){
-            this.users = []
-        }
+      if (this.question.length < 0) {
+        this.users = []
+      }
       if (this.question.length > 1) {
         var vm = this;
         vm.loading = true;
         axios
-          .get("courses/search",{params:{keyword:this.question}})
+          .get("courses/search", { params: { keyword: this.question } })
           .then(function (response) {
             //vm.answer = _.capitalize(response.data);
             vm.users = response.data;
@@ -102,19 +94,20 @@ export default {
 </script>
 
 <style scoped>
-body{
-    background-color: aqua;
-}
-#respuestas{
-    border: 2px solid;
+body {
+  background-color: aqua;
 }
 
 #respuestas {
-    min-width: 200px;
+  border: 2px solid;
+}
+
+#respuestas {
+  min-width: 200px;
   position: absolute;
   max-height: 200px;
   overflow-y: auto;
-  border-radius: 0.1px ;
+  border-radius: 0.1px;
   z-index: 10;
 }
 </style>

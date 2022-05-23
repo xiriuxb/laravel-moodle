@@ -42,10 +42,6 @@ export default {
     font-size: 14px
 }
 
-#footer .footer-newsletter form input[type="submit"]:hover {
-    background: #e6573f
-}
-
 #footer .footer-top {
     background-image: url(/images/footer-banner2.png);
     border-top: 1px solid #474747;

@@ -1,32 +1,28 @@
 <template>
   <div class="container justify-content-center" id="filter">
-    <div class="justify-content-center" >
-          <article class="filter-group">
-            <a
-              data-toggle="collapse"
-              data-target="#collapse_aside1"
-              aria-expanded="false"
-              class="collapsed"
-            >
-              <div class="card-header">
-                <i class="icon-control fa fa-chevron-down"></i>
-                <h6 class="title">Categorías</h6>
-              </div>
-            </a>
-            <div class="collapse" id="collapse_aside1" style="">
-              <div class="card-body">
-                <ul class="list-menu">
-                  <li>
-                    <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos</inertia-link>
-                  </li>
-                  <li v-for="categoria in categories" :key="categoria.id">
-                      <inertia-link as="button" class="btn" :href="'/cursos/'+categoria.name" @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link> 
-                    <!-- <a" >{{categoria.name}} </a> -->
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
+    <div class="justify-content-center">
+      <article class="filter-group">
+        <a data-toggle="collapse" data-target="#collapse_aside1" aria-expanded="false" class="collapsed">
+          <div class="card-header">
+            <i class="icon-control fa fa-chevron-down"></i>
+            <h6 class="title">Categorías</h6>
+          </div>
+        </a>
+        <div class="collapse" id="collapse_aside1" style="">
+          <div class="card-body">
+            <ul class="list-menu">
+              <li>
+                <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
+                </inertia-link>
+              </li>
+              <li v-for="categoria in categories" :key="categoria.id">
+                <inertia-link as="button" class="btn" :href="'/cursos/' + categoria.name"
+                  @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </template>
@@ -38,52 +34,57 @@ export default {
       type: String,
     },
   },
-  beforeCreate(){
+  beforeCreate() {
     console.log('created')
-      axios.get('/api/categorias').then((response) => {
-        this.categories = response.data.data;
-      }).catch((err) => {
-        console.log(err);
-      }); 
-    },
-  data(){
-    return{
-      categories:[],
+    axios.get('/api/categorias').then((response) => {
+      this.categories = response.data.data;
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  data() {
+    return {
+      categories: [],
     }
   },
-    methods:{
-      updateCurrentCategory: function (currentCategory) {
-        this.$parent.category = currentCategory;
-        this.$parent.page =1;
+  methods: {
+    updateCurrentCategory: function (currentCategory) {
+      this.$parent.category = currentCategory;
+      this.$parent.page = 1;
     }
-    }
+  }
 };
 </script>
 
 <style scoped>
-#filter{
+#filter {
   max-width: 250px;
   min-width: 220px;
   padding-bottom: 10px;
 }
+
 .mt-100 {
   margin-top: 30px;
   box-sizing: border-box;
   width: 300px;
   padding-right: 0;
 }
-.btn{
+
+.btn {
   width: 100%;
   text-align: initial;
   padding: 0.6rem 1.5rem;
 }
+
 .filter-group {
-    border: 1px solid #343a4071;
-    width: 100%;
+  border: 1px solid #343a4071;
+  width: 100%;
 }
-.card-body{
+
+.card-body {
   padding: 0;
 }
+
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;

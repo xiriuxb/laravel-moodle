@@ -1,9 +1,11 @@
 <template>
   <div id="misCursos" class="container">
-    <h2 class="text-2xl">Mis cursos <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span></h2>
+    <h2 class="text-2xl">Mis cursos <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
+        aria-hidden="true"></span></h2>
     <form action="#" @submit.prevent="busquedaCurso">
       <input v-model="termino_busqueda" type="search" class="form-control" placeholder="Buscar curso">
-      <button type="submit" class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200" :disabled="this.loading">
+      <button type="submit" class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200"
+        :disabled="this.loading">
         <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
         Buscar
       </button>
@@ -14,16 +16,17 @@
           <tr v-for="curso in data" :key="curso.shortname">
             <td>{{ curso.category }}</td>
             <td>
-              <inertia-link class="text-blue-700" :href="'/curso/'+curso.shortname" >
+              <inertia-link class="text-blue-700" :href="'/curso/' + curso.shortname">
                 {{ curso.fullname }}
               </inertia-link>
             </td>
             <td>
-              <div v-if="curso.pivot.estado_matricula_id==3" class="text-red-700">
-                 Su matrícula esta pendiente. 
+              <div v-if="curso.pivot.estado_matricula_id == 3" class="text-red-700">
+                Su matrícula esta pendiente.
               </div>
               <button v-else class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">
-                 <span class="align-middle"> Ver en Moodle</span> <box-icon class="align-middle" name='link-external' color="#fff"></box-icon>
+                <span class="align-middle"> Ver en Moodle</span>
+                <box-icon class="align-middle" name='link-external' color="#fff"></box-icon>
               </button>
             </td>
           </tr>
@@ -56,20 +59,22 @@ export default {
     };
   },
   methods: {
-      redirectToMoodle(cursoShortname){
-        window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name='+cursoShortname;
-      },
-      busquedaCurso(){
-        if(this.termino_busqueda.length >=2 || this.termino_busqueda === ""){
-          this.loading = true;
-          Inertia.visit('/mis-cursos?b='+this.termino_busqueda, 
-          {only: ['data'], onStart: () => {
-            this.loading = true;
-          }, onComplete: () => {
-            this.loading = false;
-          }});
-        }
-      },
+    redirectToMoodle(cursoShortname) {
+      window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name=' + cursoShortname;
+    },
+    busquedaCurso() {
+      if (this.termino_busqueda.length >= 2 || this.termino_busqueda === "") {
+        this.loading = true;
+        Inertia.visit('/mis-cursos?b=' + this.termino_busqueda,
+          {
+            only: ['data'], onStart: () => {
+              this.loading = true;
+            }, onComplete: () => {
+              this.loading = false;
+            }
+          });
+      }
+    },
   },
 };
 </script>

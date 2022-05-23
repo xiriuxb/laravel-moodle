@@ -59,6 +59,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -138,7 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#pagoDeposito[data-v-4333e98e]{\r\n    padding: 120px 30px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#pagoDeposito[data-v-4333e98e] {\r\n    padding: 120px 30px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -285,7 +292,7 @@ var render = function() {
     _vm._v(" "),
     _vm.pago
       ? _c("div", [
-          _vm._v("\r\n        Usted ya ha pagado por este curso "),
+          _vm._v("\n        Usted ya ha pagado por este curso "),
           _c("b", [_vm._v(_vm._s(_vm.curso_data.fullname))]),
           _vm._v(" "),
           _c("p", [
@@ -294,7 +301,7 @@ var render = function() {
         ])
       : _c("div", [
           _vm._v(
-            "\r\n        Para realizar el pago por transferencia o depósito debe realizar la transacción en su lugar preferido y luego añadir la foto del documento de la transacción en el formulario que está mas abajo.\r\n        "
+            "\n        Para realizar el pago por transferencia o depósito debe realizar la transacción en su lugar preferido y\n        luego añadir la foto del documento de la transacción en el formulario que está mas abajo.\n        "
           ),
           _c("div", [
             _vm._v(
@@ -415,7 +422,7 @@ var render = function() {
                             })
                           : _vm._e(),
                         _vm._v(
-                          "\r\n                                Aceptar\r\n                            "
+                          "\n                            Aceptar\n                        "
                         )
                       ]
                     )

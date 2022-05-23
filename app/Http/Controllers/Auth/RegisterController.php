@@ -75,15 +75,15 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(Request $request)
+    public function create(Request $request)
     {
-        $username = $this->setUsernameAttribute($request->name,$request->last_name);
         $request-> validate( [
             'name' => ['required', 'string', 'max:16', 'alpha'],
             'last_name' => ['required', 'string', 'max:16','alpha'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed','max:24'],
         ]);
+        $username = $this->setUsernameAttribute($request->name,$request->last_name);
         $user = User::create([
             'name' => $request->name,
             'last_name'=>$request->last_name,

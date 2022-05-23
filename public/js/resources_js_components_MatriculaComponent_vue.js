@@ -370,7 +370,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       logged: this.$page.props.auth.user,
       loading: false,
-      btnDisabled: true,
       modalVisible: false,
       payment_form: this.$inertia.form({
         amount: "",
@@ -386,9 +385,6 @@ __webpack_require__.r(__webpack_exports__);
         curso_id: this.curso.shortname
       })
     };
-  },
-  beforeCreate: function beforeCreate() {
-    this.btnDisabled = this.logged ? false : true;
   },
   computed: {
     price: function price() {
@@ -449,7 +445,7 @@ __webpack_require__.r(__webpack_exports__);
     redirectToMoodle: function redirectToMoodle() {
       window.location.href = "https://moodle.xiriuxb.org/course/view.php?name=" + this.curso.shortname;
     },
-    em: function em() {
+    redirectOrSignup: function redirectOrSignup() {
       if (this.logged && this.matriculado) {
         this.$toast.open({
           message: "Redireccionando",
@@ -489,6 +485,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -603,7 +606,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                               _this.$parent.$data.payment_form.payer_name = transaction.payer.name.given_name + ' ' + transaction.payer.name.surname;
                               _this.$parent.$data.payment_form.transaction_id = transaction.purchase_units[0].payments.captures[0].id;
                               _context.next = 15;
-                              return _this.$parent.em();
+                              return _this.$parent.redirectOrSignup();
 
                             case 15:
                               _this.$emit('close');
@@ -708,7 +711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#modal[data-v-3fad05ee]{\r\n  z-index: 300;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#modal[data-v-3fad05ee] {\r\n  z-index: 300;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1745,7 +1748,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.em.apply(null, arguments)
+                        return _vm.redirectOrSignup.apply(null, arguments)
                       }
                     }
                   },
@@ -1836,7 +1839,7 @@ var render = function() {
                         "text-xl font-medium leading-normal text-gray-800",
                       attrs: { id: "paymentSelectorModalScrollableLabel" }
                     },
-                    [_vm._v("\r\n          Elija la forma de pago\r\n        ")]
+                    [_vm._v("\n          Elija la forma de pago\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -1890,7 +1893,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n          Depósito/Transferencia Bancaria "
+                                "\n            Depósito/Transferencia Bancaria "
                               ),
                               _c("box-icon", {
                                 staticClass: "fill-orange-400 fixed",

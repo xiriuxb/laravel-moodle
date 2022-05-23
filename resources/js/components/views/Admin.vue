@@ -6,7 +6,7 @@
           <i class="bx"></i>
           <div class="logo_name">
             <a href="/">
-            Octavario (Admin)
+              Octavario (Admin)
             </a>
           </div>
         </div>
@@ -15,9 +15,9 @@
       <ul class="nav-list">
         <li v-for="menu_item in menu_items" :key="menu_item.name">
           <inertia-link :href="menu_item.component">
-              <span class="links_name">{{menu_item.name}}</span>
+            <span class="links_name">{{ menu_item.name }}</span>
           </inertia-link>
-          <span class="tooltip">{{menu_item.name}}</span>
+          <span class="tooltip">{{ menu_item.name }}</span>
         </li>
       </ul>
       <div class="profile_content">
@@ -31,7 +31,7 @@
     </div>
     <div id="admin" class="adm_content container">
       <!-- <keep-alive> -->
-        <slot />
+      <slot />
       <!-- </keep-alive> -->
     </div>
   </div>
@@ -45,12 +45,12 @@ export default {
   },
   data() {
     return {
-      menu_items:[
-        {name:'Testimonios', component:'testimonials'},
-        {name:'Cursos', component:'cursos'},
-        {name:'Cursos Moodle', component:'cursos-moodle'},
-        {name:'Usuarios',component: 'users'},
-        {name:'Matriculas Pendientes',component: 'matriculas-pendientes'}
+      menu_items: [
+        { name: 'Testimonios', component: 'testimonials' },
+        { name: 'Cursos', component: 'cursos' },
+        { name: 'Cursos Moodle', component: 'cursos-moodle' },
+        { name: 'Usuarios', component: 'users' },
+        { name: 'Matriculas Pendientes', component: 'matriculas-pendientes' }
       ]
     };
   },
@@ -66,6 +66,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 .sidebar {
   z-index: 100;
   position: fixed;
@@ -75,6 +76,7 @@ export default {
   background: #11101d;
   padding: 6px 14px;
 }
+
 .sidebar .logo_content .logo {
   color: #fff;
   display: felx;
@@ -82,14 +84,17 @@ export default {
   width: 100%;
   align-items: center;
 }
+
 .logo_content .logo i {
   font-size: 28px;
   margin-right: 5px;
 }
+
 .logo_content .logo .logo_name {
   font-size: 20px;
   font-weight: 400;
 }
+
 .sidebar #btn {
   position: absolute;
   color: #fff;
@@ -102,9 +107,11 @@ export default {
   line-height: 50px;
   transform: translateX(-50%);
 }
+
 .sidebar ul {
   margin-top: 20px;
 }
+
 .sidebar ul li {
   position: relative;
   height: 50px;
@@ -114,6 +121,7 @@ export default {
   line-height: 50px;
   cursor: pointer;
 }
+
 .sidebar ul li a {
   color: #fff;
   display: flex;
@@ -122,10 +130,12 @@ export default {
   transition: all 0.4s ease;
   border-radius: 12px;
 }
+
 .sidebar ul li a:hover {
   color: #11101d;
   background: #fff;
 }
+
 .sidebar ul li i {
   height: 50px;
   min-width: 50px;
@@ -133,6 +143,7 @@ export default {
   line-height: 50px;
   text-align: center;
 }
+
 .adm_content {
   position: absolute;
   height: 100%;

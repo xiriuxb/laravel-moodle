@@ -11,8 +11,7 @@
           <div id="searchSm">
             <search-component></search-component>
           </div>
-          <button class="btn navbar-toggler" type="button" @click="sidebarHandler"
-             aria-label="Toggle navigation">
+          <button class="btn navbar-toggler" type="button" @click="sidebarHandler" aria-label="Toggle navigation">
             <span class="icon-bar icon-bar-1"></span>
             <span class="icon-bar icon-bar-2"></span>
             <span class="icon-bar icon-bar-3"></span>
@@ -22,7 +21,7 @@
           <ul class="navbar-nav mr-auto f1">
             <li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase">
               <inertia-link :href="item.path">
-                  {{item.text}}
+                {{ item.text }}
               </inertia-link>
             </li>
           </ul>
@@ -39,7 +38,7 @@
             </li>
             <li>
               <inertia-link :href="'/ingreso'">
-                <a class="btn btn-primary"  id="loginBtn">
+                <a class="btn btn-primary" id="loginBtn">
                   Ingrese
                 </a>
               </inertia-link>
@@ -66,25 +65,25 @@ export default {
   data() {
     return {
       movedSidebar: true,
-      navElements:[
+      navElements: [
         {
           name: 'home-component',
           path: '/',
           text: 'Inicio',
-          params:{}
+          params: {}
         },
         {
           name: 'cursos',
           path: '/cursos/all',
           text: 'Cursos',
-          params:{
+          params: {
           }
         },
       ],
     };
   },
-  components: { UserMenuComponent, SearchComponent, SidebarComponent},
-  mounted(){
+  components: { UserMenuComponent, SearchComponent, SidebarComponent },
+  mounted() {
     console.log(this.$children);
   },
   methods: {
@@ -92,27 +91,27 @@ export default {
       var sideBar = document.getElementById("mobile-nav");
       sideBar.style.transform = "translateX(-260px)";
       if (this.$data.movedSidebar) {
-             sideBar.style.transform = "translateX(0px)";
-                this.$data.movedSidebar = false;
-            } else {
-                sideBar.style.transform = "translateX(-260px)";
-                this.$data.movedSidebar = true;
-            }
-        },
+        sideBar.style.transform = "translateX(0px)";
+        this.$data.movedSidebar = false;
+      } else {
+        sideBar.style.transform = "translateX(-260px)";
+        this.$data.movedSidebar = true;
+      }
+    },
     loginBtn() {
       window.location.href = "/ingreso";
     },
   },
 };
 </script>
-<!-- Estilos-->
+
 <style scoped>
 [data-target="#mainMenu"] {
   position: relative;
   z-index: 200;
 }
 
-#mainMenu li > a {
+#mainMenu li>a {
   font-weight: bold;
   letter-spacing: 1px;
   color: rgb(255, 255, 255);
@@ -126,7 +125,7 @@ export default {
   margin-right: 30px;
 }
 
-#mainMenu li > a::before {
+#mainMenu li>a::before {
   position: absolute;
   content: "";
   width: calc(100% - 1px);
@@ -147,8 +146,7 @@ export default {
   transition: transform 0.5s ease;
 }
 
-#mainMenu li > a:hover::before,
-#mainMenu li > a.active::before {
+#mainMenu li>a:hover::before {
   -webkit-transform: scale(1, 1);
   -ms-transform: scale(1, 1);
   transform: scale(1, 1);
@@ -170,15 +168,17 @@ export default {
 .navbar-brand {
   color: #fff;
 }
+
 .main-header .navbar-brand img {
   max-width: 200px;
   min-width: 200px;
   animation: fadeInLeft 0.4s both 0.4s;
 }
 
-.navbar-nav{
+.navbar-nav {
   align-items: center;
 }
+
 /* main-header end */
 
 @media (max-width: 767px) {
@@ -280,14 +280,16 @@ export default {
   .main-header .navbar-toggler:focus .icon-bar {
     background-color: #fff;
   }
-  #searchBig{
+
+  #searchBig {
     display: none;
   }
+
   /*header ends*/
 }
 
 @media (min-width: 768px) {
-   #searchSm{
+  #searchSm {
     display: none;
   }
 }

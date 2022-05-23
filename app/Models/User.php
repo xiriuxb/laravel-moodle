@@ -17,6 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail/*, JWTSubject*/
     {
         return $this->belongsToMany(Curso::class, 'matricula', 'usuario_id', 'curso_id', 'id', 'id')->withPivot('estado_matricula_id');
     }
+
+    public function sendEmailVerificationNotification()
+{
+    $this->notify(new \App\Notifications\Auth\QueuedVerifyEmail);
+}
     /**
      * The attributes that are mass assignable.
      *

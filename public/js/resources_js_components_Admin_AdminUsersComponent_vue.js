@@ -92,6 +92,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -184,6 +187,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -329,7 +333,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849]{\r\n  font-size: small;\n}\n#adminUsers[data-v-2d9df849] {\r\n  padding: 1rem;\n}\n.container[data-v-2d9df849]{\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849] {\r\n  font-size: small;\n}\n#adminUsers[data-v-2d9df849] {\r\n  padding: 1rem;\n}\n.container[data-v-2d9df849] {\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -353,7 +357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\r\n  position: fixed;\r\n  z-index: 600;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\r\n  margin:8px 0;\n}\n.modal-default-button[data-v-1ce68b09] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-1ce68b09] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-1ce68b09],\r\n.modal-leave-active .modal-container[data-v-1ce68b09] {\r\n  transform: scale(1.1);\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-1ce68b09] {\r\n  position: fixed;\r\n  z-index: 600;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-1ce68b09] {\r\n  display: table-cell;\r\n  vertical-align: middle;\n}\n.modal-container[data-v-1ce68b09] {\r\n  width: 300px;\r\n  margin: 0px auto;\r\n  background-color: #fff;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-1ce68b09] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-1ce68b09] {\r\n  margin: 8px 0;\n}\n.modal-container[data-v-1ce68b09], .modal-container[data-v-1ce68b09] {\r\n  transform: scale(1.1);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1567,11 +1571,11 @@ var render = function() {
                     return _c("tr", { key: user.username }, [
                       _c("td", [
                         _vm._v(
-                          "\n            " +
+                          "\n          " +
                             _vm._s(user.name) +
                             " " +
                             _vm._s(user.last_name) +
-                            "\n          "
+                            "\n        "
                         )
                       ]),
                       _vm._v(" "),
@@ -1744,9 +1748,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\r\n                        " +
+                            "\n              " +
                               _vm._s(_vm.errors.message) +
-                              "\r\n                  "
+                              "\n            "
                           )
                         ]
                       )
@@ -1857,7 +1861,7 @@ var render = function() {
                             attrs: { role: "status", "aria-hidden": "true" }
                           })
                         : _vm._e(),
-                      _vm._v("\r\n                    Aceptar")
+                      _vm._v("\n              Aceptar")
                     ]
                   )
                 ]

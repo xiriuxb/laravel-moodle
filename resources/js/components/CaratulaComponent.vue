@@ -7,18 +7,19 @@
           <p class="self-center md:self-start text-2xl font-bold text-orange-200 align-baseline">Busca un curso</p>
           <p class="self-center md:self-start text-2xl font-bold text-orange-200">
             O mira nuestro listado de cursos.
-            <inertia-link class="flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto"
-           as="button" type="button" :href="'/cursos'">
-            Ir a cursos
-            <span><box-icon class="block" name='right-arrow-alt' color='#fff'></box-icon></span>
+            <inertia-link
+              class="flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto"
+              as="button" type="button" :href="'/cursos/all'">
+              Ir a cursos
+              <span>
+                <box-icon class="block" name='right-arrow-alt' color='#fff'></box-icon>
+              </span>
             </inertia-link>
           </p>
         </div>
         <div class="w-full md:w-1/2 filter brightness-100" v-if="!$page.props.auth.user">
-            <registro-component></registro-component>
+          <registro-component></registro-component>
         </div>
-        <!-- <div class="container col-sm-7 col-xs-12 registro" v-if="!this.$store.getters.isLoggedIn"> -->
-        <!-- </div> -->
       </div>
     </div>
   </section>
@@ -43,6 +44,7 @@ export default {
 .img-fluid {
   position: relative;
 }
+
 .img-fluid::before {
   content: "";
   width: 100%;
@@ -52,11 +54,6 @@ export default {
   position: absolute;
   background-repeat: repeat;
   z-index: 0;
-}
-.registro {
-  position: relative;
-  max-width: 500px;
-  margin-top: 60px;
 }
 
 .img-fluid {

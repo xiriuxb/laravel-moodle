@@ -92,7 +92,7 @@ export default {
 #commentss{
   width: 90%;
 }
-.card-title{}
+
 ::v-deep .slick-track
 {
     display: flex !important;
@@ -141,8 +141,6 @@ export default {
     margin-top: 5px;
 }
 
-::v-deep  .slick-slide div div .ftr h4 {
-}
 ::v-deep  .ftr .author .avatar {
     width: 36px;
     height: 36px;

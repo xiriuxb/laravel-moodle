@@ -1,107 +1,50 @@
 <template>
   <section class="container-fluid d-flex justify-content-center">
     <div class="signup-content shadow-lg shadow-indigo-500/40">
-    <h2 class="font-bold">Regístrese</h2>
-      <form
-        autocomplete="off"
-        id="signup-form"
-        class="signup-form"
-        @submit.prevent="saveFrom"
-        preserve-scroll
-      >
-        
+      <h2 class="font-bold">Regístrese</h2>
+      <form autocomplete="off" id="signup-form" class="signup-form" @submit.prevent="saveFrom" preserve-scroll>
+
         <div class="row" v-on:keypress="isLetter($event)">
           <div class="col compartido form-group">
             <label for="name">*Primer nombre</label>
-            <input
-              v-model="form.name"
-              type="text"
-              v-on:keypress="isLetter($event)"
-              class="form-control"
-              name="name"
-              id="name"
-              placeholder="Nombre"
-              required
-              autocomplete="first_name"
-              maxlength="16"
-            />
+            <input v-model="form.name" type="text" v-on:keypress="isLetter($event)" class="form-control" name="name"
+              id="name" placeholder="Nombre" required autocomplete="first_name" maxlength="16" />
             <div v-if="$page.props.errors.name" class="alert alert-danger">
               {{ $page.props.errors.name }}
             </div>
           </div>
           <div class="col form-group" v-on:keypress="isLetter($event)">
             <label for="last_name">*Primer apellido</label>
-            <input
-              v-model="form.last_name"
-              type="text"
-              class="form-control"
-              name="last_name"
-              id="last_name"
-              placeholder="Apellido"
-              v-on:keypress="isLetter($event)"
-            />
-            <div
-              v-if="$page.props.errors.last_name"
-              class="alert alert-danger"
-            >
+            <input v-model="form.last_name" type="text" class="form-control" name="last_name" id="last_name"
+              placeholder="Apellido" v-on:keypress="isLetter($event)" />
+            <div v-if="$page.props.errors.last_name" class="alert alert-danger">
               {{ $page.props.errors.last_name }}
             </div>
           </div>
         </div>
         <div class="form-group">
           <label for="email">*Dirección de e-mail</label>
-          <input
-            v-model="form.email"
-            required
-            class="form-control"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="user@example.com"
-            label="Email"
-          />
+          <input v-model="form.email" required class="form-control" type="email" name="email" id="email"
+            placeholder="user@example.com" label="Email" />
           <div v-if="$page.props.errors.email" class="alert alert-danger">
             {{ $page.props.errors.email }}
           </div>
         </div>
         <div class="form-group">
           <label for="password">*Contraseña (Mínimo 8 caracteres)</label>
-          <input
-            v-model="form.password"
-            required
-            class="form-control"
-            type="password"
-            name="password"
-            id="password"
-            ref="password"
-          />
+          <input v-model="form.password" required class="form-control" type="password" name="password" id="password"
+            ref="password" />
           <div v-if="$page.props.errors.password" class="alert alert-danger">
             {{ $page.props.errors.password }}
           </div>
         </div>
         <div class="form-group">
           <label for="password-confirmation">*Confirme la contraseña</label>
-          <input
-            class="form-control"
-            type="password"
-            name="password_confirmation"
-            id="password_confirmation"
-            v-model="form.password_confirmation"
-            data-vv-as="password"
-            required
-            preserve-scroll
-          />
+          <input class="form-control" type="password" name="password_confirmation" id="password_confirmation"
+            v-model="form.password_confirmation" data-vv-as="password" required preserve-scroll />
         </div>
-        <button
-          type="submit"
-          name="submit"
-          id="submit"
-          class="form-submit btn btn-submit"
-          value="Registrar"
-          role="button"
-           :disabled="form.processing"
-          preserve-scroll
-        >
+        <button type="submit" name="submit" id="submit" class="form-submit btn btn-submit" value="Registrar"
+          role="button" :disabled="form.processing" preserve-scroll>
           {{ this.btnText }}
           <loading-component v-if="this.loading" :position="'relative'"></loading-component>
         </button>
@@ -136,12 +79,12 @@ export default {
     };
   },
   methods: {
-      saveFrom() {
-        this.errors = {};
-      this.form.post('/api/register',{
+    saveFrom() {
+      this.errors = {};
+      this.form.post('/api/register', {
         onStart: () => (this.disableBtnSubmit(true)),
         onFinish: () => (this.disableBtnSubmit(false)),
-    });
+      });
     },
     isLetter(e) {
       let char = String.fromCharCode(e.keyCode);
@@ -164,7 +107,7 @@ export default {
         this.btnText = "Registrarse";
       }
     },
-    loginBtn(){
+    loginBtn() {
       window.location.href = "/ingreso";
     }
   },
@@ -176,9 +119,11 @@ section {
   display: block;
   position: relative;
 }
+
 label {
   margin-bottom: -0.3rem;
 }
+
 *,
 ::after,
 ::before {
@@ -214,10 +159,12 @@ h2 {
   min-width: 346px;
   margin: 30px 0;
 }
-.signup-content .row{
-  margin-right:0;
+
+.signup-content .row {
+  margin-right: 0;
   margin-left: 0;
 }
+
 .form-submit {
   font-weight: 700;
   color: #fff;
@@ -225,19 +172,17 @@ h2 {
   margin: 0;
   width: 100%;
 }
-.button-5:hover {
-  background-position: -200%;
-  transition: all 300ms ease-in-out;
-}
+
 .loginhere-link {
   margin: 0px;
-  color:rgb(87, 110, 241);
+  color: rgb(87, 110, 241);
   cursor: pointer;
 }
 
 div.col {
   padding: 0px;
 }
+
 .alert {
   position: relative;
   padding: 0.1rem 0.4rem;
@@ -246,15 +191,18 @@ div.col {
   font-size: 0.7rem;
   margin-bottom: 2px;
 }
+
 #requerido {
   font-size: 14px;
   top: 3px;
   bottom: 3px;
   position: relative;
 }
+
 .col.compartido {
   margin-right: 3px;
 }
+
 .form-control {
   border: 0;
   border-bottom: 1px solid #ced4da;
@@ -263,12 +211,9 @@ div.col {
   padding-top: 1px;
   height: calc(1.5em + 0.4rem);
 }
+
 .form-group {
   margin-bottom: 0.3rem;
-}
-#tlf09 {
-  max-width: 25px;
-  padding-top: 3px;
 }
 
 .btn-submit {
@@ -277,11 +222,8 @@ div.col {
   box-shadow: 0px 4px 7px #777;
   height: 60px;
 }
+
 .btn-submit:hover {
   background-color: #d44a0b;
-}
-
-::v-deep .lds-ring div {
-  border-color: #fff transparent transparent transparent;
 }
 </style>

@@ -4,37 +4,25 @@
     <div class="d-flex justify-content-center">
       <div class="container">
         <h3>¿Olvidó su contraseña?</h3>
-        <div
-          id="alert"
-          v-if="errorMessage || successMessage"
-          class="alert"
-          v-bind:class="{ 'alert-danger': errorMessage, 'alert-success': successMessage }"
-        >
+        <div id="alert" v-if="errorMessage || successMessage" class="alert"
+          v-bind:class="{ 'alert-danger': errorMessage, 'alert-success': successMessage }">
           {{ this.errorMessage + this.successMessage }}
         </div>
         <form class="form-group" @submit.prevent="sendRequest" v-if="!this.stat">
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            placeholder="Correo electrónico"
-            v-model="form.email"
-            required
-          />
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+            placeholder="Correo electrónico" v-model="form.email" required />
           <button type="submit" class="btn btn-primary bg-sky-800" :disabled="form.processing">
-            <span
-              class="spinner-border spinner-border-sm" v-if="form.processing"
-              role="status" aria-hidden="true"></span>
+            <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status"
+              aria-hidden="true"></span>
             Enviar
           </button>
         </form>
         <div>
           O <inertia-link :href="'/ingreso'">
-          <a>Ingrese</a>
-        </inertia-link>
+            <a>Ingrese</a>
+          </inertia-link>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -57,13 +45,13 @@ export default {
   methods: {
     sendRequest() {
       this.visible = true;
-      this.form.post('/api/forgot-password',{
+      this.form.post('/api/forgot-password', {
         onError: (error) => {
           this.errorMessage = error[0];
           this.stat = false;
           this.form.reset();
         },
-        onSuccess: page=>{
+        onSuccess: page => {
           this.errorMessage = "";
           this.successMessage = this.$page.props.flash.message;
           this.stat = true;

@@ -51,8 +51,7 @@ export default {
     overflow: auto;
 }
 
-.modal-wrapper div{
+.modal-wrapper div {
     margin: auto;
 }
-
 </style>

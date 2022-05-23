@@ -39,6 +39,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -73,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.registro[data-v-4fb6ec1f] {\r\n  position: relative;\r\n  max-width: 500px;\r\n  margin-top: 60px;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -262,10 +263,14 @@ var render = function() {
                     {
                       staticClass:
                         "flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-                      attrs: { as: "button", type: "button", href: "/cursos" }
+                      attrs: {
+                        as: "button",
+                        type: "button",
+                        href: "/cursos/all"
+                      }
                     },
                     [
-                      _vm._v("\n          Ir a cursos\n          "),
+                      _vm._v("\n            Ir a cursos\n            "),
                       _c(
                         "span",
                         [

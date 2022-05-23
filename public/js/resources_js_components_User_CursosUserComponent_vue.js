@@ -49,6 +49,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -350,7 +353,7 @@ var render = function() {
                 curso.pivot.estado_matricula_id == 3
                   ? _c("div", { staticClass: "text-red-700" }, [
                       _vm._v(
-                        "\n               Su matrícula esta pendiente. \n            "
+                        "\n              Su matrícula esta pendiente.\n            "
                       )
                     ])
                   : _c(

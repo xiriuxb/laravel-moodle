@@ -115,26 +115,6 @@ export default {
         }
       );
     },
-    confirmarMatricula(id) {
-      this.setting = true;
-      axios.post(this.baseUrl + '/' + id + '/confirmar').then(response => {
-        this.setting = false;
-        this.$toast.open({
-          message: 'Matrícula confirmada',
-          type: 'success',
-          duration: 5000
-        });
-        this.loadMatriculas();
-      }).catch(
-        error => {
-          this.$toast.open({
-            message: 'Error al confirmar',
-            type: 'error',
-            duration: 5000
-          });
-        }
-      );
-    },
   },
 }
 </script>

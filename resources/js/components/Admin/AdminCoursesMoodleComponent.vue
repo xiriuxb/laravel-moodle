@@ -84,7 +84,6 @@ export default {
   },
   methods: {
     getCourses(url=this.baseCursosUrl) {
-      console.log(url);
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
         axios

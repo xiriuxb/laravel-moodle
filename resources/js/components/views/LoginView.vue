@@ -17,8 +17,9 @@
 </template>
 
 <script>
+import LoginComponent from '../auth/LoginComponent.vue'
 export default {
-
+    components: { LoginComponent },
 
 }
 </script>

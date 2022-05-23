@@ -32,7 +32,21 @@ import 'boxicons';
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
+Vue.component('registro-component', require('./components/RegistroComponent.vue').default);
+Vue.component('comments-component', require('./components/CommentsComponent.vue').default);
+Vue.component('login-component', require('./components/auth/LoginComponent.vue').default);
+Vue.component('footer-component', require('./components/FooterComponent.vue').default);
+Vue.component('cursos-sm-component', require('./components/CursosSmComponent.vue').default);
+Vue.component('home', require('./components/views/Home.vue').default);
+Vue.component('index-view', require('./components/views/Index.vue').default);
+Vue.component('login-view', require('./components/views/LoginView.vue').default);
+Vue.component('admin', require('./components/views/Admin.vue').default);
+Vue.component('cursos', require('./components/views/Cursos.vue').default);
+Vue.component('curso', require('./components/views/Curso.vue').default);
+Vue.component('user-menu-component', require('./components/UserMenuComponent.vue').default);
+Vue.component('filter-component', require('./components/FilterComponent.vue').default);
+Vue.component('cursos-component', require('./components/CursosComponent.vue').default);
+Vue.component('notice', require('./components/Email/Notice.vue').default);
 Vue.component('inertia-link',Link)
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -87,7 +87,7 @@ export default {
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
         axios
-          .get("/api/admin/admin-cursos-moodle",{params:{search:this.searchTerm}})
+          .get(url,{params:{search:this.searchTerm}})
           .then((response) => {
             this.courses = response.data.data;
             this.linksToPages = response.data.links;

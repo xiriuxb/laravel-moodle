@@ -81,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
       loadingInit: true,
       loading: false,
       setting: false,
-      baseCursosUrl: "/api/admin/cursos-moodle/",
+      baseCursosUrl: "/api/admin/cursos-moodle",
       linksToPages: [],
       searchTerm: ""
     };

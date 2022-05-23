@@ -1,6 +1,6 @@
 <template>
   <div id="adminCMoodle">
-    <h1>Administración de cursos (Moodle)</h1>
+    <h1>Administración de cursos (Moodle) TODO</h1>
     <p>
       En este apartado simplemente puede observar la información básica de los
       cursos de Moodle, además de importarlos a la base de la app Octavario. Si

@@ -67,7 +67,7 @@ export default {
       loadingInit: true,
       loading:false,
       setting: false,
-      baseCursosUrl: "/api/admin/admin-cursos-moodle",
+      baseCursosUrl: "/api/admin/cursos-moodle",
       linksToPages: [],
       searchTerm: "",
     };

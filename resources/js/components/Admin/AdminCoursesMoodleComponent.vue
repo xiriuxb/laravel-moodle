@@ -67,7 +67,6 @@ export default {
       loadingInit: true,
       loading:false,
       setting: false,
-      baseCursosUrl: "/api/admin/admin-cursos-moodle",
       linksToPages: [],
       searchTerm: "",
     };
@@ -83,7 +82,7 @@ export default {
     },
   },
   methods: {
-    getCourses(url=this.baseCursosUrl) {
+    getCourses() {
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
         axios

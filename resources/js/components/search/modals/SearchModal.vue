@@ -8,45 +8,18 @@
               <div class="row">
                 <div class="col-11">
                   <li class="nav-item dropdown show" tabindex="-1">
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="busqueda"
-                      id="busqueda"
-                      autocomplete="off"
-                      data-toggle="dropdown"
-                      v-model="$parent.question"
-                      placeholder="Buscar Curso"
-                    />
-
-                    <ul
-                      class="dropdown-menu show"
-                      tabindex="-1"
-                      id="respuestas"
-                      @click="$emit('close'); $parent.question=''"
-                      @keypress.enter="$emit('close'); $parent.question=''"
-                    >
-                      <li
-                        class="dropdown-item"
-                        v-if="$parent.loading && $parent.question.length >= 2"
-                      >
-                        <loading-component
-                          :position="'relative'"
-                          :width="'200px'"
-                        ></loading-component>
+                    <input class="form-control" type="text" name="busquedaModal" id="busquedaModal" autocomplete="off"
+                      data-toggle="dropdown" v-model="$parent.question" placeholder="Buscar Curso" />
+                    <ul class="dropdown-menu" tabindex="-1" id="respuestas"
+                      @click="$emit('close') ;$parent.question = ''"
+                      @keypress.enter="$emit('close'); $parent.question = ''">
+                      <li class="dropdown-item" v-if="$parent.loading && $parent.question.length >= 2">
+                        <loading-component :position="'relative'" :width="'200px'"></loading-component>
                       </li>
-                      <router-link
-                        v-for="(item, index) in $parent.resultados"
-                        :key="index"
-                        :to="{
-                          name: 'curso',
-                          params: { shortname: item.shortname },
-                        }"
-                        class="dropdown-item"
-                        :class="item.shortname == 'NE' ? 'disabled' : ''"
-                      >
+                      <inertia-link v-for="(item, index) in $parent.resultados" :key="index" :href="'/curso/'+item.shortname"
+                       class="dropdown-item" :class="item.shortname == 'NE' ? 'disabled' : ''" >
                         {{ item.fullname }}
-                      </router-link>
+                      </inertia-link>
                     </ul>
                   </li>
                 </div>
@@ -65,7 +38,11 @@
 </template>
 
 <script>
+import LoadingComponent from "../../LoadingComponent.vue";
 export default {
+  components: {
+    LoadingComponent,
+  },
   methods: {},
   data() {
     return {
@@ -81,9 +58,10 @@ export default {
 </script>
 
 <style scoped>
-input:focus + #respuestas {
+input:focus+#respuestas {
   display: block;
 }
+
 .modal-mask {
   position: fixed;
   z-index: 900;
@@ -113,6 +91,7 @@ input:focus + #respuestas {
   background-color: #6c2e11;
   align-items: center;
 }
+
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
@@ -148,6 +127,7 @@ input:focus + #respuestas {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 .col-1 {
   padding: 0;
 }

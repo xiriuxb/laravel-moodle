@@ -3937,8 +3937,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3970,7 +3968,6 @@ __webpack_require__.r(__webpack_exports__);
             keyword: this.question
           }
         }).then(function (response) {
-          //vm.answer = _.capitalize(response.data);
           vm.resultados = response.data;
 
           if (response.data.length == 0) {
@@ -4030,6 +4027,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
 //
 //
 //
@@ -4069,34 +4067,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    LoadingComponent: _LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   methods: {},
   data: function data() {
     return {
@@ -10433,7 +10408,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ninput:focus + #respuestas[data-v-7edc1728] {\r\n  display: block;\n}\n.modal-mask[data-v-7edc1728] {\r\n  position: fixed;\r\n  z-index: 900;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-7edc1728] {\r\n  display: table-cell;\n}\n.modal-container[data-v-7edc1728] {\r\n  margin: 0px auto;\r\n  background-color: transparent;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-7edc1728] {\r\n  background-color: #6c2e11;\r\n  align-items: center;\n}\n.modal-header h3[data-v-7edc1728] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-7edc1728] {\r\n  margin: 8px 0;\n}\n.modal-default-button[data-v-7edc1728] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-7edc1728],\r\n.modal-leave-active .modal-container[data-v-7edc1728] {\r\n  transform: scale(1.1);\n}\n.col-1[data-v-7edc1728] {\r\n  padding: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ninput:focus+#respuestas[data-v-7edc1728] {\r\n  display: block;\n}\n.modal-mask[data-v-7edc1728] {\r\n  position: fixed;\r\n  z-index: 900;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-7edc1728] {\r\n  display: table-cell;\n}\n.modal-container[data-v-7edc1728] {\r\n  margin: 0px auto;\r\n  background-color: transparent;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header[data-v-7edc1728] {\r\n  background-color: #6c2e11;\r\n  align-items: center;\n}\n.modal-header h3[data-v-7edc1728] {\r\n  margin-top: 0;\r\n  color: #42b983;\n}\n.modal-body[data-v-7edc1728] {\r\n  margin: 8px 0;\n}\n.modal-default-button[data-v-7edc1728] {\r\n  float: right;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-7edc1728],\r\n.modal-leave-active .modal-container[data-v-7edc1728] {\r\n  transform: scale(1.1);\n}\n.col-1[data-v-7edc1728] {\r\n  padding: 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51884,8 +51859,8 @@ var render = function() {
                             staticClass: "form-control",
                             attrs: {
                               type: "text",
-                              name: "busqueda",
-                              id: "busqueda",
+                              name: "busquedaModal",
+                              id: "busquedaModal",
                               autocomplete: "off",
                               "data-toggle": "dropdown",
                               placeholder: "Buscar Curso"
@@ -51908,7 +51883,7 @@ var render = function() {
                           _c(
                             "ul",
                             {
-                              staticClass: "dropdown-menu show",
+                              staticClass: "dropdown-menu",
                               attrs: { tabindex: "-1", id: "respuestas" },
                               on: {
                                 click: function($event) {
@@ -51956,18 +51931,13 @@ var render = function() {
                                 index
                               ) {
                                 return _c(
-                                  "router-link",
+                                  "inertia-link",
                                   {
                                     key: index,
                                     staticClass: "dropdown-item",
                                     class:
                                       item.shortname == "NE" ? "disabled" : "",
-                                    attrs: {
-                                      to: {
-                                        name: "curso",
-                                        params: { shortname: item.shortname }
-                                      }
-                                    }
+                                    attrs: { href: "/curso/" + item.shortname }
                                   },
                                   [
                                     _vm._v(
@@ -75774,14 +75744,6 @@ var map = {
 	"./Email/Notice.vue": [
 		"./resources/js/components/Email/Notice.vue"
 	],
-	"./ExampleComponent": [
-		"./resources/js/components/ExampleComponent.vue",
-		"resources_js_components_ExampleComponent_vue"
-	],
-	"./ExampleComponent.vue": [
-		"./resources/js/components/ExampleComponent.vue",
-		"resources_js_components_ExampleComponent_vue"
-	],
 	"./FilterComponent": [
 		"./resources/js/components/FilterComponent.vue"
 	],
@@ -75835,14 +75797,6 @@ var map = {
 	],
 	"./RegistroComponent.vue": [
 		"./resources/js/components/RegistroComponent.vue"
-	],
-	"./SearchComponent": [
-		"./resources/js/components/SearchComponent.vue",
-		"resources_js_components_SearchComponent_vue"
-	],
-	"./SearchComponent.vue": [
-		"./resources/js/components/SearchComponent.vue",
-		"resources_js_components_SearchComponent_vue"
 	],
 	"./User/CursosUserComponent": [
 		"./resources/js/components/User/CursosUserComponent.vue",
@@ -76136,7 +76090,7 @@ module.exports = webpackAsyncContext;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_ExampleComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_SearchComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

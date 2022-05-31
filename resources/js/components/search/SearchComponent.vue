@@ -18,8 +18,6 @@
           <inertia-link v-for='(item, index) in resultados' :key='index'
             :href="'/curso/'+item.shortname" class="dropdown-item"
             :class="item.shortname == 'NE' ? 'disabled' : ''" @click="question = ''">
-            <!-- <router-link @click="question=''"
-           :to="{name:'curso',params:{shortname:'CDZP'}}"> -->
             {{ item.fullname }}
           </inertia-link>
         </ul>
@@ -59,7 +57,6 @@ export default {
         axios
           .get("/courses/search", { params: { keyword: this.question } })
           .then(function (response) {
-            //vm.answer = _.capitalize(response.data);
             vm.resultados = response.data;
             if (response.data.length == 0) {
               vm.resultados = [{ fullname: "No se encontraron resultados", shortname: "NE" }];

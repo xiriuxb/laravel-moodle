@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -39,7 +38,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest',['except'=>['logout']]);
-        //$this->middleware('auth:api', ['except' => ['vuelogin']]);
+        $this->middleware('throttle:5,3')->only('vuelogin');
     }
 
     public function index()
@@ -53,7 +52,7 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        if (Auth::attempt($credentials, 'remember')) {
+        if (Auth::attempt($credentials, $request->remember)) {
             //$request->session()->regenerate();
             return redirect()->intended('/');
         } else {
@@ -72,30 +71,4 @@ class LoginController extends Controller
         //$request->session()->regenerateToken();
         return redirect('/');
     }
-
-    /**
-     * Refresh a token.
-     *
-     * @return JsonResponse
-     */
-    // public function refresh()
-    // {
-    //     return $this->respondWithToken(auth()->refresh());
-    // }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return JsonResponse
-     */
-    // protected function respondWithToken(string $token)
-    // {
-    //     return response()->json([
-    //         'access_token' => $token,
-    //         'token_type' => 'bearer',
-    //         'expires_in' => auth()->factory()->getTTL() * 60,
-    //     ]);
-    // }
 }

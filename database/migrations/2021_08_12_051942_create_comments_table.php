@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id')->default(1);
             $table->string('texto',512);
             $table->boolean('is_active')->default(0);
+            $table->string('file',128)->nullable();
             $table->timestamps();
         });
     }

@@ -52,4 +52,16 @@ export default {
   background-color: rgba(255, 251, 251, 0.37);
   box-shadow: 0px 4px 7px #777;
 }
+@media (max-width: 767px) {
+  .user-profile{
+    border-radius: 50%;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    left: 40%;
+  }
+  .dropdown-menu.show{
+    transform: translate3d(0px, 50px, 0px) !important;
+  }
+}
 </style>

@@ -50,7 +50,8 @@ export default {
         { name: 'Cursos', component: 'cursos' },
         { name: 'Cursos Moodle', component: 'cursos-moodle' },
         { name: 'Usuarios', component: 'users' },
-        { name: 'Matriculas Pendientes', component: 'matriculas-pendientes' }
+        { name: 'Matriculas Pendientes', component: 'matriculas-pendientes' },
+        { name: 'Imágenes', component: 'site-images' }
       ]
     };
   },

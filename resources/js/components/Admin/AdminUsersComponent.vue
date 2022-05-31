@@ -1,5 +1,6 @@
 <template>
   <div id="adminUsers">
+    <Head title="Admin | Usuarios" />
     <h3>Administración de usuarios</h3>
     <loading-component v-if="loadingInit"></loading-component>
     <div class="container" v-else>

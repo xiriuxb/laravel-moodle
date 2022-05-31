@@ -112,6 +112,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -127,12 +140,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isFormHidden: true,
       editMode: true,
       loading: true,
+      file_name: "",
       form: {
         autor: "",
         texto: "",
-        is_active: false
+        is_active: false,
+        file: null
       },
-      error: '',
       errors: [],
       comments: []
     };
@@ -146,8 +160,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     update: function update() {
       var _this = this;
 
+      console.log('update mode');
       this.loading = true;
-      axios.put('/api/testimonials/' + this.id, this.form).then(function () {
+      var formData = new FormData();
+      formData.append("_method", "put");
+      formData.append('autor', this.form.autor);
+      formData.append('texto', this.form.texto);
+      formData.append('is_active', this.form.is_active);
+      if (this.form.file != null) formData.append('file', this.form.file);
+      axios.post('/api/testimonials/' + this.id, formData).then(function () {
         _this.loading = false;
         _this.isFormHidden = true;
 
@@ -162,6 +183,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.loadComments();
       })["catch"](function (error) {
         _this.loading = false;
+        _this.errors = error.response.data.errors;
 
         _this.$toast.open({
           message: 'Error al actualizar el comentario',
@@ -177,17 +199,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.update();
       } else {
         this.loading = true;
-        axios.post('/api/testimonials', this.form).then(function () {
-          //this.errors = [];
+        var formData = new FormData();
+        formData.append('autor', this.form.autor);
+        formData.append('texto', this.form.texto);
+        formData.append('is_active', this.form.is_active);
+        if (this.form.file != null) formData.append('file', this.form.file);
+        axios.post('/api/testimonials', formData).then(function () {
+          _this2.errors = [];
+
           _this2.$toast.open({
             message: "Comentario guardado correctamente",
             type: "success",
             duration: 5000
           });
 
+          _this2.resetInput();
+
           _this2.loadComments();
-        })["catch"]();
-        this.resetInput();
+        })["catch"](function (error) {
+          _this2.errors = error.response.data.errors;
+          _this2.loading = false;
+
+          _this2.$toast.open({
+            message: 'Ocurrió un error',
+            type: 'error',
+            duration: 5000
+          });
+        });
       }
     },
     loadComments: function loadComments() {
@@ -223,14 +261,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.editMode = false;
       this.form.autor = this.form.texto = "";
       this.form.is_active = false;
+      this.form.file = null;
+      this.$refs.fileupload.value = "";
     },
     deleteComment: function deleteComment(index) {
       var _this4 = this;
 
+      this.editMode = false;
+      this.loading = true;
       axios["delete"]('/api/testimonials/'.concat(index)).then(function (response) {
-        //console.log(response);
         _this4.loadComments();
-      })["catch"](function (err) {//this.errors = err.response.errors;
+      })["catch"](function (err) {
+        _this4.errors = err.response.data.errors;
       });
       this.resetInput();
     },
@@ -245,8 +287,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this5.form.autor = response.data.data.autor;
         _this5.form.texto = response.data.data.texto;
         _this5.form.is_active = response.data.data.is_active;
+        _this5.file_name = response.data.data.file;
         _this5.loading = false;
-      })["catch"](function (err) {//this.errors = err.response.errors;
+      })["catch"](function (err) {
+        _this5.errors = err.response.data.errors;
       });
     },
     onClickEdit: function onClickEdit(index) {
@@ -1181,6 +1225,8 @@ var render = function() {
     "div",
     { staticClass: "container", class: { disabled: _vm.loading } },
     [
+      _c("Head", { attrs: { title: "Admin | Testimonios" } }),
+      _vm._v(" "),
       _c("h3", [_vm._v("Administración de testimonios")]),
       _vm._v(" "),
       _vm.loading ? _c("loading-component") : _vm._e(),
@@ -1254,7 +1300,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.error != ""
+                this.errors.autor != null
                   ? _c("div", { staticClass: "alert alert-danger" }, [
                       _vm._v(
                         "\n        " + _vm._s(this.errors.autor[0]) + "\n      "
@@ -1303,6 +1349,49 @@ var render = function() {
                     ])
                   : _vm._e()
               ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "studentPhoto" } }, [
+                  _vm._v("Foto del estudiante: (Max. 512Kb)")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "fileupload",
+                  staticClass: "form-control-file",
+                  attrs: {
+                    type: "file",
+                    accept: ".png,.jpg,.jpeg",
+                    id: "studentPhoto",
+                    name: "studentPhoto"
+                  },
+                  on: {
+                    input: function($event) {
+                      _vm.form.file = $event.target.files[0]
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                this.errors.file != null
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(
+                        "\n        " + _vm._s(this.errors.file[0]) + "\n      "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm.editMode && !_vm.loading
+                ? _c("div", [
+                    _c("b", [_vm._v("Imagen:")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(
+                          _vm.form.file ? "Sí (" + _vm.form.file + ")" : "No"
+                        ) +
+                        "\n    "
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("label", { staticClass: "form-check form-switch" }, [
                 _c("input", {
@@ -1364,7 +1453,13 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-primary",
-                      attrs: { type: "submit", disabled: _vm.loading }
+                      attrs: { type: "submit", disabled: _vm.loading },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.save.apply(null, arguments)
+                        }
+                      }
                     },
                     [
                       _vm._v(

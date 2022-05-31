@@ -68,6 +68,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -309,6 +310,8 @@ var render = function() {
     "div",
     { attrs: { id: "adminCourses" } },
     [
+      _c("Head", { attrs: { title: "Admin | Cursos (Local)" } }),
+      _vm._v(" "),
       _c("h1", [_vm._v("\r\n      Administración de cursos (Local)\r\n  ")]),
       _vm._v(" "),
       _c("p", [

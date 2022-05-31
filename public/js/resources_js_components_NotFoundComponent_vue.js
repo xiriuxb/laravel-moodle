@@ -25,6 +25,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default
@@ -189,36 +190,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "h-screen", attrs: { id: "not-found" } }, [
-    _c(
-      "div",
-      { staticClass: "relative top-1/3" },
-      [
-        _c("h1", { staticClass: "text-8xl font-bold text-blue-900" }, [
-          _vm._v("404")
-        ]),
-        _vm._v(" "),
-        _c("h2", { staticClass: "text-3xl font-bold" }, [
-          _vm._v("Página no encontrada")
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("La página que estás buscando no existe o no está disponible.")
-        ]),
-        _vm._v(" "),
-        _c(
-          "inertia-link",
-          {
-            staticClass:
-              "items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-            attrs: { as: "button", href: "/" }
-          },
-          [_vm._v("Volver al inicio")]
-        )
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "h-screen", attrs: { id: "not-found" } },
+    [
+      _c("Head", { attrs: { title: "No Encontrado" } }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "relative top-1/3" },
+        [
+          _c("h1", { staticClass: "text-8xl font-bold text-blue-900" }, [
+            _vm._v("404")
+          ]),
+          _vm._v(" "),
+          _c("h2", { staticClass: "text-3xl font-bold" }, [
+            _vm._v("Página no encontrada")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "La página que estás buscando no existe o no está disponible."
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "inertia-link",
+            {
+              staticClass:
+                "items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
+              attrs: { as: "button", href: "/" }
+            },
+            [_vm._v("Volver al inicio")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -42,7 +42,7 @@ class UserController extends Controller
             return back()->withErrors(['new_password'=>'La contraseña no puede ser igual a la anterior']);
         }
         $request->user()->update(['password' => Hash::make($request->new_password)]);
-        //$request->user()->notify(new PasswordChanged($request->user()));
+        $request->user()->notify(new PasswordChanged($request->user()));
         try {
             $this->updateMoodlePassword($request->new_password,$request->user()->username);
         } catch (\Throwable $th) {

@@ -21,6 +21,7 @@ class Testimonial extends Model
         'editor',
         'texto',
         'is_active',
+        'file'
     ];
 
 }

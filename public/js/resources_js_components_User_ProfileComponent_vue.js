@@ -349,6 +349,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
 
 
 
@@ -1350,301 +1351,310 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "profile" } }, [
-    _c("div", { staticClass: "container", attrs: { id: "datosP" } }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-12" }, [
-          _vm.$page.props.errors.new_email
-            ? _c("div", { staticClass: "alert alert-danger" }, [
-                _vm._v(
-                  "\n          Su correo no fue actualizado, por favor intente de nuevo.\n        "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$page.props.errors.new_password
-            ? _c("div", { staticClass: "alert alert-danger" }, [
-                _vm._v(
-                  "\n          Su contraseña no fue actualizada, por favor intente de nuevo.\n        "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$page.props.flash.message
-            ? _c("div", { staticClass: "alert alert-success" }, [
-                _vm._v(
-                  "\n          Su información se actualizó correctamente.\n        "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              !_vm.user.email_verified_at
-                ? _c(
-                    "div",
-                    { staticClass: "alert alert-warning" },
-                    [
-                      _vm._v(
-                        "\n              Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click\n              "
-                      ),
-                      _c(
-                        "inertia-link",
-                        {
-                          staticClass: "text-sky-900",
-                          attrs: { href: "/email/verification-notification" }
-                        },
-                        [_vm._v("aquí")]
-                      ),
-                      _vm._v("\n              y siga los pasos.\n            ")
-                    ],
-                    1
+  return _c(
+    "div",
+    { attrs: { id: "profile" } },
+    [
+      _c("Head", { attrs: { title: "Usuario | Perfil" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container", attrs: { id: "datosP" } }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-12" }, [
+            _vm.$page.props.errors.new_email
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _vm._v(
+                    "\n          Su correo no fue actualizado, por favor intente de nuevo.\n        "
                   )
-                : _vm._e(),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$page.props.errors.new_password
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _vm._v(
+                    "\n          Su contraseña no fue actualizada, por favor intente de nuevo.\n        "
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$page.props.flash.message
+              ? _c("div", { staticClass: "alert alert-success" }, [
+                  _vm._v(
+                    "\n          Su información se actualizó correctamente.\n        "
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "card" }, [
+              _vm._m(0),
               _vm._v(" "),
-              _c(
-                "form",
-                {
-                  class: { disabled: _vm.loading },
-                  attrs: { action: "#", method: "post" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.updateUser.apply(null, arguments)
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
-                      _c("label", { attrs: { for: "inputName" } }, [
-                        _vm._v("Nombre")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputName",
-                          placeholder: "Nombre Completo",
-                          disabled: ""
-                        },
-                        domProps: { value: _vm.fullname }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
-                      _c("label", { attrs: { for: "inputUsername" } }, [
-                        _vm._v("Nombre de usuario")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "inputUsername",
-                          placeholder: "Nombre de usuario",
-                          readonly: ""
-                        },
-                        domProps: { value: _vm.user.username }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c(
+              _c("div", { staticClass: "card-body" }, [
+                !_vm.user.email_verified_at
+                  ? _c(
                       "div",
-                      { staticClass: "form-group col-12 col-sm-6" },
+                      { staticClass: "alert alert-warning" },
                       [
-                        _c("label", { attrs: { for: "inputEmail" } }, [
-                          _vm._v("Correo electrónico")
+                        _vm._v(
+                          "\n              Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click\n              "
+                        ),
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass: "text-sky-900",
+                            attrs: { href: "/email/verification-notification" }
+                          },
+                          [_vm._v("aquí")]
+                        ),
+                        _vm._v(
+                          "\n              y siga los pasos.\n            "
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    class: { disabled: _vm.loading },
+                    attrs: { action: "#", method: "post" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.updateUser.apply(null, arguments)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
+                        _c("label", { attrs: { for: "inputName" } }, [
+                          _vm._v("Nombre")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
-                            type: "email",
-                            id: "inputEmail",
-                            placeholder: "Correo electrónico",
+                            type: "text",
+                            id: "inputName",
+                            placeholder: "Nombre Completo",
                             disabled: ""
                           },
-                          domProps: { value: _vm.user.email }
-                        }),
-                        _vm._v(" "),
-                        _c("change-email-modal-2")
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group col-12 col-sm-6" },
-                      [
-                        _c("label", { attrs: { for: "inputPassword" } }, [
-                          _vm._v("Contraseña")
+                          domProps: { value: _vm.fullname }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-12 col-sm-6" }, [
+                        _c("label", { attrs: { for: "inputUsername" } }, [
+                          _vm._v("Nombre de usuario")
                         ]),
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
                           attrs: {
-                            type: "password",
-                            id: "inputPassword",
-                            placeholder: "Contraseña",
-                            value: "********",
-                            disabled: "",
+                            type: "text",
+                            id: "inputUsername",
+                            placeholder: "Nombre de usuario",
                             readonly: ""
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("change-password-modal-2")
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "from-group col-12 col-sm-6" },
-                      [
-                        _c("country-select", {
-                          staticClass: "form-control",
-                          attrs: {
-                            name: "country",
-                            id: "country",
-                            placeholder: "País",
-                            whiteList: ["EC"],
-                            countryName: true,
-                            autocomplete: true,
-                            removePlaceholder: false,
-                            country: _vm.user.country
                           },
-                          model: {
-                            value: _vm.form.country,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "country", $$v)
-                            },
-                            expression: "form.country"
-                          }
+                          domProps: { value: _vm.user.username }
                         })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group col-12 col-sm-6" },
-                      [
-                        _c("region-select", {
-                          staticClass: "form-control",
-                          attrs: {
-                            region: _vm.user.region,
-                            defaultRegion: "EC",
-                            regionName: true,
-                            name: "region",
-                            id: "region",
-                            placeholder: "Provincia",
-                            disabled: !_vm.form.country
-                          },
-                          model: {
-                            value: _vm.form.region,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "region", $$v)
-                            },
-                            expression: "form.region"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "fechaNacimiento" } }, [
-                      _vm._v("Día de nacimiento")
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.birth_day,
-                          expression: "form.birth_day"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "date",
-                        placeholder: "Fecha de nacimiento"
-                      },
-                      domProps: { value: _vm.form.birth_day },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "birth_day", $event.target.value)
-                        }
-                      }
-                    }),
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-12 col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "inputEmail" } }, [
+                            _vm._v("Correo electrónico")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "email",
+                              id: "inputEmail",
+                              placeholder: "Correo electrónico",
+                              disabled: ""
+                            },
+                            domProps: { value: _vm.user.email }
+                          }),
+                          _vm._v(" "),
+                          _c("change-email-modal-2")
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-12 col-sm-6" },
+                        [
+                          _c("label", { attrs: { for: "inputPassword" } }, [
+                            _vm._v("Contraseña")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "password",
+                              id: "inputPassword",
+                              placeholder: "Contraseña",
+                              value: "********",
+                              disabled: "",
+                              readonly: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("change-password-modal-2")
+                        ],
+                        1
+                      )
+                    ]),
                     _vm._v(" "),
-                    _vm.$page.props.errors.birth_day != null
-                      ? _c("div", { staticClass: "alert alert-danger" }, [
-                          _vm._v(
-                            "\n                  " +
-                              _vm._s(_vm.$page.props.errors.birth_day) +
-                              "\n                "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          " btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200",
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "from-group col-12 col-sm-6" },
+                        [
+                          _c("country-select", {
+                            staticClass: "form-control",
+                            attrs: {
+                              name: "country",
+                              id: "country",
+                              placeholder: "País",
+                              whiteList: ["EC"],
+                              countryName: true,
+                              autocomplete: true,
+                              removePlaceholder: false,
+                              country: _vm.user.country
+                            },
+                            model: {
+                              value: _vm.form.country,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "country", $$v)
+                              },
+                              expression: "form.country"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group col-12 col-sm-6" },
+                        [
+                          _c("region-select", {
+                            staticClass: "form-control",
+                            attrs: {
+                              region: _vm.user.region,
+                              defaultRegion: "EC",
+                              regionName: true,
+                              name: "region",
+                              id: "region",
+                              placeholder: "Provincia",
+                              disabled: !_vm.form.country
+                            },
+                            model: {
+                              value: _vm.form.region,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "region", $$v)
+                              },
+                              expression: "form.region"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "fechaNacimiento" } }, [
+                        _vm._v("Día de nacimiento")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.birth_day,
+                            expression: "form.birth_day"
+                          }
+                        ],
+                        staticClass: "form-control",
                         attrs: {
-                          type: "submit",
-                          disabled: _vm.enableButton || this.loading
+                          type: "date",
+                          placeholder: "Fecha de nacimiento"
+                        },
+                        domProps: { value: _vm.form.birth_day },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "birth_day", $event.target.value)
+                          }
                         }
-                      },
-                      [
-                        _vm.loading
-                          ? _c("span", {
-                              staticClass: "spinner-border spinner-border-sm",
-                              attrs: { role: "status", "aria-hidden": "true" }
-                            })
-                          : _vm._e(),
-                        _vm._v(
-                          "\n                  Guardar Cambios\n                "
-                        )
-                      ]
-                    )
+                      }),
+                      _vm._v(" "),
+                      _vm.$page.props.errors.birth_day != null
+                        ? _c("div", { staticClass: "alert alert-danger" }, [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(_vm.$page.props.errors.birth_day) +
+                                "\n                "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            " btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200",
+                          attrs: {
+                            type: "submit",
+                            disabled: _vm.enableButton || this.loading
+                          }
+                        },
+                        [
+                          _vm.loading
+                            ? _c("span", {
+                                staticClass: "spinner-border spinner-border-sm",
+                                attrs: { role: "status", "aria-hidden": "true" }
+                              })
+                            : _vm._e(),
+                          _vm._v(
+                            "\n                  Guardar Cambios\n                "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex flex-row-reverse pr-2" },
+                [
+                  _c("inertia-link", { attrs: { href: "/eliminar-cuenta" } }, [
+                    _vm._v("Eliminar Cuenta")
                   ])
-                ]
+                ],
+                1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "flex flex-row-reverse pr-2" },
-              [
-                _c("inertia-link", { attrs: { href: "/eliminar-cuenta" } }, [
-                  _vm._v("Eliminar Cuenta")
-                ])
-              ],
-              1
-            )
+            ])
           ])
         ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

@@ -61,6 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -482,6 +483,8 @@ var render = function() {
     "div",
     { attrs: { id: "adminMatriculasPendientes" } },
     [
+      _c("Head", { attrs: { title: "Admin | Matriculas Pendientes" } }),
+      _vm._v(" "),
       _c("h2", [_vm._v("\n    Administración de matrículas pendientes\n  ")]),
       _vm._v(" "),
       _vm.loadingInit

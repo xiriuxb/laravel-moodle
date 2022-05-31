@@ -52,6 +52,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -255,138 +256,145 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container", attrs: { id: "misCursos" } }, [
-    _c("h2", { staticClass: "text-2xl" }, [
-      _vm._v("Mis cursos "),
-      _vm.loading
-        ? _c("span", {
-            staticClass: "spinner-border spinner-border-sm",
-            attrs: { role: "status", "aria-hidden": "true" }
-          })
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        attrs: { action: "#" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.busquedaCurso.apply(null, arguments)
-          }
-        }
-      },
-      [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.termino_busqueda,
-              expression: "termino_busqueda"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "search", placeholder: "Buscar curso" },
-          domProps: { value: _vm.termino_busqueda },
+  return _c(
+    "div",
+    { staticClass: "container", attrs: { id: "misCursos" } },
+    [
+      _c("Head", { attrs: { title: "Usuario | Cursos" } }),
+      _vm._v(" "),
+      _c("h2", { staticClass: "text-2xl" }, [
+        _vm._v("Mis cursos "),
+        _vm.loading
+          ? _c("span", {
+              staticClass: "spinner-border spinner-border-sm",
+              attrs: { role: "status", "aria-hidden": "true" }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          attrs: { action: "#" },
           on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.termino_busqueda = $event.target.value
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.busquedaCurso.apply(null, arguments)
             }
           }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200",
-            attrs: { type: "submit", disabled: this.loading }
-          },
-          [
-            _vm.loading
-              ? _c("span", {
-                  staticClass: "spinner-border spinner-border-sm",
-                  attrs: { role: "status", "aria-hidden": "true" }
-                })
-              : _vm._e(),
-            _vm._v("\n      Buscar\n    ")
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _c("table", { staticClass: "table" }, [
-        _c(
-          "tbody",
-          _vm._l(_vm.data, function(curso) {
-            return _c("tr", { key: curso.shortname }, [
-              _c("td", [_vm._v(_vm._s(curso.category))]),
-              _vm._v(" "),
-              _c(
-                "td",
-                [
-                  _c(
-                    "inertia-link",
-                    {
-                      staticClass: "text-blue-700",
-                      attrs: { href: "/curso/" + curso.shortname }
-                    },
-                    [
-                      _vm._v(
-                        "\n              " +
-                          _vm._s(curso.fullname) +
-                          "\n            "
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("td", [
-                curso.pivot.estado_matricula_id == 3
-                  ? _c("div", { staticClass: "text-red-700" }, [
-                      _vm._v(
-                        "\n              Su matrícula esta pendiente.\n            "
-                      )
-                    ])
-                  : _c(
-                      "button",
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.termino_busqueda,
+                expression: "termino_busqueda"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "search", placeholder: "Buscar curso" },
+            domProps: { value: _vm.termino_busqueda },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.termino_busqueda = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200",
+              attrs: { type: "submit", disabled: this.loading }
+            },
+            [
+              _vm.loading
+                ? _c("span", {
+                    staticClass: "spinner-border spinner-border-sm",
+                    attrs: { role: "status", "aria-hidden": "true" }
+                  })
+                : _vm._e(),
+              _vm._v("\n      Buscar\n    ")
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("table", { staticClass: "table" }, [
+          _c(
+            "tbody",
+            _vm._l(_vm.data, function(curso) {
+              return _c("tr", { key: curso.shortname }, [
+                _c("td", [_vm._v(_vm._s(curso.category))]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c(
+                      "inertia-link",
                       {
-                        staticClass: "btn btn-primary",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.redirectToMoodle(curso.shortname)
-                          }
-                        }
+                        staticClass: "text-blue-700",
+                        attrs: { href: "/curso/" + curso.shortname }
                       },
                       [
-                        _c("span", { staticClass: "align-middle" }, [
-                          _vm._v(" Ver en Moodle")
-                        ]),
-                        _vm._v(" "),
-                        _c("box-icon", {
-                          staticClass: "align-middle",
-                          attrs: { name: "link-external", color: "#fff" }
-                        })
-                      ],
-                      1
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(curso.fullname) +
+                            "\n            "
+                        )
+                      ]
                     )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", [
+                  curso.pivot.estado_matricula_id == 3
+                    ? _c("div", { staticClass: "text-red-700" }, [
+                        _vm._v(
+                          "\n              Su matrícula esta pendiente.\n            "
+                        )
+                      ])
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.redirectToMoodle(curso.shortname)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "align-middle" }, [
+                            _vm._v(" Ver en Moodle")
+                          ]),
+                          _vm._v(" "),
+                          _c("box-icon", {
+                            staticClass: "align-middle",
+                            attrs: { name: "link-external", color: "#fff" }
+                          })
+                        ],
+                        1
+                      )
+                ])
               ])
-            ])
-          }),
-          0
-        )
+            }),
+            0
+          )
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Head title="Inicio" />
         <caratula-component></caratula-component>
         <div>
             <div class="section-odd">
@@ -16,7 +17,7 @@
                         class="w-full md:w-1/3 border-2 my-1 sm:my-0 mx-1 rounded">
                         <div class="">
                             <div class="card-header bg-transparent self-center">
-                                <img class="inline" :src="'/images/' + paso.imagen" alt="regístrese">
+                                <img class="inline" :src="'/images/' + paso.imagen" alt="regístrese" load="lazy">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title font-bold">{{ paso.titulo }}</h5>
@@ -33,7 +34,7 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/reloj.png" class="img-fluid icono" alt="acceso 24/7">
+                                    <img src="/images/reloj.png" class="img-fluid icono" alt="acceso 24/7" loading="lazy">
                                 </div>
                                 <div class="col">
                                     ACCESO 24/7
@@ -43,7 +44,7 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/success.png" class="img-fluid icono" alt="a tu ritmo">
+                                    <img src="/images/success.png" class="img-fluid icono" alt="a tu ritmo" loading="lazy">
                                 </div>
                                 <div class="col">
                                     ESTUDIA A TU RITMO
@@ -53,7 +54,7 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/anywhere.png" class="img-fluid icono" alt="donde quieras">
+                                    <img src="/images/anywhere.png" class="img-fluid icono" alt="donde quieras" loading="lazy">
                                 </div>
                                 <div class="col">
                                     ESTUDIA DONDE QUIERAS
@@ -63,7 +64,7 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/bitmap.png" class="img-fluid icono" alt="interactiva">
+                                    <img src="/images/bitmap.png" class="img-fluid icono" alt="interactiva" loading="lazy">
                                 </div>
                                 <div class="col">
                                     PLATAFORMA INTERACTIVA
@@ -94,6 +95,7 @@
 import CaratulaComponent from './CaratulaComponent.vue'
 import CursosSmComponent from './CursosSmComponent.vue'
 import Home from './views/Home.vue';
+
 
 export default {
     layout: Home,
@@ -130,7 +132,7 @@ export default {
             return this.message;
         }
     },
-    components: { CursosSmComponent, CaratulaComponent },
+    components: { CursosSmComponent, CaratulaComponent},
     watch: {
     },
 }

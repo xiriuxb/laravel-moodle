@@ -1728,6 +1728,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("Head", { attrs: { title: _vm.curso.fullname } }),
+      _vm._v(" "),
       !_vm.logged
         ? _c(
             "button",

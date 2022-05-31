@@ -1,5 +1,6 @@
 <template>
 <div id="adminCourses">
+  <Head title="Admin | Cursos (Local)" />
   <h1>
       Administración de cursos (Local)
   </h1>

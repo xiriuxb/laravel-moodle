@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Traits\MoodleServicesTrait;
 
 class ResetPasswordController extends Controller
 {
@@ -22,26 +21,27 @@ class ResetPasswordController extends Controller
     | explore this trait and override any methods you wish to tweak.
     |
     */
+    use MoodleServicesTrait;
 
-    use ResetsPasswords;
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    function index($token, Request $request) {
+        return inertia('auth/ResetPasswordComponent', ['tokenRecive' => $token, 'emailRecive' => $request->only('email')['email']]);
+    }
 
     public function resetPassword(Request $request)
     {
-        $this->$request->validate([
+        $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
-    
+
         $status = Password::reset(
-            $this->$request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
@@ -50,9 +50,26 @@ class ResetPasswordController extends Controller
                     // event(new PasswordReset($user));
             }
         );
+        if(Password::PASSWORD_RESET) {
+            $userid= $this->getUserId($request->only('email')['email'],'email');
+            $this->updateMoodlePassword($request->only('password')['password'], $userid);
+        }
     
         return $status === Password::PASSWORD_RESET
                     ? redirect()->back()->with('message', __($status))
                     : redirect()->back()->withErrors(['email'=>__($status)]);
+    }   
+
+    private function updateMoodlePassword(string $newPassword, string $username){
+        $client = new \GuzzleHttp\Client();
+        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+            'query' => [
+                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wsfunction' => 'core_user_update_users',
+                'users[0][id]' => $username,
+                'users[0][password]'=>$newPassword,
+                'moodlewsrestformat' => 'json',
+            ],'verify'=> false
+        ]);
     }
 }

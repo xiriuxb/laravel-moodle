@@ -1,5 +1,6 @@
 <template>
   <div id="reset-password">
+    <Head title="Reset Password" />
     <div class="card-form">
       <div class="container" v-if="message">
         <div class="alert alert-success" role="success">
@@ -94,7 +95,7 @@ export default {
   },
   methods: {
     sendRequest() {
-      this.form.post("/api/reset-password", {
+      this.form.post("/reset-password", {
         onStart: () => {
           this.errors = "";
         },

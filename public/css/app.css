@@ -656,9 +656,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-\[50\%\] {
   border-radius: 50%;
 }
-.rounded-sm {
-  border-radius: 0.125rem;
-}
 .rounded-none {
   border-radius: 0px;
 }
@@ -687,10 +684,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-orange-400 {
   --tw-border-opacity: 1;
   border-color: rgb(251 146 60 / var(--tw-border-opacity));
-}
-.border-blue-800 {
-  --tw-border-opacity: 1;
-  border-color: rgb(30 64 175 / var(--tw-border-opacity));
 }
 .border-gray-200 {
   --tw-border-opacity: 1;

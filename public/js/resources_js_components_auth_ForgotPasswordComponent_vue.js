@@ -60,7 +60,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.visible = true;
-      this.form.post('/api/forgot-password', {
+      console.log(this.$page.props.errors);
+      this.form.post('/forgot-password', {
         onError: function onError(error) {
           _this.errorMessage = error[0];
           _this.stat = false;
@@ -68,11 +69,14 @@ __webpack_require__.r(__webpack_exports__);
           _this.form.reset();
         },
         onSuccess: function onSuccess(page) {
-          _this.errorMessage = "";
           _this.successMessage = _this.$page.props.flash.message;
           _this.stat = true;
 
           _this.form.reset();
+        },
+        onFinish: function onFinish(page) {
+          _this.errorMessage = _this.$page.props.errors.message ? _this.$page.props.errors.message : "";
+          console.log(_this.$page.props.errors);
         }
       });
     }
@@ -238,106 +242,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "forgot-password" } }, [
-    _c("div", { staticClass: "d-flex justify-content-center" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("h3", [_vm._v("¿Olvidó su contraseña?")]),
-        _vm._v(" "),
-        _vm.errorMessage || _vm.successMessage
-          ? _c(
-              "div",
-              {
-                staticClass: "alert",
-                class: {
-                  "alert-danger": _vm.errorMessage,
-                  "alert-success": _vm.successMessage
+  return _c(
+    "div",
+    { attrs: { id: "forgot-password" } },
+    [
+      _c("Head", { attrs: { title: "Contraseña" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex justify-content-center" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("h3", [_vm._v("¿Olvidó su contraseña?")]),
+          _vm._v(" "),
+          _vm.errorMessage || _vm.successMessage
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert",
+                  class: {
+                    "alert-danger": _vm.errorMessage,
+                    "alert-success": _vm.successMessage
+                  },
+                  attrs: { id: "alert" }
                 },
-                attrs: { id: "alert" }
-              },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(this.errorMessage + this.successMessage) +
-                    "\n      "
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        !this.stat
-          ? _c(
-              "form",
-              {
-                staticClass: "form-group",
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.sendRequest.apply(null, arguments)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.email,
-                      expression: "form.email"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "email",
-                    "aria-describedby": "emailHelp",
-                    placeholder: "Correo electrónico",
-                    required: ""
-                  },
-                  domProps: { value: _vm.form.email },
+                [
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(this.errorMessage + this.successMessage) +
+                      "\n      "
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !this.stat
+            ? _c(
+                "form",
+                {
+                  staticClass: "form-group",
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "email", $event.target.value)
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.sendRequest.apply(null, arguments)
                     }
                   }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary bg-sky-800",
-                    attrs: { type: "submit", disabled: _vm.form.processing }
-                  },
-                  [
-                    _vm.form.processing
-                      ? _c("span", {
-                          staticClass: "spinner-border spinner-border-sm",
-                          attrs: { role: "status", "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v("\n          Enviar\n        ")
-                  ]
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _vm._v("\n        O "),
-            _c("inertia-link", { attrs: { href: "/ingreso" } }, [
-              _c("a", [_vm._v("Ingrese")])
-            ])
-          ],
-          1
-        )
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.email,
+                        expression: "form.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "email",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Correo electrónico",
+                      required: ""
+                    },
+                    domProps: { value: _vm.form.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary bg-sky-800",
+                      attrs: { type: "submit", disabled: _vm.form.processing }
+                    },
+                    [
+                      _vm.form.processing
+                        ? _c("span", {
+                            staticClass: "spinner-border spinner-border-sm",
+                            attrs: { role: "status", "aria-hidden": "true" }
+                          })
+                        : _vm._e(),
+                      _vm._v("\n          Enviar\n        ")
+                    ]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _vm._v("\n        O "),
+              _c("inertia-link", { attrs: { href: "/ingreso" } }, [
+                _c("a", [_vm._v("Ingrese")])
+              ])
+            ],
+            1
+          )
+        ])
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

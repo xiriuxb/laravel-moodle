@@ -7,13 +7,13 @@ trait MoodleServicesTrait {
      * @param  string  $username
      * @return int
      */
-    public function getUserId(string $userName){
+    public function getUserId(string $userName, string $field = 'username'){
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', env('MOODLE_WS_URL'), [
             'query' => [
                 'wstoken' => (string)env('MOODLE_WS_TOKEN'),
                 'wsfunction' => 'core_user_get_users_by_field',
-                'field' => 'username',
+                'field' => $field,
                 'values[0]' => $userName,
                 'moodlewsrestformat' => 'json',
             ],'verify'=> false
@@ -41,10 +41,10 @@ trait MoodleServicesTrait {
         ]);
         $json = json_decode($res->getBody());
             $curso_aux = $json->courses;
-        if(!empty($curso_aux)){
-            return $curso_aux[0];
-        }else{
+        if(empty($curso_aux)){
             return [];
+        }else{
+            return $curso_aux[0];
         }
         
     }

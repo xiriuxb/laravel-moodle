@@ -1,5 +1,6 @@
 <template>
   <div id="adminMatriculasPendientes">
+    <Head title="Admin | Matriculas Pendientes" />
     <h2>
       Administración de matrículas pendientes
     </h2>

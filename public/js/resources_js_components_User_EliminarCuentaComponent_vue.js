@@ -34,6 +34,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Home_vue__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -223,67 +225,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "deleteProfile" } }, [
-    _vm.passwordError
-      ? _c("div", { staticClass: "alert alert-danger" }, [
-          _vm._v("\n        " + _vm._s(_vm.passwordError) + "\n    ")
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        attrs: { action: "#", method: "post" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.deleteUser.apply(null, arguments)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.password,
-                expression: "form.password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "password",
-              name: "password",
-              id: "currentPassword",
-              placeholder: "Contraseña"
-            },
-            domProps: { value: _vm.form.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "password", $event.target.value)
-              }
+  return _c(
+    "div",
+    { attrs: { id: "deleteProfile" } },
+    [
+      _c("Head", { attrs: { title: "Usuario | Eliminar Cuenta" } }),
+      _vm._v(" "),
+      _vm.passwordError
+        ? _c("div", { staticClass: "alert alert-danger" }, [
+            _vm._v("\n        " + _vm._s(_vm.passwordError) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          attrs: { action: "#", method: "post" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.deleteUser.apply(null, arguments)
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger",
-            attrs: { type: "submit", disabled: _vm.form.processing }
-          },
-          [_vm._v("Eliminar perfil")]
-        )
-      ]
-    )
-  ])
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.password,
+                  expression: "form.password"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "password",
+                name: "password",
+                id: "currentPassword",
+                placeholder: "Contraseña"
+              },
+              domProps: { value: _vm.form.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "password", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger",
+              attrs: { type: "submit", disabled: _vm.form.processing }
+            },
+            [_vm._v("Eliminar perfil")]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

@@ -95,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -1376,6 +1377,8 @@ var render = function() {
     "div",
     { attrs: { id: "adminUsers" } },
     [
+      _c("Head", { attrs: { title: "Admin | Usuarios" } }),
+      _vm._v(" "),
       _c("h3", [_vm._v("Administración de usuarios")]),
       _vm._v(" "),
       _vm.loadingInit

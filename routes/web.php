@@ -27,24 +27,25 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/mis-cursos', 'App\Http\Controllers\UserController@matriculas')->name('mis-cursos');
 
-    // Route::get('/home', 'App\Http\Controllers\HomeController@index');
-
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('auth', 'can:admin.home')->group(function () {
         Route::get('/testimonials', function () {
             return inertia('Admin/AdminTestimonialComponent');
-        })->middleware('can:admin.home')->name('admin.home');
+        })->name('admin.home');
         Route::get('/cursos-moodle', function () {
             return inertia('Admin/AdminCoursesMoodleComponent');
-        })->middleware('can:admin.home');
+        });
         Route::get('/cursos', function () {
             return inertia('Admin/AdminCoursesComponent');
-        })->middleware('can:admin.home');
+        });
         Route::get('/users', function () {
             return inertia('Admin/AdminUsersComponent');
-        })->middleware('can:admin.home');
+        });
         Route::get('/matriculas-pendientes', function () {
             return inertia('Admin/AdminMatriculasPendientesComponent');
-        })->middleware('can:admin.home');
+        });
+        Route::get('/site-images', function () {
+            return inertia('Admin/AdminPublicImagesComponent');
+        });
     });
 
     Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');
@@ -62,33 +63,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/user/delete', 'App\Http\Controllers\UserController@deleteProfile')->name('user.delete');
     Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*']);
 
-    Route::get('/email/verification-notification', function () {
-        return inertia('Email/Notice');
-    })->name('verification.notice');
+    Route::get('/email/verification-notification', 'App\Http\Controllers\Auth\VerificationController@index')->name('verification.notice');
 
-    Route::post('/email/verification-notification', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-        return redirect()->back()->with(['message' => 'Se a reenviado el mail de verificación.']);
-    })->middleware(['auth', 'throttle:1,3'])->name('verification.resend');
+    Route::post('/email/verification-notification', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.resend');
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
         return redirect('/');
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
-    Route::get('/forgot-password', function () {
-        return inertia('auth/ForgotPasswordComponent');
-    })->middleware('guest')->name('password.request');
+    Route::get('/forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@index')->middleware('guest')->name('password.request');
 
-    Route::get('/reset-password/{token}', function ($token, Request $request) {
-        return inertia('auth/ResetPasswordComponent', ['tokenRecive' => $token, 'emailRecive' => $request->only('email')['email']]);
-    })->middleware('guest')->name('password.reset');
+    Route::post('/forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('guest')->name('password.email');
+
+    Route::get('/reset-password/{token}', 'App\Http\Controllers\Auth\ResetPasswordController@index')->middleware('guest')->name('password.reset');
+    Route::post('/reset-password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('password.update');
 
     Route::get('/personal', 'App\Http\Controllers\UserController@index')->middleware('auth')->name('personal.data');
-
-    Route::get('/search-temp', function () {
-        return view('layouts.master');
-    });
 
     Route::post('/change-password', 'App\Http\Controllers\UserController@changePassword')->name('change.password');
     Route::get('/change-password', function () {
@@ -109,10 +100,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('not-found', function () {
         return inertia('NotFoundComponent');
-    });
-
-    Route::post('post-test', function () {
-        return back()->withErrors(['message' => 'Error al enviar el formulario']);
     });
 
     Route::get('/pago-deposito-transferencia/{curso_id}', 'App\Http\Controllers\PaymentMethodsController@depositoTransferenciaPaymentData')->where(['curso_id' => '.*'])->middleware('auth')->name('deposito-transferencia');

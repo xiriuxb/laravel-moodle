@@ -1,5 +1,7 @@
 <template>
   <div class="container" :class="{ 'disabled': loading }">
+
+    <Head title="Admin | Testimonios" />
     <h3>Administración de testimonios</h3>
     <loading-component v-if='loading'></loading-component>
     <div>
@@ -15,7 +17,7 @@
         <label for="comentarioEstudiante">Nombre Estudiante:</label>
         <input type="text" v-model="form.autor" class="form-control" id="nombreEstudiante" ref="nombreEstudiante"
           required />
-        <div v-if="error != ''" class="alert alert-danger">
+        <div v-if="this.errors.autor != null" class="alert alert-danger">
           {{ this.errors.autor[0] }}
         </div>
       </div>
@@ -27,13 +29,24 @@
           {{ this.errors.texto[0] }}
         </div>
       </div>
+      <div class="form-group">
+        <label for="studentPhoto">Foto del estudiante: (Max. 512Kb)</label>
+        <input type="file" accept=".png,.jpg,.jpeg" @input="form.file = $event.target.files[0]"
+          class="form-control-file" id="studentPhoto" name="studentPhoto" ref="fileupload">
+        <div v-if="this.errors.file != null" class="alert alert-danger">
+          {{ this.errors.file[0] }}
+        </div>
+      </div>
+      <div v-if="editMode && !loading">
+        <b>Imagen:</b> {{ form.file ? 'Sí (' + form.file + ')' : 'No' }}
+      </div>
       <label class="form-check form-switch">
         <input class="form-check-input" type="checkbox" ref="is_active" v-model="form.is_active" />
         <div class="form-check-label" for="isActive">¿Comentario visible?</div>
       </label>
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-primary" :disabled="loading">
+          <button type="submit" @click.prevent="save" class="btn btn-primary" :disabled="loading">
             {{ !editMode ? 'Guardar' : 'Guardar Cambios' }}
           </button>
         </div>
@@ -93,12 +106,13 @@ export default {
       isFormHidden: true,
       editMode: true,
       loading: true,
+      file_name: "",
       form: {
         autor: "",
         texto: "",
         is_active: false,
+        file: null,
       },
-      error: '',
       errors: [],
       comments: [],
     };
@@ -111,8 +125,15 @@ export default {
     },
 
     update() {
+      console.log('update mode');
       this.loading = true;
-      axios.put('/api/testimonials/' + this.id, this.form).then(() => {
+      let formData = new FormData();
+      formData.append("_method", "put");
+      formData.append('autor', this.form.autor);
+      formData.append('texto', this.form.texto);
+      formData.append('is_active', this.form.is_active);
+      if (this.form.file != null) formData.append('file', this.form.file);
+      axios.post('/api/testimonials/' + this.id, formData).then(() => {
         this.loading = false;
         this.isFormHidden = true;
         this.resetInput();
@@ -124,11 +145,8 @@ export default {
         this.loadComments();
       }).catch(error => {
         this.loading = false;
-        this.$toast.open({
-          message: 'Error al actualizar el comentario',
-          type: 'error',
-          duration: 5000
-        });
+        this.errors = error.response.data.errors;
+        this.$toast.open({ message: 'Error al actualizar el comentario', type: 'error', duration: 5000 });
       });
     },
 
@@ -137,21 +155,29 @@ export default {
         this.update();
       } else {
         this.loading = true;
+        let formData = new FormData();
+        formData.append('autor', this.form.autor);
+        formData.append('texto', this.form.texto);
+        formData.append('is_active', this.form.is_active);
+        if (this.form.file != null) formData.append('file', this.form.file);
         axios
-          .post('/api/testimonials', this.form)
+          .post('/api/testimonials', formData)
           .then(() => {
-            //this.errors = [];
+            this.errors = [];
             this.$toast.open({
               message: "Comentario guardado correctamente",
               type: "success",
               duration: 5000,
             });
+            this.resetInput();
             this.loadComments();
           })
-          .catch(
-            //this.error = response.message
+          .catch((error) => {
+            this.errors = error.response.data.errors;
+            this.loading = false;
+            this.$toast.open({ message: 'Ocurrió un error', type: 'error', duration: 5000 });
+          }
           );
-        this.resetInput();
       }
     },
 
@@ -171,17 +197,20 @@ export default {
       this.editMode = false;
       this.form.autor = this.form.texto = "";
       this.form.is_active = false;
+      this.form.file = null;
+      this.$refs.fileupload.value = "";
     },
 
     deleteComment(index) {
+      this.editMode = false;
+      this.loading = true;
       axios
         .delete('/api/testimonials/'.concat(index))
         .then((response) => {
-          //console.log(response);
           this.loadComments();
         })
         .catch((err) => {
-          //this.errors = err.response.errors;
+          this.errors = err.response.data.errors;
         });
       this.resetInput();
     },
@@ -196,10 +225,11 @@ export default {
           this.form.autor = response.data.data.autor;
           this.form.texto = response.data.data.texto;
           this.form.is_active = response.data.data.is_active;
+          this.file_name = response.data.data.file;
           this.loading = false;
         })
         .catch((err) => {
-          //this.errors = err.response.errors;
+          this.errors = err.response.data.errors;
         });
     },
 

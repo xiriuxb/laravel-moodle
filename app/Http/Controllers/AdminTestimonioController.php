@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Testimonial;
-use Illuminate\Http\Response;
-use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AdminTestimonioController extends Controller
 {
@@ -31,7 +30,7 @@ class AdminTestimonioController extends Controller
 
     public function visibles()
     {
-        return response()->json(['status' => 'ok', 'data' => Testimonial::where('is_active', 1)->select('id', 'autor', 'texto')->get()], 200);
+        return response()->json(['status' => 'ok', 'data' => Testimonial::where('is_active', 1)->select('id', 'autor', 'texto','file')->get()], 200);
     }
 
     public function store(Request $request)
@@ -39,15 +38,28 @@ class AdminTestimonioController extends Controller
         $request->validate([
             'autor' => ['required', 'string', 'max:64'],
             'texto' => ['required', 'string', 'max:512'],
+            'file' => ['nullable','sometimes','image', 'max:512','mimes:jpeg,png,jpg'],
         ]);
-        if ($request->is_active == "") {
-            $request->is_active = 0;
+        $request->is_active = $request->is_active = true? 1 : 0;
+        try {
+            $testimonial = new Testimonial();
+            $testimonial->autor = $request->autor;
+            $testimonial->user_id = $request->user()->id;
+            $testimonial->texto = $request->texto;
+            $testimonial->is_active = $request->is_active;
+            $testimonial->save();
+            if ($request->file) {
+                $file = $request->file('file');
+                $name = $testimonial->id . '-testimonial.' . $file->getClientOriginalExtension();
+                $path = public_path() . '/images/testimonial/';
+                $file->move($path, $name);
+                $testimonial->file = $name;
+                $testimonial->save();
+            }
+            return response()->json(['status' => 'ok', 'message' => "Se guardó correctamente"], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 422);
         }
-        Testimonial::create([
-            'texto' => $request->texto,
-            'autor' => $request->autor,
-            'is_active' => $request->is_active
-        ]);
     }
 
     public function show($id)
@@ -68,16 +80,27 @@ class AdminTestimonioController extends Controller
         $request->validate([
             'autor' => ['required', 'string', 'max:64'],
             'texto' => ['required', 'string', 'max:512'],
+            'file' => ['nullable','sometimes','image', 'max:512','mimes:jpeg,png,jpg'],
         ]);
-        if ($request->is_active == "") {
-            $request->is_active = 0;
+        $request->is_active = $request->is_active = true? 1 : 0;
+        try {
+            $testimonial->autor = $request->autor;
+            $testimonial->user_id = $request->user()->id;
+            $testimonial->texto = $request->texto;
+            $testimonial->is_active = $request->is_active;
+            $testimonial->save();
+            if ($request->file) {
+                $file = $request->file('file');
+                $name = $testimonial->id . '-testimonial.' . $file->getClientOriginalExtension();
+                $path = public_path() . '/images/testimonial/';
+                $file->move($path, $name);
+                $testimonial->file = $name;
+                $testimonial->save();
+            }
+            return response()->json(['status' => 'ok', 'message' => 'Se actualizó correctamente'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 422);
         }
-        $testimonial->update([
-            'texto' => $request->texto,
-            'autor' => $request->autor,
-            'is_active' => $request->is_active
-        ]);
-        return response()->json(['status' => 'ok', 'data' => ['message' => 'Se actualizó correctamente']], 200);
     }
     public function destroy($id)
     {
@@ -87,7 +110,9 @@ class AdminTestimonioController extends Controller
             return response()->json(['errors' => array(['code' => 404, 'message' => 'No se encuentra un comentario con ese código.'])], 404);
         }
         $comment->delete();
-
+        if(File::exists(public_path() . '/images/testimonial/' . $comment->file)){
+            File::delete(public_path() . '/images/testimonial/' . $comment->file);
+        }
         return response()->json(['code' => 204, 'message' => 'Se ha eliminado el comentario correctamente.'], 204);
     }
 }

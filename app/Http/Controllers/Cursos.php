@@ -36,7 +36,7 @@ class Cursos extends Controller
     }
 
     public function searchCourses(Request $request){
-        $data = MoodleCurso::where('fullname', 'LIKE','%'.$request->keyword.'%')->get();
+        $data = MoodleCurso::where([['fullname', 'LIKE','%'.$request->keyword.'%'],['category','<>',0]])->get();
         return response()->json($data);
     }
 
@@ -78,58 +78,7 @@ class Cursos extends Controller
         return ceil($total/$this->ELEMENTS_PER_PAGE);
     }
 
-    public function index2($categoria=null,$page=1)
-    {
-        $SLICE_SIZE = 6;
-        $DEFAULT_CATEGORY = 'all';
-        $cursos = [];
-        //dd($categoria);
-        //Recive todos los cursos desde la API de moodle
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
-            'query' => [
-                'wstoken' => env('MOODLE_WS_TOKEN'),
-                'wsfunction' => 'core_course_get_courses_by_field',
-                'moodlewsrestformat' => 'json',
-            ],'verify'=> false
-        ]);
-        //dd($categoria);
-        $json = json_decode($res->getBody());
-        if (empty($json->courses) ) {
-            return response()->json(['status' => 'error', 'message' => 'No existen cursos'], 404);
-        }else{
-            foreach ($json->courses as $cursoj) {
-            //filter data by category
-                if ($cursoj->id != 1 && $cursoj->visible) { //Si el curso no es moodle y esta visible
-                    $curso = new MoodleCurso(
-                        $cursoj->id,
-                        $cursoj->fullname,
-                        $cursoj->shortname,
-                        $cursoj->summary,
-                        $cursoj->customfields[1]->value,
-                        $cursoj->categoryname,
-                        str_replace('/webservice', '', $cursoj->overviewfiles[0]->fileurl), //remove /webservice string,
-                    );
-                    if($categoria!= $DEFAULT_CATEGORY && $curso->category == $categoria){
-                        //dd($categoria);
-                        $cursos[] = $curso;
-                    }
-                    elseif($categoria == $DEFAULT_CATEGORY){
-                        $cursos[] = $curso;
-                    }
-                }
-                unset($curso);
-            }
-            if(empty($cursos)){
-                return response()->json(['status' => 'error', 'message' => 'No existen cursos de esta categoría'], 404);
-            }else{
-                $arr = array_slice($cursos,$this->calcMin($page,$SLICE_SIZE),($SLICE_SIZE*$page));
-                return response()->json(['status' => 'ok', 
-                'data' => $arr
-            ,'pages'=>ceil(sizeof($cursos)/$SLICE_SIZE) ], 200);
-            }
-        }
-    }
+    
 // //     SELECT * FROM
 // // (SELECT contextid FROM mdl_files WHERE component='course' GROUP BY contextid) mdl_fls 
 // // INNER JOIN mdl_context ON mdl_context.id = mdl_fls.contextid 

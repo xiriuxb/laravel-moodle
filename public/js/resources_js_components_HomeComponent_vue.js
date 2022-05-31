@@ -163,6 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -223,7 +224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(\"/images/caratula.png\");\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -618,6 +619,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("Head", { attrs: { title: "Inicio" } }),
+      _vm._v(" "),
       _c("caratula-component"),
       _vm._v(" "),
       _c("div", [
@@ -648,7 +651,8 @@ var render = function() {
                           staticClass: "inline",
                           attrs: {
                             src: "/images/" + paso.imagen,
-                            alt: "regístrese"
+                            alt: "regístrese",
+                            load: "lazy"
                           }
                         })
                       ]
@@ -722,7 +726,11 @@ var staticRenderFns = [
                 _c("div", { staticClass: "col-4" }, [
                   _c("img", {
                     staticClass: "img-fluid icono",
-                    attrs: { src: "/images/reloj.png", alt: "acceso 24/7" }
+                    attrs: {
+                      src: "/images/reloj.png",
+                      alt: "acceso 24/7",
+                      loading: "lazy"
+                    }
                   })
                 ]),
                 _vm._v(" "),
@@ -739,7 +747,11 @@ var staticRenderFns = [
                 _c("div", { staticClass: "col-4" }, [
                   _c("img", {
                     staticClass: "img-fluid icono",
-                    attrs: { src: "/images/success.png", alt: "a tu ritmo" }
+                    attrs: {
+                      src: "/images/success.png",
+                      alt: "a tu ritmo",
+                      loading: "lazy"
+                    }
                   })
                 ]),
                 _vm._v(" "),
@@ -756,7 +768,11 @@ var staticRenderFns = [
                 _c("div", { staticClass: "col-4" }, [
                   _c("img", {
                     staticClass: "img-fluid icono",
-                    attrs: { src: "/images/anywhere.png", alt: "donde quieras" }
+                    attrs: {
+                      src: "/images/anywhere.png",
+                      alt: "donde quieras",
+                      loading: "lazy"
+                    }
                   })
                 ]),
                 _vm._v(" "),
@@ -773,7 +789,11 @@ var staticRenderFns = [
                 _c("div", { staticClass: "col-4" }, [
                   _c("img", {
                     staticClass: "img-fluid icono",
-                    attrs: { src: "/images/bitmap.png", alt: "interactiva" }
+                    attrs: {
+                      src: "/images/bitmap.png",
+                      alt: "interactiva",
+                      loading: "lazy"
+                    }
                   })
                 ]),
                 _vm._v(" "),

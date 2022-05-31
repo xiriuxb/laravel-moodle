@@ -7,7 +7,7 @@
 //Librerias
 require('./bootstrap');
 import Vue from 'vue';
-import { createInertiaApp, Link } from '@inertiajs/inertia-vue'
+import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue'
 import { ZiggyVue } from "ziggy";
 import { Ziggy } from "./ziggy";
 import vueCountryRegionSelect from 'vue-country-region-select'
@@ -17,7 +17,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 Vue.use(vueCountryRegionSelect);
 Vue.use(VueToast);
 Vue.use(ZiggyVue, Ziggy);
-Vue.use(Link);
+Vue.use(Link, Head);
 //Componentes del sitio
 Vue.config.debug = true;
 Vue.config.devtools = true;
@@ -47,7 +47,8 @@ Vue.component('user-menu-component', require('./components/UserMenuComponent.vue
 Vue.component('filter-component', require('./components/FilterComponent.vue').default);
 Vue.component('cursos-component', require('./components/CursosComponent.vue').default);
 Vue.component('notice', require('./components/Email/Notice.vue').default);
-Vue.component('inertia-link',Link)
+Vue.component('inertia-link',Link);
+Vue.component('Head',Head);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -55,12 +56,13 @@ Vue.component('inertia-link',Link)
  */
 // s
 createInertiaApp({
+  title: title => `${title} | Octavario`,
     resolve: name => import(`./components/${name}`),
     setup({ el, App, props, plugin }) {
       Vue.use(plugin)
       Vue.use(ZiggyVue, Ziggy)
       Vue.component('inertia-link',Link)
-  
+      Vue.component('Head', Head)
       new Vue({
         render: h => h(App, props),
       }).$mount(el)
@@ -70,9 +72,3 @@ createInertiaApp({
   InertiaProgress.init({
     showSpinner: true,
   });
-
-  Inertia.on('progress', (event) => {
-    if (event.detail.progress.percentage) {
-      NProgress.set((event.detail.progress.percentage / 100) * 0.9)
-    }
-  })

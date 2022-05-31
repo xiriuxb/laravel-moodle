@@ -49,7 +49,7 @@ export default {
   content: "";
   width: 100%;
   height: 100%;
-  background-image: url(https://img.freepik.com/foto-gratis/estudiantes-moda-sonriendo-camara-juntos_13339-102856.jpg?size=626&ext=jpg);
+  background-image: url("/images/caratula.png");
   filter: brightness(56%);
   position: absolute;
   background-repeat: repeat;

@@ -1,5 +1,6 @@
 <template>
     <section id="pagoDeposito">
+        <Head :title="'Pago Deposito/Transferencia |'+curso_data.fullname" />
         <h3 class="text-2xl">Pago por Transferencia/Depósito</h3>
         <div v-if="pago">
             Usted ya ha pagado por este curso <b>{{ curso_data.fullname }}</b>
@@ -16,36 +17,42 @@
                 <div><b>Nombre: </b>{{ account_pago_data.user }}</div>
                 <div><b>Cédula: </b>{{ account_pago_data.user_id }}</div>
             </div>
-            <div id="pagoForm">
-                <div class="border-2 border-blue-800 rounded-sm">
-                    <form action="#" @submit.prevent="matricula" method="post">
-                        <div class="row">
-                            <div class="form-group col-12 col-sm-6">
-                                <label for="nombreCurso">Curso</label>
-                                <input type="text" class="form-control" id="nombreCurso" placeholder="Nombre Completo"
-                                    disabled :value="curso_data.fullname" />
-                            </div>
-                            <div class="form-group col-12 col-sm-6">
-                                <label for="precioCurso">Precio</label>
-                                <input type="text" class="form-control" id="precioCurso" placeholder="Nombre Completo"
-                                    disabled :value="curso_data.precio" />
-                            </div>
+            <div id="pagoForm" class="row">
+                <form action="#" @submit.prevent="matricula" method="post" class="col-12 col-sm-7">
+                    <div class="row">
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="nombreCurso">Curso</label>
+                            <input type="text" class="form-control" id="nombreCurso" placeholder="Nombre Completo"
+                                disabled :value="curso_data.fullname" />
                         </div>
-                        <div class="form-group">
-                            <label for="comprobantePagoFile">Foto del comprobante:</label>
-                            <input type="file" accept=".png,.jpg,.jpeg" @input="form.file = $event.target.files[0]"
-                                class="form-control-file" id="comprobantePagoFile" required>
+                        <div class="form-group col-12 col-sm-6">
+                            <label for="precioCurso">Precio</label>
+                            <input type="text" class="form-control" id="precioCurso" placeholder="Nombre Completo"
+                                disabled :value="curso_data.precio" />
                         </div>
-                        <div class="form-group">
-                            <button type="submit"
-                                class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200"
-                                :disabled="loading">
-                                <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
-                                    aria-hidden="true"></span>
-                                Aceptar
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <label for="comprobantePagoFile">Foto del comprobante:</label>
+                        <input type="file" accept=".png,.jpg,.jpeg"
+                            @input="form.file = $event.target.files[0]; previewImage($event.target)"
+                            class="form-control-file" id="comprobantePagoFile" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit"
+                            class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200"
+                            :disabled="loading">
+                            <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
+                                aria-hidden="true"></span>
+                            Aceptar
+                        </button>
+                    </div>
+                </form>
+                <div class="col col-12 col-sm-5">
+                    <div v-if="preview">
+                        <img :src="preview" class="img-fluid" />
+                        <p class="mb-0">Archivo: {{ image.name }}</p>
+                        <p class="mb-0">Tamaño: {{ image.size / 1024 }}KB</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,6 +79,8 @@ export default {
     data() {
         return {
             loading: false,
+            image: null,
+            preview: null,
             form: this.$inertia.form({
                 curso_id: this.curso_data.shortname,
                 amount: this.curso_data.precio,
@@ -90,7 +99,6 @@ export default {
     methods: {
         matricula() {
             this.loading = true;
-
             this.form.post('/matricula-deposito-transferencia',
                 {
                     onStart: () => { this.loading = true; },
@@ -103,7 +111,18 @@ export default {
             );
 
         },
+        previewImage(input) {
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.preview = e.target.result;
+                }
+                this.image = input.files[0];
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
     },
+
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <div id="adminCMoodle">
+    <Head title="Admin | Cursos (Moodle)" />
     <h1>Administración de cursos (Moodle)</h1>
     <p>
       En este apartado simplemente puede observar la información básica de los

@@ -196,8 +196,11 @@ class MatriculaController extends Controller
 
     private function storePago(Request $request, $nombre_archivo, int $metodo_pago_id){
         if($metodo_pago_id == 3){
+            $request->validate([
+                'file' => 'required|image|max:5120|mimes:jpg,png,jpeg',
+            ]);
             $pago_id = Auth::user()->username.'_'.$nombre_archivo;
-            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.'.jpg';
+            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.$request->file->getClientOriginalExtension();
             $path = Storage::putFileAs('pagos', $request->file, $file_name);
         }else{
             $pago_id = $request->payment_id;
@@ -218,7 +221,6 @@ class MatriculaController extends Controller
             $pago->save();
             return $pago;
         }catch (\Exception $e){
-            dd($e);
             return redirect()->back()->withErrors('Ocurrió un error en el pago');
         }
     }

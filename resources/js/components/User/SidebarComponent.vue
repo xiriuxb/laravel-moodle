@@ -50,4 +50,11 @@ export default {
     transform: translateX(-260px);
     transition: transform 0.3s ease-in-out;
 }
+::v-deep .user-profile{
+    border-radius: 50%;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    left: 40%;
+}
 </style>

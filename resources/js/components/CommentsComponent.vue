@@ -7,7 +7,7 @@
         <h5 class="card-title">{{comment.texto}}</h5>
         <div class="ftr">
           <div class="author">
-            <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised">
+            <img :src="'/images/testimonial/'+comment.file" alt="Foto Estudiante" class="avatar img-raised">
             <span>{{comment.autor}}</span>
           </div>
         </div>
@@ -97,6 +97,11 @@ export default {
 {
     display: flex !important;
 }
+
+::v-deep .card-title
+{
+  padding-bottom: 40px
+}
 ::v-deep .slick-list{
   margin-left: 10px !important;
 }
@@ -138,6 +143,8 @@ export default {
     display: inline-block;
 }
 ::v-deep  .slick-slide div div .ftr {
+  position: absolute;
+  bottom: 25px;
     margin-top: 5px;
 }
 

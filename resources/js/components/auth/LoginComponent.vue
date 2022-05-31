@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Head title="Ingreso" />
     <div>
       <div class="card-body">
         <div class="alert alert-danger" role="alert" v-if="$page.props.errors.message">
@@ -39,7 +40,7 @@
             </button>
           </div>
         </form>
-        <inertia-link :href="'/forgot-password'" :as="button" :disabled="loading">
+        <inertia-link :href="'/forgot-password'" :as="'button'" :disabled="loading">
           ¿Olvidó su contraseña?
         </inertia-link>
       </div>

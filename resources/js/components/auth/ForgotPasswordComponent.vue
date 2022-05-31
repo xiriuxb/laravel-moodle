@@ -1,6 +1,6 @@
 <template>
-  <!-- Forgot password  VUE component -->
   <div id="forgot-password">
+    <Head title="Contraseña" />
     <div class="d-flex justify-content-center">
       <div class="container">
         <h3>¿Olvidó su contraseña?</h3>
@@ -45,18 +45,22 @@ export default {
   methods: {
     sendRequest() {
       this.visible = true;
-      this.form.post('/api/forgot-password', {
+      console.log(this.$page.props.errors);
+      this.form.post('/forgot-password', {
         onError: (error) => {
           this.errorMessage = error[0];
           this.stat = false;
           this.form.reset();
         },
         onSuccess: page => {
-          this.errorMessage = "";
           this.successMessage = this.$page.props.flash.message;
           this.stat = true;
           this.form.reset();
         },
+        onFinish: page => {
+          this.errorMessage = this.$page.props.errors.message? this.$page.props.errors.message : "";
+          console.log(this.$page.props.errors);
+        }
       });
     },
   },

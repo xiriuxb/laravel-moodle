@@ -1,5 +1,6 @@
 <template>
   <div id="not-found" class="h-screen">
+    <Head title="No Encontrado" />
     <div class="relative top-1/3">
       <h1 class="text-8xl font-bold text-blue-900">404</h1>
       <h2 class="text-3xl font-bold">Página no encontrada</h2>

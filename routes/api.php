@@ -34,6 +34,9 @@ Route::group(['middleware'=>['api']],function(){
         Route::get('/matriculas-pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index');
         Route::get('/get-matricula-pendiente-pago/{id}', 'App\Http\Controllers\PagoController@getImage');
         Route::put('/matriculas-pendientes/{id}/{estado}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@update');
+        Route::post('/images/favicon', 'App\Http\Controllers\admin\AdminSiteImagesController@storeIcon');
+        Route::post('/images/logo', 'App\Http\Controllers\admin\AdminSiteImagesController@storeLogo');
+        Route::post('/images/caratula', 'App\Http\Controllers\admin\AdminSiteImagesController@storeCaratula');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
@@ -46,51 +49,13 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::get('curse/{id}', 'App\Http\Controllers\Cursos@show');
     
-    //Route::get('curses/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('curses.index');
-    Route::get('cursess/{categoria?}/{page?}', 'App\Http\Controllers\Cursos@index2');
-    
     Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
     
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
     
-    
-    
     Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
     
     Route::apiResource('users', 'App\Http\Controllers\UserController');
-
-    Route::post('/forgot-password', function (Request $request) {
-        $request->validate(['email' => 'required|email']);
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-        return $status === Password::RESET_LINK_SENT
-                    ? redirect()->back()->with('message',__($status))//response()->json(['status' => __($status)])
-                    : redirect()->back()->withErrors(__($status));
-    })->middleware('guest')->name('password.email');
-
-    Route::post('/reset-password', function (Request $request) {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
-    
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
-                $user->save();
-                // event(new PasswordReset($user));
-            }
-        );
-    
-        return $status === Password::PASSWORD_RESET
-                    ? redirect()->back()->with('message', __($status))
-                    : redirect()->back()->withErrors(['email'=>__($status)]);
-    })->middleware('guest')->name('password.update');
 
     Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth']);
 

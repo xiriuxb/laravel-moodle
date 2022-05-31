@@ -35,7 +35,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
         - X Envío de email de notificacion
         - X Actualizacion de datos
     - X Vista de compras (inscripciones)
-- O Terminar el menu admin
+- X Terminar el menu admin
 - X Arreglar la vista Cursos y el componente Filter
 - X Poner un mensaje si no hay cursos
 - X Pagination en vista cursos
@@ -58,9 +58,23 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - X Cambiar el registro del curso al matricularse al back
 - ? Cambiar el mensaje del boton "Ir al curso"
 - X Notificacion en el perfil cuando no ha verificado el mail
-- Definir el funcionamiento cuando un usuario se elimina (si elimina el usuario su propia cuenta y cuando un admin suspende a un usuario)
+- X Definir el funcionamiento cuando un usuario se elimina (si elimina el usuario su propia cuenta y cuando un admin suspende a un usuario)
 - X Issue cuando se selecciona la categoria desde la view 'curso', en la pantalla cursos, luego no se puede filtrar a otras categorías
     (hacer mas pruebas)
 - Revisar que pasa con los cursos sin imágen de curso
 - X Cambiar ruta al curso de moodle
 - X cambiar al env las credenciales para acceder a los servicios de moodle
+
+
+- Salir cuando sesion expire
+- X Imagen en testimonios
+- X Notificaciones en camvio de email y password
+- X Limitar intentos de ingreso
+- X Volver a arreglar la búsqueda
+- X Limitar tamaño de imagen en pago por deposito/transferencia
+- X Title variable
+- X Actualizar el password en moodle al cambiar el password en forgot password
+- X Imagenes de la pagina
+- X Añador vista previa de la imagen del pago que sube el user.
+- X Borrar imagenes al resetear form en admin testimonials
+- Volver a revisar los permisos

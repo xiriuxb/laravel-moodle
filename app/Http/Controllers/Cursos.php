@@ -22,7 +22,6 @@ class Cursos extends Controller
      * @return \App\Models\Comment
      */
     public function index($categoria = null,$page=1){
-        // $categoryFilter = $categoria == null || $categoria == 'all'? '' : ' AND mdl_crs_cat.name = "'.$categoria.'"';
         if($categoria == null || $categoria == 'all'){
             $cursos = DB::connection('moodle')->select($this->getQuery($categoria,null,$page)); 
             return inertia('CursosComponent',['data'=>$cursos,'pages'=>$this->pages($categoria), 'currentPage'=>(int)$page, 'category'=>$categoria]);
@@ -36,7 +35,7 @@ class Cursos extends Controller
     }
 
     public function searchCourses(Request $request){
-        $data = MoodleCurso::where([['fullname', 'LIKE','%'.$request->keyword.'%'],['category','<>',0]])->get();
+        $data = MoodleCurso::where([['fullname', 'LIKE','%'.$request->keyword.'%'],['category','<>',0],['visible',1]])->get();
         return response()->json($data);
     }
 
@@ -90,59 +89,7 @@ class Cursos extends Controller
 // // MAX(CASE when (fieldid=4) then value end) as value
 // // from mdl_customfield_data  
 // // GROUP BY instanceid
-    public function show($curso_id, $field = 'shortname')
-    {
-        $curso_aux = MoodleServicesTrait::getCourseFromModle();
-        if ($curso_aux==[] ) {
-            return redirect('/not-found')->withErrors(['message' => 'No existe el curso']);
-        } elseif(!$curso_aux->visible){
-            return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
-        } else {
-            $curso = new MoodleCurso(
-                $curso_aux->id,
-                $curso_aux->fullname,
-                $curso_aux->shortname,
-                $curso_aux->summary,
-                $curso_aux->customfields[1]->value,
-                $curso_aux->categoryname,
-                str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
-                $curso_aux->customfields[2]->value,
-            );
-            return inertia('MatriculaComponent',['status' => 'ok', 'curso' => $curso]);	
-        }
-    }
 
-//     public function search()
-//     {
-//         $client = new \GuzzleHttp\Client();
-//         $res = $client->request('GET', 'https://moodle.xiriuxb.org/webservice/rest/server.php', [
-//             'query' => [
-//                 'wstoken' => '9b2f731935a54e126809b497bd231bd8',
-//                 'wsfunction' => 'core_course_get_courses_by_field',
-//                 'moodlewsrestformat' => 'json',
-//             ],'verify'=> false
-//         ]);
-//         $json = json_decode($res->getBody());
-//         if (empty($json->courses) ) {
-//             return response()->json(['status' => 'error', 'message' => 'No existe el curso'], 404);
-//         } else {
-//             foreach ($json->courses as $cursoj) {
-
-//                 if ($cursoj->id != 1 && $cursoj->visible) {
-//                     $curso = new MoodleCurso(
-//                         $cursoj->id,
-//                         $cursoj->fullname,
-//                         $cursoj->shortname,
-//                         $cursoj->categoryname,
-//                         false,
-//                     );
-//                     $cursos[] = $curso;
-//                 }
-//                 unset($cursoj);
-//             }
-//             return response()->json(['status' => 'ok', 'data' => $cursos], 200);	
-//         }
-//     }
 
     private function calcMin($page)
     {

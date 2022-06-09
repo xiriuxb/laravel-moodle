@@ -60,10 +60,6 @@ export default {
 </script>
 
 <style scoped>
-.main-header {
-  position: relative !important;
-}
-
 #cursos {
   padding-top: 100px;
 }

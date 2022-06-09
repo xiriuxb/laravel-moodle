@@ -188,7 +188,6 @@ class MatriculaController extends Controller
                 $curso_aux->categoryname,
                 str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
                 $curso_aux->customfields[2]->value,
-                //'destacado' => $json->courses[0]->customfields[3]->value,
             );
             return $curso;
         }

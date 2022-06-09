@@ -92,8 +92,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/update-user', 'App\Http\Controllers\UserController@update')->middleware('auth');
 
-    Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
-
     Route::get('/payments', function () {
         return inertia('payments/PaymentSelectorComponent');
     })->middleware('auth')->name('payments');

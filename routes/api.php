@@ -49,8 +49,6 @@ Route::group(['middleware'=>['api']],function(){
     
     Route::get('curse/{id}', 'App\Http\Controllers\Cursos@show');
     
-    Route::get('cursesh', 'App\Http\Controllers\Cursos@search')->name('curses.search');
-    
     Route::get('categorias', 'App\Http\Controllers\CategoriaCursoController@index')->name('categorias');
     
     Route::apiResource('matricula', 'App\Http\Controllers\MatriculaController')->middleware(['auth','verified']);
@@ -68,6 +66,8 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('payment-methods', 'App\Http\Controllers\PaymentMethodsController@index');
 
     Route::get('paypal-data', 'App\Http\Controllers\PaymentMethodsController@getPaypalData');
+
+    Route::get('/courses/search', 'App\Http\Controllers\Cursos@searchCourses');
 
 });
 

@@ -1,7 +1,6 @@
 <template>
   <div>
     <navbar-component></navbar-component>
-      <!-- <router-view></router-view> -->
       <slot />
     <footer-component></footer-component>
   </div>

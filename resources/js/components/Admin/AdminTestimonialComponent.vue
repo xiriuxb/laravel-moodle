@@ -38,7 +38,7 @@
         </div>
       </div>
       <div v-if="editMode && !loading">
-        <b>Imagen:</b> {{ form.file ? 'Sí (' + form.file + ')' : 'No' }}
+        <b>Imagen:</b> {{ file_name ? 'Sí (' + file_name + ')' : 'No' }}
       </div>
       <label class="form-check form-switch">
         <input class="form-check-input" type="checkbox" ref="is_active" v-model="form.is_active" />
@@ -199,6 +199,7 @@ export default {
       this.form.is_active = false;
       this.form.file = null;
       this.$refs.fileupload.value = "";
+      this.filename = "";
     },
 
     deleteComment(index) {

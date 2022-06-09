@@ -6,10 +6,8 @@
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>Links</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/">Inicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Acerca de Nosotros</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Términos de servicio</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Política de Privacidad</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <inertia-link href="/">Inicio</inertia-link></li>
+                        <li><i class="bx bx-chevron-right"></i>  <inertia-link href="/cursos/all">Cursos</inertia-link></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 footer-contact">
@@ -23,7 +21,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="copyright"> © Copyright <strong><span>Octavario</span></strong>. All Rights Reserved </div>
+        <div class="copyright"> © Copyright <strong><span>Jorge Trujillo</span></strong>. All Rights Reserved </div>
     </div>
 </footer>
 </template>

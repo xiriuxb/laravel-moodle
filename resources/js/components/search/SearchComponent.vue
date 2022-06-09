@@ -55,7 +55,7 @@ export default {
         var vm = this;
         vm.loading = true;
         axios
-          .get("/courses/search", { params: { keyword: this.question } })
+          .get("/api/courses/search", { params: { keyword: this.question } })
           .then(function (response) {
             vm.resultados = response.data;
             if (response.data.length == 0) {

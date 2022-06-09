@@ -41,7 +41,7 @@ trait MoodleServicesTrait {
         ]);
         $json = json_decode($res->getBody());
             $curso_aux = $json->courses;
-        if(empty($curso_aux)){
+        if(empty($curso_aux)||!$curso_aux[0]->visible){
             return [];
         }else{
             return $curso_aux[0];

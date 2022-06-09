@@ -32,6 +32,7 @@
         "@inertiajs/progress": "^0.2.7",
         "@paypal/paypal-js": "^5.0.2",
         "boxicons": "^2.0.9",
+        "eslint": "^8.16.0",
         "save": "^2.4.0",
         "vue-country-region-select": "^2.0.16",
         "vue-slick-carousel": "^1.0.6",

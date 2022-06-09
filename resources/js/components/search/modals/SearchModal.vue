@@ -87,22 +87,8 @@ input:focus+#respuestas {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header {
-  background-color: #6c2e11;
-  align-items: center;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
 .modal-body {
   margin: 8px 0;
-}
-
-.modal-default-button {
-  float: right;
 }
 
 /*

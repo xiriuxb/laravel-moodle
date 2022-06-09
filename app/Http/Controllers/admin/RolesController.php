@@ -20,7 +20,7 @@ class RolesController extends Controller
         if (auth()->user()['roles'][0]['name']=='su_admin') {
             return response()->json(Role::select('id','name')->get(), 200);
         } else {
-            return response()->json(Role::where([['id','<>',1]])->select('id','name')->get(), 200);
+            return response()->json(Role::where([['id','<>',1],['id','<>',2]])->select('id','name')->get(), 200);
         }
     }
 }

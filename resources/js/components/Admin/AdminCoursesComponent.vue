@@ -1,5 +1,5 @@
 <template>
-<div id="adminCourses" class="adminView">
+<div id="adminCourses">
   <AppHead :title="'Admin | Cursos (Local)'" />
   <h2>
       Administración de cursos (Local)

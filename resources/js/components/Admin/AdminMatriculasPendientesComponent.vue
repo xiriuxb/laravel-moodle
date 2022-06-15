@@ -1,5 +1,5 @@
 <template>
-  <div id="adminMatriculasPendientes" class="adminView">
+  <div id="adminMatriculasPendientes">
     <AppHead :title="'Admin | Matriculas Pendientes'" />
     <h2>
       Administración de matrículas pendientes

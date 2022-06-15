@@ -301,7 +301,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "adminView", attrs: { id: "adminCourses" } },
+    { attrs: { id: "adminCourses" } },
     [
       _c("AppHead", { attrs: { title: "Admin | Matriculas" } }),
       _vm._v(" "),

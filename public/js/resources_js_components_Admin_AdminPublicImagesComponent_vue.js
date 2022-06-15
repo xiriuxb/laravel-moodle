@@ -236,7 +236,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "adminView" },
     [
       _c("AppHead", { attrs: { title: "Admin | Imágenes del sitio" } }),
       _vm._v(" "),

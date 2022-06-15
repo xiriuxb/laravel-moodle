@@ -467,7 +467,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "adminView", attrs: { id: "adminMatriculasPendientes" } },
+    { attrs: { id: "adminMatriculasPendientes" } },
     [
       _c("AppHead", { attrs: { title: "Admin | Matriculas Pendientes" } }),
       _vm._v(" "),

@@ -1,5 +1,5 @@
 <template>
-  <div class="adminView" :class="{ 'disabled': loading }">
+  <div :class="{ 'disabled': loading }">
     <AppHead :title="'Admin | Testimonios'" />
     <h2>Administración de testimonios</h2>
     <loading-component v-if='loading'></loading-component>

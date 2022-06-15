@@ -1,5 +1,5 @@
 <template>
-    <div id="adminConfig" class="adminView">
+    <div id="adminConfig">
         <AppHead :title="'Admin | Configuraciones'" />
         <h2>
             Configuraciones del sitio,

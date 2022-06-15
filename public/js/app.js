@@ -3475,19 +3475,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "admin",
   components: {},
   data: function data() {
     return {
+      movedSidebar: true,
       menu_items: [{
         name: 'Testimonios',
         component: 'testimonials'
@@ -3515,7 +3508,15 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  methods: {}
+  methods: {
+    sidebarHandler: function sidebarHandler() {
+      if (this.$data.movedSidebar) {
+        this.$data.movedSidebar = false;
+      } else {
+        this.$data.movedSidebar = true;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -9784,7 +9785,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  font-family: \"Poppins\", sans-serif;\n}\n.sidebar[data-v-17605453] {\r\n  z-index: 100;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  height: 100%;\r\n  background: #11101d;\r\n  padding: 6px 14px;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n  color: #fff;\r\n  display: felx;\r\n  height: 50px;\r\n  width: 100%;\r\n  align-items: center;\n}\n.logo_content .logo i[data-v-17605453] {\r\n  font-size: 28px;\r\n  margin-right: 5px;\n}\n.logo_content .logo .logo_name[data-v-17605453] {\r\n  font-size: 20px;\r\n  font-weight: 400;\n}\n.sidebar #btn[data-v-17605453] {\r\n  position: absolute;\r\n  color: #fff;\r\n  left: 90%;\r\n  top: 6px;\r\n  font-size: 20px;\r\n  height: 50px;\r\n  width: 50px;\r\n  text-align: center;\r\n  line-height: 50px;\r\n  transform: translateX(-50%);\n}\n.sidebar ul[data-v-17605453] {\r\n  margin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n  position: relative;\r\n  height: 50px;\r\n  width: 100%;\r\n  margin: 0 5px;\r\n  list-style: none;\r\n  line-height: 50px;\r\n  cursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n  color: #fff;\r\n  display: flex;\r\n  align-items: center;\r\n  text-decoration: none;\r\n  transition: all 0.4s ease;\r\n  border-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n  color: #11101d;\r\n  background: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n  height: 50px;\r\n  min-width: 50px;\r\n  border-radius: 12px;\r\n  line-height: 50px;\r\n  text-align: center;\n}\n.adm_content[data-v-17605453] {\r\n  position: absolute;\r\n  height: 100%;\r\n  width: calc(100% - 200px);\r\n  left: 200px;\n}\n[data-v-17605453] h2 {\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n  margin-bottom: 20px;\n}\n[data-v-17605453] .adminView{\r\n  padding: 1rem;\n}\n[data-v-17605453] button.btn-primary[type=submit]{\r\n  background-color: #007bff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbox-sizing: border-box;\n}\n.sidebar[data-v-17605453] {\r\n\twidth: 200px;\r\n\tz-index: 100;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 100%;\r\n\tbackground: #11101d;\r\n\tpadding: 6px 14px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.sidebar-moved[data-v-17605453]{\r\n\ttransform: translateX(-200px);\n}\n.sidebar .closeBtn[data-v-17605453] {\r\n\tfill: white;\r\n\tposition: absolute;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tbackground-color: #11101d;\r\n\tborder-radius: 50%;\r\n\tleft: 175px;\r\n\tcursor: pointer;\n}\n.sidebar .closeBtn box-icon[data-v-17605453] {\r\n\tposition: relative;\r\n\tleft: 5px;\r\n\ttop: 2px;\n}\n.sidebar .closeBtn[data-v-17605453]:hover {\r\n\tfill: #007bff;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: felx;\r\n\twidth: 100%;\r\n\talign-items: center;\n}\n.logo i[data-v-17605453] {\r\n\tfont-size: 28px;\r\n\tmargin-right: 5px;\n}\n.logo .logo-name[data-v-17605453] {\r\n\tcolor: white;\r\n\tfont-size: x-large\n}\n.sidebar #btn[data-v-17605453] {\r\n\tposition: absolute;\r\n\tcolor: #fff;\r\n\tleft: 90%;\r\n\ttop: 6px;\r\n\tfont-size: 20px;\r\n\theight: 50px;\r\n\twidth: 50px;\r\n\ttext-align: center;\r\n\tline-height: 50px;\r\n\ttransform: translateX(-50%);\n}\n.sidebar ul[data-v-17605453] {\r\n\tmargin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n\tposition: relative;\r\n\theight: 50px;\r\n\twidth: 100%;\r\n\tmargin: 0 5px;\r\n\tlist-style: none;\r\n\tline-height: 50px;\r\n\tcursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\ttext-decoration: none;\r\n\ttransition: all 0.4s ease;\r\n\tborder-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n\tcolor: #11101d;\r\n\tbackground: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n\theight: 50px;\r\n\tmin-width: 50px;\r\n\tborder-radius: 12px;\r\n\tline-height: 50px;\r\n\ttext-align: center;\n}\n.adm-content[data-v-17605453] {\r\n\tpadding: 15px;\r\n\tposition: absolute;\r\n\theight: auto;\r\n\twidth: calc(100% - 200px);\r\n\tleft: 200px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.adm-content-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n[data-v-17605453] h2 {\r\n\tfont-size: 20px;\r\n\tfont-weight: 400;\r\n\tmargin-bottom: 20px;\n}\n[data-v-17605453] button.btn-primary[type=submit] {\r\n\tbackground-color: #007bff;\n}\r\n\r\n/* MODALS */\n[data-v-17605453] .modal-mask {\r\n\tposition: fixed;\r\n\tz-index: 600;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(0, 0, 0, 0.5);\r\n\tdisplay: table;\r\n\ttransition: opacity 0.3s ease;\n}\n[data-v-17605453] .modal-wrapper {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\n}\n[data-v-17605453] .modal-container {\r\n\twidth: 300px;\r\n\tmargin: 0px auto;\r\n\tbackground-color: #fff;\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n\ttransition: all 0.3s ease;\r\n\tfont-family: Helvetica, Arial, sans-serif;\n}\n[data-v-17605453] .modal-header h3 {\r\n\tmargin-top: 0;\r\n\tcolor: #42b983;\n}\n[data-v-17605453] .modal-body {\r\n\tmargin: 8px 0;\n}\n[data-v-17605453] .modal-header {\r\n\tpadding: 10px 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -52423,39 +52424,67 @@ var render = function() {
     [
       _c("AppHead", { attrs: { title: "Admin" } }),
       _vm._v(" "),
-      _c("div", { staticClass: "sidebar" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "ul",
-          { staticClass: "nav-list" },
-          _vm._l(_vm.menu_items, function(menu_item) {
-            return _c(
-              "li",
-              { key: menu_item.name },
+      _c(
+        "div",
+        {
+          staticClass: "sidebar",
+          class: _vm.movedSidebar ? "sidebar" : "sidebar-moved",
+          attrs: { id: "sidebar" }
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "closeBtn", on: { click: _vm.sidebarHandler } },
+            [_c("box-icon", { attrs: { name: "x" } })],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "logo" }, [
+            _c(
+              "div",
+              { staticClass: "logo-name" },
               [
-                _c("inertia-link", { attrs: { href: menu_item.component } }, [
-                  _c("span", { staticClass: "links_name" }, [
-                    _vm._v(_vm._s(menu_item.name))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "tooltip" }, [
-                  _vm._v(_vm._s(menu_item.name))
+                _c("inertia-link", { attrs: { href: "/" } }, [
+                  _vm._v("\n\t\t\t\t\tOctavario (Admin)\n\t\t\t\t")
                 ])
               ],
               1
             )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _vm._m(1)
-      ]),
+          ]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticClass: "nav-list" },
+            _vm._l(_vm.menu_items, function(menu_item) {
+              return _c(
+                "li",
+                { key: menu_item.name },
+                [
+                  _c("inertia-link", { attrs: { href: menu_item.component } }, [
+                    _c("span", { staticClass: "links_name" }, [
+                      _vm._v(_vm._s(menu_item.name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "tooltip" }, [
+                    _vm._v(_vm._s(menu_item.name))
+                  ])
+                ],
+                1
+              )
+            }),
+            0
+          )
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "adm_content container", attrs: { id: "admin" } },
+        {
+          staticClass: "adm-content",
+          class: _vm.movedSidebar ? "adm-content" : "adm-content-moved",
+          attrs: { id: "admin" }
+        },
         [_vm._t("default")],
         2
       )
@@ -52463,40 +52492,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "logo_content" }, [
-      _c("div", { staticClass: "logo" }, [
-        _c("i", { staticClass: "bx" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "logo_name" }, [
-          _c("a", { attrs: { href: "/" } }, [
-            _vm._v("\n            Octavario (Admin)\n          ")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("i", { staticClass: "bx bx-menu", attrs: { id: "btn" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile_content" }, [
-      _c("div", { staticClass: "profile" }, [
-        _c("div", { staticClass: "profile_details" }, [
-          _c("img", { attrs: { src: "", alt: "" } }),
-          _vm._v(" "),
-          _c("div")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -76117,6 +76113,14 @@ var map = {
 		"./resources/js/components/Admin/Modals/ChangeRoleModal.vue",
 		"resources_js_components_Admin_Modals_ChangeRoleModal_vue"
 	],
+	"./Admin/Modals/PagosUsuarioModal": [
+		"./resources/js/components/Admin/Modals/PagosUsuarioModal.vue",
+		"resources_js_components_Admin_Modals_PagosUsuarioModal_vue"
+	],
+	"./Admin/Modals/PagosUsuarioModal.vue": [
+		"./resources/js/components/Admin/Modals/PagosUsuarioModal.vue",
+		"resources_js_components_Admin_Modals_PagosUsuarioModal_vue"
+	],
 	"./Admin/Modals/VerPagoModal": [
 		"./resources/js/components/Admin/Modals/VerPagoModal.vue",
 		"resources_js_components_Admin_Modals_VerPagoModal_vue"
@@ -76532,7 +76536,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_PagosUsuarioModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

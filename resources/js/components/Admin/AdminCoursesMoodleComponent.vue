@@ -1,5 +1,5 @@
 <template>
-  <div id="adminCMoodle" class="adminView">
+  <div id="adminCMoodle">
     <AppHead :title="'Admin | Cursos (Moodle)'" />
     <h2>Administración de cursos (Moodle)</h2>
     <p>

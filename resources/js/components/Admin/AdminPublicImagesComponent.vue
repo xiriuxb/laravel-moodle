@@ -1,5 +1,5 @@
 <template>
-    <div class="adminView">
+    <div>
         <AppHead :title="'Admin | Imágenes del sitio'" />
         <h2>Administración de imágenes</h2>
         <div class="form-grup">

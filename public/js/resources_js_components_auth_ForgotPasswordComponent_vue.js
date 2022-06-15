@@ -239,7 +239,7 @@ var render = function() {
     "div",
     { attrs: { id: "forgot-password" } },
     [
-      _c("Head", { attrs: { title: "Contraseña" } }),
+      _c("AppHead", { attrs: { title: "Contraseña Olvidada" } }),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex justify-content-center" }, [
         _c("div", { staticClass: "container" }, [

@@ -1,6 +1,5 @@
 <template slot-scope="{cursos}">
   <div  class="justify-content-center mb-50" >
-    <Head title="Cursos" />
     <div>
       <div class="row">
         <curso-card-component v-for="curso in $parent.data" :key="curso.shortname" :curso="curso">

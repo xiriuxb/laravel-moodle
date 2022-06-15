@@ -1,11 +1,7 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +33,9 @@ Route::group(['middleware'=>['api']],function(){
         Route::post('/images/favicon', 'App\Http\Controllers\admin\AdminSiteImagesController@storeIcon');
         Route::post('/images/logo', 'App\Http\Controllers\admin\AdminSiteImagesController@storeLogo');
         Route::post('/images/caratula', 'App\Http\Controllers\admin\AdminSiteImagesController@storeCaratula');
+        Route::get('/site-config', 'App\Http\Controllers\admin\SiteConfigController@index');
+        Route::post('/site-config', 'App\Http\Controllers\admin\SiteConfigController@update');
+        Route::post('/site-config/update', 'App\Http\Controllers\admin\SiteConfigController@updateConfig');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');

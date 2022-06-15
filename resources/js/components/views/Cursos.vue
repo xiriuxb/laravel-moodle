@@ -1,5 +1,6 @@
 <template>
   <div id="cursos" class="container-fluid bg-slate-100">
+    <AppHead :title="'Cursos'"/>
     <div id="encabezado-cursos">
       <div class="justify-content-center">
         <p id="titulo-cursos">Cursos</p>

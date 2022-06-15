@@ -1,7 +1,6 @@
 <template>
 	<div>
-
-		<Head :title="curso.fullname" />
+		<AppHead :title="curso.fullname" />
 		<button v-if="!logged" class="btn btn-primary" v-on:click="matricula">
 			Inscribirse ({{ price }})
 		</button>

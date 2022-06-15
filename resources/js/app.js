@@ -7,18 +7,19 @@
 //Librerias
 require('./bootstrap');
 import Vue from 'vue';
-import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue'
+import { createInertiaApp, Link} from '@inertiajs/inertia-vue'
 import { ZiggyVue } from "ziggy";
 import { Ziggy } from "./ziggy";
 import vueCountryRegionSelect from 'vue-country-region-select'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 import { InertiaProgress } from '@inertiajs/progress'
+import AppHead from './components/AppHead.vue'
 Vue.use(vueCountryRegionSelect);
 Vue.use(VueToast);
 Vue.use(ZiggyVue, Ziggy);
-Vue.use(Link, Head);
-//Componentes del sitio
+Vue.use(Link);
+Vue.use(AppHead);
 Vue.config.debug = true;
 Vue.config.devtools = true;
 import 'boxicons';
@@ -48,7 +49,7 @@ Vue.component('filter-component', require('./components/FilterComponent.vue').de
 Vue.component('cursos-component', require('./components/CursosComponent.vue').default);
 Vue.component('notice', require('./components/Email/Notice.vue').default);
 Vue.component('inertia-link',Link);
-Vue.component('Head',Head);
+Vue.component('AppHead',AppHead);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -56,13 +57,13 @@ Vue.component('Head',Head);
  */
 // s
 createInertiaApp({
-  title: title => `${title} | Octavario`,
+    
     resolve: name => import(`./components/${name}`),
     setup({ el, App, props, plugin }) {
       Vue.use(plugin)
       Vue.use(ZiggyVue, Ziggy)
       Vue.component('inertia-link',Link)
-      Vue.component('Head', Head)
+      Vue.component('AppHead', AppHead)
       new Vue({
         render: h => h(App, props),
       }).$mount(el)

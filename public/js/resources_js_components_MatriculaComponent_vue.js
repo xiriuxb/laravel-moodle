@@ -321,7 +321,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -945,7 +944,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Head", { attrs: { title: _vm.curso.fullname } }),
+      _c("AppHead", { attrs: { title: _vm.curso.fullname } }),
       _vm._v(" "),
       !_vm.logged
         ? _c(
@@ -1103,7 +1102,7 @@ var render = function() {
                               staticClass:
                                 "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
                               attrs: {
-                                as: _vm.button,
+                                as: "button",
                                 href:
                                   "/pago-deposito-transferencia/" + this.curso
                               }

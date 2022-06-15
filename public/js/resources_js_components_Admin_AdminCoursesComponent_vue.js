@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adminCourses[data-v-31717999] {\r\n  padding: 1rem;\n}\n.container[data-v-31717999]{\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-31717999]{\r\n  display: flex;\r\n  position: relative;\r\n  flex-direction: column;\r\n  align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -301,11 +301,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "adminCourses" } },
+    { staticClass: "adminView", attrs: { id: "adminCourses" } },
     [
-      _c("Head", { attrs: { title: "Admin | Cursos (Local)" } }),
+      _c("AppHead", { attrs: { title: "Admin | Cursos (Local)" } }),
       _vm._v(" "),
-      _c("h1", [_vm._v("\r\n      Administración de cursos (Local)\r\n  ")]),
+      _c("h2", [_vm._v("\r\n      Administración de cursos (Local)\r\n  ")]),
       _vm._v(" "),
       _c("p", [
         _vm._v(

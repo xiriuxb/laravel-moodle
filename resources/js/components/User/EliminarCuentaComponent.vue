@@ -1,7 +1,7 @@
 <template>
 
     <div id="deleteProfile">
-        <Head title="Usuario | Eliminar Cuenta" />
+        <AppHead :title="'Usuario | Eliminar Cuenta'" />
         <div v-if="passwordError" class="alert alert-danger">
             {{ passwordError }}
         </div>

@@ -1,5 +1,6 @@
 <template>
   <section>
+    <AppHead :title="'Aviso Email'"/>
     <div class="w-full relative h-screen" id="back">
       <div class="relative top-1/3 container">
         <h1 class="font-bold text-4xl text-blue-700">FELICITACIONES</h1>

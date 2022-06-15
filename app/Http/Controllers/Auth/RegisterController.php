@@ -99,9 +99,9 @@ class RegisterController extends Controller
 
     private function createMoodleUser(Request $request, string $username){
         $client = new \GuzzleHttp\Client();
-        $guzzleRequest = $client->request('GET', env('MOODLE_WS_URL'), [
+        $guzzleRequest = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_create_users',
                 'users[0][username]'=>$username,
                 'users[0][password]'=> $request->password,

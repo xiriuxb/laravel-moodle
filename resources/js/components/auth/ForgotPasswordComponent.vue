@@ -1,6 +1,6 @@
 <template>
   <div id="forgot-password">
-    <Head title="Contraseña" />
+    <AppHead :title="'Contraseña Olvidada'" />
     <div class="d-flex justify-content-center">
       <div class="container">
         <h3>¿Olvidó su contraseña?</h3>

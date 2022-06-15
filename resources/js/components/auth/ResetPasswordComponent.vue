@@ -1,6 +1,6 @@
 <template>
   <div id="reset-password">
-    <Head title="Reset Password" />
+    <AppHead :title="'Reset Password'" />
     <div class="card-form">
       <div class="container" v-if="message">
         <div class="alert alert-success" role="success">

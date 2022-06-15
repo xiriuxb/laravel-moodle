@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Traits;
 trait MoodleServicesTrait {
-
     /**
      *
      * @param  string  $username
@@ -9,9 +8,9 @@ trait MoodleServicesTrait {
      */
     public function getUserId(string $userName, string $field = 'username'){
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+        $res = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_get_users_by_field',
                 'field' => $field,
                 'values[0]' => $userName,
@@ -29,9 +28,9 @@ trait MoodleServicesTrait {
     public function getCourseFromMoodle($shortname)
     {
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', env('MOODLE_WS_URL'), [
+        $res = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_course_get_courses_by_field',
                 //Recive los datos del curso especificado desde la API de moodle
                 'field' => 'shortname',

@@ -46,6 +46,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/site-images', function () {
             return inertia('Admin/AdminPublicImagesComponent');
         });
+        Route::get('/site-config', function () {
+            return inertia('Admin/AdminConfigController');
+        });
     });
 
     Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');

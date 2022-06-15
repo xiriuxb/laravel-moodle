@@ -1,7 +1,7 @@
 <template>
-  <div id="adminCMoodle">
-    <Head title="Admin | Cursos (Moodle)" />
-    <h1>Administración de cursos (Moodle)</h1>
+  <div id="adminCMoodle" class="adminView">
+    <AppHead :title="'Admin | Cursos (Moodle)'" />
+    <h2>Administración de cursos (Moodle)</h2>
     <p>
       En este apartado simplemente puede observar la información básica de los
       cursos de Moodle, además de importarlos a la base de la app Octavario. Si
@@ -134,9 +134,6 @@ export default {
 </script>
 
 <style scoped>
-#adminCMoodle {
-  padding: 1rem;
-}
 .container{
   display: flex;
   position: relative;

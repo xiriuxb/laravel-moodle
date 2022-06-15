@@ -236,8 +236,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "adminView" },
     [
-      _c("Head", { attrs: { title: "Admin | Imágenes del sitio" } }),
+      _c("AppHead", { attrs: { title: "Admin | Imágenes del sitio" } }),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Administración de imágenes")]),
       _vm._v(" "),
       _c("div", { staticClass: "form-grup" }, [
         this.errors.favicon != null

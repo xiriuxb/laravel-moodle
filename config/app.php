@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Bogota',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,6 +122,32 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    //Moodle Web Service data
+    'moodle_ws_url' => env('MOODLE_WS_URL', 'http://localhost/moodle/'),
+    'moodle_ws_token' => env('MOODLE_WS_TOKEN', 'token'),
+    //Paypal data
+    'paypal_mode' => env('PAYPAL_MODE', 'sandbox'),
+    'paypal_client_id' => env('PAYPAL_CLIENT_ID', 'CLIENT_ID'),
+    'paypal_currency' => env('PAYPAL_CURRENCY', 'USD'),
+    'paypal_buyer_country' => env('PAYPAL_BUYER_COUNTRY', 'EC'),
+    'paypal_locale' => env('PAYPAL_LOCALE', 'es_EC'),
+    //Bank data
+    'bank_name' => env('BANK_NAME', 'BANCO DEL PICHINCHA'),
+    'bank_account_number' => env('BANK_ACCOUNT_NUMBER', '123456789'),
+    'bank_account_type' => env('BANK_ACCOUNT_TYPE', 'Cuenta Corriente'),
+    'bank_account_owner' => env('BANK_ACCOUNT_OWNER', 'Developer Account'),
+    'bank_account_owner_document' => env('BANK_ACCOUNT_OWNER_DOCUMENT', '123456789'),
+    //Datos del sitio
+    'site_email' => env('SITE_EMAIL', ''),
+    'site_phone' => env('SITE_PHONE', ''),
+    'site_address' => env('SITE_ADDRESS', ''),
+    'site_copyright' => env('SITE_COPYRIGHT', ''),
+    //Datos de redes sociales
+    'site_facebook' => env('SITE_FACEBOOK', ''),
+    'site_twitter' => env('SITE_TWITTER', ''),
+    'site_instagram' => env('SITE_INSTAGRAM', ''),
+    'site_youtube' => env('SITE_YOUTUBE', ''),
+
 
     /*
     |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <template>
   <div id="profile">
-    <Head title="Usuario | Perfil" />
+    <AppHead :title="'Usuario | Perfil'" />
     <div id="datosP" class="container">
       <!-- User data form -->
       <div class="row">

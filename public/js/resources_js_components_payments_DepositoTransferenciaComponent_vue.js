@@ -305,7 +305,7 @@ var render = function() {
     "section",
     { attrs: { id: "pagoDeposito" } },
     [
-      _c("Head", {
+      _c("AppHead", {
         attrs: {
           title: "Pago Deposito/Transferencia |" + _vm.curso_data.fullname
         }

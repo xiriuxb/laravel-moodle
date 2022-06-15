@@ -62,9 +62,9 @@ class ResetPasswordController extends Controller
 
     private function updateMoodlePassword(string $newPassword, string $username){
         $client = new \GuzzleHttp\Client();
-        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+        $request = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_update_users',
                 'users[0][id]' => $username,
                 'users[0][password]'=>$newPassword,

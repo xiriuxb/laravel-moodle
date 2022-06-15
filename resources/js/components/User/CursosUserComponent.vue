@@ -1,6 +1,6 @@
 <template>
   <div id="misCursos" class="container">
-    <Head title="Usuario | Cursos" />
+    <AppHead :title="'Usuario | Cursos'" />
     <h2 class="text-2xl">Mis cursos <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
         aria-hidden="true"></span></h2>
     <form action="#" @submit.prevent="busquedaCurso">

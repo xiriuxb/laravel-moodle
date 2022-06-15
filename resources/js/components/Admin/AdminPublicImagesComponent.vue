@@ -1,7 +1,7 @@
 <template>
-    <div>
-
-        <Head title="Admin | Imágenes del sitio" />
+    <div class="adminView">
+        <AppHead :title="'Admin | Imágenes del sitio'" />
+        <h2>Administración de imágenes</h2>
         <div class="form-grup">
             <div v-if="this.errors.favicon != null" class="alert alert-danger">
                 {{ this.errors.favicon[0] }}

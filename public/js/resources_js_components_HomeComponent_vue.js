@@ -604,7 +604,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Head", { attrs: { title: "Inicio" } }),
+      _c("AppHead", { attrs: { title: "Inicio" } }),
       _vm._v(" "),
       _c("caratula-component"),
       _vm._v(" "),

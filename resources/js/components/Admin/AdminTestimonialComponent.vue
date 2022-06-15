@@ -1,8 +1,7 @@
 <template>
-  <div class="container" :class="{ 'disabled': loading }">
-
-    <Head title="Admin | Testimonios" />
-    <h3>Administración de testimonios</h3>
+  <div class="adminView" :class="{ 'disabled': loading }">
+    <AppHead :title="'Admin | Testimonios'" />
+    <h2>Administración de testimonios</h2>
     <loading-component v-if='loading'></loading-component>
     <div>
       <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment"
@@ -46,7 +45,7 @@
       </label>
       <div class="row">
         <div class="col">
-          <button type="submit" @click.prevent="save" class="btn btn-primary" :disabled="loading">
+          <button type="submit" @click.prevent="save" :class="'btn btn-primary'" class="btn btn-primary" :disabled="loading">
             {{ !editMode ? 'Guardar' : 'Guardar Cambios' }}
           </button>
         </div>

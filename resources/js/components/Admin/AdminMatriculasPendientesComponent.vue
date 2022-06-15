@@ -1,6 +1,6 @@
 <template>
-  <div id="adminMatriculasPendientes">
-    <Head title="Admin | Matriculas Pendientes" />
+  <div id="adminMatriculasPendientes" class="adminView">
+    <AppHead :title="'Admin | Matriculas Pendientes'" />
     <h2>
       Administración de matrículas pendientes
     </h2>
@@ -121,10 +121,6 @@ export default {
 </script>
 
 <style scoped>
-#adminCourses {
-  padding: 1rem;
-}
-
 button:hover box-icon {
   fill: white
 }

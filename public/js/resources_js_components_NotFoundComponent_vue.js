@@ -187,7 +187,7 @@ var render = function() {
     "div",
     { staticClass: "h-screen", attrs: { id: "not-found" } },
     [
-      _c("Head", { attrs: { title: "No Encontrado" } }),
+      _c("AppHead", { attrs: { title: "No Encontrado" } }),
       _vm._v(" "),
       _c(
         "div",

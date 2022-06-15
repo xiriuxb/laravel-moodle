@@ -253,7 +253,7 @@ var render = function() {
     "div",
     { staticClass: "container", attrs: { id: "misCursos" } },
     [
-      _c("Head", { attrs: { title: "Usuario | Cursos" } }),
+      _c("AppHead", { attrs: { title: "Usuario | Cursos" } }),
       _vm._v(" "),
       _c("h2", { staticClass: "text-2xl" }, [
         _vm._v("Mis cursos "),

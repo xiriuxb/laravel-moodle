@@ -222,7 +222,7 @@ var render = function() {
     "div",
     { attrs: { id: "deleteProfile" } },
     [
-      _c("Head", { attrs: { title: "Usuario | Eliminar Cuenta" } }),
+      _c("AppHead", { attrs: { title: "Usuario | Eliminar Cuenta" } }),
       _vm._v(" "),
       _vm.passwordError
         ? _c("div", { staticClass: "alert alert-danger" }, [

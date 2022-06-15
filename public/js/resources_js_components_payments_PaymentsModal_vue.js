@@ -733,7 +733,7 @@ var render = function() {
                               staticClass:
                                 "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
                               attrs: {
-                                as: _vm.button,
+                                as: "button",
                                 href:
                                   "/pago-deposito-transferencia/" + this.curso
                               }

@@ -48,6 +48,18 @@ class HandleInertiaRequests extends Middleware
         }
         return array_merge(parent::share($request), [
             //
+            'appName' => config('app.name'),
+            'siteData' => [
+                'siteEmail' => config('app.site_email'),
+                'sitePhone' => config('app.site_phone'),
+                'siteCopyright' => config('app.site_copyright'),
+                'siteSocialNetworks' => [
+                    'facebook' => config('app.site_facebook'),
+                    'twitter' => config('app.site_twitter'),
+                    'instagram' => config('app.site_instagram'),
+                    'youtube' => config('app.site_youtube'),
+                ],
+            ],
             'auth' => [
                 'user' => $username,
                 'role' => $role,

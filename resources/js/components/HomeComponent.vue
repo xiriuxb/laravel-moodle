@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Head title="Inicio" />
+        <AppHead :title="'Inicio'" />
         <caratula-component></caratula-component>
         <div>
             <div class="section-odd">

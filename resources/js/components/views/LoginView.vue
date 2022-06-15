@@ -1,5 +1,6 @@
 <template>
 <div class="contain">
+    <AppHead :title="'Ingreso'"/>
       <div class="izq">
           <a href="/">
               <img src="/images/logo.png" alt="Bussiness Logo">

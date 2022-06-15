@@ -1,34 +1,48 @@
 <template>
-  <footer id="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <inertia-link href="/">Inicio</inertia-link></li>
-                        <li><i class="bx bx-chevron-right"></i>  <inertia-link href="/cursos/all">Cursos</inertia-link></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 footer-contact">
-                    <h4>Contáctenos</h4>
-                    <p> <strong>Teléfono:</strong> +593 999 240 609<br> <strong>Email:</strong> octavarioec@gmail.com<br> </p>
-                </div>
-                <div class="col-lg-3 col-md-6 footer-info">
-                    <div class="social-links mt-3"> <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a> <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> </div>
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i>
+                                <inertia-link href="/">Inicio</inertia-link>
+                            </li>
+                            <li><i class="bx bx-chevron-right"></i>
+                                <inertia-link href="/cursos/all">Cursos</inertia-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h4>Contáctenos</h4>
+                        <p> <strong>Teléfono:</strong> {{ siteData.sitePhone }}<br> <strong>Email:</strong>
+                            {{ siteData.siteEmail }}<br> </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-info">
+                        <div class="social-links mt-3"> 
+                            <a :href="siteData.siteSocialNetworks.facebook" v-if="siteData.siteSocialNetworks.facebook"><box-icon type='logo' name='facebook-circle'></box-icon></a> 
+                            <a :href="siteData.siteSocialNetworks.twitter" v-if="siteData.siteSocialNetworks.twitter"><box-icon type='logo' name='twitter'></box-icon></a>
+                            <a :href="siteData.siteSocialNetworks.instagram" v-if="siteData.siteSocialNetworks.instagram"><box-icon type='logo' name='instagram'></box-icon></a> 
+                            <a :href="siteData.siteSocialNetworks.youtube" v-if="siteData.siteSocialNetworks.youtube"><box-icon type='logo' name='youtube'></box-icon></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="copyright"> © Copyright <strong><span>Jorge Trujillo</span></strong>. All Rights Reserved </div>
-    </div>
-</footer>
+        <div class="container">
+            <div class="copyright"> © Copyright <strong><span>Jorge Trujillo</span></strong>. All Rights Reserved </div>
+        </div>
+    </footer>
 </template>
 
 <script>
 export default {
-
+computed: {
+    siteData() {
+      return this.$page.props.siteData
+    }
+  }
 }
 </script>
 
@@ -69,7 +83,6 @@ export default {
 }
 
 #footer .footer-top .social-links a {
-    font-size: 18px;
     display: inline-block;
     background: #545454;
     color: #fff;
@@ -80,11 +93,12 @@ export default {
     text-align: center;
     width: 36px;
     height: 36px;
-    transition: 0.3s
+    transition: 0.3s;
+    fill: #fff;
 }
 
 #footer .footer-top .social-links a:hover {
-    background: #e96b56;
+    background: #002e45;
     color: #fff;
     text-decoration: none
 }

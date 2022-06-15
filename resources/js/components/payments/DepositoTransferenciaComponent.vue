@@ -1,6 +1,6 @@
 <template>
     <section id="pagoDeposito">
-        <Head :title="'Pago Deposito/Transferencia |'+curso_data.fullname" />
+        <AppHead :title="'Pago Deposito/Transferencia |'+curso_data.fullname" />
         <h3 class="text-2xl">Pago por Transferencia/Depósito</h3>
         <div v-if="pago">
             Usted ya ha pagado por este curso <b>{{ curso_data.fullname }}</b>

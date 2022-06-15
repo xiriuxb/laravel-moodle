@@ -1326,7 +1326,7 @@ var render = function() {
     "div",
     { attrs: { id: "profile" } },
     [
-      _c("Head", { attrs: { title: "Usuario | Perfil" } }),
+      _c("AppHead", { attrs: { title: "Usuario | Perfil" } }),
       _vm._v(" "),
       _c("div", { staticClass: "container", attrs: { id: "datosP" } }, [
         _c("div", { staticClass: "row" }, [

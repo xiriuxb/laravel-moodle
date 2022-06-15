@@ -1,7 +1,7 @@
 <template>
-  <div id="adminUsers">
-    <Head title="Admin | Usuarios" />
-    <h3>Administración de usuarios</h3>
+  <div id="adminUsers" class="adminView">
+    <AppHead :title="'Admin | Usuarios'" />
+    <h2>Administración de usuarios</h2>
     <loading-component v-if="loadingInit"></loading-component>
     <div class="container" v-else>
       <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" v-if="setting">
@@ -18,8 +18,7 @@
               <option v-for="role in roles" :value="role.id">{{ role.name }}</option>
             </select>
           </div>
-          <input type="text" class="form-control" v-model="search" placeholder="Buscar usuario"
-            aria-label="Text input with dropdown button">
+          <input type="text" class="form-control" v-model="search" placeholder="Buscar usuario">
           <div class="input-group-append">
             <button class="btn btn-outline-primary" type="submit" id="inputButtonSearch"
               @click.prevent="loadUsers()">Buscar</button>
@@ -136,11 +135,6 @@ export default {
 #adminUsers {
   font-size: small;
 }
-
-#adminUsers {
-  padding: 1rem;
-}
-
 .container {
   display: flex;
   position: relative;

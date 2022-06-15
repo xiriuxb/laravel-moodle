@@ -1,8 +1,9 @@
 <template>
-<div id="adminCourses">
-  <h1>
+<div id="adminCourses" class="adminView">
+  <AppHead :title="'Admin | Matriculas'"/>
+  <h2>
       Administración de cursos (Local)
-  </h1>
+  </h2>
   <p>En este apartado simplemente puede observar la información básica de los cursos, además de establecer como destacado. 
     Si desea modificar la información de los cursos debe hacerlo desde Moodle.
   </p>
@@ -124,9 +125,6 @@ export default {
 </script>
 
 <style scoped>
-#adminCourses {
-  padding: 1rem;
-}
 .container{
   display: flex;
   position: relative;

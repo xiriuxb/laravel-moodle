@@ -113,7 +113,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -448,11 +447,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container", class: { disabled: _vm.loading } },
+    { staticClass: "adminView", class: { disabled: _vm.loading } },
     [
-      _c("Head", { attrs: { title: "Admin | Testimonios" } }),
+      _c("AppHead", { attrs: { title: "Admin | Testimonios" } }),
       _vm._v(" "),
-      _c("h3", [_vm._v("Administración de testimonios")]),
+      _c("h2", [_vm._v("Administración de testimonios")]),
       _vm._v(" "),
       _vm.loading ? _c("loading-component") : _vm._e(),
       _vm._v(" "),
@@ -678,6 +677,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-primary",
+                      class: "btn btn-primary",
                       attrs: { type: "submit", disabled: _vm.loading },
                       on: {
                         click: function($event) {

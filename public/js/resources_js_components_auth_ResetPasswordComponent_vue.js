@@ -281,7 +281,7 @@ var render = function() {
     "div",
     { attrs: { id: "reset-password" } },
     [
-      _c("Head", { attrs: { title: "Reset Password" } }),
+      _c("AppHead", { attrs: { title: "Reset Password" } }),
       _vm._v(" "),
       _c("div", { staticClass: "card-form" }, [
         _vm.message

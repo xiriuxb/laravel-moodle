@@ -54,9 +54,9 @@ class UserController extends Controller
     protected function updateMoodlePassword(string $newPassword, string $username){
         $userID = $this->getUserId($username);
         $client = new \GuzzleHttp\Client();
-        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+        $request = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_update_users',
                 'users[0][id]' => $userID,
                 'users[0][password]'=>$newPassword,
@@ -90,9 +90,9 @@ class UserController extends Controller
     protected function updateMoodleEmail(string $newEmail, string $username){
         $userID = $this->getUserId($username);
         $client = new \GuzzleHttp\Client();
-        $request = $client->request('POST', env('MOODLE_WS_URL'), [
+        $request = $client->request('POST', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_update_users',
                 'users[0][id]' => $userID,
                 'users[0][email]'=>$newEmail,
@@ -159,9 +159,9 @@ class UserController extends Controller
 
     private function deleteUserFromMoodle(int $userID){
         $client = new \GuzzleHttp\Client();
-        $request = $client->request('GET', env('MOODLE_WS_URL'), [
+        $request = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
-                'wstoken' => (string)env('MOODLE_WS_TOKEN'),
+                'wstoken' => (string)config('app.moodle_ws_token'),
                 'wsfunction' => 'core_user_delete_users',
                 'userids[0]' => $userID,
                 'moodlewsrestformat' => 'json',

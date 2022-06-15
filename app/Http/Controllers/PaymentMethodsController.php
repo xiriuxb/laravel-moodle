@@ -20,11 +20,11 @@ class PaymentMethodsController extends Controller
     public function getPaypalData(Request $request)
     {
         $datos = [
-            'mode' => (string) env('PAYPAL_MODE'),
-            'client_id' => (string) env('PAYPAL_CLIENT_ID'),
-            'currency' => (string) env('PAYPAL_CURRENCY'),
-            'buyer_country' => (string) env('PAYPAL_BUYER_COUNTRY'),
-            'locale' => (string) env('PAYPAL_LOCALE'),
+            'mode' => (string) config('app.paypal_mode'),
+            'client_id' => (string) config('app.paypal_client_id'),
+            'currency' => (string) config('app.paypal_currency'),
+            'buyer_country' => (string) config('app.paypal_buyer_country'),
+            'locale' => (string) config('app.paypal_locale'),
         ];
         return response()->json( $datos);   
     }
@@ -33,10 +33,10 @@ class PaymentMethodsController extends Controller
         $curso_aux = $this->getCourseFromMoodle($curso_id);
         $curso_data = ['shortname'=>$curso_aux->shortname,'fullname'=>$curso_aux->fullname, 'precio'=>$curso_aux->customfields[1]->value];
         $paymentData = [
-            'user'=>str_replace('_',' ',(string)env('TRANSFER_NAME')) ,
-            'user_id'=>(string)env('TRANSFER_ID'),
-            'user_account'=>(string)env('TRANSFER_ACCOUNT'),
-            'user_bank'=>str_replace('_',' ',(string)env('TRANSFER_BANK')) ,
+            'user'=>str_replace('_',' ',(string)config('app.bank_account_owner')),
+            'user_id'=>(string)config('app.bank_account_owner_document'),
+            'user_account'=>(string)config('app.bank_account_number'),
+            'user_bank'=>str_replace('_',' ',(string)config('app.bank_name')),
         ];
         if(Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id], ['estado_matricula_id',3]])->exists()){
             return inertia('payments/DepositoTransferenciaComponent', ['curso_data' => $curso_data, 'pago' => true]);

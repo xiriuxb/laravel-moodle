@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppHead :title="'Admin'"/>
     <div class="sidebar">
       <div class="logo_content">
         <div class="logo">
@@ -51,7 +52,9 @@ export default {
         { name: 'Cursos Moodle', component: 'cursos-moodle' },
         { name: 'Usuarios', component: 'users' },
         { name: 'Matriculas Pendientes', component: 'matriculas-pendientes' },
-        { name: 'Imágenes', component: 'site-images' }
+        { name: 'Pagos', component: 'pagos-deposito' },
+        { name: 'Imágenes', component: 'site-images' },
+        { name: 'Configuración', component: 'site-config' },
       ]
     };
   },
@@ -150,5 +153,19 @@ export default {
   height: 100%;
   width: calc(100% - 200px);
   left: 200px;
+}
+
+::v-deep h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+::v-deep .adminView{
+  padding: 1rem;
+}
+
+::v-deep button.btn-primary[type=submit]{
+  background-color: #007bff;
 }
 </style>

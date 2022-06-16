@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::inertia('/home', 'LoginT');
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return inertia('HomeComponent');
@@ -44,15 +42,15 @@ Route::group(['middleware' => ['web']], function () {
             return inertia('Admin/AdminMatriculasPendientesComponent');
         });
         Route::get('/site-images', function () {
-            return inertia('Admin/AdminPublicImagesComponent');
+            return inertia('Admin/AdminPublicImagesComponent')->middleware('can:admuser.siteconfig');
         });
         Route::get('/site-config', function () {
             return inertia('Admin/AdminConfigController');
-        });
-        Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser');
+        })->middleware('can:admuser.siteconfig');
+        Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser')->middleware('can:admuser.getusermatricula')->name('admin.matriculas.usuario');
     });
 
-    Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');
+    Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeFree')->name('matricula-free');
     Route::post('/matricula', 'App\Http\Controllers\MatriculaController@storePaypalOrCreditCard')->name('matricula');
     Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula-dep-transf');
 
@@ -95,10 +93,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
 
     Route::post('/update-user', 'App\Http\Controllers\UserController@update')->middleware('auth');
-
-    Route::get('/payments', function () {
-        return inertia('payments/PaymentSelectorComponent');
-    })->middleware('auth')->name('payments');
 
     Route::get('not-found', function () {
         return inertia('NotFoundComponent');

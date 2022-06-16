@@ -22,8 +22,14 @@
               </inertia-link>
             </td>
             <td>
-              <div v-if="curso.pivot.estado_matricula_id == 3" class="text-red-700">
+              <div v-if="curso.pivot.estado_matricula_id == 3" class="text-blue-900">
                 Su matrícula esta pendiente.
+              </div>
+              <div v-else-if="curso.pivot.estado_matricula_id == 2" class="text-red-900">
+                Su matrícula fue rechazada.*
+              </div>
+              <div v-else-if="curso.pivot.estado_matricula_id == 4" class="text-red-900">
+                Su matrícula fue cancelada/revocada.*
               </div>
               <button v-else class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">
                 <span class="align-middle"> Ver en Moodle</span>
@@ -34,6 +40,7 @@
         </tbody>
       </table>
     </div>
+    <p>*En caso de tener un reclamo, por favor contáctese con nosotros</p>
   </div>
 </template>
 

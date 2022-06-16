@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\MoodleServicesTrait;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class AdminUsersController extends Controller
 {
@@ -69,7 +67,6 @@ class AdminUsersController extends Controller
         if(request('role')== ''){
             return response( ['message' => 'La informacion es inválida'], 422);
         }
-
         $user = User::where('username','=',request('id'))->firstOrFail();
         if(($user->email_verified_at == null) && (request('role') != 'suspended' and $user->getRoleNames()[0] !='suspended')){
                 return response()->json(['message' => ' El usuario debe verificar su email primero'], 422);

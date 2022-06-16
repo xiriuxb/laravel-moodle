@@ -15,7 +15,7 @@
 			</div>
 			<ul class="nav-list">
 				<li v-for="menu_item in menu_items" :key="menu_item.name">
-					<inertia-link :href="menu_item.component">
+					<inertia-link :href="'/admin/'+menu_item.component">
 						<span class="links_name">{{ menu_item.name }}</span>
 					</inertia-link>
 					<span class="tooltip">{{ menu_item.name }}</span>
@@ -45,7 +45,6 @@ export default {
 				{ name: 'Cursos Moodle', component: 'cursos-moodle' },
 				{ name: 'Usuarios', component: 'users' },
 				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes' },
-				{ name: 'Pagos', component: 'pagos-deposito' },
 				{ name: 'Imágenes', component: 'site-images' },
 				{ name: 'Configuración', component: 'site-config' },
 			]
@@ -53,11 +52,7 @@ export default {
 	},
 	methods: {
 		sidebarHandler() {
-			if (this.$data.movedSidebar) {
-				this.$data.movedSidebar = false;
-			} else {
-				this.$data.movedSidebar = true;
-			}
+			this.movedSidebar = !this.movedSidebar;
 		},
 	},
 };

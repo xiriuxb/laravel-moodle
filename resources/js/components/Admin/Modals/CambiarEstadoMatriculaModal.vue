@@ -6,7 +6,7 @@
           <div class="modal-header">
             <slot name="header">
               <strong>Opciones</strong>
-              <button class="btn" @click.prevent="$emit('close')">
+              <button class="btn" @click.prevent="$emit('close')" :disabled="loading">
                 <box-icon name='x'></box-icon>
               </button>
             </slot>
@@ -14,10 +14,11 @@
           <div class="modal-body">
             <slot name="body">
               <div>
-                <p v-if="userid">Usuario: <strong>{{ userid }}</strong> (Por favor, asegurese que sea el usuario correcto.)</p>
+                <h3>¿Está seguro que desea cambiar el estado de la matrícula?</h3>
+                <h3>Estado actual: {{matricula.estado_matricula.nombre}}</h3>
               </div>
-              <div class="alert alert-danger" role="alert" v-if="errors.message">
-                {{ errors.message }}
+              <div class="alert alert-danger" role="alert" v-if="error">
+                {{ error }}
               </div>
               <form class="card-bodys">
                 <div class="form-group">
@@ -25,8 +26,8 @@
                     placeholder="Escriba su contraseña">
                 </div>
                 <div class="form-group">
-                  <select v-model="form.role" class="custom-select" :disabled="loading">
-                    <option v-for="role in roles" :value="role.name">{{ role.name }}</option>
+                  <select v-model="form.estado" class="custom-select" :disabled="loading">
+                    <option v-for="estado in estados" :value="estado.id">{{ estado.nombre }}</option>
                   </select>
                 </div>
               </form>
@@ -35,7 +36,7 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="btn btn-primary" @click.prevent="changeRole()" :disabled="loading">
+              <button class="btn btn-primary" @click.prevent="changeEstado()" :disabled="loading">
                 <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
                 Aceptar</button>
             </slot>
@@ -49,52 +50,54 @@
 <script>
 export default {
   props: {
-    userid: {
-      type: String,
+    matricula: {
+      type: Object,
       required: true
     },
-    roles: {
-      type: Array,
-      required: true
-    }
-  },
-  methods: {
-    async changeRole() {
-      this.loading = true;
-      this.errors = [];
-      await axios.post('/api/admin/users/change-role', this.form).then(response => {
-        console.log(response.data);
-        this.loading = false;
-        this.$toast.open({
-          message: 'Se ha cambiado el rol del usuario',
-          type: 'success',
-          duration: 5000
-        });
-        this.$emit('close');
-      }).catch(error => {
-        this.loading = false;
-        this.errors = error.response.data;
-        console.log(error.response.data);
-      })
-    }
   },
   data() {
     return {
       form: {
-        id: this.userid,
+        id: this.matricula.id,
         password: '',
-        role: '',
+        estado: this.matricula.estado_matricula.id,
       },
-      errors: [],
+      estados:[],
+      error:'',
       loading: false,
-      oldRole: '',
     }
   },
+  methods: {
+    changeEstado() {
+      this.loading = true;
+      this.error = '';
+      let url = '/api/admin/matriculas';
+      axios.put(url,this.form).then(response => {
+        this.loading = false;
+        this.$toast.open({
+          message: response.data.matricula,
+          type: 'success',
+          duration: 5000
+        });
+      }).catch(
+        error => {
+          this.loading = false,
+          this.error = error.response.data.message;
+          console.log(error.response.data.message)
+          this.$toast.open({
+            message: 'Error al actualizar',
+            type: 'error',
+            duration: 5000
+          });
+        }
+      );
+    },
+  },
+  
   created() {
     this.loading = true;
-    axios.get('/api/admin/users/get-user-role', { params: { id: this.userid } }).then(response => {
-      this.form.role = response.data.role;
-      this.oldRole = response.data.role;
+    axios.get('/api/admin/matriculas/estados').then(response => {
+      this.estados = response.data.estados;
       this.loading = false;
     }).catch(error => {
       console.log(error);

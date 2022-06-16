@@ -27,20 +27,21 @@ Route::group(['middleware'=>['api']],function(){
         Route::post('/users/change-role', 'App\Http\Controllers\admin\AdminUsersController@changeRole');
         Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole');
         Route::get('/roles', 'App\Http\Controllers\admin\RolesController@index');
-        Route::get('/matriculas-pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index');
-        Route::get('/get-matricula-pendiente-pago/{id}', 'App\Http\Controllers\PagoController@getImage');
-        Route::put('/matriculas-pendientes/{id}/{estado}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@update');
         Route::post('/images/favicon', 'App\Http\Controllers\admin\AdminSiteImagesController@storeIcon');
         Route::post('/images/logo', 'App\Http\Controllers\admin\AdminSiteImagesController@storeLogo');
         Route::post('/images/caratula', 'App\Http\Controllers\admin\AdminSiteImagesController@storeCaratula');
         Route::get('/site-config', 'App\Http\Controllers\admin\SiteConfigController@index');
         Route::post('/site-config', 'App\Http\Controllers\admin\SiteConfigController@update');
         Route::post('/site-config/update', 'App\Http\Controllers\admin\SiteConfigController@updateConfig');
+        Route::get('/matriculas/pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index');
+        Route::put('/matriculas/pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@updatePending');
+        Route::get('/matriculas/pendientes/imagen/{id}', 'App\Http\Controllers\PagoController@getImage');
+        Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser');
+        Route::put('/matriculas', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@update');
+        Route::get('/matriculas/estados', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@getEstados');
     });
     
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
-    
-    // Route::get('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
     
     Route::apiResource('testimonials', 'App\Http\Controllers\AdminTestimonioController')->middleware('auth');
     
@@ -57,8 +58,6 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('user/matricula/{curso}', 'App\Http\Controllers\UserController@matricula')->middleware(['auth']);
 
     Route::get('user/matriculas', 'App\Http\Controllers\UserController@matriculas');
-
-    //    Route::get('user/role', 'App\Http\Controllers\UserController@role');
 
     Route::get('cursos-local/destacados', 'App\Http\Controllers\CursosLocal@destacados');
 

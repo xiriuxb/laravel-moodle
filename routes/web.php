@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/site-config', function () {
             return inertia('Admin/AdminConfigController');
         });
+        Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser');
     });
 
     Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeF')->name('matricula-free');

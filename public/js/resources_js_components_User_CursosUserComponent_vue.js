@@ -53,6 +53,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -350,9 +357,21 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [
                   curso.pivot.estado_matricula_id == 3
-                    ? _c("div", { staticClass: "text-red-700" }, [
+                    ? _c("div", { staticClass: "text-blue-900" }, [
                         _vm._v(
                           "\n              Su matrícula esta pendiente.\n            "
+                        )
+                      ])
+                    : curso.pivot.estado_matricula_id == 2
+                    ? _c("div", { staticClass: "text-red-900" }, [
+                        _vm._v(
+                          "\n              Su matrícula fue rechazada.*\n            "
+                        )
+                      ])
+                    : curso.pivot.estado_matricula_id == 4
+                    ? _c("div", { staticClass: "text-red-900" }, [
+                        _vm._v(
+                          "\n              Su matrícula fue cancelada/revocada.*\n            "
                         )
                       ])
                     : _c(
@@ -384,6 +403,12 @@ var render = function() {
             0
           )
         ])
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "*En caso de tener un reclamo, por favor contáctese con nosotros"
+        )
       ])
     ],
     1

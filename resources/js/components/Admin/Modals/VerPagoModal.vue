@@ -7,9 +7,7 @@
                 </button>
             </div>
             <div class="modal-wrapper">
-                <div>
-                    <img :src="'/api/admin/get-matricula-pendiente-pago/' + pago_id">
-                </div>
+                    <img :src="'/api/admin/matriculas/pendientes/imagen/' + pago_id">
             </div>
         </div>
     </transition>
@@ -39,16 +37,19 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: table;
+    display: flex;
+    flex-direction: column;
     transition: opacity 0.3s ease;
     margin: 0 0 0 0;
     padding: 12px;
+    min-width: 0;
 }
 
 .modal-wrapper {
-    display: flex;
+    flex: 1 1 0;
     height: calc(100% - 50px);
     overflow: auto;
+    min-height: 0;
 }
 
 .modal-wrapper div {

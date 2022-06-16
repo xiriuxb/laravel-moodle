@@ -42,7 +42,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    userid: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      matriculas: [],
+      user: {}
+    };
+  },
+  methods: {
+    getMatriculas: function getMatriculas() {
+      var _this = this;
+
+      axios.get('/api/admin/matriculas/usuario/' + this.userid).then(function (response) {
+        _this.matriculas = response.data.matriculas;
+        _this.user = response.data.user;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  computed: {
+    username: function username() {
+      return this.user.name + ' ' + this.user.last_name;
+    }
+  },
+  created: function created() {
+    this.getMatriculas();
+  }
+});
 
 /***/ }),
 
@@ -62,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-primary[data-v-6a663bbb] {\r\n    background-color: #007bff;\n}\n.btn-danger[data-v-6a663bbb] {\r\n    background-color: #dc3545;\n}\n.modal-container[data-v-6a663bbb]{\r\n    margin: 50px;\r\n    width: unset;\n}\n.modal-wrapper[data-v-6a663bbb]{\r\n    display: unset;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-container[data-v-6a663bbb] {\r\n    margin: 50px;\r\n    width: unset;\r\n    overflow-x: auto;\r\n    overflow-y: auto;\n}\n.modal-wrapper[data-v-6a663bbb] {\r\n    display: unset;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -206,7 +251,11 @@ var render = function() {
             [
               _vm._t("header", function() {
                 return [
-                  _c("div", [_c("strong", [_vm._v("Opciones")])]),
+                  _c("div", [
+                    _c("strong", [
+                      _vm._v("Matriculas/Pagos (" + _vm._s(_vm.username) + ")")
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "button",
@@ -234,9 +283,44 @@ var render = function() {
             [
               _vm._t("body", function() {
                 return [
-                  _c("form", { staticClass: "card-bodys" }, [
-                    _c("div", { staticClass: "form-group" })
-                  ])
+                  _c(
+                    "table",
+                    { staticClass: "table" },
+                    [
+                      _c("tr", [
+                        _c("th", [_vm._v("Curso")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Estado")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Costo")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Pago")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Imagen")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Fecha")])
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.matriculas, function(matricula) {
+                        return _c("tr", { key: matricula.id }, [
+                          _c("td", [_vm._v(_vm._s(matricula.cursos.fullname))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(matricula.estado_matricula.nombre))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(matricula.pago.amount))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(matricula.pago.payment_id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(matricula.pago.file))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(matricula.pago.created_at))])
+                        ])
+                      })
+                    ],
+                    2
+                  )
                 ]
               })
             ],

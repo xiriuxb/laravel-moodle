@@ -65,7 +65,7 @@ export default {
       loadingInit: true,
       setting: false,
       searchTerm: "",
-      baseUrl: '/api/admin/matriculas-pendientes',
+      baseUrl: '/api/admin/matriculas/pendientes',
     }
   },
   created() {
@@ -94,10 +94,9 @@ export default {
       this.pagoSeleccionado = seleccionado;
       this.showPagoModal = true;
     },
-    updateMatricula(id, estado) {
+    updateMatricula(matricula_id, estado) {
       this.setting = true;
-      let url = this.baseUrl + '/'+ id + '/' + estado;
-      axios.put(url).then(response => {
+      axios.put(this.baseUrl,{matricula_id:matricula_id,estado:estado}).then(response => {
         this.setting = false;
         this.$toast.open({
           message: response.data.matricula,
@@ -106,8 +105,8 @@ export default {
         });
         this.loadMatriculas();
       }).catch(
-        this.setting = false,
         error => {
+          this.setting = false,
           this.$toast.open({
             message: 'Error al actualizar',
             type: 'error',

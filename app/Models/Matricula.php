@@ -22,6 +22,9 @@ class Matricula extends Model
     public function pago(){
         return $this->belongsTo(Pago::class,'pago_id');
     }
+    public function estado_matricula(){
+        return $this->belongsTo(EstadoMatricula::class,'estado_matricula_id');
+    }
     protected $fillable = [
         'curso_id',
         'usuario_id',

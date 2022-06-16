@@ -48,10 +48,10 @@
 							@click="showModal(user.username)">
 							<box-icon name="edit-alt"></box-icon>
 						</button>
-						<button class="btn btn-outline-primary btn-acction border-0 p-0" title="Ver Pagos"
-							@click="showModalPagos(user.username)">
+						<inertia-link class="btn btn-outline-primary btn-acction border-0 p-0" title="Ver Pagos"
+							:href="`/admin/matriculas/usuario/${user.username}`">
 							<box-icon name='note'></box-icon>
-						</button>
+						</inertia-link>
 					</td>
 				</tr>
 			</table>
@@ -67,23 +67,20 @@
 				</ul>
 			</nav>
 		</div>
-		<change-role-modal v-if="isModalVisible" :id="selectedUser" :roles="this.roles" @close="closeModal">
+		<change-role-modal v-if="isModalVisible" :userid="selectedUser" :roles="this.roles" @close="closeModal">
 		</change-role-modal>
-		<pagos-usuario-modal v-if="isModalPagosVisible" :id="selectedUser" @close="closeModalPagos"></pagos-usuario-modal>
 	</div>
 </template>
 
 <script>
 import LoadingComponent from "../../components/LoadingComponent.vue";
 import ChangeRoleModal from "../../components/Admin/Modals/ChangeRoleModal.vue";
-import PagosUsuarioModal from "../Admin/Modals/PagosUsuarioModal.vue";
 import Admin from "../views/Admin.vue"
 export default {
 	layout: Admin,
 	components: {
 		LoadingComponent,
 		ChangeRoleModal,
-		PagosUsuarioModal
 	},
 	created() {
 		this.loadUsers();
@@ -133,7 +130,6 @@ export default {
 			this.selectedUser = null;
 		},
 		showModalPagos(id) {
-			console.log(id);
 			this.isModalPagosVisible = true;
 			this.selectedUser = id;
 		},

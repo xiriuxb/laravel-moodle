@@ -25,8 +25,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     pago_id: {
@@ -59,7 +57,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-7a32e8c2] {\r\n    position: fixed;\r\n    z-index: 9998;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: table;\r\n    transition: opacity 0.3s ease;\r\n    margin: 0 0 0 0;\r\n    padding: 12px;\n}\n.modal-wrapper[data-v-7a32e8c2] {\r\n    display: flex;\r\n    height: calc(100% - 50px);\r\n    overflow: auto;\n}\n.modal-wrapper div[data-v-7a32e8c2] {\r\n    margin: auto;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-7a32e8c2] {\r\n    position: fixed;\r\n    z-index: 9998;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    flex-direction: column;\r\n    transition: opacity 0.3s ease;\r\n    margin: 0 0 0 0;\r\n    padding: 12px;\r\n    min-width: 0;\n}\n.modal-wrapper[data-v-7a32e8c2] {\r\n    flex: 1 1 0;\r\n    height: calc(100% - 50px);\r\n    overflow: auto;\r\n    min-height: 0;\n}\n.modal-wrapper div[data-v-7a32e8c2] {\r\n    margin: auto;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -214,13 +212,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "modal-wrapper" }, [
-        _c("div", [
-          _c("img", {
-            attrs: {
-              src: "/api/admin/get-matricula-pendiente-pago/" + _vm.pago_id
-            }
-          })
-        ])
+        _c("img", {
+          attrs: {
+            src: "/api/admin/matriculas/pendientes/imagen/" + _vm.pago_id
+          }
+        })
       ])
     ])
   ])

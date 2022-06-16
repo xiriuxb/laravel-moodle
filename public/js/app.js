@@ -3497,9 +3497,6 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Matriculas Pendientes',
         component: 'matriculas-pendientes'
       }, {
-        name: 'Pagos',
-        component: 'pagos-deposito'
-      }, {
         name: 'Imágenes',
         component: 'site-images'
       }, {
@@ -3510,11 +3507,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sidebarHandler: function sidebarHandler() {
-      if (this.$data.movedSidebar) {
-        this.$data.movedSidebar = false;
-      } else {
-        this.$data.movedSidebar = true;
-      }
+      this.movedSidebar = !this.movedSidebar;
     }
   }
 });
@@ -52460,11 +52453,15 @@ var render = function() {
                 "li",
                 { key: menu_item.name },
                 [
-                  _c("inertia-link", { attrs: { href: menu_item.component } }, [
-                    _c("span", { staticClass: "links_name" }, [
-                      _vm._v(_vm._s(menu_item.name))
-                    ])
-                  ]),
+                  _c(
+                    "inertia-link",
+                    { attrs: { href: "/admin/" + menu_item.component } },
+                    [
+                      _c("span", { staticClass: "links_name" }, [
+                        _vm._v(_vm._s(menu_item.name))
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("span", { staticClass: "tooltip" }, [
                     _vm._v(_vm._s(menu_item.name))
@@ -76081,6 +76078,14 @@ var map = {
 		"./resources/js/components/Admin/AdminNavigationComponent.vue",
 		"resources_js_components_Admin_AdminNavigationComponent_vue"
 	],
+	"./Admin/AdminPagosUsuario": [
+		"./resources/js/components/Admin/AdminPagosUsuario.vue",
+		"resources_js_components_Admin_AdminPagosUsuario_vue"
+	],
+	"./Admin/AdminPagosUsuario.vue": [
+		"./resources/js/components/Admin/AdminPagosUsuario.vue",
+		"resources_js_components_Admin_AdminPagosUsuario_vue"
+	],
 	"./Admin/AdminPublicImagesComponent": [
 		"./resources/js/components/Admin/AdminPublicImagesComponent.vue",
 		"resources_js_components_Admin_AdminPublicImagesComponent_vue"
@@ -76105,6 +76110,14 @@ var map = {
 		"./resources/js/components/Admin/AdminUsersComponent.vue",
 		"resources_js_components_Admin_AdminUsersComponent_vue"
 	],
+	"./Admin/Modals/CambiarEstadoMatriculaModal": [
+		"./resources/js/components/Admin/Modals/CambiarEstadoMatriculaModal.vue",
+		"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue"
+	],
+	"./Admin/Modals/CambiarEstadoMatriculaModal.vue": [
+		"./resources/js/components/Admin/Modals/CambiarEstadoMatriculaModal.vue",
+		"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue"
+	],
 	"./Admin/Modals/ChangeRoleModal": [
 		"./resources/js/components/Admin/Modals/ChangeRoleModal.vue",
 		"resources_js_components_Admin_Modals_ChangeRoleModal_vue"
@@ -76112,14 +76125,6 @@ var map = {
 	"./Admin/Modals/ChangeRoleModal.vue": [
 		"./resources/js/components/Admin/Modals/ChangeRoleModal.vue",
 		"resources_js_components_Admin_Modals_ChangeRoleModal_vue"
-	],
-	"./Admin/Modals/PagosUsuarioModal": [
-		"./resources/js/components/Admin/Modals/PagosUsuarioModal.vue",
-		"resources_js_components_Admin_Modals_PagosUsuarioModal_vue"
-	],
-	"./Admin/Modals/PagosUsuarioModal.vue": [
-		"./resources/js/components/Admin/Modals/PagosUsuarioModal.vue",
-		"resources_js_components_Admin_Modals_PagosUsuarioModal_vue"
 	],
 	"./Admin/Modals/VerPagoModal": [
 		"./resources/js/components/Admin/Modals/VerPagoModal.vue",
@@ -76536,7 +76541,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_PagosUsuarioModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPagosUsuario_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

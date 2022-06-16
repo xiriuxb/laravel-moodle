@@ -16,8 +16,6 @@ class AdminUsersController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:admuser.getuserrole', ['only' => ['getUserRole']]);
-        $this->middleware('can:admuser.suspend', ['only' => ['setUserSuspended']]);
-        $this->middleware('can:admuser.unsuspend', ['only' => ['setUserUnsuspended']]);
         $this->middleware('can:admuser.changerole', ['only' => ['changeRole']]);
         $this->middleware('can:admuser.getusers', ['only' => ['index']]);
     }

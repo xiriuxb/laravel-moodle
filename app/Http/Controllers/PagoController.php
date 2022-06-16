@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\File;
 class PagoController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('can:admuser.pendingmatricula');
+    }
     public function index()
     {
         return inertia('PagoComponent');
@@ -18,7 +22,6 @@ class PagoController extends Controller
     {
         $pago = Pago::find($id);
         
-        //dd(File::exists(storage_path().'/app/pago_jtrujillo_1653053612'));
         if(!File::exists(storage_path('app/').$pago->file)) {
             return response()->json(['error' => 'File does not exist'], 404);
         }

@@ -36,8 +36,9 @@ class RoleSeeder extends Seeder
         // Admin Users actions
         Permission::create(['name' => 'admuser.getusers'])->syncRoles(['su_admin','admin']);
         Permission::create(['name' => 'admuser.changerole'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'admuser.pendingmatricula'])->syncRoles(['su_admin','admin']);
         Permission::create(['name' => 'admuser.getuserrole'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'admuser.getuser'])->syncRoles(['su_admin']);
+        Permission::create(['name' => 'admuser.getusermatricula'])->syncRoles(['su_admin']);
         Permission::create(['name' => 'admuser.siteconfig'])->syncRoles(['su_admin']);
         // Payment
         Permission::create(['name' => 'payment.getpayments'])->syncRoles(['su_admin','admin','user']);

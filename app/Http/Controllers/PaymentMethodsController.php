@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class PaymentMethodsController extends Controller
 {
     use MoodleServicesTrait;
+    public function __construct()
+    {
+        $this->middleware('can:matricula.generarmatricula', ['only' => ['index']]);
+    }
     public function index()
     {
         $paymentMethods = PaymentMethod::where('active', 1)->get();

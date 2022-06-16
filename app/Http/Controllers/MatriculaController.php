@@ -23,6 +23,7 @@ class MatriculaController extends Controller
 
     public function __construct()
     {
+        $this->middleware('can:matricula.generarmatricula')->except('index');
     }
     /**
      * Display a listing of the resource.

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AdminSiteImagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admuser.siteconfig');
+    }
+
     public function storeIcon(Request $request)
     {
         $request->validate(['favicon' => 'sometimes|mimes:ico|max:64',]);

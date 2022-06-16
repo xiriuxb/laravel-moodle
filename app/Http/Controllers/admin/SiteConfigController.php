@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Artisan;
 
 class SiteConfigController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admuser.siteconfig');
+    }
     /**
      * Display a listing of the resource.
      *

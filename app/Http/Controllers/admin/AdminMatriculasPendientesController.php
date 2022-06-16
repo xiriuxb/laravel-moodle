@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminMatriculasPendientesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admuser.pendingmatricula', ['only' => ['index','updatePending']]);
+        $this->middleware('can:admuser.getusermatricula', ['only' => ['indexByUser','update','getEstados']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return response()->json(['matriculas' => \App\Models\Matricula::with('user', 'cursos', 'pago')->where([['username', null], ['estado_matricula_id', 3]])->get()]);
@@ -73,7 +83,7 @@ class AdminMatriculasPendientesController extends Controller
                 $matricula->save();
                 return response()->json(['matricula' => 'Matrícula en revisión'], 200);
                 break;
-            case 3:
+            case 4:
                 $matricula->estado_matricula_id = 4;
                 $matricula->username = null;
                 $matricula->save();

@@ -12,10 +12,7 @@ class AdminTestimonioController extends Controller
     {
         $this->middleware('auth', ['except' => ['visibles']]);
         //El CRUD puede ser hecho por los roles su-adm y admin
-        $this->middleware('can:testimonial.create', ['only' => ['store']]);
-        $this->middleware('can:testimonial.delete', ['only' => ['destroy']]);
-        $this->middleware('can:testimonial.edit', ['only' => ['update']]);
-        $this->middleware('can:testimonial.read', ['only' => ['index', 'show']]);
+        $this->middleware('can:testimonial.crud', ['except' => ['visibles']]);
     }
     /**
      *

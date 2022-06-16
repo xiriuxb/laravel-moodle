@@ -68,7 +68,7 @@ class MatriculaController extends Controller
 
     public function storeFree(Request $request)
     {
-        $curso_aux = $this->makeCourseFromMoodleData($request->shortname);
+        $curso_aux = $this->makeCourseFromMoodleData($request->curso_id);
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
@@ -179,7 +179,6 @@ class MatriculaController extends Controller
         if ($curso_aux == []) {
             return [];
         }else{
-
             $curso = new MoodleCurso(
                 $curso_aux->id,
                 $curso_aux->fullname,

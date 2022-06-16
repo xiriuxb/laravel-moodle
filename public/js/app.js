@@ -3695,14 +3695,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     FooterComponent: _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     NavbarComponent: _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  created: function created() {
-    if (this.$page.props.errors.message) {
-      this.$toast.open({
-        message: this.$page.props.errors.message,
-        type: 'error'
-      });
-    }
   }
 });
 

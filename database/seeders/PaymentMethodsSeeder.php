@@ -17,7 +17,6 @@ class PaymentMethodsSeeder extends Seeder
         PaymentMethod::create(['name' => 'paypal', 'label' => 'PayPal', 'icon' => 'paypal', 'active' => true]);
         PaymentMethod::create(['name' => 'credit-card', 'label' => 'Tarjeta de Crédito', 'icon' => 'credit-card' , 'active' => true]);
         PaymentMethod::create(['name' => 'bank-transfer', 'label' => 'Transferencia Bancaria', 'icon' => 'bank', 'active' => false]);
-        PaymentMethod::create(['name' => 'free', 'label' => 'Gratis', 'icon' => '', 'active' => false]);
         
     }
 }

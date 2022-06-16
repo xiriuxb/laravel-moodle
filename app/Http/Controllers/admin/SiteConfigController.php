@@ -173,12 +173,6 @@ class SiteConfigController extends Controller
                 'campo' => 'Dirección del sitio',
             ],
             [
-                'name' => 'SITE_COPYRIGHT',
-                'config_key' => 'app.site_copyright',
-                'value' => config('app.site_copyright'),
-                'campo' => 'Copyright del sitio',
-            ],
-            [
                 'name'  => 'SITE_FACEBOOK',
                 'config_key' => 'app.site_facebook',
                 'value' => config('app.site_facebook'),

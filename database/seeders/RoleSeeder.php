@@ -22,10 +22,7 @@ class RoleSeeder extends Seeder
 
         // Admin testimonials actions
         Permission::create(['name' => 'admin.home'])->syncRoles([$role1,$role2]);
-        Permission::create(['name' => 'testimonial.create'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'testimonial.edit'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'testimonial.delete'])->syncRoles(['su_admin','admin']);
-        Permission::create(['name' => 'testimonial.read'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'testimonial.crud'])->syncRoles(['su_admin','admin']);
         // User actions
         Permission::create(['name' => 'user.updates'])->syncRoles(['user','su_admin','admin']);
         Permission::create(['name' => 'user.profiledata'])->syncRoles(['user','su_admin','admin','suspended']);
@@ -40,6 +37,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admuser.getusers'])->syncRoles(['su_admin','admin']);
         Permission::create(['name' => 'admuser.changerole'])->syncRoles(['su_admin','admin']);
         Permission::create(['name' => 'admuser.getuserrole'])->syncRoles(['su_admin','admin']);
+        Permission::create(['name' => 'admuser.getuser'])->syncRoles(['su_admin']);
+        Permission::create(['name' => 'admuser.siteconfig'])->syncRoles(['su_admin']);
         // Payment
         Permission::create(['name' => 'payment.getpayments'])->syncRoles(['su_admin','admin','user']);
         Permission::create(['name' => 'admrole.getroles'])->syncRoles(['su_admin','admin']);

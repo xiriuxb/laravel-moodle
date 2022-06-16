@@ -47,7 +47,8 @@ export default {
 				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes' },
 				{ name: 'Imágenes', component: 'site-images' },
 				{ name: 'Configuración', component: 'site-config' },
-			]
+			],
+			error:'',
 		};
 	},
 	methods: {
@@ -55,6 +56,15 @@ export default {
 			this.movedSidebar = !this.movedSidebar;
 		},
 	},
+	errorCaptured() {
+    if(this.$page.props.errors.message) {
+	  this.error = this.$page.props.errors.message;
+      this.$toast.open({
+        message: this.$page.props.errors.message,
+        type: 'error',
+      });
+    }
+  },
 };
 </script>
 

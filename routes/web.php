@@ -42,8 +42,8 @@ Route::group(['middleware' => ['web']], function () {
             return inertia('Admin/AdminMatriculasPendientesComponent');
         });
         Route::get('/site-images', function () {
-            return inertia('Admin/AdminPublicImagesComponent')->middleware('can:admuser.siteconfig');
-        });
+            return inertia('Admin/AdminPublicImagesComponent');
+        })->middleware('can:admuser.siteconfig');;
         Route::get('/site-config', function () {
             return inertia('Admin/AdminConfigController');
         })->middleware('can:admuser.siteconfig');

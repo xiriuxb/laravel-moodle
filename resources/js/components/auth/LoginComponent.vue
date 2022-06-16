@@ -61,9 +61,7 @@
 </template>
 
 <script>
-import Index from '../views/Index.vue';
 export default {
-  components: { Index },
   data() {
     return {
       form: this.$inertia.form({

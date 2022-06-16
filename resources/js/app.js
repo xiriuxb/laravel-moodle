@@ -39,7 +39,6 @@ Vue.component('login-component', require('./components/auth/LoginComponent.vue')
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('cursos-sm-component', require('./components/CursosSmComponent.vue').default);
 Vue.component('home', require('./components/views/Home.vue').default);
-Vue.component('index-view', require('./components/views/Index.vue').default);
 Vue.component('login-view', require('./components/views/LoginView.vue').default);
 Vue.component('admin', require('./components/views/Admin.vue').default);
 Vue.component('cursos', require('./components/views/Cursos.vue').default);

@@ -52,14 +52,12 @@ class Handler extends ExceptionHandler
         //     return redirect('/ingresar')->withErrors([
         //         'message' => 'Loggeese You are not authorized to access this page.',
         //     ]);
-        // } else if ($response->getStatusCode() === 403) {
-        //     return redirect('/')->withErrors([
-        //         'message' => 'You are not authorized to access this page.',
-        //     ]);
-        // } else if ($response->getStatusCode() === 404) {
-        //     return redirect('/not-found')->withErrors([
-        //         'message' => 'The page you are looking for could not be found.',
-        //     ]);
+        } else if ($response->getStatusCode() === 403) {
+            return redirect()->back()->withErrors([
+                'message' => 'You are not authorized to access this page.',
+            ]);
+        } else if ($response->getStatusCode() === 404) {
+            return redirect('/not-found');
         // } else if ($response->getStatusCode() === 500) {
         //     return redirect('/')->withErrors([
         //         'message' => 'Something went wrong on the server.',

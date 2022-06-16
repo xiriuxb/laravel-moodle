@@ -18,14 +18,11 @@
 					<inertia-link :href="'/admin/'+menu_item.component">
 						<span class="links_name">{{ menu_item.name }}</span>
 					</inertia-link>
-					<span class="tooltip">{{ menu_item.name }}</span>
 				</li>
 			</ul>
 		</div>
 		<div id="admin" class="adm-content" :class="movedSidebar?'adm-content':'adm-content-moved'">
-			<!-- <keep-alive> -->
 			<slot />
-			<!-- </keep-alive> -->
 		</div>
 	</div>
 </template>

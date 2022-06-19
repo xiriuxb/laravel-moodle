@@ -13,7 +13,7 @@
                                 <inertia-link href="/cursos/all">Cursos</inertia-link>
                             </li>
                             <li><i class="bx bx-chevron-right"></i>
-                                <inertia-link :href="moodleUrl">Sitio Moodle</inertia-link>
+                                <a :href="siteData.moodleUrl">Sitio Moodle</a>
                             </li>
                         </ul>
                     </div>
@@ -54,9 +54,6 @@ export default {
         siteData() {
             return this.$page.props.siteData
         },
-        moodleUrl() {
-            return this.$page.props.siteData.moodleUrl + 'login/index.php';
-        }
     }
 }
 </script>

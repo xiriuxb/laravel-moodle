@@ -2709,9 +2709,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     siteData: function siteData() {
       return this.$page.props.siteData;
-    },
-    moodleUrl: function moodleUrl() {
-      return this.$page.props.siteData.moodleUrl + 'login/index.php';
     }
   }
 });
@@ -50782,17 +50779,13 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c("i", { staticClass: "bx bx-chevron-right" }),
-                  _vm._v(" "),
-                  _c("inertia-link", { attrs: { href: _vm.moodleUrl } }, [
-                    _vm._v("Sitio Moodle")
-                  ])
-                ],
-                1
-              )
+              _c("li", [
+                _c("i", { staticClass: "bx bx-chevron-right" }),
+                _vm._v(" "),
+                _c("a", { attrs: { href: _vm.siteData.moodleUrl } }, [
+                  _vm._v("Sitio Moodle")
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),

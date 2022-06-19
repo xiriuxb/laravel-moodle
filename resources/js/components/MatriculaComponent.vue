@@ -79,6 +79,9 @@ export default {
 				? '<span>Ir al curso<box-icon class="align-middle" name="link-external" color="#fff"></box-icon></span>'
 				: "Inscribirse ($" + this.price + ")";
 		},
+		moodleUrl() {
+			return this.$page.props.siteData.moodleUrl;
+		},
 	},
 	methods: {
 		matricula() {
@@ -113,7 +116,7 @@ export default {
 		},
 		redirectToMoodle() {
 			window.location.href =
-				"https://moodle.xiriuxb.org/course/view.php?name=" + this.curso.shortname;
+				this.moodleUrl+"course/view.php?name=" + this.curso.shortname;
 		},
 		redirectOrSignup() {
 			if (this.logged && this.matriculado) {

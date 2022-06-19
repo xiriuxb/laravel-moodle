@@ -2332,8 +2332,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    },
     imagea: function imagea() {
-      return 'https://moodle.xiriuxb.org/pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
+      return this.moodleUrl + 'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
     }
   },
   mounted: function mounted() {
@@ -3230,7 +3233,11 @@ __webpack_require__.r(__webpack_exports__);
       loading: false
     };
   },
-  mounted: function mounted() {},
+  computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    }
+  },
   methods: {
     coursesBtn: function coursesBtn() {
       window.location.href = "https://www.academia.octavario.org/login/";
@@ -3593,8 +3600,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    },
     image: function image() {
-      return 'https://moodle.xiriuxb.org/pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
+      return this.moodleUrl + 'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
     }
   },
   methods: {},
@@ -51968,7 +51978,7 @@ var render = function() {
             attrs: {
               disabled: _vm.loading,
               id: "cursos-btn",
-              href: "https://www.academia.octavario.org/login/"
+              href: _vm.moodleUrl + "login/index.php"
             }
           },
           [_vm._v("\n        Ingrese a los cursos\n      ")]

@@ -97,6 +97,11 @@ __webpack_require__.r(__webpack_exports__);
       this.debouncedGetAnswer();
     }
   },
+  computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    }
+  },
   methods: {
     getCourses: function getCourses() {
       var _this = this;
@@ -147,7 +152,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     redirectToMoodle: function redirectToMoodle(cursoShortname) {
-      window.open = ("https://moodle.xiriuxb.org/course/view.php?name=" + cursoShortname, "_blank");
+      window.open = (this.moodleUrl + "course/view.php?name=" + cursoShortname, "_blank");
     }
   }
 });

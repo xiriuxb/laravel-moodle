@@ -380,6 +380,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     buttonMessage: function buttonMessage() {
       return this.matriculado ? '<span>Ir al curso<box-icon class="align-middle" name="link-external" color="#fff"></box-icon></span>' : "Inscribirse ($" + this.price + ")";
+    },
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
     }
   },
   methods: {
@@ -431,7 +434,7 @@ __webpack_require__.r(__webpack_exports__);
       this.modalVisible = false;
     },
     redirectToMoodle: function redirectToMoodle() {
-      window.location.href = "https://moodle.xiriuxb.org/course/view.php?name=" + this.curso.shortname;
+      window.location.href = this.moodleUrl + "course/view.php?name=" + this.curso.shortname;
     },
     redirectOrSignup: function redirectOrSignup() {
       if (this.logged && this.matriculado) {

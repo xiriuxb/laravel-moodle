@@ -49,8 +49,11 @@ export default {
     };
   },
   computed: {
+    moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    },
     image() {
-      return 'https://moodle.xiriuxb.org/pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
+      return this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
     },
   },
   methods: {

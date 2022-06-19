@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     redirectToMoodle(cursoShortname) {
-      window.location.href = 'https://moodle.xiriuxb.org/course/view.php?name=' + cursoShortname;
+      window.location.href = this.moodleUrl + cursoShortname;
     },
     busquedaCurso() {
       if (this.termino_busqueda.length >= 2 || this.termino_busqueda === "") {
@@ -84,6 +84,11 @@ export default {
       }
     },
   },
+  computed:{
+    moodleUrl() {
+      return this.$page.props.siteData.moodleUrl+'course/view.php?name=';
+    },
+  }
 };
 </script>
 

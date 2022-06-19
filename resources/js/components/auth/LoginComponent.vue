@@ -52,7 +52,7 @@
       </div>
       <div class="container">
         <a :disabled="loading" class="btn btn-warning w-full" id="cursos-btn"
-          :href="'https://www.academia.octavario.org/login/'">
+          :href="moodleUrl+'login/index.php'">
           Ingrese a los cursos
         </a>
       </div>
@@ -74,8 +74,10 @@ export default {
       loading: false,
     };
   },
-  mounted() {
-
+  computed:{
+    moodleUrl(){
+      return this.$page.props.siteData.moodleUrl;
+    }
   },
   methods: {
     coursesBtn() {

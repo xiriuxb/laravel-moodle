@@ -83,6 +83,11 @@ export default {
       this.debouncedGetAnswer();
     },
   },
+  computed:{
+    moodleUrl: function(){
+      return this.$page.props.siteData.moodleUrl;
+    }
+  },
   methods: {
     getCourses(url=this.baseCursosUrl) {
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
@@ -126,7 +131,7 @@ export default {
     },
     redirectToMoodle(cursoShortname) {
       window.open =
-        ("https://moodle.xiriuxb.org/course/view.php?name=" + cursoShortname,
+        (this.moodleUrl+"course/view.php?name=" + cursoShortname,
         "_blank");
     },
   },

@@ -297,7 +297,7 @@ var render = function() {
                 {
                   staticClass:
                     "caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start",
-                  attrs: { href: _vm.moodleUrl }
+                  attrs: { href: _vm.moodleUrl + "login/index.php" }
                 },
                 [
                   _vm._v("\n          Sitio Moodle\n          "),

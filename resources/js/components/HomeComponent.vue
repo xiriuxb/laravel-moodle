@@ -9,7 +9,7 @@
                         Inicia tu aprendizaje de calidad.
                     </p>
                     <p class="section-pair">Nuestra aplicación consta de dos partes: ésta, en la cual puedes ver e inscribirte en los cursos
-                        que desees y <a :href="moodleUrl">Moodle <box-icon name='link-external'></box-icon></a>, en donde accedes a los conocimientos que impartimos. </p>
+                        que desees y <a :href="moodleUrl+'login/index.php'">Moodle <box-icon name='link-external'></box-icon></a>, en donde accedes a los conocimientos que impartimos. </p>
                 </div>
             </div>
             <section class="section-pair">

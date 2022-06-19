@@ -50782,9 +50782,13 @@ var render = function() {
               _c("li", [
                 _c("i", { staticClass: "bx bx-chevron-right" }),
                 _vm._v(" "),
-                _c("a", { attrs: { href: _vm.siteData.moodleUrl } }, [
-                  _vm._v("Sitio Moodle")
-                ])
+                _c(
+                  "a",
+                  {
+                    attrs: { href: _vm.siteData.moodleUrl + "login/index.php" }
+                  },
+                  [_vm._v("Sitio Moodle")]
+                )
               ])
             ])
           ]),

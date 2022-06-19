@@ -13,7 +13,7 @@
                                 <inertia-link href="/cursos/all">Cursos</inertia-link>
                             </li>
                             <li><i class="bx bx-chevron-right"></i>
-                                <a :href="siteData.moodleUrl">Sitio Moodle</a>
+                                <a :href="siteData.moodleUrl+'login/index.php'">Sitio Moodle</a>
                             </li>
                         </ul>
                     </div>

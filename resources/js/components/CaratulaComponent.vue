@@ -16,7 +16,7 @@
             </span>
           </inertia-link>
           <p class="self-center md:self-start text-2xl font-bold text-orange-200">O accede al contenido en Moodle</p>
-          <a class="caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start" :href="moodleUrl">
+          <a class="caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start" :href="moodleUrl+'login/index.php'">
             Sitio Moodle
             <span>
               <box-icon name='link-external'></box-icon>

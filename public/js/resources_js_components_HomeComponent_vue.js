@@ -40,6 +40,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -52,6 +58,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       titulo1: "Aprende con nosotros"
     };
+  },
+  computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    }
   }
 });
 
@@ -70,6 +81,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CaratulaComponent.vue */ "./resources/js/components/CaratulaComponent.vue");
 /* harmony import */ var _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CursosSmComponent.vue */ "./resources/js/components/CursosSmComponent.vue");
 /* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Home.vue */ "./resources/js/components/views/Home.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -195,13 +211,15 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     message2: function message2() {
       return this.message;
+    },
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl + 'login/index.php';
     }
   },
   components: {
     CursosSmComponent: _CursosSmComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     CaratulaComponent: _CaratulaComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  watch: {}
+  }
 });
 
 /***/ }),
@@ -222,7 +240,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(\"/images/caratula.png\");\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\r\n  min-height: 400px;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  background-image: url(\"/images/caratula.png\");\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.caratula-button[data-v-4fb6ec1f] {\r\n  display: flex;\r\n  align-items: center;\r\n  font-weight: bold;\r\n  padding: 10px 15px;\r\n  margin: 15px;\r\n  font-size: large;\r\n  color: #fff;\r\n  border: solid 1px #fb923c;\r\n  background-color: #002e45ab;\r\n  border-radius: 0.375rem;\n}\n.caratula-button span[data-v-4fb6ec1f] {\r\n  fill: white;\n}\n.caratula-button span box-icon[data-v-4fb6ec1f] {\r\n  vertical-align: text-bottom;\n}\n.caratula-button a[data-v-4fb6ec1f] {\r\n  color: #fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -245,7 +263,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody[data-v-782dcf83] {\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo[data-v-782dcf83] {\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #002e45;\n}\n.section-pair[data-v-782dcf83] {\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd[data-v-782dcf83] {\r\n    background-color: rgb(255, 255, 255);\n}\n@media (min-width: 544px) {\nh1[data-v-782dcf83] {\r\n        font-size: 3rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1[data-v-782dcf83] {\r\n        font-size: 4.5rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1[data-v-782dcf83] {\r\n        font-size: 4.5rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits[data-v-782dcf83] {\r\n        background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits[data-v-782dcf83] {\r\n        background-size: 20% !important;\n}\n}\ndiv p.bienvenido[data-v-782dcf83] {\r\n    font-size: 35px;\r\n    text-align: center;\r\n    padding-bottom: 15px;\r\n    margin-bottom: 0px;\n}\n.img-fluid.icono[data-v-782dcf83] {\r\n    width: 60px;\n}\nsection.benefits[data-v-782dcf83] {\r\n    background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n    background-repeat: no-repeat;\r\n    background-position: 90%;\r\n    background-size: 25%;\n}\n.row div.paddedd[data-v-782dcf83] {\r\n    padding-bottom: 2rem;\r\n    max-height: -webkit-fit-content;\r\n    max-height: -moz-fit-content;\r\n    max-height: fit-content;\r\n    font-size: 23px;\r\n    font-weight: bold;\n}\n.row div.paddedd .row[data-v-782dcf83] {\r\n    align-items: center;\n}\n.col-4[data-v-782dcf83] {\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno[data-v-782dcf83] {\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos[data-v-782dcf83] {\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto[data-v-782dcf83] {\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back[data-v-782dcf83] {\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\n.card-header img[data-v-782dcf83] {\r\n    width: 100px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbody[data-v-782dcf83] {\r\n    background-color: rgb(255, 255, 255);\r\n    min-height: 100%;\n}\n.titulo[data-v-782dcf83] {\r\n    font-size: 50px;\r\n    text-align: center;\r\n    padding: 50px;\r\n    color: #002e45;\n}\n.section-pair[data-v-782dcf83] {\r\n    text-align: center;\r\n    font-size: 20px;\n}\n.section-odd[data-v-782dcf83] {\r\n    background-color: rgb(255, 255, 255);\n}\n@media (min-width: 544px) {\nh1[data-v-782dcf83] {\r\n        font-size: 3rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media (min-width: 768px) {\nh1[data-v-782dcf83] {\r\n        font-size: 4.5rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media (min-width: 992px) {\nh1[data-v-782dcf83] {\r\n        font-size: 4.5rem;\n}\r\n\r\n    /*1rem = 16px*/\n}\n@media only screen and (max-width: 700px) {\nsection.benefits[data-v-782dcf83] {\r\n        background-image: none !important;\n}\n}\n@media only screen and (min-width: 1300px) {\nsection.benefits[data-v-782dcf83] {\r\n        background-size: 20% !important;\n}\n}\ndiv p.bienvenido[data-v-782dcf83] {\r\n    font-size: 35px;\r\n    text-align: center;\r\n    padding-bottom: 15px;\r\n    margin-bottom: 0px;\n}\n.img-fluid.icono[data-v-782dcf83] {\r\n    width: 60px;\n}\nsection.benefits[data-v-782dcf83] {\r\n    background-image: url(/images/smiling-beautiful-europe-book-school-education1.png);\r\n    background-repeat: no-repeat;\r\n    background-position: 90%;\r\n    background-size: 25%;\n}\n.row div.paddedd[data-v-782dcf83] {\r\n    padding-bottom: 2rem;\r\n    max-height: -webkit-fit-content;\r\n    max-height: -moz-fit-content;\r\n    max-height: fit-content;\r\n    font-size: 23px;\r\n    font-weight: bold;\n}\n.row div.paddedd .row[data-v-782dcf83] {\r\n    align-items: center;\n}\n.col-4[data-v-782dcf83] {\r\n    max-width: -webkit-fit-content;\r\n    max-width: -moz-fit-content;\r\n    max-width: fit-content;\n}\n.uno[data-v-782dcf83] {\r\n    height: 200px;\r\n    padding-bottom: 0px;\n}\n.dos[data-v-782dcf83] {\r\n    height: 200px;\r\n    background-color: #5f61f4;\r\n    width: 100%;\r\n    border-radius: 50%;\r\n    border-start-start-radius: initial;\r\n    border-bottom-left-radius: initial;\r\n    -webkit-animation: ease-in 3ms alternate alternate unset;\r\n            animation: ease-in 3ms alternate alternate unset;\n}\n.texto[data-v-782dcf83] {\r\n    padding-bottom: 40px;\r\n    font-size: 30px;\n}\n.univ-back[data-v-782dcf83] {\r\n    background-image: url(/images/university.svg);\r\n    background-position: bottom bottom 45px;\n}\n.card-header img[data-v-782dcf83] {\r\n    width: 100px;\n}\n.container p a[data-v-782dcf83] {\r\n    color: #002e45;\r\n    text-decoration: none;\n}\n.container p a[data-v-782dcf83]:hover {\r\n    color: #5f61f4;\r\n    fill: #5f61f4;\n}\n.container p a box-icon[data-v-782dcf83]{\r\n    vertical-align: bottom;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -522,7 +540,7 @@ var render = function() {
                   staticClass:
                     "self-center md:self-start text-2xl font-bold text-orange-200 align-baseline"
                 },
-                [_vm._v("Busca un curso")]
+                [_vm._v("Busca un curso,")]
               ),
               _vm._v(" "),
               _c(
@@ -531,39 +549,58 @@ var render = function() {
                   staticClass:
                     "self-center md:self-start text-2xl font-bold text-orange-200"
                 },
+                [_vm._v("\n          Mira nuestro listado de cursos\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto",
+                  attrs: { as: "button", type: "button", href: "/cursos/all" }
+                },
                 [
-                  _vm._v(
-                    "\n          O mira nuestro listado de cursos.\n          "
-                  ),
+                  _vm._v("\n          Ir a cursos\n          "),
                   _c(
-                    "inertia-link",
-                    {
-                      staticClass:
-                        "flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-                      attrs: {
-                        as: "button",
-                        type: "button",
-                        href: "/cursos/all"
-                      }
-                    },
+                    "span",
                     [
-                      _vm._v("\n            Ir a cursos\n            "),
-                      _c(
-                        "span",
-                        [
-                          _c("box-icon", {
-                            staticClass: "block",
-                            attrs: { name: "right-arrow-alt", color: "#fff" }
-                          })
-                        ],
-                        1
-                      )
-                    ]
+                      _c("box-icon", {
+                        staticClass: "block",
+                        attrs: { name: "right-arrow-alt", color: "#fff" }
+                      })
+                    ],
+                    1
                   )
-                ],
-                1
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass:
+                    "self-center md:self-start text-2xl font-bold text-orange-200"
+                },
+                [_vm._v("O accede al contenido en Moodle")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start",
+                  attrs: { href: _vm.moodleUrl }
+                },
+                [
+                  _vm._v("\n          Sitio Moodle\n          "),
+                  _c(
+                    "span",
+                    [_c("box-icon", { attrs: { name: "link-external" } })],
+                    1
+                  )
+                ]
               )
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           !_vm.$page.props.auth.user
@@ -604,12 +641,36 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("AppHead", { attrs: { title: "Inicio" } }),
-      _vm._v(" "),
       _c("caratula-component"),
       _vm._v(" "),
       _c("div", [
-        _vm._m(0),
+        _c("div", { staticClass: "section-odd" }, [
+          _c("h1", { staticClass: "titulo" }, [_vm._v("BIENVENIDO")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "container" }, [
+            _c("p", { staticClass: "bienvenido" }, [
+              _vm._v(
+                "\n                    Inicia tu aprendizaje de calidad.\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "section-pair" }, [
+              _vm._v(
+                "Nuestra aplicación consta de dos partes: ésta, en la cual puedes ver e inscribirte en los cursos\n                    que desees y "
+              ),
+              _c(
+                "a",
+                { attrs: { href: _vm.moodleUrl } },
+                [
+                  _vm._v("Moodle "),
+                  _c("box-icon", { attrs: { name: "link-external" } })
+                ],
+                1
+              ),
+              _vm._v(", en donde accedes a los conocimientos que impartimos. ")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("section", { staticClass: "section-pair" }, [
           _c(
@@ -660,7 +721,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c("section", [_c("cursos-sm-component")], 1),
         _vm._v(" "),
@@ -671,29 +732,13 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(1)
       ])
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "section-odd" }, [
-      _c("h3", { staticClass: "titulo" }, [_vm._v("BIENVENIDO")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _c("p", { staticClass: "bienvenido" }, [
-          _vm._v(
-            "\n                    Inicia tu aprendizaje de calidad.\n                "
-          )
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

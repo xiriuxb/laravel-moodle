@@ -16,7 +16,7 @@
 			<ul class="nav-list">
 				<li v-for="menu_item in menu_items" :key="menu_item.name">
 					<inertia-link :href="'/admin/'+menu_item.component">
-						<span class="links_name">{{ menu_item.name }}</span>
+						<span>{{ menu_item.name }}</span>
 					</inertia-link>
 				</li>
 			</ul>
@@ -116,27 +116,9 @@ export default {
 	align-items: center;
 }
 
-.logo i {
-	font-size: 28px;
-	margin-right: 5px;
-}
-
 .logo .logo-name {
 	color: white;
 	font-size: x-large
-}
-
-.sidebar #btn {
-	position: absolute;
-	color: #fff;
-	left: 90%;
-	top: 6px;
-	font-size: 20px;
-	height: 50px;
-	width: 50px;
-	text-align: center;
-	line-height: 50px;
-	transform: translateX(-50%);
 }
 
 .sidebar ul {

@@ -1,14 +1,15 @@
 <template>
     <div>
-        <AppHead :title="'Inicio'" />
         <caratula-component></caratula-component>
         <div>
             <div class="section-odd">
-                <h3 class="titulo">BIENVENIDO</h3>
+                <h1 class="titulo">BIENVENIDO</h1>
                 <div class="container">
                     <p class="bienvenido">
                         Inicia tu aprendizaje de calidad.
                     </p>
+                    <p class="section-pair">Nuestra aplicación consta de dos partes: ésta, en la cual puedes ver e inscribirte en los cursos
+                        que desees y <a :href="moodleUrl">Moodle <box-icon name='link-external'></box-icon></a>, en donde accedes a los conocimientos que impartimos. </p>
                 </div>
             </div>
             <section class="section-pair">
@@ -34,7 +35,8 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/reloj.png" class="img-fluid icono" alt="acceso 24/7" loading="lazy">
+                                    <img src="/images/reloj.png" class="img-fluid icono" alt="acceso 24/7"
+                                        loading="lazy">
                                 </div>
                                 <div class="col">
                                     ACCESO 24/7
@@ -44,7 +46,8 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/success.png" class="img-fluid icono" alt="a tu ritmo" loading="lazy">
+                                    <img src="/images/success.png" class="img-fluid icono" alt="a tu ritmo"
+                                        loading="lazy">
                                 </div>
                                 <div class="col">
                                     ESTUDIA A TU RITMO
@@ -54,7 +57,8 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/anywhere.png" class="img-fluid icono" alt="donde quieras" loading="lazy">
+                                    <img src="/images/anywhere.png" class="img-fluid icono" alt="donde quieras"
+                                        loading="lazy">
                                 </div>
                                 <div class="col">
                                     ESTUDIA DONDE QUIERAS
@@ -64,7 +68,8 @@
                         <div class="col-md-5 paddedd">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="/images/bitmap.png" class="img-fluid icono" alt="interactiva" loading="lazy">
+                                    <img src="/images/bitmap.png" class="img-fluid icono" alt="interactiva"
+                                        loading="lazy">
                                 </div>
                                 <div class="col">
                                     PLATAFORMA INTERACTIVA
@@ -130,16 +135,16 @@ export default {
     computed: {
         message2() {
             return this.message;
+        },
+        moodleUrl() {
+            return this.$page.props.siteData.moodleUrl+'login/index.php';
         }
     },
-    components: { CursosSmComponent, CaratulaComponent},
-    watch: {
-    },
+    components: { CursosSmComponent, CaratulaComponent },
 }
 </script>
 
 <style scoped>
-
 body {
     background-color: rgb(255, 255, 255);
     min-height: 100%;
@@ -257,5 +262,19 @@ section.benefits {
 
 .card-header img {
     width: 100px;
+}
+
+.container p a {
+    color: #002e45;
+    text-decoration: none;
+}
+
+.container p a:hover {
+    color: #5f61f4;
+    fill: #5f61f4;
+}
+
+.container p a box-icon{
+    vertical-align: bottom;
 }
 </style>

@@ -44,11 +44,16 @@ export default {
   },
   methods: {
     sendRequest() {
+      this.errorMessage = "";
       this.visible = true;
       console.log(this.$page.props.errors);
       this.form.post('/forgot-password', {
         onError: (error) => {
           this.errorMessage = error[0];
+          this.$toast.open({
+            message: this.$page.props.errors.message,
+            type: 'error',
+          });
           this.stat = false;
           this.form.reset();
         },
@@ -58,8 +63,7 @@ export default {
           this.form.reset();
         },
         onFinish: page => {
-          this.errorMessage = this.$page.props.errors.message? this.$page.props.errors.message : "";
-          console.log(this.$page.props.errors);
+          this.errorMessage = this.$page.props.errors.message ? this.$page.props.errors.message : "";
         }
       });
     },

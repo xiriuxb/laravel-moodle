@@ -2690,10 +2690,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
     siteData: function siteData() {
       return this.$page.props.siteData;
+    },
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl + 'login/index.php';
     }
   }
 });
@@ -2872,9 +2887,11 @@ __webpack_require__.r(__webpack_exports__);
         sideBar.style.transform = "translateX(-260px)";
         this.$data.movedSidebar = true;
       }
-    },
-    loginBtn: function loginBtn() {
-      window.location.href = "/ingreso";
+    }
+  },
+  computed: {
+    siteName: function siteName() {
+      return this.$page.props.appName;
     }
   }
 });
@@ -3276,7 +3293,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3560,9 +3576,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     curso: {
@@ -3678,6 +3691,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _NavbarComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NavbarComponent.vue */ "./resources/js/components/NavbarComponent.vue");
 /* harmony import */ var _FooterComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../FooterComponent.vue */ "./resources/js/components/FooterComponent.vue");
+//
+//
 //
 //
 //
@@ -9580,7 +9595,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n[data-target=\"#mainMenu\"][data-v-485090b2] {\r\n  position: relative;\r\n  z-index: 200;\n}\n#mainMenu li>a[data-v-485090b2] {\r\n  font-weight: bold;\r\n  letter-spacing: 1px;\r\n  color: rgb(255, 255, 255);\r\n  font-weight: 400;\r\n  position: relative;\r\n  text-decoration: none;\r\n  font-weight: 500;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n  margin-right: 30px;\n}\n#mainMenu li>a[data-v-485090b2]::before {\r\n  position: absolute;\r\n  content: \"\";\r\n  width: calc(100% - 1px);\r\n  height: 1px;\r\n  background: rgb(255, 255, 255);\r\n  bottom: -6px;\r\n  left: 0;\r\n  transform: scale(0, 1);\r\n  transform-origin: right center;\r\n  z-index: -1;\r\n  transition: transform 0.5s ease;\n}\n#mainMenu li>a[data-v-485090b2]:hover::before {\r\n  transform: scale(1, 1);\r\n  transform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n  position: fixed;\r\n  align-content: center;\r\n  left: 0;\r\n  z-index: 200;\r\n  width: 100%;\r\n  transition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n  color: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n  max-width: 200px;\r\n  min-width: 200px;\r\n  -webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n          animation: fadeInLeft 0.4s both 0.4s;\n}\n.navbar-nav[data-v-485090b2] {\r\n  align-items: center;\n}\r\n\r\n/* main-header end */\n@media (max-width: 767px) {\r\n  /*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n    margin: 0;\r\n    padding: 0;\r\n    width: 40px;\r\n    height: 40px;\r\n    right: 0;\r\n    border: none;\r\n    border-radius: 0;\r\n    outline: none !important;\r\n    position: relative;\n}\n.main-header .container[data-v-485090b2] {\r\n    align-content: center;\r\n    align-items: center;\r\n    /* text-align: center; */\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    float: none;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    align-items: flex-start;\r\n    /* text-align: center; */\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n    margin-top: 15px;\n}\n.main-header .navbar-nav li[data-v-485090b2] {\r\n    display: inline-block;\r\n    padding-bottom: 10px;\n}\n#mainMenu li[data-v-485090b2]:not(:last-of-type) {\r\n    margin-right: 0px;\n}\r\n\r\n  /**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\r\n    margin: 0 auto 6px;\r\n    border-radius: 0;\r\n    width: 30px;\r\n    height: 3px;\r\n    position: absolute;\r\n    right: 0;\r\n    transition: all 0.2s ease;\n}\n.main-header .navbar .navbar-toggler .icon-bar[data-v-485090b2]:first-child {\r\n    margin-top: 3px;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n    width: 10px;\r\n    top: 0px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n    width: 16px;\r\n    top: 12px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n    width: 20px;\r\n    top: 21px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n    margin-bottom: 5px;\r\n    border-radius: 0;\r\n    display: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n    width: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n    width: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n    width: 10px;\n}\n.main-header .navbar-toggler:hover .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\n.main-header .navbar-toggler:focus .icon-bar[data-v-485090b2] {\r\n    background-color: #fff;\n}\n#searchBig[data-v-485090b2] {\r\n    display: none;\n}\r\n\r\n  /*header ends*/\n}\n@media (min-width: 768px) {\n#searchSm[data-v-485090b2] {\r\n    display: none;\n}\n}\nheader.scroll[data-v-485090b2] {\r\n  background-color: #d95d22;\r\n  color: white !important;\r\n  box-shadow: 0px 4px 7px #777;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu[data-v-485090b2] {\r\n\tposition: relative;\r\n\tz-index: 200;\n}\n.main-menu[data-v-485090b2]:not(:first-of-type) {\r\n\tflex: 0;\n}\n.main-menu li>a[data-v-485090b2] {\r\n\tfont-weight: bold;\r\n\tletter-spacing: 1px;\r\n\tcolor: rgb(255, 255, 255);\r\n\tfont-weight: 400;\r\n\tposition: relative;\r\n\ttext-decoration: none;\r\n\tfont-weight: 500;\n}\n.main-menu li[data-v-485090b2]:not(:last-of-type) {\r\n\tmargin-right: 30px;\n}\n.main-menu li>a[data-v-485090b2]::before {\r\n\tposition: absolute;\r\n\tcontent: \"\";\r\n\twidth: calc(100% - 1px);\r\n\theight: 1px;\r\n\tbackground: rgb(255, 255, 255);\r\n\tbottom: -6px;\r\n\tleft: 0;\r\n\ttransform: scale(0, 1);\r\n\ttransform-origin: right center;\r\n\tz-index: -1;\r\n\ttransition: transform 0.5s ease;\n}\n.main-menu li>a[data-v-485090b2]:hover::before {\r\n\ttransform: scale(1, 1);\r\n\ttransform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n\tbackground-color: #d95d22;\r\n\tbox-shadow: 0px 4px 7px #777;\r\n\tposition: fixed;\r\n\talign-content: center;\r\n\tleft: 0;\r\n\tz-index: 200;\r\n\twidth: 100%;\r\n\ttransition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n\tcolor: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n\tmax-width: 200px;\r\n\tmin-width: 200px;\r\n\t-webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n\t        animation: fadeInLeft 0.4s both 0.4s;\n}\n.navbar-nav[data-v-485090b2] {\r\n\talign-items: center;\n}\r\n\r\n/* main-header end */\n@media (max-width: 767px) {\r\n\t/*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n\t\twidth: 40px;\r\n\t\theight: 40px;\r\n\t\tposition: relative;\n}\n.main-header .container[data-v-485090b2] {\r\n\t\talign-content: center;\r\n\t\talign-items: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n\t\tfloat: none;\r\n\t\tpadding-left: 0;\r\n\t\tpadding-right: 0;\r\n\t\talign-items: flex-start;\n}\n.main-header .navbar-nav li[data-v-485090b2] {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-bottom: 10px;\n}\n.main-menu li[data-v-485090b2]:not(:last-of-type) {\r\n\t\tmargin-right: 0px;\n}\r\n\r\n\t/**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n\t\tbackground-color: #fff;\r\n\t\tmargin: 0 auto 6px;\r\n\t\tborder-radius: 0;\r\n\t\twidth: 30px;\r\n\t\theight: 3px;\r\n\t\tposition: absolute;\r\n\t\tright: 0;\r\n\t\ttransition: all 0.2s ease;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 10px;\r\n\t\ttop: 8px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 16px;\r\n\t\ttop: 17px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 20px;\r\n\t\ttop: 26px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n\t\tmargin-bottom: 5px;\r\n\t\tborder-radius: 0;\r\n\t\tdisplay: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 10px;\n}\r\n\r\n\t/*header ends*/\n}\n.collapse.navbar-collapse[data-v-485090b2]{\r\n\tflex-direction: row-reverse;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9700,7 +9715,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-11997a8e] {\r\n  width: 100px;\n}\n.dropdown-menu[data-v-11997a8e] {\r\n  position: absolute;\r\n  color: black;\n}\n@media (max-width: 891px) {\n.nav-item.dropdown.show[data-v-11997a8e] {\r\n    display: none;\n}\n}\n@media (min-width: 892px) {\nbutton.btn[data-v-11997a8e] {\r\n    display: none;\n}\n}\ninput:focus+#respuestas[data-v-11997a8e] {\r\n  display: block;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-11997a8e] {\r\n  width: 100px;\n}\n.dropdown-menu[data-v-11997a8e] {\r\n  position: absolute;\r\n  color: black;\n}\n@media (max-width: 891px) {\n.nav-item.dropdown.show[data-v-11997a8e] {\r\n    display: none;\n}\n#input-search[data-v-11997a8e] {\r\n    display: none;\n}\n}\n@media (min-width: 892px) {\nbutton.btn[data-v-11997a8e] {\r\n    display: none;\n}\n}\ninput:focus+#respuestas[data-v-11997a8e] {\r\n  display: block;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9748,7 +9763,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbox-sizing: border-box;\n}\n.sidebar[data-v-17605453] {\r\n\twidth: 200px;\r\n\tz-index: 100;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 100%;\r\n\tbackground: #11101d;\r\n\tpadding: 6px 14px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.sidebar-moved[data-v-17605453]{\r\n\ttransform: translateX(-200px);\n}\n.sidebar .closeBtn[data-v-17605453] {\r\n\tfill: white;\r\n\tposition: absolute;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tbackground-color: #11101d;\r\n\tborder-radius: 50%;\r\n\tleft: 175px;\r\n\tcursor: pointer;\n}\n.sidebar .closeBtn box-icon[data-v-17605453] {\r\n\tposition: relative;\r\n\tleft: 5px;\r\n\ttop: 2px;\n}\n.sidebar .closeBtn[data-v-17605453]:hover {\r\n\tfill: #007bff;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: felx;\r\n\twidth: 100%;\r\n\talign-items: center;\n}\n.logo i[data-v-17605453] {\r\n\tfont-size: 28px;\r\n\tmargin-right: 5px;\n}\n.logo .logo-name[data-v-17605453] {\r\n\tcolor: white;\r\n\tfont-size: x-large\n}\n.sidebar #btn[data-v-17605453] {\r\n\tposition: absolute;\r\n\tcolor: #fff;\r\n\tleft: 90%;\r\n\ttop: 6px;\r\n\tfont-size: 20px;\r\n\theight: 50px;\r\n\twidth: 50px;\r\n\ttext-align: center;\r\n\tline-height: 50px;\r\n\ttransform: translateX(-50%);\n}\n.sidebar ul[data-v-17605453] {\r\n\tmargin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n\tposition: relative;\r\n\theight: 50px;\r\n\twidth: 100%;\r\n\tmargin: 0 5px;\r\n\tlist-style: none;\r\n\tline-height: 50px;\r\n\tcursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\ttext-decoration: none;\r\n\ttransition: all 0.4s ease;\r\n\tborder-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n\tcolor: #11101d;\r\n\tbackground: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n\theight: 50px;\r\n\tmin-width: 50px;\r\n\tborder-radius: 12px;\r\n\tline-height: 50px;\r\n\ttext-align: center;\n}\n.adm-content[data-v-17605453] {\r\n\tpadding: 15px;\r\n\tposition: absolute;\r\n\theight: auto;\r\n\twidth: calc(100% - 200px);\r\n\tleft: 200px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.adm-content-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n[data-v-17605453] h2 {\r\n\tfont-size: 20px;\r\n\tfont-weight: 400;\r\n\tmargin-bottom: 20px;\n}\n[data-v-17605453] button.btn-primary[type=submit] {\r\n\tbackground-color: #007bff;\n}\r\n\r\n/* MODALS */\n[data-v-17605453] .modal-mask {\r\n\tposition: fixed;\r\n\tz-index: 600;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(0, 0, 0, 0.5);\r\n\tdisplay: table;\r\n\ttransition: opacity 0.3s ease;\n}\n[data-v-17605453] .modal-wrapper {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\n}\n[data-v-17605453] .modal-container {\r\n\twidth: 300px;\r\n\tmargin: 0px auto;\r\n\tbackground-color: #fff;\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n\ttransition: all 0.3s ease;\r\n\tfont-family: Helvetica, Arial, sans-serif;\n}\n[data-v-17605453] .modal-header h3 {\r\n\tmargin-top: 0;\r\n\tcolor: #42b983;\n}\n[data-v-17605453] .modal-body {\r\n\tmargin: 8px 0;\n}\n[data-v-17605453] .modal-header {\r\n\tpadding: 10px 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbox-sizing: border-box;\n}\n.sidebar[data-v-17605453] {\r\n\twidth: 200px;\r\n\tz-index: 100;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 100%;\r\n\tbackground: #11101d;\r\n\tpadding: 6px 14px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.sidebar-moved[data-v-17605453]{\r\n\ttransform: translateX(-200px);\n}\n.sidebar .closeBtn[data-v-17605453] {\r\n\tfill: white;\r\n\tposition: absolute;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tbackground-color: #11101d;\r\n\tborder-radius: 50%;\r\n\tleft: 175px;\r\n\tcursor: pointer;\n}\n.sidebar .closeBtn box-icon[data-v-17605453] {\r\n\tposition: relative;\r\n\tleft: 5px;\r\n\ttop: 2px;\n}\n.sidebar .closeBtn[data-v-17605453]:hover {\r\n\tfill: #007bff;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: felx;\r\n\twidth: 100%;\r\n\talign-items: center;\n}\n.logo .logo-name[data-v-17605453] {\r\n\tcolor: white;\r\n\tfont-size: x-large\n}\n.sidebar ul[data-v-17605453] {\r\n\tmargin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n\tposition: relative;\r\n\theight: 50px;\r\n\twidth: 100%;\r\n\tmargin: 0 5px;\r\n\tlist-style: none;\r\n\tline-height: 50px;\r\n\tcursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\ttext-decoration: none;\r\n\ttransition: all 0.4s ease;\r\n\tborder-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n\tcolor: #11101d;\r\n\tbackground: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n\theight: 50px;\r\n\tmin-width: 50px;\r\n\tborder-radius: 12px;\r\n\tline-height: 50px;\r\n\ttext-align: center;\n}\n.adm-content[data-v-17605453] {\r\n\tpadding: 15px;\r\n\tposition: absolute;\r\n\theight: auto;\r\n\twidth: calc(100% - 200px);\r\n\tleft: 200px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.adm-content-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n[data-v-17605453] h2 {\r\n\tfont-size: 20px;\r\n\tfont-weight: 400;\r\n\tmargin-bottom: 20px;\n}\n[data-v-17605453] button.btn-primary[type=submit] {\r\n\tbackground-color: #007bff;\n}\r\n\r\n/* MODALS */\n[data-v-17605453] .modal-mask {\r\n\tposition: fixed;\r\n\tz-index: 600;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(0, 0, 0, 0.5);\r\n\tdisplay: table;\r\n\ttransition: opacity 0.3s ease;\n}\n[data-v-17605453] .modal-wrapper {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\n}\n[data-v-17605453] .modal-container {\r\n\twidth: 300px;\r\n\tmargin: 0px auto;\r\n\tbackground-color: #fff;\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n\ttransition: all 0.3s ease;\r\n\tfont-family: Helvetica, Arial, sans-serif;\n}\n[data-v-17605453] .modal-header h3 {\r\n\tmargin-top: 0;\r\n\tcolor: #42b983;\n}\n[data-v-17605453] .modal-body {\r\n\tmargin: 8px 0;\n}\n[data-v-17605453] .modal-header {\r\n\tpadding: 10px 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9772,7 +9787,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 80px;\n}\n.main-header[data-v-3f7ae320] {\r\n  position: relative !important;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.card.left .row[data-v-3f7ae320]{\r\n  margin: 20px 50px 20px 50px;\r\n  color: tomato;\r\n  min-height: 200px;\n}\n.card[data-v-3f7ae320] {\r\n  background-color: #002e45;\n}\nimg[data-v-3f7ae320]{\r\n  width: 100%;\r\n  min-width: 200px;\r\n  max-width: 440px;\n}\n#summary[data-v-3f7ae320]{\r\n  color: white;\r\n  font-size: large;\n}\n@media (max-width: 675px) {\n.row[data-v-3f7ae320]{\r\n    flex-direction: column;\r\n    align-items: center;\n}\n}\n[data-v-3f7ae320] ul{\r\n  list-style: square !important;\n}\n[data-v-3f7ae320] li{\r\n  font-size: 1.1rem !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#curso[data-v-3f7ae320] {\r\n  padding-top: 80px;\n}\n.comp[data-v-3f7ae320] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.card.left .row[data-v-3f7ae320] {\r\n  margin: 20px 50px 20px 50px;\r\n  color: tomato;\r\n  min-height: 200px;\n}\n.card[data-v-3f7ae320] {\r\n  background-color: #002e45;\n}\nimg[data-v-3f7ae320] {\r\n  width: 100%;\r\n  min-width: 200px;\r\n  max-width: 440px;\n}\n#summary[data-v-3f7ae320] {\r\n  color: white;\r\n  font-size: large;\n}\n@media (max-width: 575px) {\n.row div[data-v-3f7ae320]:not(:last-of-type) {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\n}\n}\n[data-v-3f7ae320] ul {\r\n  list-style: square !important;\r\n  padding: revert;\n}\n[data-v-3f7ae320] li {\r\n  font-size: 1.1rem !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50755,6 +50770,18 @@ var render = function() {
                   ])
                 ],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _c("i", { staticClass: "bx bx-chevron-right" }),
+                  _vm._v(" "),
+                  _c("inertia-link", { attrs: { href: _vm.moodleUrl } }, [
+                    _vm._v("Sitio Moodle")
+                  ])
+                ],
+                1
               )
             ])
           ]),
@@ -50916,7 +50943,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "header",
-    { staticClass: "main-header scroll", attrs: { id: "navbar" } },
+    { staticClass: "main-header", attrs: { id: "navbar" } },
     [
       _c("div", { staticClass: "container" }, [
         _c(
@@ -50926,123 +50953,106 @@ var render = function() {
             _c("inertia-link", { attrs: { href: "/" } }, [
               _c("a", { staticClass: "navbar-brand" }, [
                 _c("img", {
-                  attrs: { src: "/images/logo.png", alt: "Buisiness Logo" }
+                  attrs: {
+                    src: "/images/logo.png",
+                    alt: _vm.siteName + " Logo"
+                  }
                 })
               ])
             ]),
             _vm._v(" "),
-            _c(
-              "ul",
-              { staticClass: "flex-row align-items-center navbar-nav" },
-              [
-                _c(
-                  "div",
-                  { attrs: { id: "searchSm" } },
-                  [_c("search-component")],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn navbar-toggler",
-                    attrs: {
-                      type: "button",
-                      "aria-label": "Toggle navigation"
-                    },
-                    on: { click: _vm.sidebarHandler }
-                  },
-                  [
-                    _c("span", { staticClass: "icon-bar icon-bar-1" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "icon-bar icon-bar-2" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "icon-bar icon-bar-3" })
-                  ]
-                )
-              ]
-            ),
+            _c("div", { staticClass: "collapse navbar-collapse main-menu" }, [
+              _c(
+                "ul",
+                { staticClass: "navbar-nav mr-auto f1" },
+                _vm._l(_vm.navElements, function(item) {
+                  return _c(
+                    "li",
+                    { key: item.name, staticClass: "nav-item text-uppercase" },
+                    [
+                      _c("inertia-link", { attrs: { href: item.path } }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t" +
+                            _vm._s(item.text) +
+                            "\n\t\t\t\t\t\t"
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                }),
+                0
+              )
+            ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "collapse navbar-collapse",
-                attrs: { id: "mainMenu" }
-              },
-              [
-                _c(
-                  "ul",
-                  { staticClass: "navbar-nav mr-auto f1" },
-                  _vm._l(_vm.navElements, function(item) {
-                    return _c(
-                      "li",
-                      {
-                        key: item.name,
-                        staticClass: "nav-item text-uppercase"
+            _c("div", { staticClass: "d-flex" }, [
+              _c("ul", [_c("search-component")], 1),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "flex-row align-items-center navbar-nav" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn navbar-toggler",
+                      attrs: {
+                        type: "button",
+                        "aria-label": "Toggle navigation"
                       },
+                      on: { click: _vm.sidebarHandler }
+                    },
+                    [
+                      _c("span", { staticClass: "icon-bar icon-bar-1" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "icon-bar icon-bar-2" }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "icon-bar icon-bar-3" })
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "collapse navbar-collapse main-menu" }, [
+              !_vm.$page.props.auth.user
+                ? _c("ul", { staticClass: "navbar-nav mr-0" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "li",
                       [
-                        _c("inertia-link", { attrs: { href: item.path } }, [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(item.text) +
-                              "\n            "
+                        _c("inertia-link", { attrs: { href: "/ingreso" } }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { id: "loginBtn" }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\tIngrese\n\t\t\t\t\t\t\t"
+                              )
+                            ]
                           )
                         ])
                       ],
                       1
                     )
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c("ul", { staticClass: "navbar-nav ml-0" }, [
-                  _c(
-                    "li",
-                    { attrs: { id: "searchBig" } },
-                    [_c("search-component")],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                !_vm.$page.props.auth.user
-                  ? _c("ul", { staticClass: "navbar-nav mr-0 ml-0" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        [
-                          _c("inertia-link", { attrs: { href: "/ingreso" } }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-primary",
-                                attrs: { id: "loginBtn" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                Ingrese\n              "
-                                )
-                              ]
-                            )
-                          ])
-                        ],
-                        1
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("ul", [
-                  _vm.$page.props.auth.user
-                    ? _c(
-                        "li",
-                        { staticClass: "navbar-nav" },
-                        [_c("user-menu-component")],
-                        1
-                      )
-                    : _vm._e()
-                ])
-              ]
-            )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("ul", [
+                _vm.$page.props.auth.user
+                  ? _c(
+                      "li",
+                      { staticClass: "navbar-nav" },
+                      [_c("user-menu-component")],
+                      1
+                    )
+                  : _vm._e()
+              ])
+            ])
           ],
           1
         )
@@ -51060,7 +51070,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "/" } }, [
-        _vm._v("\n              Regístrese\n            ")
+        _vm._v("\n\t\t\t\t\t\t\tRegístrese\n\t\t\t\t\t\t")
       ])
     ])
   }
@@ -51992,113 +52002,109 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container-fluid" },
+    { staticClass: "px-2" },
     [
-      _c(
-        "ul",
-        { staticClass: "flex-row-reverse align-items-center navbar-nav" },
-        [
-          _c("li", [
-            _c(
-              "button",
-              {
-                staticClass: "btn",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.showModal.apply(null, arguments)
-                  }
-                }
-              },
-              [_c("box-icon", { attrs: { name: "search-alt-2" } })],
-              1
-            )
-          ]),
-          _vm._v(" "),
+      _c("ul", { staticClass: "flex-row-reverse align-items-center" }, [
+        _c("li", [
           _c(
-            "li",
+            "button",
             {
-              staticClass: "nav-item dropdown show",
-              attrs: { tabindex: "-1" }
-            },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.question,
-                    expression: "question"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  name: "busqueda",
-                  id: "busqueda",
-                  autocomplete: "off",
-                  "data-toggle": "dropdown",
-                  placeholder: "Buscar Curso"
-                },
-                domProps: { value: _vm.question },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.question = $event.target.value
-                  }
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.showModal.apply(null, arguments)
                 }
-              }),
-              _vm._v(" "),
-              _c(
-                "ul",
-                {
-                  staticClass: "dropdown-menu",
-                  attrs: { tabindex: "-1", id: "respuestas" }
-                },
-                [
-                  _vm.loading && _vm.question.length >= 2
-                    ? _c(
-                        "li",
-                        { staticClass: "dropdown-item" },
-                        [
-                          _c("loading-component", {
-                            attrs: { position: "relative", width: "200px" }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.resultados, function(item, index) {
-                    return _c(
-                      "inertia-link",
-                      {
-                        key: index,
-                        staticClass: "dropdown-item",
-                        class: item.shortname == "NE" ? "disabled" : "",
-                        attrs: { href: "/curso/" + item.shortname },
-                        on: {
-                          click: function($event) {
-                            _vm.question = ""
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n          " + _vm._s(item.fullname) + "\n        "
-                        )
-                      ]
-                    )
-                  })
-                ],
-                2
-              )
-            ]
+              }
+            },
+            [_c("box-icon", { attrs: { name: "search-alt-2" } })],
+            1
           )
-        ]
-      ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "nav-item dropdown show",
+            attrs: { tabindex: "-1", id: "input-search" }
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.question,
+                  expression: "question"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "busqueda",
+                id: "busqueda",
+                autocomplete: "off",
+                "data-toggle": "dropdown",
+                placeholder: "Buscar Curso"
+              },
+              domProps: { value: _vm.question },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.question = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "dropdown-menu",
+                attrs: { tabindex: "-1", id: "respuestas" }
+              },
+              [
+                _vm.loading && _vm.question.length >= 2
+                  ? _c(
+                      "li",
+                      { staticClass: "dropdown-item" },
+                      [
+                        _c("loading-component", {
+                          attrs: { position: "relative", width: "200px" }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.resultados, function(item, index) {
+                  return _c(
+                    "inertia-link",
+                    {
+                      key: index,
+                      staticClass: "dropdown-item",
+                      class: item.shortname == "NE" ? "disabled" : "",
+                      attrs: { href: "/curso/" + item.shortname },
+                      on: {
+                        click: function($event) {
+                          _vm.question = ""
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " + _vm._s(item.fullname) + "\n        "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]
+        )
+      ]),
       _vm._v(" "),
       _vm.modal
         ? _c("search-modal", { on: { close: _vm.hideModal } })
@@ -52140,7 +52146,7 @@ var render = function() {
             [
               _vm._t("body", function() {
                 return [
-                  _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "d-flex" }, [
                     _c("div", { staticClass: "col-11" }, [
                       _c(
                         "li",
@@ -52354,11 +52360,7 @@ var render = function() {
                   _c(
                     "inertia-link",
                     { attrs: { href: "/admin/" + menu_item.component } },
-                    [
-                      _c("span", { staticClass: "links_name" }, [
-                        _vm._v(_vm._s(menu_item.name))
-                      ])
-                    ]
+                    [_c("span", [_vm._v(_vm._s(menu_item.name))])]
                   )
                 ],
                 1
@@ -52407,87 +52409,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid", attrs: { id: "curso" } }, [
-    _c("div", [
-      _c("div", [
-        _c("div", { staticClass: "card left" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col-12 col-sm-8 col-md-6 justify-content-center"
-              },
-              [
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "inertia-link",
-                      { attrs: { href: "/cursos/" + _vm.curso.category } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm.curso.category) +
-                            "\n              "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "h2",
-                  {
-                    staticClass:
-                      "text-orange-600 font-bold text-3xl sm:text-4xl",
-                    attrs: { id: "titulo-cursos" }
-                  },
-                  [_vm._v(_vm._s(_vm.curso.fullname))]
-                ),
-                _vm._v(" "),
-                _c("div", { attrs: { id: "summary" } }, [
-                  _c("p", {
-                    domProps: { innerHTML: _vm._s(this.curso.summary) }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "mt-0 md:mt-6" },
-                  [_vm._t("default")],
-                  2
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "col-12 col-sm-4 col-md-6 d-flex align-items-center"
-              },
-              [_c("img", { attrs: { src: _vm.curso.image, alt: "" } })]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row comp" }, [
+    _c("div", { staticClass: "card left" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-sm-8 col-md-6" }, [
           _c(
             "div",
-            { staticClass: "container", attrs: { id: "description" } },
             [
               _c(
-                "p",
-                { staticClass: "text-4xl text-orange-600 font-bold pb-2" },
-                [_vm._v("Lo que aprenderá")]
-              ),
-              _vm._v(" "),
-              _c("p", {
-                domProps: { innerHTML: _vm._s(this.curso.ex_description) }
-              })
-            ]
-          )
-        ])
+                "inertia-link",
+                { attrs: { href: "/cursos/" + _vm.curso.category } },
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.curso.category) +
+                      "\n          "
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "h1",
+            {
+              staticClass: "text-orange-600 font-bold text-3xl sm:text-4xl",
+              attrs: { id: "titulo-cursos" }
+            },
+            [_vm._v(_vm._s(_vm.curso.fullname))]
+          ),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "summary" } }, [
+            _c("p", { domProps: { innerHTML: _vm._s(this.curso.summary) } })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-0 md:mt-6" }, [_vm._t("default")], 2)
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12 col-sm-4 col-md-6 d-flex align-items-center" },
+          [_c("img", { attrs: { src: _vm.curso.image, alt: "" } })]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row comp" }, [
+      _c("div", { staticClass: "container", attrs: { id: "description" } }, [
+        _c("p", { staticClass: "text-4xl text-orange-600 font-bold pb-2" }, [
+          _vm._v("Lo que aprenderá")
+        ]),
+        _vm._v(" "),
+        _c("p", { domProps: { innerHTML: _vm._s(this.curso.ex_description) } })
       ])
     ])
   ])
@@ -52593,6 +52566,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("AppHead", { attrs: { title: "Inicio" } }),
+      _vm._v(" "),
       _c("navbar-component"),
       _vm._v(" "),
       _vm._t("default"),

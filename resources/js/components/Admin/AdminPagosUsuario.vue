@@ -21,11 +21,11 @@
                     <td>{{ matricula.cursos.fullname }}</td>
                     <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer"
                             @click="openModalEstado(matricula)">{{ matricula.estado_matricula.nombre }}</a></td>
-                    <td>{{ matricula.pago.amount }}</td>
-                    <td>{{ matricula.pago.payment_id }}</td>
-                    <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer"
+                    <td>{{ matricula.pago?matricula.pago.amount:'Gratuito' }}</td>
+                    <td>{{ matricula.pago?matricula.pago.payment_id:'Gratuito' }}</td>
+                    <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-if="matricula.pago"
                             @click="openModalImage(matricula.pago.id)">{{ matricula.pago.file }}</a></td>
-                    <td>{{ matricula.pago.created_at.substring(0, matricula.pago.created_at.indexOf("T")) }}</td>
+                    <td>{{ matricula.created_at.substring(0, matricula.created_at.indexOf("T")) }}</td>
                 </tr>
             </table>
         </div>

@@ -123,6 +123,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
     //Moodle Web Service data
+    'moodle_url' => env('MOODLE_URL', 'http://localhost/moodle/'),
     'moodle_ws_url' => env('MOODLE_WS_URL', 'http://localhost/moodle/'),
     'moodle_ws_token' => env('MOODLE_WS_TOKEN', 'token'),
     //Paypal data

@@ -50,6 +50,7 @@ class HandleInertiaRequests extends Middleware
             //
             'appName' => config('app.name'),
             'siteData' => [
+                'moodleUrl' => config('app.moodle_url'),
                 'siteEmail' => config('app.site_email'),
                 'sitePhone' => config('app.site_phone'),
                 'siteCopyright' => config('app.site_copyright'),

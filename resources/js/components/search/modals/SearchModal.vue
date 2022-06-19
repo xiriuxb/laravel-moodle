@@ -5,7 +5,7 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div class="row">
+              <div class="d-flex">
                 <div class="col-11">
                   <li class="nav-item dropdown show" tabindex="-1">
                     <input class="form-control" type="text" name="busquedaModal" id="busquedaModal" autocomplete="off"

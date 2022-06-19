@@ -1,7 +1,9 @@
 <template>
   <div>
+    <AppHead :title="'Inicio'" />
+
     <navbar-component></navbar-component>
-      <slot />
+    <slot />
     <footer-component></footer-component>
   </div>
 </template>
@@ -10,15 +12,8 @@
 import NavbarComponent from "../NavbarComponent.vue";
 import FooterComponent from "../FooterComponent.vue";
 export default {
-  components: { FooterComponent, NavbarComponent},
-  created() {
-    if(this.$page.props.errors.message) {
-      this.$toast.open({
-        message: this.$page.props.errors.message,
-        type: 'error',
-      });
-    }
-  },
+  components: { FooterComponent, NavbarComponent },
+
 };
 </script>
 

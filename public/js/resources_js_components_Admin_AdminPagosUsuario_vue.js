@@ -654,33 +654,45 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(matricula.pago.amount))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(matricula.pago.payment_id))]),
-                _vm._v(" "),
                 _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "text-cyan-600 hover:underline cursor-pointer",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.openModalImage(matricula.pago.id)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(matricula.pago.file))]
+                  _vm._v(
+                    _vm._s(matricula.pago ? matricula.pago.amount : "Gratuito")
                   )
                 ]),
                 _vm._v(" "),
                 _c("td", [
                   _vm._v(
                     _vm._s(
-                      matricula.pago.created_at.substring(
+                      matricula.pago ? matricula.pago.payment_id : "Gratuito"
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  matricula.pago
+                    ? _c(
+                        "a",
+                        {
+                          staticClass:
+                            "text-cyan-600 hover:underline cursor-pointer",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openModalImage(matricula.pago.id)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(matricula.pago.file))]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(
+                      matricula.created_at.substring(
                         0,
-                        matricula.pago.created_at.indexOf("T")
+                        matricula.created_at.indexOf("T")
                       )
                     )
                   )

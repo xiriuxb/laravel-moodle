@@ -40,6 +40,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -52,6 +58,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       titulo1: "Aprende con nosotros"
     };
+  },
+  computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    }
   }
 });
 
@@ -73,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n  background-image: url(\"/images/caratula.png\");\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.img-fluid[data-v-4fb6ec1f] {\r\n  min-height: 400px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.img-fluid[data-v-4fb6ec1f] {\r\n  position: relative;\r\n  min-height: 400px;\n}\n.img-fluid[data-v-4fb6ec1f]::before {\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  background-image: url(\"/images/caratula.png\");\r\n  filter: brightness(56%);\r\n  position: absolute;\r\n  background-repeat: repeat;\r\n  z-index: 0;\n}\n.caratula-button[data-v-4fb6ec1f] {\r\n  display: flex;\r\n  align-items: center;\r\n  font-weight: bold;\r\n  padding: 10px 15px;\r\n  margin: 15px;\r\n  font-size: large;\r\n  color: #fff;\r\n  border: solid 1px #fb923c;\r\n  background-color: #002e45ab;\r\n  border-radius: 0.375rem;\n}\n.caratula-button span[data-v-4fb6ec1f] {\r\n  fill: white;\n}\n.caratula-button span box-icon[data-v-4fb6ec1f] {\r\n  vertical-align: text-bottom;\n}\n.caratula-button a[data-v-4fb6ec1f] {\r\n  color: #fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -238,7 +249,7 @@ var render = function() {
                   staticClass:
                     "self-center md:self-start text-2xl font-bold text-orange-200 align-baseline"
                 },
-                [_vm._v("Busca un curso")]
+                [_vm._v("Busca un curso,")]
               ),
               _vm._v(" "),
               _c(
@@ -247,39 +258,58 @@ var render = function() {
                   staticClass:
                     "self-center md:self-start text-2xl font-bold text-orange-200"
                 },
+                [_vm._v("\n          Mira nuestro listado de cursos\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "inertia-link",
+                {
+                  staticClass:
+                    "caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto",
+                  attrs: { as: "button", type: "button", href: "/cursos/all" }
+                },
                 [
-                  _vm._v(
-                    "\n          O mira nuestro listado de cursos.\n          "
-                  ),
+                  _vm._v("\n          Ir a cursos\n          "),
                   _c(
-                    "inertia-link",
-                    {
-                      staticClass:
-                        "flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-                      attrs: {
-                        as: "button",
-                        type: "button",
-                        href: "/cursos/all"
-                      }
-                    },
+                    "span",
                     [
-                      _vm._v("\n            Ir a cursos\n            "),
-                      _c(
-                        "span",
-                        [
-                          _c("box-icon", {
-                            staticClass: "block",
-                            attrs: { name: "right-arrow-alt", color: "#fff" }
-                          })
-                        ],
-                        1
-                      )
-                    ]
+                      _c("box-icon", {
+                        staticClass: "block",
+                        attrs: { name: "right-arrow-alt", color: "#fff" }
+                      })
+                    ],
+                    1
                   )
-                ],
-                1
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass:
+                    "self-center md:self-start text-2xl font-bold text-orange-200"
+                },
+                [_vm._v("O accede al contenido en Moodle")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start",
+                  attrs: { href: _vm.moodleUrl }
+                },
+                [
+                  _vm._v("\n          Sitio Moodle\n          "),
+                  _c(
+                    "span",
+                    [_c("box-icon", { attrs: { name: "link-external" } })],
+                    1
+                  )
+                ]
               )
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           !_vm.$page.props.auth.user

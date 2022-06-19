@@ -12,6 +12,9 @@
                             <li><i class="bx bx-chevron-right"></i>
                                 <inertia-link href="/cursos/all">Cursos</inertia-link>
                             </li>
+                            <li><i class="bx bx-chevron-right"></i>
+                                <inertia-link :href="moodleUrl">Sitio Moodle</inertia-link>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-contact">
@@ -20,11 +23,20 @@
                             {{ siteData.siteEmail }}<br> </p>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-info">
-                        <div class="social-links mt-3"> 
-                            <a :href="siteData.siteSocialNetworks.facebook" v-if="siteData.siteSocialNetworks.facebook"><box-icon type='logo' name='facebook-circle'></box-icon></a> 
-                            <a :href="siteData.siteSocialNetworks.twitter" v-if="siteData.siteSocialNetworks.twitter"><box-icon type='logo' name='twitter'></box-icon></a>
-                            <a :href="siteData.siteSocialNetworks.instagram" v-if="siteData.siteSocialNetworks.instagram"><box-icon type='logo' name='instagram'></box-icon></a> 
-                            <a :href="siteData.siteSocialNetworks.youtube" v-if="siteData.siteSocialNetworks.youtube"><box-icon type='logo' name='youtube'></box-icon></a>
+                        <div class="social-links mt-3">
+                            <a :href="siteData.siteSocialNetworks.facebook" v-if="siteData.siteSocialNetworks.facebook">
+                                <box-icon type='logo' name='facebook-circle'></box-icon>
+                            </a>
+                            <a :href="siteData.siteSocialNetworks.twitter" v-if="siteData.siteSocialNetworks.twitter">
+                                <box-icon type='logo' name='twitter'></box-icon>
+                            </a>
+                            <a :href="siteData.siteSocialNetworks.instagram"
+                                v-if="siteData.siteSocialNetworks.instagram">
+                                <box-icon type='logo' name='instagram'></box-icon>
+                            </a>
+                            <a :href="siteData.siteSocialNetworks.youtube" v-if="siteData.siteSocialNetworks.youtube">
+                                <box-icon type='logo' name='youtube'></box-icon>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -38,11 +50,14 @@
 
 <script>
 export default {
-computed: {
-    siteData() {
-      return this.$page.props.siteData
+    computed: {
+        siteData() {
+            return this.$page.props.siteData
+        },
+        moodleUrl() {
+            return this.$page.props.siteData.moodleUrl + 'login/index.php';
+        }
     }
-  }
 }
 </script>
 

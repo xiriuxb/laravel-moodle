@@ -199,7 +199,7 @@ class MatriculaController extends Controller
                 'file' => 'required|image|max:5120|mimes:jpg,png,jpeg',
             ]);
             $pago_id = Auth::user()->username.'_'.$nombre_archivo;
-            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.$request->file->getClientOriginalExtension();
+            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.'.'.$request->file->getClientOriginalExtension();
             $path = Storage::putFileAs('pagos', $request->file, $file_name);
         }else{
             $pago_id = $request->payment_id;

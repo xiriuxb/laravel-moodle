@@ -27,6 +27,12 @@ class SiteConfigController extends Controller
                 'campo' => 'Nombre del sitio',
             ],
             [
+                'name' => 'MOODLE_URL',
+                'config_key' => 'app.moodle_url',
+                'value' => config('app.moodle_url'),
+                'campo' => 'URL de Moodle',
+            ],
+            [
                 'name' => 'MOODLE_WS_URL',
                 'config_key' => 'app.moodle_ws_url',
                 'value' => config('app.moodle_ws_url'),

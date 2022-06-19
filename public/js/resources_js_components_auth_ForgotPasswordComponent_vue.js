@@ -59,11 +59,18 @@ __webpack_require__.r(__webpack_exports__);
     sendRequest: function sendRequest() {
       var _this = this;
 
+      this.errorMessage = "";
       this.visible = true;
       console.log(this.$page.props.errors);
       this.form.post('/forgot-password', {
         onError: function onError(error) {
           _this.errorMessage = error[0];
+
+          _this.$toast.open({
+            message: _this.$page.props.errors.message,
+            type: 'error'
+          });
+
           _this.stat = false;
 
           _this.form.reset();
@@ -76,7 +83,6 @@ __webpack_require__.r(__webpack_exports__);
         },
         onFinish: function onFinish(page) {
           _this.errorMessage = _this.$page.props.errors.message ? _this.$page.props.errors.message : "";
-          console.log(_this.$page.props.errors);
         }
       });
     }

@@ -1,13 +1,13 @@
 <template>
-  <div class="container-fluid">
-    <ul class="flex-row-reverse align-items-center navbar-nav">
+  <div class="px-2">
+    <ul class="flex-row-reverse align-items-center">
       <li>
         <button class="btn" @click.prevent="showModal">
           <box-icon name="search-alt-2"></box-icon>
         </button>
       </li>
 
-      <li class="nav-item dropdown show" tabindex="-1">
+      <li class="nav-item dropdown show" tabindex="-1" id="input-search">
         <input class="form-control" type="text" name="busqueda" id="busqueda" autocomplete="off" data-toggle="dropdown"
           v-model="question" placeholder="Buscar Curso" />
 
@@ -15,9 +15,8 @@
           <li class="dropdown-item" v-if="loading && question.length >= 2">
             <loading-component :position="'relative'" :width="'200px'"></loading-component>
           </li>
-          <inertia-link v-for='(item, index) in resultados' :key='index'
-            :href="'/curso/'+item.shortname" class="dropdown-item"
-            :class="item.shortname == 'NE' ? 'disabled' : ''" @click="question = ''">
+          <inertia-link v-for='(item, index) in resultados' :key='index' :href="'/curso/' + item.shortname"
+            class="dropdown-item" :class="item.shortname == 'NE' ? 'disabled' : ''" @click="question = ''">
             {{ item.fullname }}
           </inertia-link>
         </ul>
@@ -87,8 +86,8 @@ export default {
     document.addEventListener("keyup", this.nextItem);
   },
   created: function () {
-      this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
-     },
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+  },
   watch: {
     // whenever question changes, this function will run
     question: function (newQuestion, oldQuestion) {
@@ -112,6 +111,10 @@ img {
 
 @media (max-width: 891px) {
   .nav-item.dropdown.show {
+    display: none;
+  }
+
+  #input-search {
     display: none;
   }
 }

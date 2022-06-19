@@ -4,7 +4,7 @@
         <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
         <div class="w-64 z-40 absolute bg-gray-800 shadow h-screen md:h-full flex-col justify-between md:hidden transition duration-150 ease-in-out"
             id="mobile-nav">
-            <div @click.prevent="$parent.sidebarHandler()">
+            <div @click.prevent="sidebarHandler()">
                 <ul>
                     <inertia-link v-for="item in $parent.navElements" :key="item.name" :href="item.path">
                         <li
@@ -14,7 +14,7 @@
                     </inertia-link>
                 </ul>
             </div>
-            <div class="flex flex-col bottom-0" @click.prevent="$parent.sidebarHandler()" v-if="!$page.props.auth.user">
+            <div class="flex flex-col bottom-0" @click.prevent="sidebarHandler()" v-if="!$page.props.auth.user">
                 <inertia-link href="/">
                     <li
                         class="flex w-full justify-between text-gray-300 cursor-pointer hover:bg-slate-500 items-center py-3 px-5">
@@ -35,13 +35,18 @@
         </div>
         <!-- Sidebar ends -->
         <div class="absolute bg-[#0000005c] h-screen md:hidden w-full" v-if="!$parent.movedSidebar"
-            @click.prevent="$parent.sidebarHandler()">
+            @click.prevent="sidebarHandler()">
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    methods: {
+        sidebarHandler() {
+            this.$parent.sidebarHandler();
+        }
+    }
 };
 </script>
 <style scoped>

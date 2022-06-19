@@ -74,13 +74,6 @@ export default {
     hideModal() {
       this.modal = false;
     },
-    nextItem() {
-      if (event.keyCode == 38 && this.currentItem > 0) {
-        this.currentItem--
-      } else if (event.keyCode == 40 && this.currentItem < this.resultados.length - 1) {
-        this.currentItem++
-      }
-    },
   },
   mounted() {
     document.addEventListener("keyup", this.nextItem);
@@ -127,5 +120,9 @@ img {
 
 input:focus+#respuestas {
   display: block;
+}
+
+::v-deep .dropdown-item{
+  height: 50px;
 }
 </style>

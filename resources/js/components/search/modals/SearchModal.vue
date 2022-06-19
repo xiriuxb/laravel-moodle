@@ -91,30 +91,12 @@ input:focus+#respuestas {
   margin: 8px 0;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 
 .col-1 {
   padding: 0;
+}
+
+.dropdown-menu{
+  width: 100%;
 }
 </style>

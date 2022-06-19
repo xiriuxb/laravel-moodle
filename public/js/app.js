@@ -3140,7 +3140,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    sidebarHandler: function sidebarHandler() {
+      this.$parent.sidebarHandler();
+    }
+  }
+});
 
 /***/ }),
 
@@ -3349,13 +3355,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     hideModal: function hideModal() {
       this.modal = false;
-    },
-    nextItem: function nextItem() {
-      if (event.keyCode == 38 && this.currentItem > 0) {
-        this.currentItem--;
-      } else if (event.keyCode == 40 && this.currentItem < this.resultados.length - 1) {
-        this.currentItem++;
-      }
     }
   },
   mounted: function mounted() {
@@ -9650,7 +9649,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user-profile[data-v-0dee33f8] {\r\n  border-radius: 50%;\r\n  width: 50px;\r\n  height: 50px;\r\n  left: auto;\n}\n.user-profile[data-v-0dee33f8]:hover {\r\n  background-color: rgba(255, 251, 251, 0.37);\r\n  box-shadow: 0px 4px 7px #777;\n}\n@media (max-width: 767px) {\n.user-profile[data-v-0dee33f8]{\r\n    border-radius: 50%;\r\n    position: fixed;\r\n    width: 50px;\r\n    height: 50px;\r\n    left: 40%;\n}\n.dropdown-menu.show[data-v-0dee33f8]{\r\n    transform: translate3d(0px, 50px, 0px) !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.user-profile[data-v-0dee33f8] {\r\n  border-radius: 50%;\r\n  width: 50px;\r\n  height: 50px;\r\n  left: auto;\n}\n.user-profile[data-v-0dee33f8]:hover {\r\n  background-color: rgba(255, 251, 251, 0.37);\r\n  box-shadow: 0px 4px 7px #777;\n}\n@media (max-width: 767px) {\n.user-profile[data-v-0dee33f8] {\r\n    border-radius: 50%;\r\n    position: fixed;\r\n    width: 50px;\r\n    height: 50px;\r\n    left: 40%;\n}\n.dropdown-menu.show[data-v-0dee33f8] {\r\n    transform: translate3d(0px, 50px, 0px) !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9722,7 +9721,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-11997a8e] {\r\n  width: 100px;\n}\n.dropdown-menu[data-v-11997a8e] {\r\n  position: absolute;\r\n  color: black;\n}\n@media (max-width: 891px) {\n.nav-item.dropdown.show[data-v-11997a8e] {\r\n    display: none;\n}\n#input-search[data-v-11997a8e] {\r\n    display: none;\n}\n}\n@media (min-width: 892px) {\nbutton.btn[data-v-11997a8e] {\r\n    display: none;\n}\n}\ninput:focus+#respuestas[data-v-11997a8e] {\r\n  display: block;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nimg[data-v-11997a8e] {\r\n  width: 100px;\n}\n.dropdown-menu[data-v-11997a8e] {\r\n  position: absolute;\r\n  color: black;\n}\n@media (max-width: 891px) {\n.nav-item.dropdown.show[data-v-11997a8e] {\r\n    display: none;\n}\n#input-search[data-v-11997a8e] {\r\n    display: none;\n}\n}\n@media (min-width: 892px) {\nbutton.btn[data-v-11997a8e] {\r\n    display: none;\n}\n}\ninput:focus+#respuestas[data-v-11997a8e] {\r\n  display: block;\n}\n[data-v-11997a8e] .dropdown-item{\r\n  height: 50px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9746,7 +9745,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ninput:focus+#respuestas[data-v-7edc1728] {\r\n  display: block;\n}\n.modal-mask[data-v-7edc1728] {\r\n  position: fixed;\r\n  z-index: 900;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-7edc1728] {\r\n  display: table-cell;\n}\n.modal-container[data-v-7edc1728] {\r\n  margin: 0px auto;\r\n  background-color: transparent;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-body[data-v-7edc1728] {\r\n  margin: 8px 0;\n}\r\n\r\n/*\r\n * The following styles are auto-applied to elements with\r\n * transition=\"modal\" when their visibility is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\n.modal-enter[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-leave-active[data-v-7edc1728] {\r\n  opacity: 0;\n}\n.modal-enter .modal-container[data-v-7edc1728],\r\n.modal-leave-active .modal-container[data-v-7edc1728] {\r\n  transform: scale(1.1);\n}\n.col-1[data-v-7edc1728] {\r\n  padding: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ninput:focus+#respuestas[data-v-7edc1728] {\r\n  display: block;\n}\n.modal-mask[data-v-7edc1728] {\r\n  position: fixed;\r\n  z-index: 900;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  display: table;\r\n  transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-7edc1728] {\r\n  display: table-cell;\n}\n.modal-container[data-v-7edc1728] {\r\n  margin: 0px auto;\r\n  background-color: transparent;\r\n  border-radius: 2px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n  transition: all 0.3s ease;\r\n  font-family: Helvetica, Arial, sans-serif;\n}\n.modal-body[data-v-7edc1728] {\r\n  margin: 8px 0;\n}\n.col-1[data-v-7edc1728] {\r\n  padding: 0;\n}\n.dropdown-menu[data-v-7edc1728]{\r\n  width: 100%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51484,7 +51483,15 @@ var render = function() {
         {
           staticClass:
             "dropdown-menu dropdown-menu-right absolute md:fixed md:right-0 mr-1 bg-cyan-900 w-full mt-1 md:w-auto md:bg-slate-100 md:rounded-sm",
-          attrs: { "aria-labelledby": "dropdownMenuLink", id: "dropdownNavbar" }
+          attrs: {
+            "aria-labelledby": "dropdownMenuLink",
+            id: "dropdownNavbar"
+          },
+          on: {
+            click: function($event) {
+              return _vm.$parent.sidebarHandler()
+            }
+          }
         },
         [
           _c(
@@ -51583,7 +51590,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                return _vm.$parent.sidebarHandler()
+                return _vm.sidebarHandler()
               }
             }
           },
@@ -51625,7 +51632,7 @@ var render = function() {
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    return _vm.$parent.sidebarHandler()
+                    return _vm.sidebarHandler()
                   }
                 }
               },
@@ -51688,7 +51695,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.$parent.sidebarHandler()
+              return _vm.sidebarHandler()
             }
           }
         })
@@ -76105,14 +76112,6 @@ var map = {
 		"./resources/js/components/User/EliminarCuentaComponent.vue",
 		"resources_js_components_User_EliminarCuentaComponent_vue"
 	],
-	"./User/Modals/ChangeEmailModal": [
-		"./resources/js/components/User/Modals/ChangeEmailModal.vue",
-		"resources_js_components_User_Modals_ChangeEmailModal_vue"
-	],
-	"./User/Modals/ChangeEmailModal.vue": [
-		"./resources/js/components/User/Modals/ChangeEmailModal.vue",
-		"resources_js_components_User_Modals_ChangeEmailModal_vue"
-	],
 	"./User/Modals/ChangeEmailModal2": [
 		"./resources/js/components/User/Modals/ChangeEmailModal2.vue",
 		"resources_js_components_User_Modals_ChangeEmailModal2_vue"
@@ -76120,14 +76119,6 @@ var map = {
 	"./User/Modals/ChangeEmailModal2.vue": [
 		"./resources/js/components/User/Modals/ChangeEmailModal2.vue",
 		"resources_js_components_User_Modals_ChangeEmailModal2_vue"
-	],
-	"./User/Modals/ChangePasswordModal": [
-		"./resources/js/components/User/Modals/ChangePasswordModal.vue",
-		"resources_js_components_User_Modals_ChangePasswordModal_vue"
-	],
-	"./User/Modals/ChangePasswordModal.vue": [
-		"./resources/js/components/User/Modals/ChangePasswordModal.vue",
-		"resources_js_components_User_Modals_ChangePasswordModal_vue"
 	],
 	"./User/Modals/ChangePasswordModal2": [
 		"./resources/js/components/User/Modals/ChangePasswordModal2.vue",
@@ -76386,7 +76377,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPagosUsuario_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminMatriculasUsuarioComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPagosUsuario_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

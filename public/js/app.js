@@ -3494,25 +3494,32 @@ __webpack_require__.r(__webpack_exports__);
       movedSidebar: true,
       menu_items: [{
         name: 'Testimonios',
-        component: 'testimonials'
+        component: 'testimonials',
+        permission: ''
       }, {
         name: 'Cursos',
-        component: 'cursos'
+        component: 'cursos',
+        permission: ''
       }, {
         name: 'Cursos Moodle',
-        component: 'cursos-moodle'
+        component: 'cursos-moodle',
+        permission: ''
       }, {
         name: 'Usuarios',
-        component: 'users'
+        component: 'users',
+        permission: ''
       }, {
         name: 'Matriculas Pendientes',
-        component: 'matriculas-pendientes'
+        component: 'matriculas-pendientes',
+        permission: ''
       }, {
         name: 'Imágenes',
-        component: 'site-images'
+        component: 'site-images',
+        permission: 'su'
       }, {
         name: 'Configuración',
-        component: 'site-config'
+        component: 'site-config',
+        permission: 'su'
       }],
       error: ''
     };
@@ -3753,6 +3760,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     LoginComponent: _auth_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    moodleUrl: function moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    }
   }
 });
 
@@ -9481,7 +9493,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#comments-sm[data-v-97bed9de] {\r\n  width: 91%;\n}\n[data-v-97bed9de] .slick-track {\r\n  display: flex !important;\n}\nsection[data-v-97bed9de] {\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\n}\n[data-v-97bed9de] .slick-list {\r\n  margin-left: 10px !important;\n}\n[data-v-97bed9de] div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n  display: block;\r\n  padding: 5px;\r\n  height: inherit !important;\r\n  position: relative;\r\n  background-color: rgb(255, 255, 255);\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-clip: border-box;\r\n  border: 1px solid rgba(0, 0, 0, .125);\r\n  border-radius: .25rem;\n}\n[data-v-97bed9de] .slick-arrow {\r\n  position: absolute;\r\n  margin-top: 0;\r\n  cursor: pointer;\r\n  min-width: 20px;\r\n  height: 35px;\r\n  z-index: 10;\r\n  color: transparent;\r\n  background-repeat: no-repeat;\n}\n[data-v-97bed9de] .slick-arrow.slick-prev::before {\r\n  color: rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-arrow.slick-next::before {\r\n  color: rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-slide {\r\n  flex: 0 50%;\r\n  background: #fff;\r\n  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),\r\n    0 5px 15px 0 rgba(37, 44, 97, 0.15);\r\n  border-radius: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n  overflow: hidden;\r\n  min-height: 265px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de] .slick-slide div::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  background: rgb(255 137 36 / 20%);\r\n  width: 200px;\r\n  height: 450px;\r\n  z-index: -1;\r\n  transform: rotate(42deg);\r\n  right: -56px;\r\n  border-radius: 35px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de] .slick-slide div:first-child:hover:before {\r\n  transform: rotate(42deg);\r\n  top: -56px;\r\n  right: -56px;\r\n  transition: 0.7s;\n}\n.slick-slide h5[data-v-97bed9de] {\r\n  color: #002e45;\r\n  -webkit-text-decoration-color: #002e45;\r\n          text-decoration-color: #002e45;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#comments-sm[data-v-97bed9de] {\r\n  width: 91%;\n}\n[data-v-97bed9de] .slick-track {\r\n  display: flex !important;\n}\nsection[data-v-97bed9de] {\r\n  margin-top: 30px;\r\n  margin-bottom: 30px;\n}\n[data-v-97bed9de] .slick-list {\r\n  margin-left: 10px !important;\n}\n[data-v-97bed9de] div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n  display: block;\r\n  padding: 5px;\r\n  height: inherit !important;\r\n  position: relative;\r\n  background-color: rgb(255, 255, 255);\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-clip: border-box;\r\n  border: 1px solid rgba(0, 0, 0, .125);\r\n  border-radius: .25rem;\n}\n[data-v-97bed9de] .slick-arrow {\r\n  position: absolute;\r\n  margin-top: 0;\r\n  cursor: pointer;\r\n  min-width: 20px;\r\n  height: 35px;\r\n  z-index: 10;\r\n  color: transparent;\r\n  background-repeat: no-repeat;\n}\n[data-v-97bed9de] .slick-arrow.slick-prev::before {\r\n  color: rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-arrow.slick-next::before {\r\n  color: rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-97bed9de] .slick-slide {\r\n  flex: 0 50%;\r\n  background: #fff;\r\n  box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2),\r\n    0 5px 15px 0 rgba(37, 44, 97, 0.15);\r\n  border-radius: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n  overflow: hidden;\r\n  min-height: 265px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de] .slick-slide div::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  background: rgb(255 137 36 / 20%);\r\n  width: 200px;\r\n  height: 450px;\r\n  z-index: -1;\r\n  transform: rotate(42deg);\r\n  right: -56px;\r\n  border-radius: 35px;\r\n  transition: 0.7s;\n}\n[data-v-97bed9de] .slick-slide div:first-child:hover:before {\r\n  transform: rotate(42deg);\r\n  top: -56px;\r\n  right: -56px;\r\n  transition: 0.7s;\n}\n.slick-slide h5[data-v-97bed9de] {\r\n  color: #1b8ac1;\r\n  -webkit-text-decoration-color: #002e45;\r\n          text-decoration-color: #002e45;\r\n  font-size:larger;\r\n  font-weight:bold;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50426,7 +50438,7 @@ var render = function() {
               return _c("div", { key: comment.shortname }, [
                 _c("img", {
                   staticClass: "card-img-top rounded",
-                  attrs: { src: comment.file, alt: "Card image cap" }
+                  attrs: { src: comment.file, alt: "Imagen del curso" }
                 }),
                 _vm._v(" "),
                 _c(
@@ -51523,7 +51535,8 @@ var render = function() {
             [_vm._v("\n        Ver mis cursos\n      ")]
           ),
           _vm._v(" "),
-          _vm.$page.props.auth.role != "user"
+          (_vm.$page.props.auth.role != "user") &
+          (_vm.$page.props.auth.role != "suspended")
             ? _c(
                 "inertia-link",
                 {
@@ -51835,8 +51848,7 @@ var render = function() {
                       expression: "form.password"
                     }
                   ],
-                  staticClass:
-                    "form-control @error('password') is-invalid @enderror",
+                  staticClass: "form-control",
                   attrs: {
                     id: "password",
                     type: "password",
@@ -52367,18 +52379,21 @@ var render = function() {
             "ul",
             { staticClass: "nav-list" },
             _vm._l(_vm.menu_items, function(menu_item) {
-              return _c(
-                "li",
-                { key: menu_item.name },
-                [
-                  _c(
-                    "inertia-link",
-                    { attrs: { href: "/admin/" + menu_item.component } },
-                    [_c("span", [_vm._v(_vm._s(menu_item.name))])]
+              return menu_item.permission != "su" ||
+                _vm.$page.props.auth.role == "su_admin"
+                ? _c(
+                    "li",
+                    { key: menu_item.name },
+                    [
+                      _c(
+                        "inertia-link",
+                        { attrs: { href: "/admin/" + menu_item.component } },
+                        [_c("span", [_vm._v(_vm._s(menu_item.name))])]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              )
+                : _vm._e()
             }),
             0
           )
@@ -52627,7 +52642,29 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "der" }, [
+        _c("div", { staticClass: "text-justify", attrs: { id: "mensaje" } }, [
+          _c("h1", { staticClass: "text-4xl font-bold" }, [
+            _vm._v("Bienvenido")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Recuerde que para acceder al contenido de los cursos que usted adquirió debe ingresar en el siguiente enlace:"
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass:
+                "flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
+              attrs: { href: _vm.moodleUrl + "login/index.php" }
+            },
+            [_vm._v("Academia")]
+          )
+        ])
+      ])
     ],
     1
   )
@@ -52639,32 +52676,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "/" } }, [
       _c("img", { attrs: { src: "/images/logo.png", alt: "Bussiness Logo" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "der" }, [
-      _c("div", { staticClass: "text-justify", attrs: { id: "mensaje" } }, [
-        _c("h1", { staticClass: "text-4xl font-bold" }, [_vm._v("Bienvenido")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Recuerde que para acceder al contenido de los cursos que usted adquirió debe ingresar en el siguiente enlace:"
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass:
-              "flex items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-            attrs: { href: "https://www.academia.octavario.org/login/" }
-          },
-          [_vm._v("Academia")]
-        )
-      ])
     ])
   }
 ]

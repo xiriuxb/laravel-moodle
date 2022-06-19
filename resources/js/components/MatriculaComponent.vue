@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="$page.props.auth.role != 'suspended'">
 		<AppHead :title="curso.fullname" />
 		<button v-if="!logged" class="btn btn-primary" v-on:click="matricula">
 			Inscribirse ({{ price }})

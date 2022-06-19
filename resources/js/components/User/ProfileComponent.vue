@@ -30,6 +30,10 @@
                 <inertia-link class="text-sky-900" :href="'/email/verification-notification'">aquí</inertia-link>
                 y siga los pasos.
               </div>
+              <div v-if="$page.props.auth.role == 'suspended'" class="alert alert-warning">
+                Actualmente se encuentra suspendido, por lo que no puede realizar algunas acciones, por favor póngase en contacto con nosotros.
+                Tampoco puede acceder al contenido de los cursos en Moodle.
+              </div>
               <!-- /.mensaje de verificación de correo -->
               <form :class="{ disabled: loading }" action="#" method="post" @submit.prevent="updateUser">
                 <div class="row">
@@ -49,15 +53,13 @@
                     <label for="inputEmail">Correo electrónico</label>
                     <input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" disabled
                       :value="user.email" />
-                    <change-email-modal-2></change-email-modal-2>
-                    <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showEmailModal()">Cambiar correo</a> -->
+                    <change-email-modal-2 v-if="$page.props.auth.role != 'suspended'"></change-email-modal-2>
                   </div>
                   <div class="form-group col-12 col-sm-6">
                     <label for="inputPassword">Contraseña</label>
                     <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña"
                       value="********" disabled readonly />
-                    <change-password-modal-2></change-password-modal-2>
-                    <!-- <a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-on:click="showPasswordModal()">Cambiar contraseña</a> -->
+                    <change-password-modal-2 v-if="$page.props.auth.role != 'suspended'"></change-password-modal-2>
                   </div>
                 </div>
                 <div class="row">
@@ -80,7 +82,7 @@
                   </div>
                 </div>
                 <div>
-                  <button type="submit"
+                  <button type="submit" v-if="$page.props.auth.role != 'suspended'"
                     class=" btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200"
                     :disabled="enableButton || this.loading">
                     <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
@@ -92,7 +94,7 @@
             </div>
             <!-- /.card-body -->
             <div class="flex flex-row-reverse pr-2">
-              <inertia-link :href="'/eliminar-cuenta'">Eliminar Cuenta</inertia-link>
+              <inertia-link :href="'/eliminar-cuenta'" v-if="$page.props.auth.role != 'suspended'">Eliminar Cuenta</inertia-link>
             </div>
           </div>
           <!-- /.card -->

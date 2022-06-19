@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<ul class="nav-list">
-				<li v-for="menu_item in menu_items" :key="menu_item.name">
+				<li v-for="menu_item in menu_items" :key="menu_item.name" v-if="menu_item.permission!='su' || $page.props.auth.role == 'su_admin'">
 					<inertia-link :href="'/admin/'+menu_item.component">
 						<span>{{ menu_item.name }}</span>
 					</inertia-link>
@@ -37,13 +37,13 @@ export default {
 		return {
 			movedSidebar: true,
 			menu_items: [
-				{ name: 'Testimonios', component: 'testimonials' },
-				{ name: 'Cursos', component: 'cursos' },
-				{ name: 'Cursos Moodle', component: 'cursos-moodle' },
-				{ name: 'Usuarios', component: 'users' },
-				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes' },
-				{ name: 'Imágenes', component: 'site-images' },
-				{ name: 'Configuración', component: 'site-config' },
+				{ name: 'Testimonios', component: 'testimonials' , permission:''},
+				{ name: 'Cursos', component: 'cursos', permission:'' },
+				{ name: 'Cursos Moodle', component: 'cursos-moodle', permission:'' },
+				{ name: 'Usuarios', component: 'users', permission:'' },
+				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes', permission:'' },
+				{ name: 'Imágenes', component: 'site-images', permission:'su' },
+				{ name: 'Configuración', component: 'site-config', permission:'su' },
 			],
 			error:'',
 		};

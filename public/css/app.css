@@ -533,9 +533,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mr-auto {
   margin-right: auto;
 }
-.ml-0 {
-  margin-left: 0px;
-}
 .mr-0 {
   margin-right: 0px;
 }
@@ -803,10 +800,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
 .pt-\[120px\] {
   padding-top: 120px;
 }
@@ -989,9 +982,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-.outline {
-  outline-style: solid;
 }
 .brightness-100 {
   --tw-brightness: brightness(1);

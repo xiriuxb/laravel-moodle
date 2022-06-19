@@ -21,7 +21,7 @@
           :href="'/mis-cursos'">
           Ver mis cursos
         </inertia-link>
-        <inertia-link v-if="$page.props.auth.role != 'user'" as="button"
+        <inertia-link v-if="$page.props.auth.role != 'user'& $page.props.auth.role !='suspended'" as="button"
           class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500"
           :href="'/admin/testimonials'">
           Seccion Admin

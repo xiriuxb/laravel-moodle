@@ -3,7 +3,7 @@
     <h3 class="topico">Cursos Recomendados:</h3>
     <VueSlickCarousel v-bind="settings" v-if="visible">
       <div v-for="comment in comments2" :key="comment.shortname">
-        <img class="card-img-top rounded" :src="comment.file" alt="Card image cap">
+        <img class="card-img-top rounded" :src="comment.file" alt="Imagen del curso">
         <div class="card-body container">
           <p class="card-topico"><small class="topico-muted">{{ comment.category }}</small></p>
           <inertia-link :href="'/curso/' + comment.shortname">
@@ -175,7 +175,9 @@ section {
 }
 
 .slick-slide h5 {
-  color: #002e45;
+  color: #1b8ac1;
   text-decoration-color: #002e45;
+  font-size:larger;
+  font-weight:bold;
 }
 </style>

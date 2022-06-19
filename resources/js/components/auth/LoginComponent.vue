@@ -16,7 +16,7 @@
 
           <div class="form-group row">
             <label for="password" class="text-md-right">Contraseña</label>
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+            <input id="password" type="password" class="form-control"
               name="password" v-model="form.password" required />
           </div>
 

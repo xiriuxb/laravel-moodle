@@ -250,7 +250,7 @@ section.benefits {
     animation: ease-in 3ms alternate alternate unset;
 }
 
-.texto {
+::v-deep .texto {
     padding-bottom: 40px;
     font-size: 30px;
 }

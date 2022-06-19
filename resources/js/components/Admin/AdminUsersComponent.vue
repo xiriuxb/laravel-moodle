@@ -49,7 +49,7 @@
 							<box-icon name="edit-alt"></box-icon>
 						</button>
 						<inertia-link class="btn btn-outline-primary btn-acction border-0 p-0" title="Ver Pagos"
-							:href="`/admin/matriculas/usuario/${user.username}`">
+							:href="`/admin/matriculas/usuario/${user.username}`" v-if="$page.props.auth.role == 'su_admin'">
 							<box-icon name='note'></box-icon>
 						</inertia-link>
 					</td>

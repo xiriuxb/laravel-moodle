@@ -769,20 +769,23 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c(
-                            "inertia-link",
-                            {
-                              staticClass:
-                                "btn btn-outline-primary btn-acction border-0 p-0",
-                              attrs: {
-                                title: "Ver Pagos",
-                                href:
-                                  "/admin/matriculas/usuario/" + user.username
-                              }
-                            },
-                            [_c("box-icon", { attrs: { name: "note" } })],
-                            1
-                          )
+                          _vm.$page.props.auth.role == "su_admin"
+                            ? _c(
+                                "inertia-link",
+                                {
+                                  staticClass:
+                                    "btn btn-outline-primary btn-acction border-0 p-0",
+                                  attrs: {
+                                    title: "Ver Pagos",
+                                    href:
+                                      "/admin/matriculas/usuario/" +
+                                      user.username
+                                  }
+                                },
+                                [_c("box-icon", { attrs: { name: "note" } })],
+                                1
+                              )
+                            : _vm._e()
                         ],
                         1
                       )

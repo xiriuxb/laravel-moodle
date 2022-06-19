@@ -75,7 +75,7 @@ class MatriculaController extends Controller
         if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])->exists()) {
             return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
         }
-        if ($curso_aux->price == 0) {
+        if ($curso_aux->curso_id == 0) {
             $curso = Curso::firstOrCreate(
                 ['shortname' => $request->shortname],
                 ['moodle_id'=> $curso_aux->moodle_id,'fullname' => $curso_aux->fullname, 'shortname' => $curso_aux->shortname, 'category' => $curso_aux->category, 'destacado' => false]

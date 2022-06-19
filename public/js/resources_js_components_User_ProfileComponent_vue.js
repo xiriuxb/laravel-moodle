@@ -350,6 +350,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
 
 
 
@@ -1383,6 +1385,14 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
+                _vm.$page.props.auth.role == "suspended"
+                  ? _c("div", { staticClass: "alert alert-warning" }, [
+                      _vm._v(
+                        "\n              Actualmente se encuentra suspendido, por lo que no puede realizar algunas acciones, por favor póngase en contacto con nosotros.\n              Tampoco puede acceder al contenido de los cursos en Moodle.\n            "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c(
                   "form",
                   {
@@ -1452,7 +1462,9 @@ var render = function() {
                             domProps: { value: _vm.user.email }
                           }),
                           _vm._v(" "),
-                          _c("change-email-modal-2")
+                          _vm.$page.props.auth.role != "suspended"
+                            ? _c("change-email-modal-2")
+                            : _vm._e()
                         ],
                         1
                       ),
@@ -1477,7 +1489,9 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("change-password-modal-2")
+                          _vm.$page.props.auth.role != "suspended"
+                            ? _c("change-password-modal-2")
+                            : _vm._e()
                         ],
                         1
                       )
@@ -1582,28 +1596,34 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            " btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200",
-                          attrs: {
-                            type: "submit",
-                            disabled: _vm.enableButton || this.loading
-                          }
-                        },
-                        [
-                          _vm.loading
-                            ? _c("span", {
-                                staticClass: "spinner-border spinner-border-sm",
-                                attrs: { role: "status", "aria-hidden": "true" }
-                              })
-                            : _vm._e(),
-                          _vm._v(
-                            "\n                  Guardar Cambios\n                "
+                      _vm.$page.props.auth.role != "suspended"
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                " btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200",
+                              attrs: {
+                                type: "submit",
+                                disabled: _vm.enableButton || this.loading
+                              }
+                            },
+                            [
+                              _vm.loading
+                                ? _c("span", {
+                                    staticClass:
+                                      "spinner-border spinner-border-sm",
+                                    attrs: {
+                                      role: "status",
+                                      "aria-hidden": "true"
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(
+                                "\n                  Guardar Cambios\n                "
+                              )
+                            ]
                           )
-                        ]
-                      )
+                        : _vm._e()
                     ])
                   ]
                 )
@@ -1613,9 +1633,13 @@ var render = function() {
                 "div",
                 { staticClass: "flex flex-row-reverse pr-2" },
                 [
-                  _c("inertia-link", { attrs: { href: "/eliminar-cuenta" } }, [
-                    _vm._v("Eliminar Cuenta")
-                  ])
+                  _vm.$page.props.auth.role != "suspended"
+                    ? _c(
+                        "inertia-link",
+                        { attrs: { href: "/eliminar-cuenta" } },
+                        [_vm._v("Eliminar Cuenta")]
+                      )
+                    : _vm._e()
                 ],
                 1
               )

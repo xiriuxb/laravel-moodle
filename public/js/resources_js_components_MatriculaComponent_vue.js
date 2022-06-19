@@ -944,55 +944,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("AppHead", { attrs: { title: _vm.curso.fullname } }),
-      _vm._v(" "),
-      !_vm.logged
-        ? _c(
-            "button",
-            { staticClass: "btn btn-primary", on: { click: _vm.matricula } },
-            [_vm._v("\n\t\tInscribirse (" + _vm._s(_vm.price) + ")\n\t")]
-          )
-        : _c("div", { staticClass: "d-flex justify-content-center" }, [
-            _vm.pago && !_vm.matriculado
-              ? _c("div", [
-                  _c("p", [_vm._v("Su matricula está siendo procesada.")])
-                ])
-              : _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { disabled: _vm.loading },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.redirectOrSignup.apply(null, arguments)
-                      }
-                    }
-                  },
-                  [
-                    _vm.loading
-                      ? _c("span", {
-                          staticClass: "spinner-border spinner-border-sm",
-                          attrs: { role: "status", "aria-hidden": "true" }
+  return _vm.$page.props.auth.role != "suspended"
+    ? _c(
+        "div",
+        [
+          _c("AppHead", { attrs: { title: _vm.curso.fullname } }),
+          _vm._v(" "),
+          !_vm.logged
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: { click: _vm.matricula }
+                },
+                [_vm._v("\n\t\tInscribirse (" + _vm._s(_vm.price) + ")\n\t")]
+              )
+            : _c("div", { staticClass: "d-flex justify-content-center" }, [
+                _vm.pago && !_vm.matriculado
+                  ? _c("div", [
+                      _c("p", [_vm._v("Su matricula está siendo procesada.")])
+                    ])
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: _vm.loading },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.redirectOrSignup.apply(null, arguments)
+                          }
+                        }
+                      },
+                      [
+                        _vm.loading
+                          ? _c("span", {
+                              staticClass: "spinner-border spinner-border-sm",
+                              attrs: { role: "status", "aria-hidden": "true" }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", {
+                          domProps: { innerHTML: _vm._s(_vm.buttonMessage) }
                         })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", {
-                      domProps: { innerHTML: _vm._s(_vm.buttonMessage) }
-                    })
-                  ]
-                )
-          ]),
-      _vm._v(" "),
-      _vm.modalVisible
-        ? _c("payments-modal", { on: { close: _vm.closeModal } })
-        : _vm._e()
-    ],
-    1
-  )
+                      ]
+                    )
+              ]),
+          _vm._v(" "),
+          _vm.modalVisible
+            ? _c("payments-modal", { on: { close: _vm.closeModal } })
+            : _vm._e()
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -10,7 +10,6 @@ use App\Http\Traits\MoodleServicesTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Ui\AuthRouteMethods;
 use App\Models\User;
 use App\Notifications\NewPagoDepositoNotification;
 use Illuminate\Notifications\Notifiable;
@@ -72,7 +71,7 @@ class MatriculaController extends Controller
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])->exists()) {
+        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
             return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
         }
         if ($curso_aux->price == 0) {
@@ -101,7 +100,7 @@ class MatriculaController extends Controller
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])->exists()) {
+        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
             return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
         }
         if ($curso_aux->price > 0) {
@@ -136,7 +135,7 @@ class MatriculaController extends Controller
         if ($curso_aux == []) {
             return inertia('NotFoundComponent');
         }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])->exists()) {
+        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
             return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
         }
         if ($curso_aux->price > 0) {

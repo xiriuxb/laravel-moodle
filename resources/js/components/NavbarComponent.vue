@@ -83,9 +83,6 @@ export default {
 		};
 	},
 	components: { UserMenuComponent, SearchComponent, SidebarComponent },
-	mounted() {
-		console.log(this.$children);
-	},
 	methods: {
 		sidebarHandler() {
 			var sideBar = document.getElementById("mobile-nav");

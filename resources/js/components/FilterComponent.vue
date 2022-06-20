@@ -35,11 +35,14 @@ export default {
     },
   },
   beforeCreate() {
-    console.log('created')
     axios.get('/api/categorias').then((response) => {
       this.categories = response.data.data;
     }).catch((err) => {
-      console.log(err);
+      this.$toast.open({
+        message: 'Error al cargar las categorías',
+        type: 'error',
+        duration: 5000
+      });
     });
   },
   data() {

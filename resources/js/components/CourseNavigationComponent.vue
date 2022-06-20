@@ -33,7 +33,6 @@ export default {
     navigationUp() {
       window.scrollTo(0, 0);
       this.page < this.pages ? +this.$parent.page++ : +this.page;
-      console.log(this.$parent.page);
     },
     navigationDown() {
       window.scrollTo(0, 0);  // Scroll to top of page

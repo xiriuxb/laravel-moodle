@@ -46,7 +46,6 @@ export default {
     sendRequest() {
       this.errorMessage = "";
       this.visible = true;
-      console.log(this.$page.props.errors);
       this.form.post('/forgot-password', {
         onError: (error) => {
           this.errorMessage = error[0];

@@ -75,7 +75,6 @@ export default {
     loadMatriculas(url = this.baseUrl) {
       this.loadingInit = true;
       axios.get(url).then(response => {
-        console.log(response.data);
         this.loadingInit = false;
         this.linksToPages = response.data.links;
         this.matriculas = response.data.matriculas;

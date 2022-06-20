@@ -43,7 +43,6 @@ export default {
             this.form.post("/user/delete", {
                 onStart: () => (this.passwordError = ""),
                 onError: (response) => {
-                    console.log(response);
                     this.passwordError = response.password;
                 }
             });

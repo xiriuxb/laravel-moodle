@@ -84,7 +84,6 @@ export default {
               onApprove: async (data, actions, resp) => {
                 // Capture the funds from the transaction
                 const transaction = await actions.order.capture();
-                console.log(transaction);
                 this.$parent.$data.payment_form.payment_method = 'paypal';
                 this.$parent.$data.payment_form.payment_id = transaction.id;
                 this.$parent.$data.payment_form.payment_status = transaction.status;
@@ -102,9 +101,8 @@ export default {
               },
             }).render("#paypal-button-container");
         } catch (error) {
-          console.error("failed to render the PayPal Buttons", error);
           this.$toast.open({
-            message: "Error",
+            message: "Error al cargar los botones de PayPal",
             type: "danger",
             duration: 5000,
           });

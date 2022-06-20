@@ -120,11 +120,9 @@ export default {
     btnAction() {
       this.isFormHidden = !this.isFormHidden;
       this.resetInput();
-      console.log(this.editMode);
     },
 
     update() {
-      console.log('update mode');
       this.loading = true;
       let formData = new FormData();
       formData.append("_method", "put");
@@ -236,7 +234,6 @@ export default {
     onClickEdit(index) {
       this.getComment(index);
       this.editMode = true;
-      console.log(this.editMode);
     },
   },
   created() {

@@ -60,7 +60,6 @@ export default {
             if (response.data.length == 0) {
               vm.resultados = [{ fullname: "No se encontraron resultados", shortname: "NE" }];
             }
-            console.log(vm.resultados);
             vm.loading = false;
           })
           .catch(function (error) {

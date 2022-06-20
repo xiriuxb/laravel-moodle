@@ -56,10 +56,8 @@ export default {
             axios.post('/api/admin/images/favicon', formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Icono actualizado', type: 'success', duration: 5000 });
-                console.log(res);
             }).catch(err => {
                 this.loading = false;
-                console.log(err);
                 this.errors = err.response.data.errors;
                 this.$toast.open({ message: 'Ocurrió un error', type: 'error', duration: 5000 });
             });
@@ -72,10 +70,8 @@ export default {
             axios.post('/api/admin/images/logo', formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Actualizado correctamente', type: 'success', duration: 5000 });
-                console.log(res);
             }).catch(err => {
                 this.loading = false;
-                console.log(err);
                 this.errors = err.response.data.errors;
                 this.$toast.open({ message: 'Error al actualizar', type: 'error', duration: 5000 });
             });

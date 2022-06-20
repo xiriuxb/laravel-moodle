@@ -49,7 +49,8 @@
 							<box-icon name="edit-alt"></box-icon>
 						</button>
 						<inertia-link class="btn btn-outline-primary btn-acction border-0 p-0" title="Ver Pagos"
-							:href="`/admin/matriculas/usuario/${user.username}`" v-if="$page.props.auth.role == 'su_admin'">
+							:href="`/admin/matriculas/usuario/${user.username}`"
+							v-if="$page.props.auth.role == 'su_admin'">
 							<box-icon name='note'></box-icon>
 						</inertia-link>
 					</td>
@@ -87,7 +88,11 @@ export default {
 		axios.get('/api/admin/roles').then(response => {
 			this.roles = response.data;
 		}).catch(error => {
-			console.log(error);
+			this.$toast.open({
+				message: 'Error al cargar roles',
+				type: 'error',
+				duration: 5000
+			});
 		});
 	},
 	data() {
@@ -118,7 +123,13 @@ export default {
 				this.setting = false;
 				this.totalResultados = response.data.total;
 			}).catch((error) => {
-				console.log(error);
+				this.loadingInit = false;
+				this.setting = false;
+				this.$toast.open({
+					message: 'Error al cargar',
+					type: 'error',
+					duration: 5000
+				});
 			})
 		},
 		showModal(id) {

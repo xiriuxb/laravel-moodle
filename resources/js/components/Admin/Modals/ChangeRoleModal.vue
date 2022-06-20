@@ -63,7 +63,6 @@ export default {
       this.loading = true;
       this.errors = [];
       await axios.post('/api/admin/users/change-role', this.form).then(response => {
-        console.log(response.data);
         this.loading = false;
         this.$toast.open({
           message: 'Se ha cambiado el rol del usuario',
@@ -74,7 +73,6 @@ export default {
       }).catch(error => {
         this.loading = false;
         this.errors = error.response.data;
-        console.log(error.response.data);
       })
     }
   },
@@ -97,7 +95,8 @@ export default {
       this.oldRole = response.data.role;
       this.loading = false;
     }).catch(error => {
-      console.log(error);
+      this.loading = false;
+      this.errors = error.response.data;
     });
   },
 };

@@ -83,7 +83,6 @@ export default {
         error => {
           this.loading = false,
           this.error = error.response.data.message;
-          console.log(error.response.data.message)
           this.$toast.open({
             message: 'Error al actualizar',
             type: 'error',
@@ -100,7 +99,12 @@ export default {
       this.estados = response.data.estados;
       this.loading = false;
     }).catch(error => {
-      console.log(error);
+      this.loading = false;
+      this.$toast.open({
+        message: 'Error al cargar',
+        type: 'error',
+        duration: 5000
+      });
     });
   },
 };

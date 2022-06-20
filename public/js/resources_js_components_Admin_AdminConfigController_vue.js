@@ -47,6 +47,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -61,7 +64,8 @@ __webpack_require__.r(__webpack_exports__);
       form: [],
       selected: null,
       editMode: false,
-      selectedValue: null
+      selectedValue: null,
+      loading: false
     };
   },
   created: function created() {
@@ -101,6 +105,7 @@ __webpack_require__.r(__webpack_exports__);
     onClickSave: function onClickSave(id, value, var_name) {
       var _this3 = this;
 
+      this.loading = true;
       this.editMode = false;
       this.selected = null;
       this.selectedValue = null;
@@ -109,13 +114,13 @@ __webpack_require__.r(__webpack_exports__);
         variable_value: value,
         variable_name: var_name
       }).then(function (response) {
-        _this3.loadVars();
-
         _this3.$toast.open({
           message: 'Guardado',
           type: 'success',
           duration: 5000
         });
+
+        _this3.loading = false;
       })["catch"](function (error) {
         _this3.onClickCancel();
 
@@ -124,12 +129,25 @@ __webpack_require__.r(__webpack_exports__);
           type: 'error',
           duration: 5000
         });
+
+        _this3.loading = false;
       });
     },
     updateConfig: function updateConfig() {
       var _this4 = this;
 
-      axios.post("/api/admin/site-config/update").then(function (response) {})["catch"](function (error) {
+      this.loading = true;
+      axios.post("/api/admin/site-config/update").then(function (response) {
+        _this4.loading = false;
+
+        _this4.$toast.open({
+          message: 'Actualizado',
+          type: 'success',
+          duration: 5000
+        });
+      })["catch"](function (error) {
+        _this4.loading = false;
+
         _this4.$toast.open({
           message: 'Error al actualizar',
           type: 'error',
@@ -294,7 +312,10 @@ var render = function() {
                             {
                               staticClass:
                                 "btn btn-outline-primary btn-acction border-0 p-0",
-                              attrs: { title: "Guardar" },
+                              attrs: {
+                                disabled: _vm.loadingInit,
+                                title: "Guardar"
+                              },
                               on: {
                                 click: function($event) {
                                   return _vm.onClickSave(
@@ -330,7 +351,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: " btn-acction",
-                          attrs: { title: "Editar" },
+                          attrs: { disabled: _vm.loading, title: "Editar" },
                           on: {
                             click: function($event) {
                               return _vm.onClickEdit(variable.name)
@@ -351,13 +372,22 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary",
+              attrs: { disabled: _vm.loading },
               on: {
                 click: function($event) {
                   return _vm.updateConfig()
                 }
               }
             },
-            [_vm._v("actualizar configuración")]
+            [
+              _vm.loading
+                ? _c("span", {
+                    staticClass: "spinner-border spinner-border-sm",
+                    attrs: { role: "status", "aria-hidden": "true" }
+                  })
+                : _vm._e(),
+              _vm._v("\n    Actualizar configuración\n    ")
+            ]
           )
         : _vm._e()
     ],

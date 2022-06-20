@@ -236,8 +236,6 @@ class SiteConfigController extends Controller
                 'value' => config('mail.from.address'),
                 'campo' => 'Direccion de envío del Mail',
             ],
-
-
         ];
         return response()->json($variables);
     }
@@ -250,7 +248,7 @@ class SiteConfigController extends Controller
             if (file_exists($path)) {
                 file_put_contents($path, str_replace(
                     $request->variable_name.'='.config($request->variable_key),
-                    $request->variable_name.'=' . $env_value,
+                    $request->variable_name.'='. $env_value,
                     file_get_contents($path)
                 ));
                 return response()->json(['success' => 'Variable actualizada correctamente']);

@@ -122,10 +122,8 @@ export default {
 	font-weight: bold;
 	letter-spacing: 1px;
 	color: rgb(255, 255, 255);
-	font-weight: 400;
 	position: relative;
 	text-decoration: none;
-	font-weight: 500;
 }
 
 .main-menu li:not(:last-of-type) {

@@ -15,7 +15,7 @@
                 <input type="text" class="form-control" :ref="variable.name" v-model="variable.value"
                     :disabled="selected != variable.name" />
                 <div id="actions" v-if="editMode && selected == variable.name" class="d-flex">
-                    <button class="btn btn-outline-primary btn-acction border-0 p-0" title="Guardar"
+                    <button :disabled="loadingInit" class="btn btn-outline-primary btn-acction border-0 p-0" title="Guardar"
                         @click="onClickSave(variable.config_key, variable.value, variable.name)">
                         <box-icon name="save"></box-icon>
                     </button>
@@ -24,12 +24,15 @@
                         <box-icon name="x"></box-icon>
                     </button>
                 </div>
-                <button class=" btn-acction" title="Editar" @click="onClickEdit(variable.name)" v-else>
+                <button :disabled="loading" class=" btn-acction" title="Editar" @click="onClickEdit(variable.name)" v-else>
                     <box-icon name="edit-alt"></box-icon>
                 </button>
             </div>
         </form>
-        <button v-if="!loadingInit" class="btn btn-primary" @click="updateConfig()">actualizar configuración</button>
+        <button v-if="!loadingInit" :disabled="loading" class="btn btn-primary" @click="updateConfig()">
+        <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Actualizar configuración
+        </button>
     </div>
 </template>
 <script>
@@ -48,6 +51,7 @@ export default {
             selected: null,
             editMode: false,
             selectedValue: null,
+            loading: false
         }
     },
     created() {
@@ -80,6 +84,7 @@ export default {
             this.selectedValue = null;
         },
         onClickSave(id, value, var_name) {
+            this.loading = true;
             this.editMode = false;
             this.selected = null;
             this.selectedValue = null;
@@ -88,12 +93,12 @@ export default {
                 variable_value: value,
                 variable_name: var_name
             }).then(response => {
-                this.loadVars();
                 this.$toast.open({
                     message: 'Guardado',
                     type: 'success',
                     duration: 5000
                 });
+                this.loading = false;
             }).catch(
                 error => {
                     this.onClickCancel();
@@ -102,14 +107,22 @@ export default {
                         type: 'error',
                         duration: 5000
                     });
+                    this.loading = false;
                 }
             );
         },
         updateConfig(){
+            this.loading = true;
             axios.post("/api/admin/site-config/update").then(response => {
-                
+                this.loading = false;
+                this.$toast.open({
+                    message: 'Actualizado',
+                    type: 'success',
+                    duration: 5000
+                });
             }).catch(
                 error => {
+                    this.loading = false;
                     this.$toast.open({
                         message: 'Error al actualizar',
                         type: 'error',

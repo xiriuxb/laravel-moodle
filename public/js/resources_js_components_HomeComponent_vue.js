@@ -660,7 +660,7 @@ var render = function() {
               ),
               _c(
                 "a",
-                { attrs: { href: _vm.moodleUrl + "login/index.php" } },
+                { attrs: { href: _vm.moodleUrl } },
                 [
                   _vm._v("Moodle "),
                   _c("box-icon", { attrs: { name: "link-external" } })

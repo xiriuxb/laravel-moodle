@@ -111,8 +111,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -123,7 +121,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "AdminCommentComponent",
   data: function data() {
     return {
-      apiRoute: '/api/testimonials/',
+      apiRoute: '/api/testimonials',
       id: 0,
       isFormHidden: true,
       editMode: true,
@@ -154,7 +152,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData.append('texto', this.form.texto);
       formData.append('is_active', this.form.is_active);
       if (this.form.file != null) formData.append('file', this.form.file);
-      axios.post('/api/testimonials/' + this.id, formData).then(function () {
+      axios.post("".concat(this.apiRoute, "/").concat(this.id), formData).then(function () {
         _this.loading = false;
         _this.isFormHidden = true;
 
@@ -190,7 +188,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         formData.append('texto', this.form.texto);
         formData.append('is_active', this.form.is_active);
         if (this.form.file != null) formData.append('file', this.form.file);
-        axios.post('/api/testimonials', formData).then(function () {
+        axios.post(this.apiRoute, formData).then(function () {
           _this2.errors = [];
 
           _this2.$toast.open({
@@ -224,7 +222,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this3.loading = true;
                 _context.next = 3;
-                return axios.get('/api/testimonials').then(function (response) {
+                return axios.get(_this3.apiRoute).then(function (response) {
                   _this3.comments = response.data.data;
                   _this3.loading = false;
                 })["catch"](function (err) {
@@ -256,10 +254,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.editMode = false;
       this.loading = true;
-      axios["delete"]('/api/testimonials/'.concat(index)).then(function (response) {
+      axios["delete"]("".concat(this.apiRoute, "/").concat(index)).then(function (response) {
         _this4.loadComments();
       })["catch"](function (err) {
         _this4.errors = err.response.data.errors;
+
+        _this4.$toast.open({
+          message: "Error al eliminar",
+          type: "error",
+          position: "top-right"
+        });
       });
       this.resetInput();
     },
@@ -268,8 +272,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.isFormHidden = false;
       this.loading = true;
-      scrollY = 0;
-      axios.get('/api/testimonials/'.concat(index)).then(function (response) {
+      axios.get("".concat(this.apiRoute, "/").concat(index)).then(function (response) {
         _this5.id = response.data.data.id;
         _this5.form.autor = response.data.data.autor;
         _this5.form.texto = response.data.data.texto;
@@ -281,6 +284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     onClickEdit: function onClickEdit(index) {
+      window.scrollTo(0, 0);
       this.getComment(index);
       this.editMode = true;
     }
@@ -459,7 +463,6 @@ var render = function () {
             ref: "btnNewComment",
             staticClass: "btn btn-primary",
             class: _vm.isFormHidden ? "btn btn-primary" : "btn btn-secondary",
-            staticStyle: { "max-width": "240px" },
             attrs: { id: "btnNewComment", disabled: _vm.loading },
             on: {
               click: function ($event) {
@@ -532,7 +535,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "comentarioEstudiante" } }, [
-                  _vm._v("Comentario:"),
+                  _vm._v("Testimonio:"),
                 ]),
                 _vm._v(" "),
                 _c("textarea", {
@@ -676,12 +679,6 @@ var render = function () {
                       staticClass: "btn btn-primary",
                       class: "btn btn-primary",
                       attrs: { type: "submit", disabled: _vm.loading },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.save.apply(null, arguments)
-                        },
-                      },
                     },
                     [
                       _vm._v(

@@ -4,14 +4,12 @@
     <h2>Administración de testimonios</h2>
     <loading-component v-if='loading'></loading-component>
     <div>
-      <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment"
-        style="max-width: 240px" :disabled="loading"
+      <button class="btn btn-primary" id="btnNewComment" @click="btnAction()" ref="btnNewComment" :disabled="loading"
         v-bind:class="isFormHidden ? 'btn btn-primary' : 'btn btn-secondary'">
         {{ isFormHidden ? 'Nuevo testimonio' : 'Cancelar/Ocultar' }}
       </button>
     </div>
     <form class="container" v-if="!isFormHidden" style="dislplay: none" v-on:submit.prevent="save">
-
       <div class="form-group">
         <label for="comentarioEstudiante">Nombre Estudiante:</label>
         <input type="text" v-model="form.autor" class="form-control" id="nombreEstudiante" ref="nombreEstudiante"
@@ -21,7 +19,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="comentarioEstudiante">Comentario:</label>
+        <label for="comentarioEstudiante">Testimonio:</label>
         <textarea class="form-control" ref="comentarioEstudiante" v-model="form.texto" id="comentarioEstudiante"
           rows="3" required></textarea>
         <div v-if="this.errors.texto != null" class="alert alert-danger">
@@ -45,7 +43,7 @@
       </label>
       <div class="row">
         <div class="col">
-          <button type="submit" @click.prevent="save" :class="'btn btn-primary'" class="btn btn-primary" :disabled="loading">
+          <button type="submit" :class="'btn btn-primary'" class="btn btn-primary" :disabled="loading">
             {{ !editMode ? 'Guardar' : 'Guardar Cambios' }}
           </button>
         </div>
@@ -100,7 +98,7 @@ export default {
   name: "AdminCommentComponent",
   data() {
     return {
-      apiRoute: '/api/testimonials/',
+      apiRoute: '/api/testimonials',
       id: 0,
       isFormHidden: true,
       editMode: true,
@@ -130,7 +128,7 @@ export default {
       formData.append('texto', this.form.texto);
       formData.append('is_active', this.form.is_active);
       if (this.form.file != null) formData.append('file', this.form.file);
-      axios.post('/api/testimonials/' + this.id, formData).then(() => {
+      axios.post(`${this.apiRoute}/${this.id}`, formData).then(() => {
         this.loading = false;
         this.isFormHidden = true;
         this.resetInput();
@@ -158,7 +156,7 @@ export default {
         formData.append('is_active', this.form.is_active);
         if (this.form.file != null) formData.append('file', this.form.file);
         axios
-          .post('/api/testimonials', formData)
+          .post(this.apiRoute, formData)
           .then(() => {
             this.errors = [];
             this.$toast.open({
@@ -180,7 +178,7 @@ export default {
 
     async loadComments() {
       this.loading = true;
-      await axios.get('/api/testimonials')
+      await axios.get(this.apiRoute)
         .then((response) => {
           this.comments = response.data.data;
           this.loading = false;
@@ -203,12 +201,13 @@ export default {
       this.editMode = false;
       this.loading = true;
       axios
-        .delete('/api/testimonials/'.concat(index))
+        .delete(`${this.apiRoute}/${index}`)
         .then((response) => {
           this.loadComments();
         })
         .catch((err) => {
           this.errors = err.response.data.errors;
+          this.$toast.open({ message: "Error al eliminar", type: "error", position: "top-right", });
         });
       this.resetInput();
     },
@@ -216,8 +215,7 @@ export default {
     getComment(index) {
       this.isFormHidden = false;
       this.loading = true;
-      scrollY = 0;
-      axios.get('/api/testimonials/'.concat(index))
+      axios.get(`${this.apiRoute}/${index}`)
         .then((response) => {
           this.id = response.data.data.id;
           this.form.autor = response.data.data.autor;
@@ -232,6 +230,7 @@ export default {
     },
 
     onClickEdit(index) {
+      window.scrollTo(0, 0);
       this.getComment(index);
       this.editMode = true;
     },

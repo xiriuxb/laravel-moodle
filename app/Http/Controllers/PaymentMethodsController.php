@@ -13,7 +13,7 @@ class PaymentMethodsController extends Controller
     use MoodleServicesTrait;
     public function __construct()
     {
-        $this->middleware('can:matricula.generarmatricula', ['only' => ['index']]);
+        $this->middleware('can:matricula.generarmatricula');
     }
 
     public function getPaypalData(Request $request)

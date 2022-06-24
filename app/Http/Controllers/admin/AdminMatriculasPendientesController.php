@@ -23,11 +23,12 @@ class AdminMatriculasPendientesController extends Controller
         return response()->json(['matriculas' => \App\Models\Matricula::with('user', 'cursos', 'pago')->where([['username', null], ['estado_matricula_id', 3]])->get()]);
     }
 
-    public function indexByUser(Request $request)
+    public function indexByUser(Request $request,$username)
     {
-        $user = \App\Models\User::where('username', $request->username)->first();
+        
+        $user = \App\Models\User::where('username', $username)->first();
         $user_name = $user->name . ' ' . $user->last_name;
-        return inertia('Admin/AdminPagosUsuario', ['matriculas' => \App\Models\Matricula::with('cursos', 'pago', 'estado_matricula')->where([['usuario_id', $user->id]])->paginate(20), 'user' => $user_name]);
+        return inertia('Admin/AdminPagosUsuario', ['matriculas' => \App\Models\Matricula::with('cursos', 'pago', 'estado_matricula')->where([['usuario_id', $user->id]])->paginate(20), 'user' => $user_name, 'username'=>$username]);
     }
 
     public function updatePending(Request $request)

@@ -94,8 +94,13 @@ __webpack_require__.r(__webpack_exports__);
           type: 'success',
           duration: 5000
         });
+
+        _this.$emit('close');
+
+        _this.$parent.reloadPagos();
       })["catch"](function (error) {
-        _this.loading = false, _this.error = error.response.data.message;
+        _this.loading = false, console.log(error);
+        _this.error = error.response.data.message;
 
         _this.$toast.open({
           message: 'Error al actualizar',

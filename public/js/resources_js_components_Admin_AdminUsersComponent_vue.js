@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      loadingInit: true,
+      loading: true,
       roles: [],
       users: [],
       linksToPages: [],
@@ -146,11 +146,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.users = response.data.data;
         _this2.linksToPages = response.data.links;
-        _this2.loadingInit = false;
+        _this2.loading = false;
         _this2.setting = false;
         _this2.totalResultados = response.data.total;
       })["catch"](function (error) {
-        _this2.loadingInit = false;
+        _this2.loading = false;
         _this2.setting = false;
 
         _this2.$toast.open({
@@ -343,7 +343,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849] {\r\n\tfont-size: small;\n}\n.container[data-v-2d9df849] {\r\n\tdisplay: flex;\r\n\tposition: relative;\r\n\tflex-direction: column;\r\n\talign-items: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adminUsers[data-v-2d9df849] {\r\n\tfont-size: small;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -548,307 +548,280 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "adminView", attrs: { id: "adminUsers" } },
+    { class: { disabled: _vm.loading }, attrs: { id: "adminUsers" } },
     [
       _c("AppHead", { attrs: { title: "Admin | Usuarios" } }),
       _vm._v(" "),
-      _c("h2", [_vm._v("Administración de usuarios")]),
+      _vm.setting
+        ? _c(
+            "loading-component",
+            {
+              attrs: {
+                backgroundColor: "rgb(0 0 0 / 29%)",
+                width: "100%",
+                height: "100%",
+                position: "fixed",
+              },
+            },
+            [_c("h2", [_vm._v("Administración de usuarios")])]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _vm.loadingInit
-        ? _c("loading-component")
-        : _c(
-            "div",
-            { staticClass: "container" },
-            [
-              _vm.setting
-                ? _c("loading-component", {
-                    attrs: {
-                      backgroundColor: "rgb(0 0 0 / 29%)",
-                      width: "100%",
-                      height: "100%",
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "form",
+          { staticClass: "input-group mb-3", attrs: { disabled: _vm.setting } },
+          [
+            _c("div", [
+              _c("label", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.usersDeleted,
+                      expression: "usersDeleted",
                     },
-                  })
-                : _vm._e(),
+                  ],
+                  attrs: {
+                    type: "checkbox",
+                    name: "deletedFilter",
+                    id: "deletedFilter",
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.usersDeleted)
+                      ? _vm._i(_vm.usersDeleted, null) > -1
+                      : _vm.usersDeleted,
+                  },
+                  on: {
+                    change: function ($event) {
+                      var $$a = _vm.usersDeleted,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.usersDeleted = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.usersDeleted = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.usersDeleted = $$c
+                      }
+                    },
+                  },
+                }),
+                _vm._v("Eliminados"),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group flex-row flex-wrap" }, [
+              _c("div", { staticClass: "input-group-prepend" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.role,
+                        expression: "role",
+                      },
+                    ],
+                    staticClass: "custom-select",
+                    attrs: { id: "roleSelect" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.role = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "999" } }, [
+                      _vm._v("Todos"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roles, function (role) {
+                      return _c("option", { domProps: { value: role.id } }, [
+                        _vm._v(_vm._s(role.name)),
+                      ])
+                    }),
+                  ],
+                  2
+                ),
+              ]),
               _vm._v(" "),
-              _c(
-                "form",
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Buscar usuario" },
+                domProps: { value: _vm.search },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    attrs: { type: "submit", id: "inputButtonSearch" },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.loadUsers()
+                      },
+                    },
+                  },
+                  [_vm._v("Buscar")]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", [
+          _vm._v(
+            "\n\t\t\tTotal Resultados: " +
+              _vm._s(_vm.totalResultados) +
+              "\n\t\t"
+          ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "table",
+          { staticClass: "table" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.users, function (user) {
+              return _c("tr", { key: user.username }, [
+                _c("td", [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(user.name) +
+                      " " +
+                      _vm._s(user.last_name) +
+                      "\n\t\t\t\t"
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.email))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.username))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(_vm._s(user.email_verified_at != null ? "Si" : "No")),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-outline-primary btn-acction border-0 p-0",
+                        attrs: { title: "Editar" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.showModal(user.username)
+                          },
+                        },
+                      },
+                      [_c("box-icon", { attrs: { name: "edit-alt" } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.$page.props.auth.role == "su_admin"
+                      ? _c(
+                          "inertia-link",
+                          {
+                            staticClass:
+                              "btn btn-outline-primary btn-acction border-0 p-0",
+                            attrs: {
+                              title: "Ver Pagos",
+                              href:
+                                "/admin/matriculas/usuario/" + user.username,
+                            },
+                          },
+                          [_c("box-icon", { attrs: { name: "note" } })],
+                          1
+                        )
+                      : _vm._e(),
+                  ],
+                  1
+                ),
+              ])
+            }),
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("nav", { attrs: { "aria-label": "..." } }, [
+          _c(
+            "ul",
+            { staticClass: "pagination" },
+            _vm._l(_vm.linksToPages, function (link) {
+              return _c(
+                "li",
                 {
-                  staticClass: "input-group mb-3",
-                  attrs: { disabled: _vm.setting },
+                  key: link.label,
+                  staticClass: "page-item",
+                  class: !link.active
+                    ? link.url == null
+                      ? "page-item disabled"
+                      : "page-item"
+                    : "page-item active",
                 },
                 [
-                  _c("div", [
-                    _c("label", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.usersDeleted,
-                            expression: "usersDeleted",
-                          },
-                        ],
-                        attrs: {
-                          type: "checkbox",
-                          name: "deletedFilter",
-                          id: "deletedFilter",
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.usersDeleted)
-                            ? _vm._i(_vm.usersDeleted, null) > -1
-                            : _vm.usersDeleted,
-                        },
-                        on: {
-                          change: function ($event) {
-                            var $$a = _vm.usersDeleted,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  (_vm.usersDeleted = $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  (_vm.usersDeleted = $$a
-                                    .slice(0, $$i)
-                                    .concat($$a.slice($$i + 1)))
-                              }
-                            } else {
-                              _vm.usersDeleted = $$c
-                            }
-                          },
-                        },
-                      }),
-                      _vm._v("Eliminados"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group flex-row flex-wrap" }, [
-                    _c("div", { staticClass: "input-group-prepend" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.role,
-                              expression: "role",
-                            },
-                          ],
-                          staticClass: "custom-select",
-                          attrs: { id: "roleSelect" },
-                          on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.role = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            },
-                          },
-                        },
-                        [
-                          _c("option", { attrs: { value: "999" } }, [
-                            _vm._v("Todos"),
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.roles, function (role) {
-                            return _c(
-                              "option",
-                              { domProps: { value: role.id } },
-                              [_vm._v(_vm._s(role.name))]
-                            )
-                          }),
-                        ],
-                        2
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.search,
-                          expression: "search",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Buscar usuario" },
-                      domProps: { value: _vm.search },
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      attrs: { href: "#", tabindex: "-1" },
                       on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.search = $event.target.value
+                        click: function ($event) {
+                          return _vm.loadUsers(link.url)
                         },
                       },
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "input-group-append" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          attrs: { type: "submit", id: "inputButtonSearch" },
-                          on: {
-                            click: function ($event) {
-                              $event.preventDefault()
-                              return _vm.loadUsers()
-                            },
-                          },
-                        },
-                        [_vm._v("Buscar")]
-                      ),
-                    ]),
-                  ]),
+                    },
+                    [_c("div", { domProps: { innerHTML: _vm._s(link.label) } })]
+                  ),
                 ]
-              ),
-              _vm._v(" "),
-              _c("div", [
-                _vm._v(
-                  "\n\t\t\tTotal Resultados: " +
-                    _vm._s(_vm.totalResultados) +
-                    "\n\t\t"
-                ),
-              ]),
-              _vm._v(" "),
-              _c(
-                "table",
-                { staticClass: "table" },
-                [
-                  _c("tr", [
-                    _c("th", [_vm._v("Nombre")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Email")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Nombre usuario")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("e-mail verificado?")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Acciones")]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.users, function (user) {
-                    return _c("tr", { key: user.username }, [
-                      _c("td", [
-                        _vm._v(
-                          "\n\t\t\t\t\t" +
-                            _vm._s(user.name) +
-                            " " +
-                            _vm._s(user.last_name) +
-                            "\n\t\t\t\t"
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.email))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(user.username))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(user.email_verified_at != null ? "Si" : "No")
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "btn btn-outline-primary btn-acction border-0 p-0",
-                              attrs: { title: "Editar" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.showModal(user.username)
-                                },
-                              },
-                            },
-                            [_c("box-icon", { attrs: { name: "edit-alt" } })],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm.$page.props.auth.role == "su_admin"
-                            ? _c(
-                                "inertia-link",
-                                {
-                                  staticClass:
-                                    "btn btn-outline-primary btn-acction border-0 p-0",
-                                  attrs: {
-                                    title: "Ver Pagos",
-                                    href:
-                                      "/admin/matriculas/usuario/" +
-                                      user.username,
-                                  },
-                                },
-                                [_c("box-icon", { attrs: { name: "note" } })],
-                                1
-                              )
-                            : _vm._e(),
-                        ],
-                        1
-                      ),
-                    ])
-                  }),
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("nav", { attrs: { "aria-label": "..." } }, [
-                _c(
-                  "ul",
-                  { staticClass: "pagination" },
-                  _vm._l(_vm.linksToPages, function (link) {
-                    return _c(
-                      "li",
-                      {
-                        key: link.label,
-                        staticClass: "page-item",
-                        class: !link.active
-                          ? link.url == null
-                            ? "page-item disabled"
-                            : "page-item"
-                          : "page-item active",
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "page-link",
-                            attrs: { href: "#", tabindex: "-1" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.loadUsers(link.url)
-                              },
-                            },
-                          },
-                          [
-                            _c("div", {
-                              domProps: { innerHTML: _vm._s(link.label) },
-                            }),
-                          ]
-                        ),
-                      ]
-                    )
-                  }),
-                  0
-                ),
-              ]),
-            ],
-            1
+              )
+            }),
+            0
           ),
+        ]),
+      ]),
       _vm._v(" "),
       _vm.isModalVisible
         ? _c("change-role-modal", {
@@ -860,7 +833,24 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Nombre usuario")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("e-mail verificado?")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Acciones")]),
+    ])
+  },
+]
 render._withStripped = true
 
 

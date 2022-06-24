@@ -1,20 +1,17 @@
 <template>
-<div id="adminCourses">
+<div id="adminCourses" :class="{ 'disabled': loading }">
   <AppHead :title="'Admin | Cursos (Local)'" />
+  <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :position="'fixed'" :width="'100%'" :height="'100%'" v-if="loading"></loading-component>
   <h2>
       Administración de cursos (Local)
   </h2>
   <p>En este apartado simplemente puede observar la información básica de los cursos, además de establecer como destacado. 
     Si desea modificar la información de los cursos debe hacerlo desde Moodle.
   </p>
-  <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='setting'>
-  <loading-component v-if="loadingInit"></loading-component>
-  <div class="container" v-else>
-    <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" v-if="setting"></loading-component>
+  <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='loading'>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Id</th>
           <th scope="col">Nombre</th>
           <th scope="col">Nombre Corto</th>
           <th scope="col">Categoria</th>
@@ -23,7 +20,6 @@
       </thead>
       <tbody>
         <tr v-for="course in courses" v-bind:key="course.id">
-          <th scope="row">{{ course.id }}</th>
           <td>
             {{ course.fullname }}
           </td>
@@ -31,9 +27,9 @@
           <td>{{ course.category }}</td>
           <td>{{ course.destacado == '1'?'Si':'No' }}</td>
           <td>
-            <button @click.prevent="setDestacado(course.shortname, !course.destacado)" :disabled="setting"
+            <button @click.prevent="setDestacado(course.shortname, !course.destacado)" :disabled="loading"
               :class="course.destacado == 1 ? 'btn btn-outline-danger btn-acction' : 'btn btn-outline-primary btn-acction'">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="setting"></span>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
               {{ course.destacado == 1 ? 'No Destacar':'Destacar' }}
             </button>
           </td>
@@ -51,7 +47,6 @@
       </ul>
     </nav>
   </div>
-</div>
 </template>
 
 <script>
@@ -66,10 +61,8 @@ export default {
   data(){
     return{
       courses: [],
-      loadingInit: true,
-      setting: false,
-      loading:false,
       linksToPages: [],
+      loading:true,
       searchTerm: "",
       baseUrl: '/api/admin/cursos-local',
     }
@@ -79,7 +72,6 @@ export default {
     this.debouncedGetAnswer = _.debounce(this.loadCourses, 500);
   },
   watch: {
-    // whenever question changes, this function will run
     searchTerm: function (newQuestion, oldQuestion) {
       this.debouncedGetAnswer();
     },
@@ -87,10 +79,9 @@ export default {
   methods:{
     loadCourses(url=this.baseUrl){
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
-        this.setting = true;
+        this.loading = true;
         axios.get(url,{params:{search:this.searchTerm}}).then(response => {
-          this.setting = false;
-          this.loadingInit = false;
+          this.loading = false;
           this.linksToPages = response.data.links;
           this.courses = response.data.data;
         }).catch(
@@ -105,15 +96,15 @@ export default {
       }
     },
     setDestacado(shortname,destacado){
-      this.setting = true;
-      axios.post('/api/admin/cursos-local/destacado', {id: shortname, destacado:destacado}).then(response => {
-        this.setting = false;
+      this.loading = true;
+      axios.post(this.baseUrl+'/destacado', {id: shortname, destacado:destacado}).then(response => {
+        this.loading = false;
         this.loadCourses();
       }).catch(
         error => {
-          this.setting = false;
+          this.loading = false;
           this.$toast.open({
-            message: 'Error',
+            message: 'Error al configurar',
             type: 'error',
             duration: 5000
           });
@@ -125,10 +116,4 @@ export default {
 </script>
 
 <style scoped>
-.container{
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

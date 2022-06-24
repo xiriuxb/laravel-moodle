@@ -1,13 +1,12 @@
 <template>
-  <div id="adminMatriculasPendientes">
+  <div id="adminMatriculasPendientes" :class="{ 'disabled': loading }">
     <AppHead :title="'Admin | Matriculas Pendientes'" />
+    <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="loading">
+      </loading-component>
     <h2>
       Administración de matrículas pendientes
     </h2>
-    <loading-component v-if="loadingInit"></loading-component>
-    <div class="container" v-else>
-      <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="setting">
-      </loading-component>
+    <div class="container">
       <table class="table">
         <thead>
           <tr>
@@ -25,7 +24,7 @@
               {{ matricula.user.name + ' ' + matricula.user.last_name }}
             </td>
             <td>{{ matricula.cursos.fullname }}</td>
-            <td>({{ matricula.pago.amount }})<a href="#" class="text-cyan-600 hover:underline cursor-pointer"
+            <td>($ {{ matricula.pago.amount }})<a href="#" class="text-cyan-600 hover:underline cursor-pointer"
                 @click="openModalImage(matricula.pago.id)">Ver</a></td>
             <td>
               <div class="d-flex flex-row">
@@ -62,8 +61,7 @@ export default {
       pagoSeleccionado: null,
       showPagoModal: false,
       matriculas: [],
-      loadingInit: true,
-      setting: false,
+      loading: true,
       searchTerm: "",
       baseUrl: '/api/admin/matriculas/pendientes',
     }
@@ -73,14 +71,14 @@ export default {
   },
   methods: {
     loadMatriculas(url = this.baseUrl) {
-      this.loadingInit = true;
+      this.loading = true;
       axios.get(url).then(response => {
-        this.loadingInit = false;
+        this.loading = false;
         this.linksToPages = response.data.links;
         this.matriculas = response.data.matriculas;
       }).catch(
         error => {
-          this.loadingInit = false;
+          this.loading = false;
           this.$toast.open({
             message: 'Error al cargar',
             type: 'error',
@@ -94,9 +92,9 @@ export default {
       this.showPagoModal = true;
     },
     updateMatricula(matricula_id, estado) {
-      this.setting = true;
+      this.loading = true;
       axios.put(this.baseUrl,{matricula_id:matricula_id,estado:estado}).then(response => {
-        this.setting = false;
+        this.loading = false;
         this.$toast.open({
           message: response.data.matricula,
           type: 'success',
@@ -105,7 +103,7 @@ export default {
         this.loadMatriculas();
       }).catch(
         error => {
-          this.setting = false,
+          this.loading = false,
           this.$toast.open({
             message: 'Error al actualizar',
             type: 'error',

@@ -227,4 +227,9 @@ export default {
 ::v-deep .modal-header {
 	padding: 10px 10px;
 }
+
+::v-deep .disabled {
+	pointer-events: none;
+	cursor: not-allowed;
+}
 </style>

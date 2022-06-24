@@ -1,6 +1,8 @@
 <template>
-    <div>
+    <div :class="{ 'disabled': loading }">
         <AppHead :title="'Admin | Imágenes del sitio'" />
+        <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="loading">
+      </loading-component>
         <h2>Administración de imágenes</h2>
         <div class="form-group">
             <label for="favicon">Icono:</label>
@@ -46,8 +48,12 @@
 </template>
 <script>
 import Admin from "../views/Admin.vue";
+import LoadingComponent from '../../components/LoadingComponent.vue';
 export default {
     layout: Admin,
+    components:{
+        LoadingComponent
+    },
     data() {
         return {
             loading: false,
@@ -56,7 +62,8 @@ export default {
             caratula: null,
             logo: null,
             default_course_image: null,
-            login_view: null
+            login_view: null,
+            baseUrl:"/api/admin/images"
         }
     },
     methods: {
@@ -65,7 +72,7 @@ export default {
             this.loading = true;
             let formData = new FormData();
             formData.append('favicon', this.favicon);
-            axios.post('/api/admin/images/favicon', formData).then(res => {
+            axios.post(`${this.baseUrl}/favicon`, formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Icono actualizado', type: 'success', duration: 5000 });
             }).catch(err => {
@@ -78,7 +85,7 @@ export default {
             this.errors = [];
             this.loading = true;
             let formData = this.makeFormData(nombre_imagen, file)
-            axios.post('/api/admin/images', formData).then(res => {
+            axios.post(this.baseUrl, formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Actualizado correctamente', type: 'success', duration: 5000 });
             }).catch(err => {

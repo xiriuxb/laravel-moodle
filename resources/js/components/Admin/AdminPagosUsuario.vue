@@ -1,34 +1,33 @@
 <template>
     <div>
+        <loading-component v-if="loading" :width="'100%'" :backgroundColor="'rgb(0 0 0 / 29%)'" :height="'100%'" :position="'fixed'"></loading-component>
         <AppHead :title="'Admin | Matriculas/Pagos'" />
         <h2>
             Administración de matrículas/pagos
         </h2>
-        <div class="modal-body">
-            <div>
-                <h3>Usuario: {{ user }}</h3>
-            </div>
-            <table class="table">
-                <tr>
-                    <th>Curso</th>
-                    <th>Estado</th>
-                    <th>Costo</th>
-                    <th>Pago</th>
-                    <th>Imagen</th>
-                    <th>Fecha</th>
-                </tr>
-                <tr v-for="matricula in matriculas.data" :key="matricula.id">
-                    <td>{{ matricula.cursos.fullname }}</td>
-                    <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer"
-                            @click="openModalEstado(matricula)">{{ matricula.estado_matricula.nombre }}</a></td>
-                    <td>{{ matricula.pago?matricula.pago.amount:'Gratuito' }}</td>
-                    <td>{{ matricula.pago?matricula.pago.payment_id:'Gratuito' }}</td>
-                    <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-if="matricula.pago"
-                            @click="openModalImage(matricula.pago.id)">{{ matricula.pago.file }}</a></td>
-                    <td>{{ matricula.created_at.substring(0, matricula.created_at.indexOf("T")) }}</td>
-                </tr>
-            </table>
+        <div>
+            <h3>Usuario: {{ user }}</h3>
         </div>
+        <table class="table">
+            <tr>
+                <th>Curso</th>
+                <th>Estado</th>
+                <th>Costo</th>
+                <th>Pago</th>
+                <th>Imagen</th>
+                <th>Fecha</th>
+            </tr>
+            <tr v-for="matricula in matriculas.data" :key="matricula.id">
+                <td>{{ matricula.cursos.fullname }}</td>
+                <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" :class="loading?'disabled':''"
+                        @click="openModalEstado(matricula)">{{ matricula.estado_matricula.nombre }}</a></td>
+                <td>{{ matricula.pago ? matricula.pago.amount : 'Gratuito' }}</td>
+                <td>{{ matricula.pago ? matricula.pago.payment_id : 'Gratuito' }}</td>
+                <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-if="matricula.pago" :class="loading?'disabled':''"
+                        @click="openModalImage(matricula.pago.id)">{{ matricula.pago.file }}</a></td>
+                <td>{{ matricula.created_at.substring(0, matricula.created_at.indexOf("T")) }}</td>
+            </tr>
+        </table>
         <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item"
@@ -42,7 +41,8 @@
         </nav>
         <ver-pago-modal v-if="showPagoModal" @close="showPagoModal = false" :pago_id="pagoSeleccionado">
         </ver-pago-modal>
-        <CambiarEstadoMatriculaModalVue v-if="showEstadoModal" @close="showEstadoModal = false" :matricula="matriculaSeleccionada">
+        <CambiarEstadoMatriculaModalVue v-if="showEstadoModal" @close="showEstadoModal = false"
+            :matricula="matriculaSeleccionada">
         </CambiarEstadoMatriculaModalVue>
     </div>
 </template>
@@ -50,12 +50,15 @@
 import VerPagoModal from '../Admin/Modals/VerPagoModal.vue';
 import Admin from '../views/Admin.vue'
 import CambiarEstadoMatriculaModalVue from './Modals/CambiarEstadoMatriculaModal.vue'
+import LoadingComponent from '../LoadingComponent.vue';
+import { Inertia } from '@inertiajs/inertia'
 export default {
     layout: Admin,
     components: {
-    VerPagoModal,
-    CambiarEstadoMatriculaModalVue
-},
+        VerPagoModal,
+        CambiarEstadoMatriculaModalVue,
+        LoadingComponent
+    },
     props: {
         matriculas: {
             type: Object,
@@ -64,6 +67,9 @@ export default {
         user: {
             type: String,
             required: true
+        },
+        username: {
+            type: String
         }
     },
     data() {
@@ -72,6 +78,7 @@ export default {
             pagoSeleccionado: null,
             showEstadoModal: false,
             matriculaSeleccionada: null,
+            loading: false,
         }
     },
     methods: {
@@ -82,6 +89,10 @@ export default {
         openModalEstado(seleccionado) {
             this.matriculaSeleccionada = seleccionado;
             this.showEstadoModal = true;
+        },
+        reloadPagos() {
+            this.loading = true;
+            Inertia.visit(`/admin/matriculas/usuario/${this.username}`, { method: 'get', only: ['matriculas'] })
         }
     }
 }

@@ -1,16 +1,16 @@
 <template>
-  <div id="adminCMoodle">
+  <div id="adminCMoodle" :class="{ 'disabled': loading }">
+    <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="loading"></loading-component>
     <AppHead :title="'Admin | Cursos (Moodle)'" />
     <h2>Administración de cursos (Moodle)</h2>
     <p>
       En este apartado simplemente puede observar la información básica de los
       cursos de Moodle, además de importarlos a la base de la app Octavario. Si
       desea modificar la información de los cursos debe hacerlo desde Moodle.
+      Al actualizarse un curso, éste se quita de la lista de destacados.
     </p>
     <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='loading'>
-    <loading-component v-if="loadingInit"></loading-component>
-    <div class="container" v-else>
-      <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" v-if="loading"></loading-component>
+    <div class="container">
       <table class="table">
         <thead>
           <tr>
@@ -27,13 +27,13 @@
             </td>
             <td>{{ course.shortname }}</td>
             <td>
-              <button @click.prevent="importar(course.shortname)" :disabled="setting" :class=" course.destacado == 1? 'btn btn-outline-danger btn-acction' : 'btn btn-outline-primary btn-acction'">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="setting"></span>
+              <button @click.prevent="importar(course.shortname)" :disabled="loading" :class=" course.destacado == 1? 'btn btn-outline-danger btn-acction' : 'btn btn-outline-primary btn-acction'">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 Importar/Actualizar
               </button>
             </td>
             <td>
-              <button class="btn btn-primary" :disabled="setting" @click.prevent="redirectToMoodle(course.shortname)">
+              <button class="btn btn-primary" :disabled="loading" @click.prevent="redirectToMoodle(course.shortname)">
                 <box-icon class="align-middle" name="link-external" color="#fff"></box-icon>
               </button>
             </td>
@@ -65,9 +65,7 @@ export default {
   data() {
     return {
       courses: [],
-      loadingInit: true,
       loading:false,
-      setting: false,
       baseCursosUrl: "/api/admin/cursos-moodle",
       linksToPages: [],
       searchTerm: "",
@@ -78,7 +76,6 @@ export default {
     this.debouncedGetAnswer = _.debounce(this.getCourses, 500);
   },
   watch: {
-    // whenever question changes, this function will run
     searchTerm: function (newQuestion, oldQuestion) {
       this.debouncedGetAnswer();
     },
@@ -97,7 +94,7 @@ export default {
           .then((response) => {
             this.courses = response.data.data;
             this.linksToPages = response.data.links;
-            this.loadingInit = this.loading = false;
+            this.loading = false;
           })
           .catch((error) => {
             this.$toast.open({
@@ -109,11 +106,11 @@ export default {
       }
     },
     importar(id) {
-      this.setting = true;
+      this.loading = true;
       axios
         .post("/api/admin/cursos-local/importar", { shortname: id })
         .then((response) => {
-          this.setting = false;
+          this.loading = false;
           this.$toast.open({
             message: "Curso importados correctamente",
             type: "success",
@@ -121,7 +118,7 @@ export default {
           });
         })
         .catch((error) => {
-          this.setting = false;
+          this.loading = false;
           this.$toast.open({
             message: "Error al importar el curso",
             type: "error",
@@ -139,10 +136,4 @@ export default {
 </script>
 
 <style scoped>
-.container{
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-}
 </style>

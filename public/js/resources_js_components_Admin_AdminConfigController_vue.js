@@ -50,6 +50,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -60,12 +61,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      loadingInit: true,
       form: [],
       selected: null,
       editMode: false,
       selectedValue: null,
-      loading: false
+      loading: true
     };
   },
   created: function created() {
@@ -77,9 +77,9 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/admin/site-config").then(function (response) {
         _this.form = response.data;
-        _this.loadingInit = false;
+        _this.loading = false;
       })["catch"](function (error) {
-        _this.loadingInit = false;
+        _this.loading = false;
 
         _this.$toast.open({
           message: 'Error al cargar',
@@ -246,9 +246,20 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "adminConfig" } },
+    { class: { disabled: _vm.loading }, attrs: { id: "adminConfig" } },
     [
       _c("AppHead", { attrs: { title: "Admin | Configuraciones" } }),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("loading-component", {
+            attrs: {
+              backgroundColor: "rgb(0 0 0 / 29%)",
+              width: "100%",
+              height: "100%",
+              position: "fixed",
+            },
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("h2", [_vm._v("\n        Configuraciones del sitio,\n    ")]),
       _vm._v(" "),
@@ -258,116 +269,111 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _vm.loadingInit
-        ? _c("loading-component")
-        : _c(
-            "form",
-            { attrs: { action: "" } },
-            _vm._l(_vm.form, function (variable) {
-              return _c(
-                "div",
-                {
-                  key: variable.name,
-                  staticClass: "form-group d-flex items-center",
+      _c(
+        "form",
+        { attrs: { action: "" } },
+        _vm._l(_vm.form, function (variable) {
+          return _c(
+            "div",
+            {
+              key: variable.name,
+              staticClass: "form-group d-flex items-center",
+            },
+            [
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v(_vm._s(variable.campo)),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: variable.value,
+                    expression: "variable.value",
+                  },
+                ],
+                ref: variable.name,
+                refInFor: true,
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  disabled: _vm.selected != variable.name,
                 },
-                [
-                  _c("label", { attrs: { for: "" } }, [
-                    _vm._v(_vm._s(variable.campo)),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: variable.value,
-                        expression: "variable.value",
-                      },
-                    ],
-                    ref: variable.name,
-                    refInFor: true,
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      disabled: _vm.selected != variable.name,
-                    },
-                    domProps: { value: variable.value },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(variable, "value", $event.target.value)
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _vm.editMode && _vm.selected == variable.name
-                    ? _c(
-                        "div",
-                        { staticClass: "d-flex", attrs: { id: "actions" } },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "btn btn-outline-primary btn-acction border-0 p-0",
-                              attrs: {
-                                disabled: _vm.loadingInit,
-                                title: "Guardar",
-                              },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.onClickSave(
-                                    variable.config_key,
-                                    variable.value,
-                                    variable.name
-                                  )
-                                },
-                              },
-                            },
-                            [_c("box-icon", { attrs: { name: "save" } })],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "btn btn-outline-primary btn-acction border-0 p-0",
-                              attrs: { title: "Cancelar" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.onClickCancel()
-                                },
-                              },
-                            },
-                            [_c("box-icon", { attrs: { name: "x" } })],
-                            1
-                          ),
-                        ]
-                      )
-                    : _c(
+                domProps: { value: variable.value },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(variable, "value", $event.target.value)
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _vm.editMode && _vm.selected == variable.name
+                ? _c(
+                    "div",
+                    { staticClass: "d-flex", attrs: { id: "actions" } },
+                    [
+                      _c(
                         "button",
                         {
-                          staticClass: " btn-acction",
-                          attrs: { disabled: _vm.loading, title: "Editar" },
+                          staticClass:
+                            "btn btn-outline-primary btn-acction border-0 p-0",
+                          attrs: { disabled: _vm.loading, title: "Guardar" },
                           on: {
                             click: function ($event) {
-                              return _vm.onClickEdit(variable.name)
+                              return _vm.onClickSave(
+                                variable.config_key,
+                                variable.value,
+                                variable.name
+                              )
                             },
                           },
                         },
-                        [_c("box-icon", { attrs: { name: "edit-alt" } })],
+                        [_c("box-icon", { attrs: { name: "save" } })],
                         1
                       ),
-                ]
-              )
-            }),
-            0
-          ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-outline-primary btn-acction border-0 p-0",
+                          attrs: { title: "Cancelar" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.onClickCancel()
+                            },
+                          },
+                        },
+                        [_c("box-icon", { attrs: { name: "x" } })],
+                        1
+                      ),
+                    ]
+                  )
+                : _c(
+                    "button",
+                    {
+                      staticClass: " btn-acction",
+                      attrs: { disabled: _vm.loading, title: "Editar" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.onClickEdit(variable.name)
+                        },
+                      },
+                    },
+                    [_c("box-icon", { attrs: { name: "edit-alt" } })],
+                    1
+                  ),
+            ]
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
-      !_vm.loadingInit
+      !_vm.loading
         ? _c(
             "button",
             {

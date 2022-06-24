@@ -12,6 +12,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _views_Admin_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../views/Admin.vue */ "./resources/js/components/views/Admin.vue");
+/* harmony import */ var _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/LoadingComponent.vue */ "./resources/js/components/LoadingComponent.vue");
+//
+//
 //
 //
 //
@@ -59,8 +62,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _views_Admin_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  components: {
+    LoadingComponent: _components_LoadingComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       loading: false,
@@ -69,7 +76,8 @@ __webpack_require__.r(__webpack_exports__);
       caratula: null,
       logo: null,
       default_course_image: null,
-      login_view: null
+      login_view: null,
+      baseUrl: "/api/admin/images"
     };
   },
   methods: {
@@ -80,7 +88,7 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       var formData = new FormData();
       formData.append('favicon', this.favicon);
-      axios.post('/api/admin/images/favicon', formData).then(function (res) {
+      axios.post("".concat(this.baseUrl, "/favicon"), formData).then(function (res) {
         _this.loading = false;
 
         _this.$toast.open({
@@ -105,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = [];
       this.loading = true;
       var formData = this.makeFormData(nombre_imagen, file);
-      axios.post('/api/admin/images', formData).then(function (res) {
+      axios.post(this.baseUrl, formData).then(function (res) {
         _this2.loading = false;
 
         _this2.$toast.open({
@@ -287,8 +295,20 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { class: { disabled: _vm.loading } },
     [
       _c("AppHead", { attrs: { title: "Admin | Imágenes del sitio" } }),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("loading-component", {
+            attrs: {
+              backgroundColor: "rgb(0 0 0 / 29%)",
+              width: "100%",
+              height: "100%",
+              position: "fixed",
+            },
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("h2", [_vm._v("Administración de imágenes")]),
       _vm._v(" "),

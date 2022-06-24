@@ -79,9 +79,12 @@ export default {
           type: 'success',
           duration: 5000
         });
+        this.$emit('close');
+        this.$parent.reloadPagos();
       }).catch(
         error => {
           this.loading = false,
+          console.log(error)
           this.error = error.response.data.message;
           this.$toast.open({
             message: 'Error al actualizar',

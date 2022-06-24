@@ -1,6 +1,8 @@
 <template>
-    <div id="adminConfig">
+    <div id="adminConfig" :class="{ 'disabled': loading }">
         <AppHead :title="'Admin | Configuraciones'" />
+        <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="loading">
+      </loading-component>
         <h2>
             Configuraciones del sitio,
         </h2>
@@ -8,14 +10,13 @@
             Por favor, si no sabe lo que hace no edite nada. Para que los cambios se vean reflejados, debe presionar el boton de actualizar. 
             En ese caso la caché sel servidor será recargada, por lo tanto las sesiones activas se cerrarán. ¡Tenga Cuidado!
         </p>
-        <loading-component v-if="loadingInit"></loading-component>
-        <form v-else action="">
+        <form action="">
             <div v-for="variable in form" :key="variable.name" class="form-group d-flex items-center">
                 <label for="">{{ variable.campo }}</label>
                 <input type="text" class="form-control" :ref="variable.name" v-model="variable.value"
                     :disabled="selected != variable.name" />
                 <div id="actions" v-if="editMode && selected == variable.name" class="d-flex">
-                    <button :disabled="loadingInit" class="btn btn-outline-primary btn-acction border-0 p-0" title="Guardar"
+                    <button :disabled="loading" class="btn btn-outline-primary btn-acction border-0 p-0" title="Guardar"
                         @click="onClickSave(variable.config_key, variable.value, variable.name)">
                         <box-icon name="save"></box-icon>
                     </button>
@@ -29,7 +30,7 @@
                 </button>
             </div>
         </form>
-        <button v-if="!loadingInit" :disabled="loading" class="btn btn-primary" @click="updateConfig()">
+        <button v-if="!loading" :disabled="loading" class="btn btn-primary" @click="updateConfig()">
         <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Actualizar configuración
         </button>
@@ -46,12 +47,11 @@ export default {
     },
     data() {
         return {
-            loadingInit: true,
             form: [],
             selected: null,
             editMode: false,
             selectedValue: null,
-            loading: false
+            loading: true
         }
     },
     created() {
@@ -61,10 +61,10 @@ export default {
         loadVars() {
             axios.get("/api/admin/site-config").then(response => {
                 this.form = response.data;
-                this.loadingInit = false;
+                this.loading = false;
             }).catch(
                 error => {
-                    this.loadingInit = false;
+                    this.loading = false;
                     this.$toast.open({
                         message: 'Error al cargar',
                         type: 'error',

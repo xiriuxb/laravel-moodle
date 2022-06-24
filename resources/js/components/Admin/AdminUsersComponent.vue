@@ -1,11 +1,11 @@
 <template>
-	<div id="adminUsers" class="adminView">
+	<div id="adminUsers" :class="{ 'disabled': loading }">
 		<AppHead :title="'Admin | Usuarios'" />
-		<h2>Administración de usuarios</h2>
-		<loading-component v-if="loadingInit"></loading-component>
-		<div class="container" v-else>
-			<loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" v-if="setting">
-			</loading-component>
+		<loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'"
+			v-if="setting">
+			<h2>Administración de usuarios</h2>
+		</loading-component>
+		<div class="container">
 			<form class="input-group mb-3" :disabled='setting'>
 				<div>
 					<label><input type="checkbox" v-model="usersDeleted" name="deletedFilter"
@@ -97,7 +97,7 @@ export default {
 	},
 	data() {
 		return {
-			loadingInit: true,
+			loading: true,
 			roles: [],
 			users: [],
 			linksToPages: [],
@@ -119,11 +119,11 @@ export default {
 			axios.get(url, { params: { role: this.role, keyword: this.search, deleted: this.usersDeleted, suspended: this.usersSuspended } }).then((response) => {
 				this.users = response.data.data;
 				this.linksToPages = response.data.links;
-				this.loadingInit = false;
+				this.loading = false;
 				this.setting = false;
 				this.totalResultados = response.data.total;
 			}).catch((error) => {
-				this.loadingInit = false;
+				this.loading = false;
 				this.setting = false;
 				this.$toast.open({
 					message: 'Error al cargar',
@@ -155,12 +155,5 @@ export default {
 <style scoped>
 #adminUsers {
 	font-size: small;
-}
-
-.container {
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	align-items: center;
 }
 </style>

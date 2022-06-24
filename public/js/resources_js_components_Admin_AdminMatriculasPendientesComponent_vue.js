@@ -61,7 +61,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -76,8 +75,7 @@ __webpack_require__.r(__webpack_exports__);
       pagoSeleccionado: null,
       showPagoModal: false,
       matriculas: [],
-      loadingInit: true,
-      setting: false,
+      loading: true,
       searchTerm: "",
       baseUrl: '/api/admin/matriculas/pendientes'
     };
@@ -90,13 +88,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseUrl;
-      this.loadingInit = true;
+      this.loading = true;
       axios.get(url).then(function (response) {
-        _this.loadingInit = false;
+        _this.loading = false;
         _this.linksToPages = response.data.links;
         _this.matriculas = response.data.matriculas;
       })["catch"](function (error) {
-        _this.loadingInit = false;
+        _this.loading = false;
 
         _this.$toast.open({
           message: 'Error al cargar',
@@ -112,12 +110,12 @@ __webpack_require__.r(__webpack_exports__);
     updateMatricula: function updateMatricula(matricula_id, estado) {
       var _this2 = this;
 
-      this.setting = true;
+      this.loading = true;
       axios.put(this.baseUrl, {
         matricula_id: matricula_id,
         estado: estado
       }).then(function (response) {
-        _this2.setting = false;
+        _this2.loading = false;
 
         _this2.$toast.open({
           message: response.data.matricula,
@@ -127,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.loadMatriculas();
       })["catch"](function (error) {
-        _this2.setting = false, _this2.$toast.open({
+        _this2.loading = false, _this2.$toast.open({
           message: 'Error al actualizar',
           type: 'error',
           duration: 5000
@@ -466,154 +464,133 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "adminMatriculasPendientes" } },
+    {
+      class: { disabled: _vm.loading },
+      attrs: { id: "adminMatriculasPendientes" },
+    },
     [
       _c("AppHead", { attrs: { title: "Admin | Matriculas Pendientes" } }),
       _vm._v(" "),
+      _vm.loading
+        ? _c("loading-component", {
+            attrs: {
+              backgroundColor: "rgb(0 0 0 / 29%)",
+              width: "100%",
+              height: "100%",
+              position: "fixed",
+            },
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c("h2", [_vm._v("\n    Administración de matrículas pendientes\n  ")]),
       _vm._v(" "),
-      _vm.loadingInit
-        ? _c("loading-component")
-        : _c(
-            "div",
-            { staticClass: "container" },
-            [
-              _vm.setting
-                ? _c("loading-component", {
-                    attrs: {
-                      backgroundColor: "rgb(0 0 0 / 29%)",
-                      width: "100%",
-                      height: "100%",
-                      position: "fixed",
-                    },
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("table", { staticClass: "table" }, [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("Fecha")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Usuario")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Curso")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Pago")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Acciones")]),
-                  ]),
+      _c("div", { staticClass: "container" }, [
+        _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.matriculas, function (matricula) {
+              return _c("tr", { key: matricula.id }, [
+                _c("td", [
+                  _vm._v(
+                    _vm._s(
+                      matricula.pago.created_at.substring(
+                        0,
+                        matricula.pago.created_at.indexOf("T")
+                      )
+                    )
+                  ),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.matriculas, function (matricula) {
-                    return _c("tr", { key: matricula.id }, [
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(
-                            matricula.pago.created_at.substring(
-                              0,
-                              matricula.pago.created_at.indexOf("T")
-                            )
-                          )
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n            " +
-                            _vm._s(
-                              matricula.user.name +
-                                " " +
-                                matricula.user.last_name
-                            ) +
-                            "\n          "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(matricula.cursos.fullname))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v("(" + _vm._s(matricula.pago.amount) + ")"),
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "text-cyan-600 hover:underline cursor-pointer",
-                            attrs: { href: "#" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.openModalImage(matricula.pago.id)
-                              },
-                            },
+                _c("td", [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(
+                        matricula.user.name + " " + matricula.user.last_name
+                      ) +
+                      "\n          "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(matricula.cursos.fullname))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v("($ " + _vm._s(matricula.pago.amount) + ")"),
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "text-cyan-600 hover:underline cursor-pointer",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.openModalImage(matricula.pago.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Ver")]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("div", { staticClass: "d-flex flex-row" }, [
+                    _vm.setting
+                      ? _c("span", {
+                          staticClass: "spinner-border spinner-border-sm",
+                          attrs: { role: "status", "aria-hidden": "true" },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-primary btn-sm",
+                        attrs: { tooltip: "Aceptar" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.updateMatricula(matricula.id, 1)
                           },
-                          [_vm._v("Ver")]
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "d-flex flex-row" }, [
-                          _vm.setting
-                            ? _c("span", {
-                                staticClass: "spinner-border spinner-border-sm",
-                                attrs: {
-                                  role: "status",
-                                  "aria-hidden": "true",
-                                },
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-primary btn-sm",
-                              attrs: { tooltip: "Aceptar" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.updateMatricula(matricula.id, 1)
-                                },
-                              },
-                            },
-                            [
-                              _c("box-icon", {
-                                staticClass: "fill-blue-800",
-                                attrs: { name: "check" },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-danger btn-sm",
-                              attrs: { tooltip: "Rechazar" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.updateMatricula(matricula.id, 2)
-                                },
-                              },
-                            },
-                            [
-                              _c("box-icon", {
-                                staticClass: "fill-red-600",
-                                attrs: { name: "x" },
-                              }),
-                            ],
-                            1
-                          ),
-                        ]),
-                      ]),
-                    ])
-                  }),
-                  0
-                ),
-              ]),
-            ],
-            1
+                        },
+                      },
+                      [
+                        _c("box-icon", {
+                          staticClass: "fill-blue-800",
+                          attrs: { name: "check" },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger btn-sm",
+                        attrs: { tooltip: "Rechazar" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.updateMatricula(matricula.id, 2)
+                          },
+                        },
+                      },
+                      [
+                        _c("box-icon", {
+                          staticClass: "fill-red-600",
+                          attrs: { name: "x" },
+                        }),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+              ])
+            }),
+            0
           ),
+        ]),
+      ]),
       _vm._v(" "),
       _vm.showPagoModal
         ? _c("ver-pago-modal", {
@@ -629,7 +606,26 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Curso")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pago")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Acciones")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 

@@ -32,7 +32,6 @@ export default {
   },
   data() {
     return {
-      image: '',
       loading: true,
     };
   },

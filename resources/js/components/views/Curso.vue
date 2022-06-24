@@ -53,7 +53,7 @@ export default {
       return this.$page.props.siteData.moodleUrl;
     },
     image() {
-      return this.curso.image?this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename:'/images/default_course_image.png';
+      return this.curso.image?this.curso.image:'/images/default_course_image.png';
     },
   },
   methods: {

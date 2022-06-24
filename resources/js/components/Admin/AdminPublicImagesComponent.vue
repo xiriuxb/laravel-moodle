@@ -2,33 +2,43 @@
     <div>
         <AppHead :title="'Admin | Imágenes del sitio'" />
         <h2>Administración de imágenes</h2>
-        <div class="form-grup">
-            <div v-if="this.errors.favicon != null" class="alert alert-danger">
-                {{ this.errors.favicon[0] }}
-            </div>
+        <div class="form-group">
             <label for="favicon">Icono:</label>
-            <input type="file" accept=".ico" id="favicon" class="form-control-file" @input = "favicon = $event.target.files[0]" />
+            <input type="file" accept=".ico" id="favicon" class="form-control-file"
+                @input="favicon = $event.target.files[0]" />
             <button class="btn btn-primary" @click.prevent="onSubmitIcon()" :disabled="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 Guardar</button>
         </div>
-        <div class="form-grup">
-            <div v-if="this.errors.caratula != null" class="alert alert-danger">
-                {{ this.errors.caratula[0] }}
-            </div>
+        <div class="form-group">
             <label for="caratula">Carátula:</label>
-            <input type="file" accept=".png,.jpg" id="caratula" class="form-control-file"  @input = "caratula = $event.target.files[0]"/>
-            <button class="btn btn-primary" @click.prevent="onSubmitCaratula()" :disabled="loading">
+            <input type="file" accept=".png,.jpg" id="caratula" class="form-control-file"
+                @input="caratula = $event.target.files[0]" />
+            <button class="btn btn-primary" @click.prevent="onSubmitImage('caratula',caratula)" :disabled="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 Guardar</button>
         </div>
-        <div class="form-grup">
-            <div v-if="this.errors.logo != null" class="alert alert-danger">
-                {{ this.errors.logo[0] }}
-            </div>
+        <div class="form-group">
             <label for="logo">Logo:</label>
-            <input type="file" accept=".png,.jpg" id="logo" class="form-control-file" @input = "logo = $event.target.files[0]" />
-            <button class="btn btn-primary" @click.prevent="onSubmitLogo()" :disabled="loading">
+            <input type="file" accept=".png,.jpg" id="logo" class="form-control-file"
+                @input="logo = $event.target.files[0]" />
+            <button class="btn btn-primary" @click.prevent="onSubmitImage('logo', logo)" :disabled="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
+                Guardar</button>
+        </div>
+        <div class="form-group">
+            <label for="logo">Imagen para cursos sin imagen:</label>
+            <input type="file" accept=".png,.jpg" id="default_course_image" class="form-control-file"
+                @input="default_course_image = $event.target.files[0]" />
+            <button class="btn btn-primary" @click.prevent="onSubmitImage('default_course_image',default_course_image)" :disabled="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
+                Guardar</button>
+        </div>
+        <div class="form-group">
+            <label for="logo">Imagen de la vista de ingreso:</label>
+            <input type="file" accept=".png,.jpg" id="login_view" class="form-control-file"
+                @input="login_view = $event.target.files[0]" />
+            <button class="btn btn-primary" @click.prevent="onSubmitImage('login_view',login_view)" :disabled="loading">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 Guardar</button>
         </div>
@@ -45,54 +55,50 @@ export default {
             favicon: null,
             caratula: null,
             logo: null,
+            default_course_image: null,
+            login_view: null
         }
     },
     methods: {
         onSubmitIcon() {
             this.errors = [];
             this.loading = true;
-            const formData = new FormData();
-            if (this.favicon) formData.append('favicon', this.favicon);
+            let formData = new FormData();
+            formData.append('favicon', this.favicon);
             axios.post('/api/admin/images/favicon', formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Icono actualizado', type: 'success', duration: 5000 });
             }).catch(err => {
                 this.loading = false;
                 this.errors = err.response.data.errors;
-                this.$toast.open({ message: 'Ocurrió un error', type: 'error', duration: 5000 });
+                this.$toast.open({ message: `Error-\n${this.errors.favicon[0]}`, type: 'error', duration: 5000 });
             });
         },
-        onSubmitLogo() {
+        onSubmitImage(nombre_imagen, file) {
             this.errors = [];
             this.loading = true;
-            const formData = new FormData();
-            if (this.logo) formData.append('logo', this.logo);
-            axios.post('/api/admin/images/logo', formData).then(res => {
+            let formData = this.makeFormData(nombre_imagen, file)
+            axios.post('/api/admin/images', formData).then(res => {
                 this.loading = false;
                 this.$toast.open({ message: 'Actualizado correctamente', type: 'success', duration: 5000 });
             }).catch(err => {
                 this.loading = false;
                 this.errors = err.response.data.errors;
-                this.$toast.open({ message: 'Error al actualizar', type: 'error', duration: 5000 });
+                this.$toast.open({ message: `Error-\n${this.errors.imagen[0]}`, type: 'error', duration: 5000 });
             });
         },
-        onSubmitCaratula() {
-            this.errors = [];
-            this.loading = true;
-            const formData = new FormData();
-            if (this.caratula) formData.append('caratula', this.caratula);
-            axios.post('/api/admin/images/caratula', formData).then(res => {
-                this.loading = false;
-                this.$toast.open({ message: 'Actualizado correctamente', type: 'success', duration: 5000 });
-            }).catch(err => {
-                this.loading = false;
-                this.errors = err.response.data.errors;
-                this.$toast.open({ message: 'Error al actualizar', type: 'error', duration: 5000 });
-            });
-        },  
+        makeFormData(nombre_imagen, file) {
+            let formData = new FormData();
+                formData.append('imagen', file);
+                formData.append('image_name', nombre_imagen)
+            return formData;
+        }
     }
 
 }
 </script>
 <style scoped>
+.form-group{
+    border-bottom: solid 1px;
+}
 </style>

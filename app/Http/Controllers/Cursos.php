@@ -15,7 +15,7 @@ class Cursos extends Controller
     {
     }
 
-    private $ELEMENTS_PER_PAGE = 2;
+    private $ELEMENTS_PER_PAGE = 6;
     /**
      *
      * @param  array  $data
@@ -50,8 +50,8 @@ class Cursos extends Controller
             MAX(CASe when (fieldid=3) THEN value end) as precio,
             MAX(CASE when (fieldid=4) then value end) as value
             from mdl_customfield_data GROUP BY instanceid) mdl_cstmfld_dta ON mdl_cstmfld_dta.instanceid = mdl_crse.id
-        INNER JOIN (SELECT id,instanceid from mdl_context WHERE contextlevel = 50) mdl_cntxt ON mdl_cntxt.instanceid = mdl_crse.id
-        INNER JOIN (SELECT contextid, filename from mdl_files where component = 'course' AND  filename <> '.') mdl_fls 
+        LEFT JOIN (SELECT id,instanceid from mdl_context WHERE contextlevel = 50) mdl_cntxt ON mdl_cntxt.instanceid = mdl_crse.id
+        LEFT JOIN (SELECT contextid, filename from mdl_files where component = 'course' AND  filename <> '.') mdl_fls 
         ON mdl_fls.contextid = mdl_cntxt.id" ;
 
         return $baseQuery;

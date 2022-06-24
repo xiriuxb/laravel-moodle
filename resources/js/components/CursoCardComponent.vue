@@ -3,7 +3,7 @@
     <inertia-link class="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
       :href="'/curso/' + curso.shortname">
       <div class="relative pb-48 overflow-hidden">
-        <img class="absolute inset-0 h-full w-full object-cover" v-bind:src="image" alt="Card image cap"
+        <img class="absolute inset-0 h-full w-full object-cover" v-bind:src="image" :alt="'Imagen curso-'+curso.fullname"
           loading="lazy" />
       </div>
       <div class="card-body">
@@ -40,8 +40,8 @@ export default {
     moodleUrl() {
       return this.$page.props.siteData.moodleUrl;
     },
-    imagea() {
-      return this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
+    image() {
+      return this.curso.filename?this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename:'/images/default_course_image.png';
     },
   },
   mounted() {

@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="col-12 col-sm-4 col-md-6 d-flex align-items-center">
-          <img :src="curso.image" alt="" />
+          <img v-bind:src="image" :alt="'Imagen curso-'+curso.fullname" />
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ export default {
       return this.$page.props.siteData.moodleUrl;
     },
     image() {
-      return this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename;
+      return this.curso.image?this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename:'/images/default_course_image.png';
     },
   },
   methods: {

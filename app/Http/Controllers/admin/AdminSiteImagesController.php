@@ -20,19 +20,10 @@ class AdminSiteImagesController extends Controller
         return response()->json(['success' => $imageName]);
     }
 
-    public function storeLogo(Request $request)
-    {
-        $request->validate(['logo' => 'image|sometimes|mimes:png,jpg,jpeg|max:524',]);
-        $imageName = 'logo.'.$request->logo->getClientOriginalExtension();
-        $request->logo->move(public_path('images'), $imageName);
-        return response()->json(['success' => $imageName]);
-    }
-
-    public function storeCaratula(Request $request)
-    {
-        $request->validate(['caratula' => 'image|sometimes|mimes:png,jpg,jpeg|max:1024',]);
-        $imageName = 'caratula.png';
-        $request->caratula->move(public_path('images'), $imageName);
+    public function storeImage(Request $request){
+        $request->validate(['imagen' => 'image|sometimes|mimes:png,jpg,jpeg|max:524',]);
+        $imageName = $request->image_name.'.'.$request->imagen->getClientOriginalExtension();
+        $request->imagen->move(public_path('images'), $imageName);
         return response()->json(['success' => $imageName]);
     }
 }

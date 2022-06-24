@@ -9,7 +9,7 @@
 			<div class="logo">
 				<div class="logo-name">
 					<inertia-link :href="'/'">
-						Octavario (Admin)
+						{{`${appName} (Admin) `}}
 					</inertia-link>
 				</div>
 			</div>
@@ -51,6 +51,11 @@ export default {
 	methods: {
 		sidebarHandler() {
 			this.movedSidebar = !this.movedSidebar;
+		},
+	},
+	computed:{
+		appName(){
+			return this.$page.props.appName;
 		},
 	},
 	errorCaptured() {

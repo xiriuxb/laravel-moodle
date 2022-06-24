@@ -28,8 +28,7 @@ Route::group(['middleware'=>['api']],function(){
         Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole');
         Route::get('/roles', 'App\Http\Controllers\admin\RolesController@index');
         Route::post('/images/favicon', 'App\Http\Controllers\admin\AdminSiteImagesController@storeIcon');
-        Route::post('/images/logo', 'App\Http\Controllers\admin\AdminSiteImagesController@storeLogo');
-        Route::post('/images/caratula', 'App\Http\Controllers\admin\AdminSiteImagesController@storeCaratula');
+        Route::post('/images', 'App\Http\Controllers\admin\AdminSiteImagesController@storeImage');
         Route::get('/site-config', 'App\Http\Controllers\admin\SiteConfigController@index');
         Route::post('/site-config', 'App\Http\Controllers\admin\SiteConfigController@update');
         Route::post('/site-config/update', 'App\Http\Controllers\admin\SiteConfigController@updateConfig');

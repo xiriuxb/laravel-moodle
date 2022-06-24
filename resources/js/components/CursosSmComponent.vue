@@ -1,7 +1,7 @@
 <template>
-  <section class="container" id="comments-sm">
+  <section class="container" id="comments-sm" v-if="visible">
     <h3 class="topico">Cursos Recomendados:</h3>
-    <VueSlickCarousel v-bind="settings" v-if="visible">
+    <VueSlickCarousel v-bind="settings">
       <div v-for="comment in comments2" :key="comment.shortname">
         <img class="card-img-top rounded" :src="comment.file" alt="Imagen del curso">
         <div class="card-body container">
@@ -14,7 +14,6 @@
         </div>
       </div>
     </VueSlickCarousel>
-    <loading-component v-else></loading-component>
   </section>
 
 </template>
@@ -23,10 +22,9 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import LoadingComponent from '../components/LoadingComponent.vue';
 export default {
 
-  components: { VueSlickCarousel, LoadingComponent },
+  components: { VueSlickCarousel },
   methods: {
   },
   data: function () {

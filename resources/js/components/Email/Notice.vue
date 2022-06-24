@@ -61,7 +61,4 @@ export default {
 </script>
 
 <style scoped>
-#back {
-  background-image: url("/images/background.png");
-}
 </style>

@@ -20939,7 +20939,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#commentss[data-v-0ed47be4] {\r\n  width: 90%;\n}\n[data-v-0ed47be4] .slick-track {\r\n  display: flex !important;\n}\n[data-v-0ed47be4] .card-title {\r\n  padding-bottom: 40px\n}\n[data-v-0ed47be4] .slick-list {\r\n  margin-left: 10px !important;\n}\n[data-v-0ed47be4] div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n  display: block;\r\n  padding: 5px;\r\n  height: inherit !important;\r\n  position: relative;\r\n  background-color: rgb(255, 255, 255);\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-clip: border-box;\r\n  border: 1px solid #002e45;\r\n  border-radius: .25rem;\n}\n[data-v-0ed47be4] .slick-arrow {\r\n  position: absolute;\r\n  margin-top: 0;\r\n  cursor: pointer;\r\n  min-width: 20px;\r\n  height: 35px;\r\n  z-index: 10;\r\n  color: transparent;\r\n  background-repeat: no-repeat;\n}\n[data-v-0ed47be4] .slick-arrow.slick-prev::before {\r\n  color: rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-0ed47be4] .slick-arrow.slick-next::before {\r\n  color: rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-0ed47be4] .card .ftr div {\r\n  display: inline-block;\n}\n[data-v-0ed47be4] .slick-slide div div .ftr {\r\n  position: absolute;\r\n  bottom: 25px;\r\n  margin-top: 5px;\n}\n[data-v-0ed47be4] .ftr .author .avatar {\r\n  width: 36px;\r\n  height: 36px;\r\n  overflow: hidden;\r\n  border-radius: 50%;\r\n  margin-right: 5px;\r\n  display: inline-flex;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#commentss[data-v-0ed47be4] {\r\n  width: 90%;\n}\n[data-v-0ed47be4] .slick-track {\r\n  display: flex !important;\n}\n[data-v-0ed47be4] .card-title {\r\n  padding-bottom: 40px\n}\n[data-v-0ed47be4] .slick-list {\r\n  margin-left: 10px !important;\n}\n[data-v-0ed47be4] div.slick-slide {\r\n  height: 100%;\r\n  margin: 5px;\r\n  display: block;\r\n  padding: 5px;\r\n  height: inherit !important;\r\n  position: relative;\r\n  background-color: rgb(255, 255, 255);\r\n  flex-direction: column;\r\n  min-width: 0;\r\n  word-wrap: break-word;\r\n  background-clip: border-box;\r\n  border: 1px solid #002e45;\r\n  border-radius: .25rem;\n}\n[data-v-0ed47be4] .slick-arrow {\r\n  position: absolute;\r\n  margin-top: 0;\r\n  cursor: pointer;\r\n  min-width: 20px;\r\n  height: 35px;\r\n  z-index: 10;\r\n  color: transparent;\r\n  background-repeat: no-repeat;\n}\n[data-v-0ed47be4] .slick-arrow.slick-prev::before {\r\n  color: rgb(71, 71, 71);\r\n  font-size: 30px;\n}\n[data-v-0ed47be4] .slick-arrow.slick-next::before {\r\n  color: rgb(61, 61, 61);\r\n  font-size: 30px;\n}\n[data-v-0ed47be4] .card .ftr div {\r\n  display: inline-block;\n}\n[data-v-0ed47be4] .slick-slide div div .ftr {\r\n  position: absolute;\r\n  bottom: 25px;\r\n  margin-top: 5px;\n}\n[data-v-0ed47be4] .ftr .author .avatar {\r\n  width: 36px;\r\n  height: 36px;\r\n  overflow: hidden;\r\n  border-radius: 50%;\r\n  margin-right: 5px;\r\n  display: inline-flex;\n}\nspan[data-v-0ed47be4]{\r\n  font-weight: bold;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50064,7 +50064,7 @@ var render = function () {
         "section",
         { staticClass: "container", attrs: { id: "commentss" } },
         [
-          _c("h3", { staticClass: "text" }, [
+          _c("h3", { staticClass: "texto" }, [
             _vm._v("Nuestros estudiantes comentan:"),
           ]),
           _vm._v(" "),
@@ -50360,7 +50360,7 @@ var render = function () {
         "section",
         { staticClass: "container", attrs: { id: "comments-sm" } },
         [
-          _c("h3", { staticClass: "topico" }, [_vm._v("Cursos Recomendados:")]),
+          _c("h3", { staticClass: "texto" }, [_vm._v("Cursos Recomendados:")]),
           _vm._v(" "),
           _c(
             "VueSlickCarousel",

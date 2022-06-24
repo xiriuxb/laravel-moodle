@@ -58,7 +58,7 @@ class CursosLocal extends Controller
                         $curso_aux->shortname,
                         $curso_aux->summary,
                         $curso_aux->categoryname,
-                        str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
+                        $curso_aux->overviewfiles == null?'/images/default_course_image.png':str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl),
                         //'destacado' => $json->courses[0]->customfields[3]->value,
                     );
                     $cursos[] = $curso;

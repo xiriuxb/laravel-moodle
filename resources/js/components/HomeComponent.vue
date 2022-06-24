@@ -251,12 +251,11 @@ section.benefits {
 }
 
 ::v-deep .texto {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     font-size: 30px;
 }
 
 .univ-back {
-    background-image: url(/images/university.svg);
     background-position: bottom bottom 45px;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <section class="container" id="comments-sm" v-if="visible">
-    <h3 class="topico">Cursos Recomendados:</h3>
+    <h3 class="texto">Cursos Recomendados:</h3>
     <VueSlickCarousel v-bind="settings">
       <div v-for="comment in comments2" :key="comment.shortname">
         <img class="card-img-top rounded" :src="comment.file" alt="Imagen del curso">

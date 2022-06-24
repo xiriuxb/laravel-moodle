@@ -1,6 +1,6 @@
 <template>
   <section class="container" id="commentss" v-if="visible">
-    <h3 class="text">Nuestros estudiantes comentan:</h3>
+    <h3 class="texto">Nuestros estudiantes comentan:</h3>
     <VueSlickCarousel v-bind="settings">
       <div v-for="comment in comments" :key="comment.id">
         <div class="card-body container">
@@ -153,5 +153,9 @@ export default {
   border-radius: 50%;
   margin-right: 5px;
   display: inline-flex;
+}
+
+span{
+  font-weight: bold;
 }
 </style>

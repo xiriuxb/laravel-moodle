@@ -57,7 +57,7 @@ export default {
     justify-content: center;
     position: relative;
     display: none;
-    background-image: url(/images/AZULbanner2.png);
+    background-image: url(/images/login_view.png);
     background-repeat: repeat-y;
 }
 @media (min-width: 768px){

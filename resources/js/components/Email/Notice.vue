@@ -6,7 +6,7 @@
         <h1 class="font-bold text-4xl text-blue-700">FELICITACIONES</h1>
         <hr />
         <p>Solo queda un paso más para poder acceder a nuestros cursos.</p>
-        <p class="font-bold text-1xl py-2">
+        <p class="font-bold text-2xl py-2">
           Se ha enviado un correo de verificación al email con el que te
           registraste, por favor sigue los pasos indicados en el mismo.
         </p>

@@ -34,7 +34,7 @@ class AdminTestimonioController extends Controller
         $request->validate([
             'autor' => ['required', 'string', 'max:64'],
             'texto' => ['required', 'string', 'max:512'],
-            'file' => ['nullable','sometimes','image', 'max:512','mimes:jpeg,png,jpg'],
+            'file' => ['nullable','sometimes','image', 'max:128','mimes:jpeg,png,jpg'],
         ]);
         $request->is_active = $request->is_active = true? 1 : 0;
         try {

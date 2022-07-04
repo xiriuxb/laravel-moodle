@@ -20,12 +20,12 @@
                         @click="onClickSave(variable.config_key, variable.value, variable.name)">
                         <box-icon name="save"></box-icon>
                     </button>
-                    <button class="btn btn-outline-primary btn-acction border-0 p-0" title="Cancelar"
+                    <button class="btn btn-outline-danger border-0 p-0" title="Cancelar"
                         @click="onClickCancel()">
                         <box-icon name="x"></box-icon>
                     </button>
                 </div>
-                <button :disabled="loading" class=" btn-acction" title="Editar" @click="onClickEdit(variable.name)" v-else>
+                <button :disabled="loading" title="Editar" @click="onClickEdit(variable.name)" v-else>
                     <box-icon name="edit-alt"></box-icon>
                 </button>
             </div>

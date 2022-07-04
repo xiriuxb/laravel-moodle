@@ -53,7 +53,7 @@
       <div class="container">
         <a :disabled="loading" class="btn btn-warning w-full" id="cursos-btn"
           :href="moodleUrl+'login/index.php'">
-          Ingrese a los cursos
+          Ingrese al aula virtual (Moodle)<box-icon name='link-external'></box-icon>
         </a>
       </div>
     </div>
@@ -80,9 +80,6 @@ export default {
     }
   },
   methods: {
-    coursesBtn() {
-      window.location.href = "https://www.academia.octavario.org/login/";
-    },
     loginForm() {
       this.form.post('/vuelogin', {
         onStart: () => (this.loading = true),
@@ -154,5 +151,9 @@ button {
 
 .btn-submit:hover {
   background-color: #d44a0b;
+}
+
+a box-icon{
+  position:fixed;
 }
 </style>

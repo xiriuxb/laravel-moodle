@@ -101,7 +101,7 @@ img {
   color: black;
 }
 
-@media (max-width: 891px) {
+@media (max-width: 1023px) {
   .nav-item.dropdown.show {
     display: none;
   }
@@ -111,7 +111,7 @@ img {
   }
 }
 
-@media (min-width: 892px) {
+@media (min-width: 1024px) {
   button.btn {
     display: none;
   }

@@ -14,6 +14,6 @@ class CategoriaCursoController extends Controller
      */
     public function index()
     {
-        return response()->json(['status'=>'ok','data'=>CategoriaCurso::select('id','name')->get()], 200);
+        return response()->json(['status'=>'ok','data'=>CategoriaCurso::select('id','name')->where('visible',1)->get()], 200);
     }
 }

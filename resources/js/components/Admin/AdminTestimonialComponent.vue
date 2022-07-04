@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="studentPhoto">Foto del estudiante: (Max. 512Kb)</label>
+        <label for="studentPhoto">Foto del estudiante: (Max. 128Kb)</label>
         <input type="file" accept=".png,.jpg,.jpeg" @input="form.file = $event.target.files[0]"
           class="form-control-file" id="studentPhoto" name="studentPhoto" ref="fileupload">
         <div v-if="this.errors.file != null" class="alert alert-danger">
@@ -43,7 +43,7 @@
       </label>
       <div class="row">
         <div class="col">
-          <button type="submit" :class="'btn btn-primary'" class="btn btn-primary" :disabled="loading">
+          <button type="submit" class="btn btn-primary" :disabled="loading">
             {{ !editMode ? 'Guardar' : 'Guardar Cambios' }}
           </button>
         </div>

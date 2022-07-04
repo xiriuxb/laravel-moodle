@@ -92,7 +92,7 @@ export default {
         },
         reloadPagos() {
             this.loading = true;
-            Inertia.visit(`/admin/matriculas/usuario/${this.username}`, { method: 'get', only: ['matriculas'] })
+            Inertia.visit(`/admin/matriculas/usuario/${this.username}`, { method: 'get', only: ['matriculas'] });
         }
     }
 }

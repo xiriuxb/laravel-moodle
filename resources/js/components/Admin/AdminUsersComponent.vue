@@ -44,11 +44,11 @@
 					<td>{{ user.username }}</td>
 					<td>{{ user.email_verified_at != null ? "Si" : "No" }}</td>
 					<td>
-						<button class="btn btn-outline-primary btn-acction border-0 p-0" title="Editar"
+						<button class="btn btn-outline-primary border-0 p-0" title="Editar"
 							@click="showModal(user.username)">
 							<box-icon name="edit-alt"></box-icon>
 						</button>
-						<inertia-link class="btn btn-outline-primary btn-acction border-0 p-0" title="Ver Pagos"
+						<inertia-link class="btn btn-outline-primary border-0 p-0" title="Ver Pagos"
 							:href="`/admin/matriculas/usuario/${user.username}`"
 							v-if="$page.props.auth.role == 'su_admin'">
 							<box-icon name='note'></box-icon>

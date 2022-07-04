@@ -44,12 +44,12 @@
                   required>
               </div>
               <button type="button" :disabled="loading"
-                class="btn btn-danger bg-red-500"
+                class="btn btn-danger"
                 data-dismiss="modal">
                 Cerrar
               </button>
               <button type="submit"
-                class="btn btn-primary bg-blue-600"
+                class="btn btn-primary"
                 :disabled="form.processing || form.passwordActual.length == 0">
                 <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status"
                   aria-hidden="true"></span>

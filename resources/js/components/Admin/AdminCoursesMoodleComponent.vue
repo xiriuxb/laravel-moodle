@@ -27,7 +27,7 @@
             </td>
             <td>{{ course.shortname }}</td>
             <td>
-              <button @click.prevent="importar(course.shortname)" :disabled="loading" :class=" course.destacado == 1? 'btn btn-outline-danger btn-acction' : 'btn btn-outline-primary btn-acction'">
+              <button @click.prevent="importar(course.shortname)" :disabled="loading" :class=" course.destacado == 1? 'btn btn-outline-danger' : 'btn btn-outline-primary btn-acction'">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 Importar/Actualizar
               </button>

@@ -36,59 +36,33 @@ class MatriculaController extends Controller
             return inertia('NotFoundComponent');
         }
         if (Auth::check()) {
-            $user_verified = Auth::user()->email_verified_at==null?false:true;
+            $user_verified = Auth::user()->email_verified_at == null ? false : true;
             //Si el usuario ya está matriculado
-            if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id',1]])->exists()) {
+            if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id', 1]])->exists()) {
                 return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => true]);
             }
             //Si el usuario no está matriculado pero pagó con depósito
-            if(Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id',3]])->exists()){
+            if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso->moodle_id], ['estado_matricula_id', 3]])->exists()) {
                 return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'pago' => true]);
             }
-            if ($curso->price == 0) {
+            if (doubleval($curso->price == 0)) {
                 //Si el curso es gratis
-                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula-free', 'verificado'=>$user_verified]);
+                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula-free', 'verificado' => $user_verified]);
             } else {
                 //Si el curso no es gratis
-                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula', 'verificado'=>$user_verified]);
+                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula', 'verificado' => $user_verified]);
             }
         } else {
             return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/login']);
         }
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
     public function storeFree(Request $request)
     {
-        $curso_aux = $this->makeCourseFromMoodleData($request->curso_id);
-        if ($curso_aux == []) {
-            return inertia('NotFoundComponent');
-        }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
-            return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
-        }
-        if ($curso_aux->price == 0) {
-            $curso = Curso::firstOrCreate(
-                ['shortname' => $request->curso_id],
-                ['moodle_id'=> $curso_aux->moodle_id,'fullname' => $curso_aux->fullname, 'shortname' => $curso_aux->shortname, 'category' => $curso_aux->category, 'destacado' => false]
-            );
-            $curso->save();
-            $temp_id = Curso::where('id', $curso->id)->get()->first()->id;
-            $matricula = new Matricula();
-            $matricula->curso_id = $temp_id;
-            $matricula->usuario_id = Auth::user()->id;
-            $matricula->username = Auth::user()->username;
-            $matricula->curso_moodle_id = $curso->moodle_id;
-            $matricula->estado_matricula_id = 1;
-            $matricula->save();
-            return redirect()->back()->with(['curso' => $curso, 'matriculado' => true]);
+        $curso_aux = $this->verifyMatriculaIfExists($request->curso_id);
+        if ($curso_aux['precio'] == 0) {
+            $this->generateMatricula($curso_aux['curso']->id, $curso_aux['curso']->moodle_id, Auth::user()->username, 1, null);
+            return redirect()->back()->with(['curso' => $curso_aux['curso'], 'matriculado' => true]);
         } else {
             return redirect()->back()->withErrors('message', 'ocurrio un error');
         }
@@ -96,88 +70,35 @@ class MatriculaController extends Controller
 
     public function storePaypalOrCreditCard(Request $request)
     {
-        $curso_aux = $this->makeCourseFromMoodleData($request->curso_id);
-        if ($curso_aux == []) {
-            return inertia('NotFoundComponent');
-        }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
-            return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
-        }
-        if ($curso_aux->price > 0) {
-            $curso = Curso::firstOrCreate(
-                ['shortname' => $request->curso_id],
-                ['moodle_id'=> $curso_aux->moodle_id,'fullname' => $curso_aux->fullname, 'shortname' => $curso_aux->shortname, 'category' => $curso_aux->category, 'destacado' => false]
-            );
-            $curso->save();
+        $curso_aux = $this->verifyMatriculaIfExists($request->curso_id);
+        if ($curso_aux['precio'] > 0) {
             $pago = $this->storePago($request, '', 1);
-            try{
-                $matricula = new Matricula();
-                $matricula->curso_id = $curso->id;
-                $matricula->usuario_id = Auth::user()->id;
-                $matricula->username = Auth::user()->username;
-                $matricula->curso_moodle_id = $curso->moodle_id;
-                $matricula->estado_matricula_id = 1;
-                $matricula->pago_id = $pago->id;
-                $matricula->save();
-                return redirect()->back()->with(['curso' => $curso, 'matriculado' => true]);
-            }
-            catch (\Exception $e) {
-                return redirect()->back()->withErrors('message', 'Ocurrió un error en la matrícula');
-            }
+            $this->generateMatricula($curso_aux['curso']->id, $curso_aux['curso']->moodle_id, Auth::user()->username, 1, $pago->id);
+            return redirect()->back()->with(['curso' => $curso_aux['curso'], 'matriculado' => true]);
         } else {
-            return redirect()->back()->withErrors('message', 'ocurrio un error xD');
+            return redirect()->back()->withErrors('message', 'ocurrio un error');
         }
     }
 
     public function storeDepositoTransferencia(Request $request)
     {
-        $curso_aux = $this->makeCourseFromMoodleData($request->curso_id);
-        if ($curso_aux == []) {
-            return inertia('NotFoundComponent');
-        }
-        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
-            return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
-        }
-        if ($curso_aux->price > 0) {
-            $curso = Curso::firstOrCreate(
-                ['shortname' => $request->curso_id],
-                ['moodle_id'=> $curso_aux->moodle_id,'fullname' => $curso_aux->fullname, 'shortname' => $curso_aux->shortname, 'category' => $curso_aux->category, 'destacado' => false]
-            );
-            $curso->save();
+        $curso_aux = $this->verifyMatriculaIfExists($request->curso_id);
+        if ($curso_aux['precio'] > 0) {
             $time = time();
             $pago = $this->storePago($request, $time, 3);
-            try{
-                $matricula = new Matricula();
-                $matricula->curso_id = $curso->id;
-                $matricula->usuario_id = Auth::user()->id;
-                $matricula->curso_moodle_id = $curso->moodle_id;
-                $matricula->estado_matricula_id = 3;
-                $matricula->pago_id = $pago->id;
-                $matricula->save();
-                $admin_users_emails = User::role(['admin','su_admin'])->select('email')->get();
-                foreach ($admin_users_emails as $admin_user_email) {
-
-                    Notification::route('mail' , $admin_user_email->email) //Sending mail to subscriber
-                          ->notify(new NewPagoDepositoNotification()); //With new post
-                }
-                unset($admin_users_emails);
-                return redirect('/curso/'.$request->curso_id)->with(['curso' => $curso, 'matriculado' => true]);
-            }
-            catch (\Exception $e) {
-                dd($e);
-                return redirect()->back()->withErrors('Ocurrió un error en la matrícula');
-            }
+            $this->generateMatricula($curso_aux['curso']->id, $curso_aux['curso']->moodle_id, null, 3, $pago->id);
+            return redirect('/curso/' . $request->curso_id)->with(['curso' => $curso_aux['curso'], 'matriculado' => true]);
         } else {
-            return redirect()->back()->withErrors('message', 'ocurrio un error xD');
+            return redirect()->back()->withErrors('message', 'El curso es gratuito');
         }
     }
 
-    private function makeCourseFromMoodleData($shortname)
+    private function makeCourseFromMoodleData(String $shortname)
     {
         $curso_aux = $this->getCourseFromMoodle($shortname);
         if ($curso_aux == []) {
             return [];
-        }else{
+        } else {
             $curso = new MoodleCurso(
                 $curso_aux->id,
                 $curso_aux->fullname,
@@ -185,26 +106,27 @@ class MatriculaController extends Controller
                 $curso_aux->summary,
                 $curso_aux->customfields[1]->value,
                 $curso_aux->categoryname,
-                $curso_aux->overviewfiles == null?'/images/default_course_image.png':str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
+                $curso_aux->overviewfiles == null ? '/images/default_course_image.png' : str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
                 $curso_aux->customfields[2]->value,
             );
             return $curso;
         }
     }
 
-    private function storePago(Request $request, $nombre_archivo, int $metodo_pago_id){
-        if($metodo_pago_id == 3){
+    private function storePago(Request $request, String $nombre_archivo, int $metodo_pago_id)
+    {
+        if ($metodo_pago_id == 3) { //Si pago deposito
             $request->validate([
                 'file' => 'required|image|max:5120|mimes:jpg,png,jpeg',
             ]);
-            $pago_id = Auth::user()->username.'_'.$nombre_archivo;
-            $file_name = 'pago_'.Auth::user()->username.'_'.$nombre_archivo.'.'.$request->file->getClientOriginalExtension();
+            $pago_id = Auth::user()->username . '_' . $nombre_archivo;
+            $file_name = 'pago_' . Auth::user()->username . '_' . $nombre_archivo . '.' . $request->file->getClientOriginalExtension();
             $path = Storage::putFileAs('pagos', $request->file, $file_name);
-        }else{
+        } else {
             $pago_id = $request->payment_id;
             $path = null;
         }
-        try{
+        try {
             $pago = new Pago();
             $pago->metodo_pago_id = $metodo_pago_id;
             $pago->amount = $request->amount;
@@ -218,8 +140,74 @@ class MatriculaController extends Controller
             $pago->file = $path;
             $pago->save();
             return $pago;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors('Ocurrió un error en el pago');
         }
+    }
+
+    private function notifyByEmailToAdmins()
+    {
+        try {
+            $admin_users_emails = User::role(['admin', 'su_admin'])->where('deleted', 0)->select('email')->get();
+            foreach ($admin_users_emails as $admin_user_email) {
+                Notification::route('mail', $admin_user_email->email) //Sending mail to subscriber
+                    ->notify(new NewPagoDepositoNotification()); //With new post
+            }
+            unset($admin_users_emails);
+        } catch (\Exception $e) {
+        }
+    }
+
+    private function generateMatricula(int $curso_id, int $curso_moodle_id, String $username = null, int $estado, String $pago_id = null)
+    {
+        try {
+            $matricula = new Matricula();
+            $matricula->curso_id = $curso_id;
+            $matricula->usuario_id = Auth::user()->id;
+            $matricula->username = $username;
+            $matricula->curso_moodle_id = $curso_moodle_id;
+            $matricula->estado_matricula_id = $estado;
+            $matricula->pago_id = $pago_id;
+            $matricula->save();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('Ocurrió un error durante la matrícula');
+        }
+    }
+
+    /**
+     * Verifica que la matrícula existe, si existe es riderccionado, si no, retorna el curso y el precio.
+     *
+     * @param  String
+     */
+
+    private function verifyMatriculaIfExists(String $curso_id)
+    {
+        $curso_aux = $this->makeCourseFromMoodleData($curso_id);
+        if ($curso_aux == []) {
+            return inertia('NotFoundComponent');
+        }
+        if (Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->moodle_id]])->exists()) {
+            return inertia('MatriculaComponent', ['curso' => $curso_aux, 'matriculado' => true]);
+        } else {
+            //el proceso de matriculación continúa
+            $curso = $this->storeCursoIfNotExists($curso_aux);
+            return ['curso' => $curso, 'precio' => doubleval($curso_aux->price)];
+        }
+    }
+
+    /**
+     * Guarda un curso en la DB del sitio web principal.
+     *
+     * @param  \app\Models\MoodleCurso
+     * @return \app\Models\Curso
+     */
+    private function storeCursoIfNotExists(MoodleCurso $curso)
+    {
+        $curso = Curso::firstOrCreate(
+            ['shortname' => $curso->shortname],
+            ['moodle_id' => $curso->moodle_id, 'fullname' => $curso->fullname, 'shortname' => $curso->shortname, 'category' => $curso->category, 'destacado' => false]
+        );
+        $curso->save();
+        return $curso;
     }
 }

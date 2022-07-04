@@ -1,28 +1,61 @@
 <template>
-  <div class="container justify-content-center" id="filter">
-    <div class="justify-content-center">
-      <article class="filter-group">
-        <a data-toggle="collapse" data-target="#collapse_aside1" aria-expanded="false" class="collapsed">
-          <div class="card-header">
-            <i class="icon-control fa fa-chevron-down"></i>
-            <h6 class="title">Categorías</h6>
-          </div>
-        </a>
-        <div class="collapse" id="collapse_aside1" style="">
-          <div class="card-body">
-            <ul class="list-menu">
-              <li>
-                <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
-                </inertia-link>
-              </li>
-              <li v-for="categoria in categories" :key="categoria.id">
-                <inertia-link as="button" class="btn" :href="'/cursos/' + categoria.name"
-                  @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link>
-              </li>
-            </ul>
-          </div>
+  <div id="filter">
+    <!-- Filtro por categoría -->
+    <div class="filter-group">
+      <a id="categorias-toggler" data-toggle="collapse" data-target="#collapse_aside1" aria-expanded="false" class="collapsed" @click="categorias_expanded = !categorias_expanded">
+        <div class="card-header d-flex justify-between">
+          <h6 class="font-bold">Categorías</h6>
+            <span class="spinner-border spinner-border-sm" v-if="loading" role="status"></span>
+            <div v-else class="arrow" :class="categorias_expanded?'':'arrow-expanded'">
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
         </div>
-      </article>
+      </a>
+      <div class="collapse" id="collapse_aside1">
+        <div class="card-body">
+          <ul class="list-menu">
+            <li>
+              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
+              </inertia-link>
+            </li>
+            <li v-for="categoria in categories" :key="categoria.id">
+              <inertia-link as="button" class="btn" :href="'/cursos/' + categoria.name"
+                @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Filtro por precio -->
+    <div class="filter-group">
+      <a id="precio-toggler" data-toggle="collapse" data-target="#collapse_precio" aria-expanded="false" class="collapsed" @click="precio_expanded = !precio_expanded">
+        <div class="card-header d-flex justify-between">
+          <h6 class="font-bold">Precio</h6>
+            <div class="arrow" :class="precio_expanded?'':'arrow-expanded'">
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+        </div>
+      </a>
+      <div class="collapse" id="collapse_precio">
+        <div class="card-body">
+          <ul class="list-menu">
+            <li>
+              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
+              </inertia-link>
+            </li>
+            <li>
+              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Gratis
+              </inertia-link>
+            </li>
+            <li>
+              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">De Pago
+              </inertia-link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -37,22 +70,28 @@ export default {
   beforeCreate() {
     axios.get('/api/categorias').then((response) => {
       this.categories = response.data.data;
+      this.loading = false;
     }).catch((err) => {
-      this.$toast.open({
-        message: 'Error al cargar las categorías',
-        type: 'error',
-        duration: 5000
-      });
+      this.$toast.open({message: 'Error al cargar las categorías',type: 'error',duration: 5000});
     });
   },
   data() {
     return {
       categories: [],
+      categorias_expanded:false,
+      precio_expanded:false,
+      loading:true,
     }
+  },
+  mounted(){
+    this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
+    this.precio_expanded = document.getElementById('precio-toggler').getAttribute('aria-expanded');
+  },
+  onUpdate(){
   },
   methods: {
     updateCurrentCategory: function (currentCategory) {
-      this.$parent.category = currentCategory;
+      this.$parent.selected_category = currentCategory;
       this.$parent.page = 1;
     }
   }
@@ -64,13 +103,8 @@ export default {
   max-width: 250px;
   min-width: 220px;
   padding-bottom: 10px;
-}
-
-.mt-100 {
-  margin-top: 30px;
-  box-sizing: border-box;
-  width: 300px;
-  padding-right: 0;
+  text-decoration: none !important;
+  background-color: transparent;
 }
 
 .btn {
@@ -81,7 +115,6 @@ export default {
 
 .filter-group {
   border: 1px solid #343a4071;
-  width: 100%;
 }
 
 .card-body {
@@ -96,24 +129,28 @@ export default {
   cursor: pointer;
 }
 
-.icon-control {
-  margin-top: 6px;
-  float: right;
-  font-size: 80%;
-}
-
 .list-menu {
   list-style: none;
   margin: 0;
   padding-left: 0;
 }
 
-.list-menu a {
-  color: #343a40;
+/* Boton cerrar-abrir */
+.arrow{
+  padding:0.375rem 0.75rem;
 }
-
-a {
-  text-decoration: none !important;
-  background-color: transparent;
+.line:not(:first-of-type){
+  transform: rotate(90deg);
+}
+.arrow-expanded .line{
+  transform: rotate(0);
+}
+.line{
+  position:absolute;
+  width:15px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: black;
+  transition: transform 0.3s ease-in-out;
 }
 </style>

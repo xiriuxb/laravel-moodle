@@ -1,27 +1,31 @@
 <template>
 	<div>
 		<AppHead :title="'Admin'" />
-		<div class="sidebar" :class="movedSidebar?'sidebar':'sidebar-moved'" id="sidebar">
+		<div class="sidebar" :class="movedSidebar ? 'sidebar' : 'sidebar-moved'" id="sidebar">
 			<button class="closeBtn" @click="sidebarHandler">
-				<box-icon name="x"></box-icon>
+				<div class="arrow" :class="movedSidebar ? '' : 'arrow-expanded'">
+					<div class="line"></div>
+					<div class="line"></div>
+				</div>
 			</button>
 
 			<div class="logo">
 				<div class="logo-name">
 					<inertia-link :href="'/'">
-						{{`${appName} (Admin) `}}
+						{{ `${appName} (Admin) ` }}
 					</inertia-link>
 				</div>
 			</div>
 			<ul class="nav-list">
-				<li v-for="menu_item in menu_items" :key="menu_item.name" v-if="menu_item.permission!='su' || $page.props.auth.role == 'su_admin'">
-					<inertia-link :href="'/admin/'+menu_item.component">
+				<li v-for="menu_item in menu_items" :key="menu_item.name"
+					v-if="menu_item.permission != 'su' || $page.props.auth.role == 'su_admin'">
+					<inertia-link :href="'/admin/' + menu_item.component">
 						<span>{{ menu_item.name }}</span>
 					</inertia-link>
 				</li>
 			</ul>
 		</div>
-		<div id="admin" class="adm-content" :class="movedSidebar?'adm-content':'adm-content-moved'">
+		<div id="admin" class="adm-content" :class="movedSidebar ? 'adm-content' : 'adm-content-moved'">
 			<slot />
 		</div>
 	</div>
@@ -37,15 +41,15 @@ export default {
 		return {
 			movedSidebar: true,
 			menu_items: [
-				{ name: 'Testimonios', component: 'testimonials' , permission:''},
-				{ name: 'Cursos', component: 'cursos', permission:'' },
-				{ name: 'Cursos Moodle', component: 'cursos-moodle', permission:'' },
-				{ name: 'Usuarios', component: 'users', permission:'' },
-				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes', permission:'' },
-				{ name: 'Imágenes', component: 'site-images', permission:'su' },
-				{ name: 'Configuración', component: 'site-config', permission:'su' },
+				{ name: 'Testimonios', component: 'testimonials', permission: '' },
+				{ name: 'Cursos', component: 'cursos', permission: '' },
+				{ name: 'Cursos Moodle', component: 'cursos-moodle', permission: '' },
+				{ name: 'Usuarios', component: 'users', permission: '' },
+				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes', permission: '' },
+				{ name: 'Imágenes', component: 'site-images', permission: 'su' },
+				{ name: 'Configuración', component: 'site-config', permission: 'su' },
 			],
-			error:'',
+			error: '',
 		};
 	},
 	methods: {
@@ -53,20 +57,20 @@ export default {
 			this.movedSidebar = !this.movedSidebar;
 		},
 	},
-	computed:{
-		appName(){
+	computed: {
+		appName() {
 			return this.$page.props.appName;
 		},
 	},
 	errorCaptured() {
-    if(this.$page.props.errors.message) {
-	  this.error = this.$page.props.errors.message;
-      this.$toast.open({
-        message: this.$page.props.errors.message,
-        type: 'error',
-      });
-    }
-  },
+		if (this.$page.props.errors.message) {
+			this.error = this.$page.props.errors.message;
+			this.$toast.open({
+				message: this.$page.props.errors.message,
+				type: 'error',
+			});
+		}
+	},
 };
 </script>
 
@@ -89,7 +93,7 @@ export default {
 	transition: transform 0.3s ease-in-out;
 }
 
-.sidebar-moved{
+.sidebar-moved {
 	transform: translateX(-200px);
 }
 
@@ -183,8 +187,20 @@ export default {
 	margin-bottom: 20px;
 }
 
-::v-deep button.btn-primary[type=submit] {
+::v-deep .btn-danger {
+	background-color: #dc3545;
+}
+
+::v-deep .btn-danger:hover:not(:disabled) {
+	background-color: #c82333;
+}
+
+::v-deep .btn-primary {
 	background-color: #007bff;
+}
+
+::v-deep .btn-primary:hover:not(:disabled) {
+	background-color: #005dc0;
 }
 
 /* MODALS */
@@ -231,5 +247,30 @@ export default {
 ::v-deep .disabled {
 	pointer-events: none;
 	cursor: not-allowed;
+}
+
+/* Boton cerrar-abrir */
+.arrow{
+  padding:0.375rem 0.75rem;
+}
+.line:first-of-type{
+  transform: rotate(45deg);
+}
+.line:last-of-type{
+  transform: rotate(-45deg);
+}
+.arrow-expanded .line:first-of-type{
+  transform: translateY(5px) translateX(10px) rotate(-45deg);
+}
+.arrow-expanded .line:last-of-type{
+  transform: translateY(-5px) translateX(10px) rotate(45deg);
+}
+.line{
+  position:fixed;
+  width:15px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
 }
 </style>

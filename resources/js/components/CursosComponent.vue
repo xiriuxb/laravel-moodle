@@ -1,12 +1,12 @@
-<template slot-scope="{cursos}">
-  <div  class="justify-content-center mb-50" >
+<template>
+  <div class="justify-content-center mb-50">
     <div>
       <div class="row">
-        <curso-card-component v-for="curso in $parent.data" :key="curso.shortname" :curso="curso">
+        <curso-card-component v-for="curso in $parent.data" :key="curso.shortname" :curso="curso" :moodleUrl="moodleUrl">
         </curso-card-component>
 
       </div>
-      <p v-if="mensajeErr">{{mensajeErr }}</p>
+      <p v-if="mensajeErr">{{ mensajeErr }}</p>
     </div>
   </div>
 </template>
@@ -32,11 +32,10 @@ export default {
       mensajeErr: this.$page.props.errors[0],
     };
   },
-  beforeCreate() {
-    
-  },
-  methods:{
-    
+  computed: {
+    moodleUrl() {
+      return this.$page.props.siteData.moodleUrl;
+    },
   }
 };
 </script>

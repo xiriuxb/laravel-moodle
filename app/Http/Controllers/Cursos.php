@@ -46,10 +46,8 @@ class Cursos extends Controller
         $baseQuery = "SELECT  mdl_crse.id, mdl_cntxt.id AS 'context',filename, mdl_crse_cat.name as 'category',fullname,shortname,summary,precio,value, visible FROM
         (SELECT id, category, fullname, shortname, summary, visible FROM mdl_course Where visible = 1 AND id <> 1".$categoryFilter.$courseIdFilter." LIMIT ".$this->calcMin($page).",".$this->ELEMENTS_PER_PAGE.") mdl_crse
         INNER JOIN (SELECT id, name FROM mdl_course_categories" .$categoryCFilter.") mdl_crse_cat ON mdl_crse_cat.id = mdl_crse.category
-        INNER JOIN ( SELECT instanceid, 
-            MAX(CASe when (fieldid=3) THEN value end) as precio,
-            MAX(CASE when (fieldid=4) then value end) as value
-            from mdl_customfield_data GROUP BY instanceid) mdl_cstmfld_dta ON mdl_cstmfld_dta.instanceid = mdl_crse.id
+        INNER JOIN ( SELECT instanceid, MAX(CASe when (shortname='precio') THEN value end) as precio, MAX(CASE when (shortname='aprendera') then value end) as value
+            FROM mdl_customfield_field mdl_cf_fld INNER JOIN ( SELECT instanceid, fieldid, value from mdl_customfield_data) mdl_cf_dta ON mdl_cf_fld.id = mdl_cf_dta.fieldid GROUP BY instanceid) mdl_cstmfld_dta ON mdl_cstmfld_dta.instanceid = mdl_crse.id
         LEFT JOIN (SELECT id,instanceid from mdl_context WHERE contextlevel = 50) mdl_cntxt ON mdl_cntxt.instanceid = mdl_crse.id
         LEFT JOIN (SELECT contextid, filename from mdl_files where component = 'course' AND  filename <> '.') mdl_fls 
         ON mdl_fls.contextid = mdl_cntxt.id" ;

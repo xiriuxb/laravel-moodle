@@ -83,7 +83,7 @@
                 <cursos-sm-component></cursos-sm-component>
             </section>
             <section class="section-odd">
-                <comments-component></comments-component>
+                <testimonials-component></testimonials-component>
             </section>
             <section class="section-pair univ-back">
                 <h3 class="titulo">¿Qué contienen nuestros cursos?</h3>
@@ -99,6 +99,7 @@
 <script>
 import CaratulaComponent from './CaratulaComponent.vue'
 import CursosSmComponent from './CursosSmComponent.vue'
+import TestimonialsComponent from './TestimonialsComponent.vue'
 import Home from './views/Home.vue';
 
 
@@ -140,7 +141,7 @@ export default {
             return this.$page.props.siteData.moodleUrl+'login/index.php';
         }
     },
-    components: { CursosSmComponent, CaratulaComponent },
+    components: { CursosSmComponent, CaratulaComponent, TestimonialsComponent },
 }
 </script>
 
@@ -273,7 +274,7 @@ section.benefits {
     fill: #5f61f4;
 }
 
-.container p a box-icon{
-    vertical-align: bottom;
+a box-icon{
+    position: relative;
 }
 </style>

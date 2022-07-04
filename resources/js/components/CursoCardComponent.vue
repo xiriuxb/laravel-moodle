@@ -3,8 +3,8 @@
     <inertia-link class="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
       :href="'/curso/' + curso.shortname">
       <div class="relative pb-48 overflow-hidden">
-        <img class="absolute inset-0 h-full w-full object-cover" v-bind:src="image" :alt="'Imagen curso-'+curso.fullname"
-          loading="lazy" />
+        <img class="absolute inset-0 h-full w-full object-cover" v-bind:src="image"
+          :alt="'Imagen curso-' + curso.fullname" loading="lazy" />
       </div>
       <div class="card-body">
         <span
@@ -28,7 +28,8 @@ export default {
     LoadingComponent,
   },
   props: {
-    curso: Object
+    curso: Object,
+    moodleUrl: String,
   },
   data() {
     return {
@@ -36,36 +37,29 @@ export default {
     };
   },
   computed: {
-    moodleUrl() {
-      return this.$page.props.siteData.moodleUrl;
-    },
     image() {
-      return this.curso.filename?this.moodleUrl+'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename:'/images/default_course_image.png';
+      return this.curso.filename ? this.moodleUrl + 'pluginfile.php/' + this.curso.context + '/course/overviewfiles/' + this.curso.filename : '/images/default_course_image.png';
     },
-  },
-  mounted() {
-    this.image = this.imagea;
-    this.loading = false;
   },
 };
 </script>
 
 <style scoped>
- a {
-   text-decoration: none;
-   color: #777;
- }
+a {
+  text-decoration: none;
+  color: #777;
+}
 
- .card-body {
-   padding: 10px;
-   padding-bottom: 0 !important;
- }
+.card-body {
+  padding: 10px;
+  padding-bottom: 0 !important;
+}
 
- a:hover img {
-   transform: scale(1.05);
- }
+a:hover img {
+  transform: scale(1.05);
+}
 
- img {
-   transition: transform .3s ease-in-out;
- }
+img {
+  transition: transform .3s ease-in-out;
+}
 </style>

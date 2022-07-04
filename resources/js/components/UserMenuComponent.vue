@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-item dropdown">
+  <div class="nav-item">
     <div class="dropdown show">
       <a class="block px-0 user-profile" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">

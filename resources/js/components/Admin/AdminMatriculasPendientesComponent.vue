@@ -29,10 +29,10 @@
             <td>
               <div class="d-flex flex-row">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="setting"></span>
-                <button class="btn btn-outline-primary btn-sm" tooltip="Aceptar" @click.prevent="updateMatricula(matricula.id, 1)">
+                <button class="btn btn-outline-primary btn-sm" title="Aceptar" @click.prevent="updateMatricula(matricula.id, 1)">
                   <box-icon name="check" class="fill-blue-800"></box-icon>
                 </button>
-                <button class="btn btn-outline-danger btn-sm" tooltip="Rechazar" @click.prevent="updateMatricula(matricula.id,2)">
+                <button class="btn btn-outline-danger btn-sm" title="Rechazar" @click.prevent="updateMatricula(matricula.id,2)">
                   <box-icon name='x' class="fill-red-600"></box-icon>
                 </button>
               </div>

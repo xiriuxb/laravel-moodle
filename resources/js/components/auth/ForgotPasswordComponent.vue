@@ -11,7 +11,7 @@
         <form class="form-group" @submit.prevent="sendRequest" v-if="!this.stat">
           <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
             placeholder="Correo electrónico" v-model="form.email" required />
-          <button type="submit" class="btn btn-primary bg-sky-800" :disabled="form.processing">
+          <button type="submit" class="btn btn-primary" :disabled="form.processing">
             <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status"
               aria-hidden="true"></span>
             Enviar

@@ -41,12 +41,12 @@
                   placeholder="Escriba su contraseña">
               </div>
               <button type="button" :disabled="loading"
-                class="btn btn-danger bg-red-500"
+                class="btn btn-danger"
                 data-dismiss="modal">
                 Cerrar
               </button>
               <button type="submit"
-                class="btn btn-primary bg-blue-600 text-white font-medium "
+                class="btn btn-primary "
                 :disabled="form.processing || form.new_email == '' || form.password.length < 2">
                 Guardar
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"

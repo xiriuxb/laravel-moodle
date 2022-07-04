@@ -8,11 +8,17 @@
 					</a>
 				</inertia-link>
 				<div class="collapse navbar-collapse main-menu">
-					<ul class="navbar-nav mr-auto f1">
+					<ul class="navbar-nav f1">
 						<li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase">
 							<inertia-link :href="item.path">
-								{{ item.text }}
+								{{item.text}}
 							</inertia-link>
+						</li>
+					</ul>
+					<ul class="navbar-nav mr-auto f1">
+						<li class="nav-item text-uppercase">
+							<a :href="`${this.moodleUrl}login/index.php`">moodle <box-icon name='link-external'></box-icon>
+							</a>
 						</li>
 					</ul>
 				</div>
@@ -99,13 +105,15 @@ export default {
 	computed: {
 		siteName() {
 			return this.$page.props.appName;
+		},
+		moodleUrl() {
+			return this.$page.props.siteData.moodleUrl
 		}
 	},
 };
 </script>
 
 <style scoped>
-
 .main-menu {
 	position: relative;
 	z-index: 200;
@@ -120,10 +128,11 @@ export default {
 	letter-spacing: 1px;
 	color: rgb(255, 255, 255);
 	position: relative;
+	fill: #fff;
 	text-decoration: none;
 }
 
-.main-menu li:not(:last-of-type) {
+.main-menu li {
 	margin-right: 30px;
 }
 
@@ -253,7 +262,11 @@ export default {
 	/*header ends*/
 }
 
-.collapse.navbar-collapse{
+.collapse.navbar-collapse:not(:first-of-type) {
 	flex-direction: row-reverse;
+}
+
+a box-icon{
+	position:fixed;
 }
 </style>

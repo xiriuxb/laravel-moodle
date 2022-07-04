@@ -28,7 +28,7 @@
           <td>{{ course.destacado == '1'?'Si':'No' }}</td>
           <td>
             <button @click.prevent="setDestacado(course.shortname, !course.destacado)" :disabled="loading"
-              :class="course.destacado == 1 ? 'btn btn-outline-danger btn-acction' : 'btn btn-outline-primary btn-acction'">
+              :class="course.destacado == 1 ? 'btn btn-outline-danger' : 'btn btn-outline-primary'">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
               {{ course.destacado == 1 ? 'No Destacar':'Destacar' }}
             </button>

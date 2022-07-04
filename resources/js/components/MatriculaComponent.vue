@@ -145,12 +145,12 @@ export default {
 }
 
 .btn-primary {
-	background-color: #ffffff00;
-	border-color: #b3540c;
+	background-color: #ffffff14;
+	border-color: #b3540c !important;
 }
 
 .btn-primary:hover {
-	background-color: #d95d22;
+	background-color: #d95d22 !important;
 	border-color: #b3540c;
 }
 

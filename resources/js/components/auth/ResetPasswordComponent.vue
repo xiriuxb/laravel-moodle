@@ -54,7 +54,7 @@
 
             <div class="form-group row mb-0">
               <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary bg-sky-700" :disabled="form.processing">
+                <button type="submit" class="btn btn-primary" :disabled="form.processing">
                   <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status"
                     aria-hidden="true"></span>
                   Restaurar

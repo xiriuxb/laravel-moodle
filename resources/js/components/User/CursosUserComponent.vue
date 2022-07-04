@@ -5,7 +5,7 @@
         aria-hidden="true"></span></h2>
     <form action="#" @submit.prevent="busquedaCurso">
       <input v-model="termino_busqueda" type="search" class="form-control" placeholder="Buscar curso">
-      <button type="submit" class="btn btn-pimary bg-sky-700 text-slate-200 hover:bg-sky-900 hover:text-slate-200"
+      <button type="submit" class="btn btn-primary"
         :disabled="this.loading">
         <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
         Buscar

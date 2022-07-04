@@ -2,22 +2,27 @@
     <div class="flex flex-no-wrap md:hidden bg-gray-200">
         <!-- Sidebar starts -->
         <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
-        <div class="w-64 z-40 absolute bg-gray-800 shadow h-screen md:h-full flex-col justify-between md:hidden transition duration-150 ease-in-out"
+        <div class="w-64 z-40 absolute bg-[#212529] shadow h-screen md:h-full flex-col justify-between md:hidden transition duration-150 ease-in-out"
             id="mobile-nav">
-            <div @click.prevent="sidebarHandler()">
-                <ul>
+            <div>
+                <ul @click.prevent="sidebarHandler()">
                     <inertia-link v-for="item in $parent.navElements" :key="item.name" :href="item.path">
-                        <li
-                            class="flex w-full justify-between text-gray-300 cursor-pointer hover:bg-slate-500 items-center py-3 px-5 text-uppercase">
+                        <li class="mob-nav-item text-uppercase">
                             {{ item.text }}
                         </li>
                     </inertia-link>
                 </ul>
+                <ul>
+                    <a :href="moodleUrl+'login/index.php'">
+                        <li class="mob-nav-item text-uppercase fill-white">
+                            moodle<box-icon name='link-external'></box-icon>
+                        </li>
+                    </a>
+                </ul>
             </div>
             <div class="flex flex-col bottom-0" @click.prevent="sidebarHandler()" v-if="!$page.props.auth.user">
                 <inertia-link href="/">
-                    <li
-                        class="flex w-full justify-between text-gray-300 cursor-pointer hover:bg-slate-500 items-center py-3 px-5">
+                    <li class="mob-nav-item">
                         Regístrese
                     </li>
                 </inertia-link>
@@ -41,21 +46,47 @@
 </template>
 
 <script>
+import UserMenuComponent from "../UserMenuComponent.vue";
 export default {
+    components: { UserMenuComponent },
     methods: {
         sidebarHandler() {
             this.$parent.sidebarHandler();
         }
-    }
+    },
+    computed: {
+        moodleUrl() {
+            return this.$page.props.siteData.moodleUrl
+        }
+    },
 };
 </script>
 <style scoped>
-
 #mobile-nav {
     transform: translateX(-260px);
     transition: transform 0.3s ease-in-out;
 }
-::v-deep .user-profile{
+
+.mob-nav-item {
+    width: 100%;
+    justify-content: space-between;
+    color: aliceblue;
+    cursor: pointer;
+    align-items: center;
+    padding: 1rem 3rem;
+    fill: aliceblue;
+}
+
+.mob-nav-item box-icon {
+    position: fixed;
+}
+
+.mob-nav-item:hover {
+    background-color: lightslategray;
+    color: aliceblue;
+}
+
+::v-deep .user-profile {
     border-radius: 50%;
     position: fixed;
     width: 50px;

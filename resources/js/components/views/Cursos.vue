@@ -5,13 +5,17 @@
       <div class="justify-content-center">
         <p id="titulo-cursos">Cursos</p>
       </div>
-      <h4 class="align-bottom" v-if="category">({{ category }})</h4>
+      <div class="align-bottom" v-if="selected_category">({{ selected_category }})</div>
+        <select name="order-by" id="order-by">
+          <option selected>Ordenar por:</option>
+          <option v-for="orden in orderBy" :key="orden.id" :value="orden.value">{{orden.name}}</option>
+        </select>
     </div>
-    <div class="d-flex">
-      <div class="w-full md:w-1/4">
+    <div class="d-flex justify-around">
+      <div class="d:w-1/4">
         <filter-component></filter-component>
       </div>
-      <div class="w-full md:w-3/4 d-flex flex-column">
+      <div class="md:w-3/4 d-flex flex-column">
         <div>
           <slot v-bind:cursos="data"></slot>
         </div>
@@ -25,9 +29,7 @@
 <script scoped>
 import LoadingComponent from "../LoadingComponent.vue";
 import CourseNavigationComponent from '../CourseNavigationComponent.vue';
-//import Home from './Home.vue';
 export default {
-  //layout: Home,
   components: {
     LoadingComponent,
     CourseNavigationComponent
@@ -55,6 +57,29 @@ export default {
     return {
       cursos2: [],
       visible: false,
+      selected_category:this.category,
+      orderBy:[
+        {
+          id:1,
+          value:'precio_descendente',
+          name:'Precio: De mas alto a mas bajo'
+        },
+        {
+          id:2,
+          value:'precio_ascendente',
+          name:'Precio: De mas bajo a mas alto'
+        },
+        {
+          id:3,
+          value:'fecha_descendente',
+          name:'Fecha: Más reciente primero'
+        },
+        {
+          id:4,
+          vlaue:'fecha_ascendente',
+          name:'Fecha: Más antiguo primero'
+        },
+      ]
     };
   },
 };
@@ -78,12 +103,8 @@ export default {
 }
 
 @media (max-width: 750px) {
-  #cursos .d-flex {
+ .d-flex {
     flex-flow: column;
   }
-}
-
-.d-flex.flex-column {
-  width: -webkit-fill-available;
 }
 </style>

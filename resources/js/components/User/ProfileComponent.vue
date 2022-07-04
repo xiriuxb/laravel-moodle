@@ -83,7 +83,7 @@
                 </div>
                 <div>
                   <button type="submit" v-if="$page.props.auth.role != 'suspended'"
-                    class=" btn btn-pimary bg-sky-700 text-slate-200m hover:bg-sky-900 hover:text-slate-200"
+                    class=" btn btn-primary"
                     :disabled="enableButton || this.loading">
                     <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
                       aria-hidden="true"></span>

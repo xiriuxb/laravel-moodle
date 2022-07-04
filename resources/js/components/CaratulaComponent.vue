@@ -4,18 +4,17 @@
       <div class="flex flex-wrap items-center px-10 py-10 pt-[120px]" id="caratula">
         <div class="w-full md:w-1/2 md:px-3 relative flex flex-col items-center">
           <h1 class="font-bold text-orange-500 md:text-5xl text-3xl xl:self-start ">{{ titulo1 }}</h1>
-          <p class="self-center md:self-start text-2xl font-bold text-orange-200 align-baseline">Busca un curso,</p>
           <p class="self-center md:self-start text-2xl font-bold text-orange-200">
-            Mira nuestro listado de cursos
+            Inscríbete en un curso
           </p>
           <inertia-link class="caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto" as="button" type="button"
             :href="'/cursos/all'">
-            Ir a cursos
+            Lista de cursos
             <span>
               <box-icon class="block" name='right-arrow-alt' color='#fff'></box-icon>
             </span>
           </inertia-link>
-          <p class="self-center md:self-start text-2xl font-bold text-orange-200">O accede al contenido en Moodle</p>
+          <p class="self-center md:self-start text-2xl font-bold text-orange-200">Y accede al contenido en Moodle (aula virtual)</p>
           <a class="caratula-button sm:mb-0 hover:bg-[#002e45] sm:w-auto md:self-start" :href="moodleUrl+'login/index.php'">
             Sitio Moodle
             <span>

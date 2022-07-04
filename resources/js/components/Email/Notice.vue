@@ -24,7 +24,7 @@
         </div>
         <button class="btn btn-primary" @click.prevent="sendEmail()" :disabled="sending">
           <span class="spinner-border spinner-border-sm" v-if="sending" role="status" aria-hidden="true"></span>
-          Enviar correo de verificación
+          Reenviar correo de verificación
         </button>
         <p>Luego de reenviar deberá esperar 3 minutos antes de volverlo a enviar.</p>
       </div>

@@ -7,10 +7,10 @@
       </li>
       <li v-for="index in pages" :key="index" class="page-item"
         v-bind:class="{ 'page-item active': index == currentPage }">
-        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/' + index">{{ index }}</inertia-link>
+        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/' + orderBy +'/' + index">{{ index }}</inertia-link>
       </li>
       <li class="page-item" :class="{ 'page-item disabled': currentPage == pages }">
-        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/' + (+currentPage + 1)">Siguiente
+        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/'+ orderBy +'/' + (+currentPage + 1)">Siguiente
         </inertia-link>
       </li>
     </ul>
@@ -28,6 +28,9 @@ export default {
       type: Number,
       required: true,
     },
+    orderBy:{
+      required:true,
+    }
   },
   methods: {
     navigationUp() {

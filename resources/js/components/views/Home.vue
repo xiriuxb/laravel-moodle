@@ -30,4 +30,10 @@ export default {
 ::v-deep .btn-primary:hover:not(:disabled){
   background-color: #005dc0;
 }
+::v-deep .dropdown-item{
+  padding: 10px 5px;
+}
+::v-deep .dropdown-menu{
+  width: 100%;
+}
 </style>

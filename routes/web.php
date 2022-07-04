@@ -54,7 +54,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/matricula', 'App\Http\Controllers\MatriculaController@storePaypalOrCreditCard')->name('matricula');
     Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula-dep-transf');
 
-    Route::get('/cursos/{category?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursess');
+    Route::get('/cursos/{categoria?}/{order_by?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursos');
 
     Route::redirect('/cursos', '/cursos/all/1');
 

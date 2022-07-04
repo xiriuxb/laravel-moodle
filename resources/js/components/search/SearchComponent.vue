@@ -120,8 +120,4 @@ img {
 input:focus+#respuestas {
   display: block;
 }
-
-::v-deep .dropdown-item{
-  height: 50px;
-}
 </style>

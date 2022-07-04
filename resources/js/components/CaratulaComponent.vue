@@ -8,7 +8,7 @@
             Inscríbete en un curso
           </p>
           <inertia-link class="caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto" as="button" type="button"
-            :href="'/cursos/all'">
+            :href="'/cursos/all/o/'">
             Lista de cursos
             <span>
               <box-icon class="block" name='right-arrow-alt' color='#fff'></box-icon>

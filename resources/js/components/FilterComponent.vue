@@ -16,42 +16,12 @@
         <div class="card-body">
           <ul class="list-menu">
             <li>
-              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
+              <inertia-link as="button" class="btn" :href="`/cursos/all/${$parent.orderBy}`" @click="updateCurrentCategory('all')">Todos
               </inertia-link>
             </li>
             <li v-for="categoria in categories" :key="categoria.id">
-              <inertia-link as="button" class="btn" :href="'/cursos/' + categoria.name"
+              <inertia-link as="button" class="btn" :href="`/cursos/${categoria.name}/${$parent.orderBy}`"
                 @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- Filtro por precio -->
-    <div class="filter-group">
-      <a id="precio-toggler" data-toggle="collapse" data-target="#collapse_precio" aria-expanded="false" class="collapsed" @click="precio_expanded = !precio_expanded">
-        <div class="card-header d-flex justify-between">
-          <h6 class="font-bold">Precio</h6>
-            <div class="arrow" :class="precio_expanded?'':'arrow-expanded'">
-              <div class="line"></div>
-              <div class="line"></div>
-            </div>
-        </div>
-      </a>
-      <div class="collapse" id="collapse_precio">
-        <div class="card-body">
-          <ul class="list-menu">
-            <li>
-              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Todos
-              </inertia-link>
-            </li>
-            <li>
-              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">Gratis
-              </inertia-link>
-            </li>
-            <li>
-              <inertia-link as="button" class="btn" :href="'/cursos/all'" @click="updateCurrentCategory('all')">De Pago
-              </inertia-link>
             </li>
           </ul>
         </div>
@@ -79,13 +49,11 @@ export default {
     return {
       categories: [],
       categorias_expanded:false,
-      precio_expanded:false,
       loading:true,
     }
   },
   mounted(){
     this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
-    this.precio_expanded = document.getElementById('precio-toggler').getAttribute('aria-expanded');
   },
   onUpdate(){
   },

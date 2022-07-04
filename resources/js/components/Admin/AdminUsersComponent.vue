@@ -3,8 +3,8 @@
 		<AppHead :title="'Admin | Usuarios'" />
 		<loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'"
 			v-if="setting">
-			<h2>Administración de usuarios</h2>
 		</loading-component>
+		<h2>Administración de usuarios</h2>
 		<div class="container">
 			<form class="input-group mb-3" :disabled='setting'>
 				<div>
@@ -116,7 +116,7 @@ export default {
 	methods: {
 		loadUsers(url = this.baseUrl) {
 			this.setting = true;
-			axios.get(url, { params: { role: this.role, keyword: this.search, deleted: this.usersDeleted, suspended: this.usersSuspended } }).then((response) => {
+			axios.get(url, { params: { role: this.role, keyword: this.search, deleted: this.usersDeleted } }).then((response) => {
 				this.users = response.data.data;
 				this.linksToPages = response.data.links;
 				this.loading = false;

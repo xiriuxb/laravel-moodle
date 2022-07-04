@@ -80,7 +80,7 @@ export default {
 				},
 				{
 					name: 'cursos',
-					path: '/cursos/all',
+					path: '/cursos/all/o/',
 					text: 'Cursos',
 					params: {
 					}

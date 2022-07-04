@@ -140,8 +140,7 @@ __webpack_require__.r(__webpack_exports__);
         params: {
           role: this.role,
           keyword: this.search,
-          deleted: this.usersDeleted,
-          suspended: this.usersSuspended
+          deleted: this.usersDeleted
         }
       }).then(function (response) {
         _this2.users = response.data.data;
@@ -553,19 +552,17 @@ var render = function () {
       _c("AppHead", { attrs: { title: "Admin | Usuarios" } }),
       _vm._v(" "),
       _vm.setting
-        ? _c(
-            "loading-component",
-            {
-              attrs: {
-                backgroundColor: "rgb(0 0 0 / 29%)",
-                width: "100%",
-                height: "100%",
-                position: "fixed",
-              },
+        ? _c("loading-component", {
+            attrs: {
+              backgroundColor: "rgb(0 0 0 / 29%)",
+              width: "100%",
+              height: "100%",
+              position: "fixed",
             },
-            [_c("h2", [_vm._v("Administración de usuarios")])]
-          )
+          })
         : _vm._e(),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Administración de usuarios")]),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c(

@@ -3599,8 +3599,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Ziggy": () => (/* binding */ Ziggy)
 /* harmony export */ });
 var Ziggy = {
-  "url": "http:\/\/192.168.1.6:8000",
-  "port": 8000,
+  "url": "https:\/\/young-river-89200.herokuapp.com",
+  "port": null,
   "defaults": {},
   "routes": {
     "admin.cursos-moodle.index": {

@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.loading = true;
-      this.form.post('/matricula-deposito-transferencia', {
+      this.form.post(this.route('matricula.dep-transf'), {
         onStart: function onStart() {
           _this.loading = true;
         },
@@ -412,7 +412,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "comprobantePagoFile" } }, [
-                      _vm._v("Foto del comprobante:"),
+                      _vm._v("Foto del comprobante: (Máximo 5MB)"),
                     ]),
                     _vm._v(" "),
                     _c("input", {

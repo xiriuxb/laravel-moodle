@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-4 col-md-6 col-sm-6 pb-2">
     <inertia-link class="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
-      :href="'/curso/' + curso.shortname">
+      :href="route('curso',{any:curso.shortname})">
       <div class="relative pb-48 overflow-hidden">
         <img class="absolute inset-0 h-full w-full object-cover" v-bind:src="image"
           :alt="'Imagen curso-' + curso.fullname" loading="lazy" />

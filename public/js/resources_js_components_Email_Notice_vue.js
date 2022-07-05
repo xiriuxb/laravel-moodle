@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
     sendEmail: function sendEmail() {
       var _this = this;
 
-      this.$inertia.visit('/email/verification-notification', {
+      this.$inertia.visit(this.route('verification.resend'), {
         method: 'POST',
         onStart: function onStart() {
           _this.sending = true;

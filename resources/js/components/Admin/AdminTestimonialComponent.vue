@@ -98,7 +98,6 @@ export default {
   name: "AdminCommentComponent",
   data() {
     return {
-      apiRoute: '/api/testimonials',
       id: 0,
       isFormHidden: true,
       editMode: true,
@@ -122,13 +121,14 @@ export default {
 
     update() {
       this.loading = true;
+      this.errors=[];
       let formData = new FormData();
       formData.append("_method", "put");
       formData.append('autor', this.form.autor);
       formData.append('texto', this.form.texto);
       formData.append('is_active', this.form.is_active);
       if (this.form.file != null) formData.append('file', this.form.file);
-      axios.post(`${this.apiRoute}/${this.id}`, formData).then(() => {
+      axios.post(this.route('testimonials.update',{testimonial:this.id}), formData).then(() => {
         this.loading = false;
         this.isFormHidden = true;
         this.resetInput();
@@ -156,7 +156,7 @@ export default {
         formData.append('is_active', this.form.is_active);
         if (this.form.file != null) formData.append('file', this.form.file);
         axios
-          .post(this.apiRoute, formData)
+          .post(this.route('testimonials.store'), formData)
           .then(() => {
             this.errors = [];
             this.$toast.open({
@@ -178,7 +178,7 @@ export default {
 
     async loadComments() {
       this.loading = true;
-      await axios.get(this.apiRoute)
+      await axios.get(this.route('testimonials.index'))
         .then((response) => {
           this.comments = response.data.data;
           this.loading = false;
@@ -198,10 +198,11 @@ export default {
     },
 
     deleteComment(index) {
+      window.scrollTo(0, 0);
       this.editMode = false;
       this.loading = true;
       axios
-        .delete(`${this.apiRoute}/${index}`)
+        .delete(this.route('testimonials.destroy',{testimonial:index}))
         .then((response) => {
           this.loadComments();
         })
@@ -215,17 +216,17 @@ export default {
     getComment(index) {
       this.isFormHidden = false;
       this.loading = true;
-      axios.get(`${this.apiRoute}/${index}`)
+      axios.get(this.route('testimonials.show',{testimonial:index}))
         .then((response) => {
           this.id = response.data.data.id;
           this.form.autor = response.data.data.autor;
           this.form.texto = response.data.data.texto;
-          this.form.is_active = response.data.data.is_active;
+          this.form.is_active = response.data.data.is_active==1?true:false;
           this.file_name = response.data.data.file;
           this.loading = false;
         })
         .catch((err) => {
-          this.errors = err.response.data.errors;
+          this.$toast.open({ message: "Error al cargar", type: "error", position: "top-right", });
         });
     },
 

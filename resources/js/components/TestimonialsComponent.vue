@@ -72,7 +72,7 @@ export default {
     }
   },
   beforeMount() {
-    axios.get('api/visibleComments').then((response) => {
+    axios.get(this.route('testimonios.visibles')).then((response) => {
       this.comments = response.data.data;
       this.visible = true;
     }).catch((err) => {

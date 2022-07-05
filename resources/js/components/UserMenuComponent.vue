@@ -12,24 +12,24 @@
         <div class="group">
           <inertia-link as="button"
             class="block w-full md:px-1  py-2 text-gray-300  group-hover:bg-slate-500 md:text-black md:right-5"
-            :href="'/personal'">
+            :href="route('personal.data')">
             Perfil
           </inertia-link>
         </div>
         <div class="dropdown-divider my-0"></div>
         <inertia-link as="button" class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500"
-          :href="'/mis-cursos'">
+          :href="route('personal.mis-cursos')">
           Ver mis cursos
         </inertia-link>
         <inertia-link v-if="$page.props.auth.role != 'user'& $page.props.auth.role !='suspended'" as="button"
           class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500"
-          :href="'/admin/testimonials'">
+          :href="route('admin.testimonials')">
           Seccion Admin
         </inertia-link>
         <div class="dropdown-divider my-0"></div>
         <inertia-link as="button" method="post"
           class="block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300"
-          :href="'/logout'">Cerrar Sesión</inertia-link>
+          :href="route('logout')">Cerrar Sesión</inertia-link>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default {
 @media (max-width: 767px) {
   .user-profile {
     border-radius: 50%;
-    position: fixed;
+    position: relative;
     width: 50px;
     height: 50px;
     left: 40%;

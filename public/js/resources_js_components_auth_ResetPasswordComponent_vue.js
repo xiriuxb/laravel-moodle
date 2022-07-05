@@ -110,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
     sendRequest: function sendRequest() {
       var _this = this;
 
-      this.form.post("/reset-password", {
+      this.form.post(this.route('password.reset.update'), {
         onStart: function onStart() {
           _this.errors = "";
         },
@@ -300,7 +300,7 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "inertia-link",
-                  { attrs: { as: "button", href: "/ingreso" } },
+                  { attrs: { as: "button", href: _vm.route("ingreso") } },
                   [_vm._v("\n        Ingresar\n      ")]
                 ),
               ],

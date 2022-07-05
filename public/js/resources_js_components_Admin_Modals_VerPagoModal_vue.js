@@ -214,7 +214,7 @@ var render = function () {
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("img", {
           attrs: {
-            src: "/api/admin/matriculas/pendientes/imagen/" + _vm.pago_id,
+            src: _vm.route("admin.matricula.imagen", { id: _vm.pago_id }),
           },
         }),
       ]),

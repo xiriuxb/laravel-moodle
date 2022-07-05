@@ -3,7 +3,7 @@
     <ul class="pagination justify-content-center">
 
       <li class="page-item" :class="{ 'page-item disabled': currentPage == 1 }">
-        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/' + (+currentPage - 1)">Anterior</inertia-link>
+        <inertia-link class="page-link" :href="'/cursos/' + $parent.category + '/' + orderBy +'/'  + (+currentPage - 1)">Anterior</inertia-link>
       </li>
       <li v-for="index in pages" :key="index" class="page-item"
         v-bind:class="{ 'page-item active': index == currentPage }">

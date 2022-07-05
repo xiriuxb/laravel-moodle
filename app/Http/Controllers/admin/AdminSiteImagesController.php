@@ -21,7 +21,7 @@ class AdminSiteImagesController extends Controller
     }
 
     public function storeImage(Request $request){
-        $request->validate(['imagen' => 'image|sometimes|mimes:png,jpg,jpeg|max:524',]);
+        $request->validate(['imagen' => 'image|sometimes|mimes:png,jpg,jpeg|max:512',]);
         $imageName = $request->image_name.'.png';
         $request->imagen->move(public_path('images'), $imageName);
         return response()->json(['success' => $imageName]);

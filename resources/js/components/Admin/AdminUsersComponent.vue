@@ -85,7 +85,7 @@ export default {
 	},
 	created() {
 		this.loadUsers();
-		axios.get('/api/admin/roles').then(response => {
+		axios.get(this.route('admin.user.roles')).then(response => {
 			this.roles = response.data;
 		}).catch(error => {
 			this.$toast.open({
@@ -101,7 +101,6 @@ export default {
 			roles: [],
 			users: [],
 			linksToPages: [],
-			baseUrl: '/api/admin/users',
 			role: 999,
 			search: '',
 			setting: false,
@@ -109,14 +108,13 @@ export default {
 			isModalPagosVisible: false,
 			selectedUser: null,
 			usersDeleted: false,
-			usersSuspended: false,
 			totalResultados: 0
 		}
 	},
 	methods: {
-		loadUsers(url = this.baseUrl) {
+		loadUsers() {
 			this.setting = true;
-			axios.get(url, { params: { role: this.role, keyword: this.search, deleted: this.usersDeleted } }).then((response) => {
+			axios.get(this.route('admin.user.index', { role: this.role, keyword: this.search, deleted: this.usersDeleted })).then((response) => {
 				this.users = response.data.data;
 				this.linksToPages = response.data.links;
 				this.loading = false;

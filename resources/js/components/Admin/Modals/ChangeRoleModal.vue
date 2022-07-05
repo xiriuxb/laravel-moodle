@@ -62,7 +62,7 @@ export default {
     async changeRole() {
       this.loading = true;
       this.errors = [];
-      await axios.post('/api/admin/users/change-role', this.form).then(response => {
+      await axios.post(this.route('admin.user.change-role'), this.form).then(response => {
         this.loading = false;
         this.$toast.open({
           message: 'Se ha cambiado el rol del usuario',
@@ -90,7 +90,7 @@ export default {
   },
   created() {
     this.loading = true;
-    axios.get('/api/admin/users/get-user-role', { params: { id: this.userid } }).then(response => {
+    axios.get(this.route('admin.user.role.get', { id: this.userid }) ).then(response => {
       this.form.role = response.data.role;
       this.oldRole = response.data.role;
       this.loading = false;

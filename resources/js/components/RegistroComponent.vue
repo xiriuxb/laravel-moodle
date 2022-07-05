@@ -46,14 +46,14 @@
         <button type="submit" name="submit" id="submit" class="form-submit btn btn-submit" value="Registrar"
           role="button" :disabled="form.processing" preserve-scroll>
           {{ this.btnText }}
-          <loading-component v-if="this.loading" :position="'relative'"></loading-component>
+          <loading-component v-if="this.loading" :position="'fixed'"></loading-component>
         </button>
       </form>
       <div class="relative font-[14px] top-1 bottom-1">*Requerido</div>
       <hr />
-      <p class="loginhere" id="registered">
+      <p id="registered">
         ¿Ya tiene una cuenta?
-        <inertia-link :href="'/ingreso'">
+        <inertia-link :href="route('ingreso')">
           <a class="loginhere-link">Ingrese aquí</a>
         </inertia-link>
       </p>
@@ -81,7 +81,7 @@ export default {
   methods: {
     saveFrom() {
       this.errors = {};
-      this.form.post('/api/register', {
+      this.form.post(this.route('register'), {
         onStart: () => (this.disableBtnSubmit(true)),
         onFinish: () => (this.disableBtnSubmit(false)),
       });
@@ -107,9 +107,6 @@ export default {
         this.btnText = "Registrarse";
       }
     },
-    loginBtn() {
-      window.location.href = "/ingreso";
-    }
   },
 };
 </script>

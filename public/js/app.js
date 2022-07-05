@@ -2345,10 +2345,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     }
   },
-  beforeCreate: function beforeCreate() {
+  mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/categorias').then(function (response) {
+    axios.get(this.route('categorias')).then(function (response) {
       _this.categories = response.data.data;
       _this.loading = false;
     })["catch"](function (err) {
@@ -2358,6 +2358,7 @@ __webpack_require__.r(__webpack_exports__);
         duration: 5000
       });
     });
+    this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
   },
   data: function data() {
     return {
@@ -2366,10 +2367,6 @@ __webpack_require__.r(__webpack_exports__);
       loading: true
     };
   },
-  mounted: function mounted() {
-    this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
-  },
-  onUpdate: function onUpdate() {},
   methods: {
     updateCurrentCategory: function updateCurrentCategory(currentCategory) {
       this.$parent.selected_category = currentCategory;
@@ -2598,12 +2595,12 @@ __webpack_require__.r(__webpack_exports__);
       movedSidebar: true,
       navElements: [{
         name: 'home-component',
-        path: '/',
+        path: 'home',
         text: 'Inicio',
         params: {}
       }, {
         name: 'cursos',
-        path: '/cursos/all/o/',
+        path: 'cursos',
         text: 'Cursos',
         params: {}
       }]
@@ -2751,6 +2748,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2842,7 +2840,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2858,14 +2855,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     moodleUrl: function moodleUrl() {
-      return this.$page.props.siteData.moodleUrl;
+      return "".concat(this.$page.props.siteData.moodleUrl, "login/index.php");
     }
   },
   methods: {
     loginForm: function loginForm() {
       var _this = this;
 
-      this.form.post('/vuelogin', {
+      this.form.post(this.route('vuelogin'), {
         onStart: function onStart() {
           return _this.loading = true;
         },
@@ -2946,11 +2943,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.question.length > 1) {
         var vm = this;
         vm.loading = true;
-        axios.get("/api/courses/search", {
-          params: {
-            keyword: this.question
-          }
-        }).then(function (response) {
+        axios.get(this.route('curso.busqueda', {
+          keyword: this.question
+        })).then(function (response) {
           vm.resultados = response.data;
 
           if (response.data.length == 0) {
@@ -3114,31 +3109,31 @@ __webpack_require__.r(__webpack_exports__);
       movedSidebar: true,
       menu_items: [{
         name: 'Testimonios',
-        component: 'testimonials',
+        component: 'admin.testimonials',
         permission: ''
       }, {
         name: 'Cursos',
-        component: 'cursos',
+        component: 'admin.cursos',
         permission: ''
       }, {
         name: 'Cursos Moodle',
-        component: 'cursos-moodle',
+        component: 'admin.cursos-moodle',
         permission: ''
       }, {
         name: 'Usuarios',
-        component: 'users',
+        component: 'admin.users',
         permission: ''
       }, {
         name: 'Matriculas Pendientes',
-        component: 'matriculas-pendientes',
+        component: 'admin.matriculas-pendientes',
         permission: ''
       }, {
         name: 'Imágenes',
-        component: 'site-images',
+        component: 'admin.site-images',
         permission: 'su'
       }, {
         name: 'Configuración',
-        component: 'site-config',
+        component: 'admin.site-config',
         permission: 'su'
       }],
       error: ''
@@ -3361,9 +3356,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
-  },
-  mounted: function mounted() {
-    console.log(this.valuesOrderBy[this.orderBy].name);
   }
 });
 
@@ -3415,6 +3407,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _auth_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../auth/LoginComponent.vue */ "./resources/js/components/auth/LoginComponent.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -3603,141 +3599,216 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Ziggy": () => (/* binding */ Ziggy)
 /* harmony export */ });
 var Ziggy = {
-  "url": "http:\/\/localhost",
-  "port": null,
+  "url": "http:\/\/192.168.1.6:8000",
+  "port": 8000,
   "defaults": {},
   "routes": {
-    "register": {
-      "uri": "api\/register",
+    "admin.cursos-moodle.index": {
+      "uri": "api\/admin\/cursos-moodle",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.cursos.index": {
+      "uri": "api\/admin\/cursos-local",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.set-destacado": {
+      "uri": "api\/admin\/cursos-local\/destacado",
       "methods": ["POST"]
     },
-    "verification.resend": {
-      "uri": "api\/email\/resend",
+    "admin.cursos.importar": {
+      "uri": "api\/admin\/cursos-local\/importar",
+      "methods": ["POST"]
+    },
+    "admin.user.index": {
+      "uri": "api\/admin\/users",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.user.change-role": {
+      "uri": "api\/admin\/users\/change-role",
+      "methods": ["POST"]
+    },
+    "admin.user.role.get": {
+      "uri": "api\/admin\/users\/get-user-role",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.user.roles": {
+      "uri": "api\/admin\/roles",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.images.favicon": {
+      "uri": "api\/admin\/images\/favicon",
+      "methods": ["POST"]
+    },
+    "admin.images": {
+      "uri": "api\/admin\/images",
+      "methods": ["POST"]
+    },
+    "admin.site.index": {
+      "uri": "api\/admin\/site-config",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.site.update": {
+      "uri": "api\/admin\/site-config",
+      "methods": ["POST"]
+    },
+    "admin.site.update-config": {
+      "uri": "api\/admin\/site-config\/update",
+      "methods": ["POST"]
+    },
+    "admin.matricula-pendiente.index": {
+      "uri": "api\/admin\/matriculas\/pendientes",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.matricula-pendiente.update": {
+      "uri": "api\/admin\/matriculas\/pendientes",
+      "methods": ["PUT"]
+    },
+    "admin.matricula.imagen": {
+      "uri": "api\/admin\/matriculas\/pendientes\/imagen\/{id}",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.matriculas.usuario.index": {
+      "uri": "api\/admin\/matriculas\/usuario\/{username}",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.matriculas.update": {
+      "uri": "api\/admin\/matriculas",
+      "methods": ["PUT"]
+    },
+    "admin.matriculas.estados": {
+      "uri": "api\/admin\/matriculas\/estados",
       "methods": ["GET", "HEAD"]
     },
     "testimonials.index": {
-      "uri": "api\/testimonials",
+      "uri": "api\/admin\/testimonials",
       "methods": ["GET", "HEAD"]
     },
     "testimonials.store": {
-      "uri": "api\/testimonials",
+      "uri": "api\/admin\/testimonials",
       "methods": ["POST"]
     },
     "testimonials.show": {
-      "uri": "api\/testimonials\/{testimonial}",
+      "uri": "api\/admin\/testimonials\/{testimonial}",
       "methods": ["GET", "HEAD"]
     },
     "testimonials.update": {
-      "uri": "api\/testimonials\/{testimonial}",
+      "uri": "api\/admin\/testimonials\/{testimonial}",
       "methods": ["PUT", "PATCH"]
     },
     "testimonials.destroy": {
-      "uri": "api\/testimonials\/{testimonial}",
+      "uri": "api\/admin\/testimonials\/{testimonial}",
       "methods": ["DELETE"]
     },
-    "visibles": {
-      "uri": "api\/visibleComments",
-      "methods": ["GET", "HEAD"]
-    },
-    "curses.index": {
-      "uri": "api\/curses\/{categoria?}\/{page?}",
-      "methods": ["GET", "HEAD"]
-    },
-    "curses.search": {
-      "uri": "api\/cursesh",
+    "testimonios.visibles": {
+      "uri": "api\/testimonials",
       "methods": ["GET", "HEAD"]
     },
     "categorias": {
       "uri": "api\/categorias",
       "methods": ["GET", "HEAD"]
     },
-    "verification.send": {
-      "uri": "api\/email\/verification-notification",
-      "methods": ["POST"]
-    },
-    "matricula.index": {
-      "uri": "api\/matricula",
+    "cursos.destacados": {
+      "uri": "api\/cursos-local\/destacados",
       "methods": ["GET", "HEAD"]
     },
-    "matricula.store": {
-      "uri": "api\/matricula",
-      "methods": ["POST"]
-    },
-    "matricula.show": {
-      "uri": "api\/matricula\/{matricula}",
-      "methods": ["GET", "HEAD"],
-      "bindings": {
-        "matricula": "id"
-      }
-    },
-    "matricula.update": {
-      "uri": "api\/matricula\/{matricula}",
-      "methods": ["PUT", "PATCH"],
-      "bindings": {
-        "matricula": "id"
-      }
-    },
-    "matricula.destroy": {
-      "uri": "api\/matricula\/{matricula}",
-      "methods": ["DELETE"],
-      "bindings": {
-        "matricula": "id"
-      }
-    },
-    "users.index": {
-      "uri": "api\/users",
+    "paypal-data": {
+      "uri": "api\/paypal-data",
       "methods": ["GET", "HEAD"]
     },
-    "users.store": {
-      "uri": "api\/users",
-      "methods": ["POST"]
-    },
-    "users.show": {
-      "uri": "api\/users\/{user}",
+    "curso.busqueda": {
+      "uri": "api\/courses\/search",
       "methods": ["GET", "HEAD"]
-    },
-    "users.update": {
-      "uri": "api\/users\/{user}",
-      "methods": ["PUT", "PATCH"]
-    },
-    "users.destroy": {
-      "uri": "api\/users\/{user}",
-      "methods": ["DELETE"]
-    },
-    "password.email": {
-      "uri": "api\/forgot-password",
-      "methods": ["POST"]
-    },
-    "password.update": {
-      "uri": "api\/reset-password",
-      "methods": ["POST"]
-    },
-    "vuelogin": {
-      "uri": "vuelogin",
-      "methods": ["POST"]
     },
     "home": {
       "uri": "\/",
       "methods": ["GET", "HEAD"]
     },
-    "admin.home": {
-      "uri": "admin",
-      "methods": ["GET", "HEAD"]
-    },
-    "admi": {
-      "uri": "admin\/{any}",
-      "methods": ["GET", "HEAD"],
-      "wheres": {
-        "any": "testimonios|cursos|usuarios|cursos-moodle"
-      }
-    },
     "ingreso": {
       "uri": "ingreso",
       "methods": ["GET", "HEAD"]
     },
-    "verification.notice": {
-      "uri": "email\/verify",
+    "vuelogin": {
+      "uri": "vuelogin",
+      "methods": ["POST"]
+    },
+    "personal.mis-cursos": {
+      "uri": "mis-cursos",
       "methods": ["GET", "HEAD"]
+    },
+    "admin.testimonials": {
+      "uri": "admin\/testimonials",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.cursos-moodle": {
+      "uri": "admin\/cursos-moodle",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.cursos": {
+      "uri": "admin\/cursos",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.users": {
+      "uri": "admin\/users",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.matriculas-pendientes": {
+      "uri": "admin\/matriculas-pendientes",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.site-images": {
+      "uri": "admin\/site-images",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.site-config": {
+      "uri": "admin\/site-config",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin.matriculas.usuario": {
+      "uri": "admin\/matriculas\/usuario\/{username}",
+      "methods": ["GET", "HEAD"]
+    },
+    "register": {
+      "uri": "register",
+      "methods": ["POST"]
+    },
+    "matricula.free": {
+      "uri": "matricula-free",
+      "methods": ["POST"]
+    },
+    "matricula": {
+      "uri": "matricula",
+      "methods": ["POST"]
+    },
+    "matricula.dep-transf": {
+      "uri": "matricula-deposito-transferencia",
+      "methods": ["POST"]
+    },
+    "cursos": {
+      "uri": "cursos\/{categoria?}\/{order_by?}\/{page?}",
+      "methods": ["GET", "HEAD"]
+    },
+    "eliminar-cuenta": {
+      "uri": "eliminar-cuenta",
+      "methods": ["GET", "HEAD"]
+    },
+    "user.delete": {
+      "uri": "user\/delete",
+      "methods": ["POST"]
+    },
+    "curso": {
+      "uri": "curso\/{any}",
+      "methods": ["GET", "HEAD"],
+      "wheres": {
+        "any": ".*"
+      }
+    },
+    "verification.notice": {
+      "uri": "email\/verification-notification",
+      "methods": ["GET", "HEAD"]
+    },
+    "verification.resend": {
+      "uri": "email\/verification-notification",
+      "methods": ["POST"]
     },
     "verification.verify": {
       "uri": "email\/verify\/{id}\/{hash}",
@@ -3747,9 +3818,17 @@ var Ziggy = {
       "uri": "forgot-password",
       "methods": ["GET", "HEAD"]
     },
+    "password.email": {
+      "uri": "forgot-password",
+      "methods": ["POST"]
+    },
     "password.reset": {
       "uri": "reset-password\/{token}",
       "methods": ["GET", "HEAD"]
+    },
+    "password.reset.update": {
+      "uri": "reset-password",
+      "methods": ["POST"]
     },
     "personal.data": {
       "uri": "personal",
@@ -3767,25 +3846,16 @@ var Ziggy = {
       "uri": "change-email",
       "methods": ["POST"]
     },
-    "my.courses": {
-      "uri": "mis-cursos",
-      "methods": ["GET", "HEAD"]
+    "user.update": {
+      "uri": "update-user",
+      "methods": ["POST"]
     },
-    "createTransaction": {
-      "uri": "create-transaction",
-      "methods": ["GET", "HEAD"]
-    },
-    "processTransaction": {
-      "uri": "process-transaction",
-      "methods": ["GET", "HEAD"]
-    },
-    "successTransaction": {
-      "uri": "success-transaction",
-      "methods": ["GET", "HEAD"]
-    },
-    "cancelTransaction": {
-      "uri": "cancel-transaction",
-      "methods": ["GET", "HEAD"]
+    "deposito-transferencia": {
+      "uri": "pago-deposito-transferencia\/{curso_id}",
+      "methods": ["GET", "HEAD"],
+      "wheres": {
+        "curso_id": ".*"
+      }
     }
   }
 };
@@ -20716,7 +20786,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.main-menu[data-v-485090b2] {\r\n\tposition: relative;\r\n\tz-index: 200;\n}\n.main-menu[data-v-485090b2]:not(:first-of-type) {\r\n\tflex: 0;\n}\n.main-menu li>a[data-v-485090b2] {\r\n\tfont-weight: bold;\r\n\tletter-spacing: 1px;\r\n\tcolor: rgb(255, 255, 255);\r\n\tposition: relative;\r\n\tfill: #fff;\r\n\ttext-decoration: none;\n}\n.main-menu li[data-v-485090b2] {\r\n\tmargin-right: 30px;\n}\n.main-menu li>a[data-v-485090b2]::before {\r\n\tposition: absolute;\r\n\tcontent: \"\";\r\n\twidth: calc(100% - 1px);\r\n\theight: 1px;\r\n\tbackground: rgb(255, 255, 255);\r\n\tbottom: -6px;\r\n\tleft: 0;\r\n\ttransform: scale(0, 1);\r\n\ttransform-origin: right center;\r\n\tz-index: -1;\r\n\ttransition: transform 0.5s ease;\n}\n.main-menu li>a[data-v-485090b2]:hover::before {\r\n\ttransform: scale(1, 1);\r\n\ttransform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n\tbackground-color: #d95d22;\r\n\tbox-shadow: 0px 4px 7px #777;\r\n\tposition: fixed;\r\n\talign-content: center;\r\n\tleft: 0;\r\n\tz-index: 200;\r\n\twidth: 100%;\r\n\ttransition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n\tcolor: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n\tmax-width: 200px;\r\n\tmin-width: 200px;\r\n\t-webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n\t        animation: fadeInLeft 0.4s both 0.4s;\n}\n.navbar-nav[data-v-485090b2] {\r\n\talign-items: center;\n}\r\n\r\n/* main-header end */\n@media (max-width: 767px) {\r\n\t/*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n\t\twidth: 40px;\r\n\t\theight: 40px;\r\n\t\tposition: relative;\n}\n.main-header .container[data-v-485090b2] {\r\n\t\talign-content: center;\r\n\t\talign-items: center;\n}\n.main-header .navbar-nav[data-v-485090b2] {\r\n\t\tfloat: none;\r\n\t\tpadding-left: 0;\r\n\t\tpadding-right: 0;\r\n\t\talign-items: flex-start;\n}\n.main-header .navbar-nav li[data-v-485090b2] {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-bottom: 10px;\n}\n.main-menu li[data-v-485090b2]:not(:last-of-type) {\r\n\t\tmargin-right: 0px;\n}\r\n\r\n\t/**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n\t\tbackground-color: #fff;\r\n\t\tmargin: 0 auto 6px;\r\n\t\tborder-radius: 0;\r\n\t\twidth: 30px;\r\n\t\theight: 3px;\r\n\t\tposition: absolute;\r\n\t\tright: 0;\r\n\t\ttransition: all 0.2s ease;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 10px;\r\n\t\ttop: 8px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 16px;\r\n\t\ttop: 17px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 20px;\r\n\t\ttop: 26px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n\t\tmargin-bottom: 5px;\r\n\t\tborder-radius: 0;\r\n\t\tdisplay: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 10px;\n}\r\n\r\n\t/*header ends*/\n}\n.collapse.navbar-collapse[data-v-485090b2]:not(:first-of-type) {\r\n\tflex-direction: row-reverse;\n}\na box-icon[data-v-485090b2]{\r\n\tposition:fixed;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar[data-v-485090b2]{\r\n\tbackground-color: #d95d22;\r\n\tpadding: 0.5rem 1.5rem;\n}\n.main-menu[data-v-485090b2] {\r\n\tposition: relative;\r\n\tz-index: 200;\n}\n.main-menu[data-v-485090b2]:not(:first-of-type) {\r\n\tflex: 0;\n}\n.main-menu li>a[data-v-485090b2] {\r\n\tfont-weight: bold;\r\n\tletter-spacing: 1px;\r\n\tcolor: rgb(255, 255, 255);\r\n\tposition: relative;\r\n\tfill: #fff;\r\n\ttext-decoration: none;\n}\n.main-menu li[data-v-485090b2] {\r\n\tmargin-right: 30px;\n}\n.main-menu li>a[data-v-485090b2]::before {\r\n\tposition: absolute;\r\n\tcontent: \"\";\r\n\twidth: calc(100% - 1px);\r\n\theight: 1px;\r\n\tbackground: rgb(255, 255, 255);\r\n\tbottom: -6px;\r\n\tleft: 0;\r\n\ttransform: scale(0, 1);\r\n\ttransform-origin: right center;\r\n\tz-index: -1;\r\n\ttransition: transform 0.5s ease;\n}\n.main-menu li>a[data-v-485090b2]:hover::before {\r\n\ttransform: scale(1, 1);\r\n\ttransform-origin: left center;\n}\n.main-header[data-v-485090b2] {\r\n\tbackground-color: #0000005c;\r\n\tbox-shadow: 0px 4px 7px #777;\r\n\tposition: fixed;\r\n\talign-content: center;\r\n\tleft: 0;\r\n\tz-index: 200;\r\n\twidth: 100%;\r\n\ttransition: all 0.4s ease;\n}\n.navbar-brand[data-v-485090b2] {\r\n\tcolor: #fff;\n}\n.main-header .navbar-brand img[data-v-485090b2] {\r\n\tmax-width: 200px;\r\n\tmin-width: 200px;\r\n\t-webkit-animation: fadeInLeft 0.4s both 0.4s;\r\n\t        animation: fadeInLeft 0.4s both 0.4s;\n}\n.navbar-nav[data-v-485090b2] {\r\n\talign-items: center;\n}\r\n\r\n/* main-header end */\n@media(max-width: 840px){\n#home-component[data-v-485090b2]{\r\n\t\tdisplay: none;\n}\n}\n@media (max-width: 767px) {\r\n\t/*header starts*/\n.navbar-toggler[data-v-485090b2] {\r\n\t\twidth: 40px;\r\n\t\theight: 40px;\r\n\t\tposition: relative;\n}\n.main-header .navbar-nav li[data-v-485090b2] {\r\n\t\tdisplay: inline-block;\r\n\t\tpadding-bottom: 10px;\n}\n.main-menu li[data-v-485090b2]:not(:last-of-type) {\r\n\t\tmargin-right: 0px;\n}\r\n\r\n\t/**/\n.main-header .navbar-toggler .icon-bar[data-v-485090b2] {\r\n\t\tbackground-color: #fff;\r\n\t\tmargin: 0 auto 6px;\r\n\t\tborder-radius: 0;\r\n\t\twidth: 30px;\r\n\t\theight: 3px;\r\n\t\tposition: absolute;\r\n\t\tright: 0;\r\n\t\ttransition: all 0.2s ease;\n}\n.main-header .navbar-toggler .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 10px;\r\n\t\ttop: 8px;\n}\n.main-header .navbar-toggler .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 16px;\r\n\t\ttop: 17px;\n}\n.main-header .navbar-toggler .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 20px;\r\n\t\ttop: 26px;\n}\n.main-header .current .icon-bar[data-v-485090b2] {\r\n\t\tmargin-bottom: 5px;\r\n\t\tborder-radius: 0;\r\n\t\tdisplay: block;\n}\n.main-header .current .icon-bar-1[data-v-485090b2] {\r\n\t\twidth: 18px;\n}\n.main-header .current .icon-bar-2[data-v-485090b2] {\r\n\t\twidth: 30px;\n}\n.main-header .current .icon-bar-3[data-v-485090b2] {\r\n\t\twidth: 10px;\n}\r\n\r\n\t/*header ends*/\n}\n.collapse.navbar-collapse[data-v-485090b2]:not(:first-of-type) {\r\n\tflex-direction: row-reverse;\n}\na box-icon[data-v-485090b2]{\r\n\tposition:fixed;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20740,7 +20810,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user-profile[data-v-0dee33f8] {\r\n  border-radius: 50%;\r\n  width: 50px;\r\n  height: 50px;\r\n  left: auto;\n}\n.user-profile[data-v-0dee33f8]:hover {\r\n  background-color: rgba(255, 251, 251, 0.37);\r\n  box-shadow: 0px 4px 7px #777;\n}\n@media (max-width: 767px) {\n.user-profile[data-v-0dee33f8] {\r\n    border-radius: 50%;\r\n    position: fixed;\r\n    width: 50px;\r\n    height: 50px;\r\n    left: 40%;\n}\n.dropdown-menu.show[data-v-0dee33f8] {\r\n    transform: translate3d(0px, 50px, 0px) !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.user-profile[data-v-0dee33f8] {\r\n  border-radius: 50%;\r\n  width: 50px;\r\n  height: 50px;\r\n  left: auto;\n}\n.user-profile[data-v-0dee33f8]:hover {\r\n  background-color: rgba(255, 251, 251, 0.37);\r\n  box-shadow: 0px 4px 7px #777;\n}\n@media (max-width: 767px) {\n.user-profile[data-v-0dee33f8] {\r\n    border-radius: 50%;\r\n    position: relative;\r\n    width: 50px;\r\n    height: 50px;\r\n    left: 40%;\n}\n.dropdown-menu.show[data-v-0dee33f8] {\r\n    transform: translate3d(0px, 50px, 0px) !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20764,7 +20834,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#mobile-nav[data-v-5b13c70a] {\r\n    transform: translateX(-260px);\r\n    transition: transform 0.3s ease-in-out;\n}\n.mob-nav-item[data-v-5b13c70a] {\r\n    width: 100%;\r\n    justify-content: space-between;\r\n    color: aliceblue;\r\n    cursor: pointer;\r\n    align-items: center;\r\n    padding: 1rem 3rem;\r\n    fill: aliceblue;\n}\n.mob-nav-item box-icon[data-v-5b13c70a] {\r\n    position: fixed;\n}\n.mob-nav-item[data-v-5b13c70a]:hover {\r\n    background-color: lightslategray;\r\n    color: aliceblue;\n}\n[data-v-5b13c70a] .user-profile {\r\n    border-radius: 50%;\r\n    position: fixed;\r\n    width: 50px;\r\n    height: 50px;\r\n    left: 40%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#mobile-nav[data-v-5b13c70a] {\r\n    transform: translateX(-260px);\r\n    transition: transform 0.3s ease-in-out;\n}\n.scrolled[data-v-5b13c70a]{\r\n    overflow-y: scroll;\r\n    height: calc(100% - 65px);\n}\n.mob-nav-item[data-v-5b13c70a] {\r\n    width: 100%;\r\n    color: aliceblue;\r\n    cursor: pointer;\r\n    padding: 1rem 3rem;\r\n    fill: aliceblue;\n}\n.mob-nav-item[data-v-5b13c70a]:hover {\r\n    background-color: lightslategray;\r\n    color: aliceblue;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20788,7 +20858,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nlabel[data-v-5a228f80] {\r\n  margin-bottom: -0.3rem;\n}\nform[data-v-5a228f80] {\r\n  display: block;\r\n  margin-top: 0em;\n}\n.form-check[data-v-5a228f80] {\r\n  margin-top: 10px;\r\n  margin-bottom: 10px;\n}\nbutton[data-v-5a228f80] {\r\n  width: 100%;\r\n  margin-bottom: 20px;\n}\n@media (min-width: 768px) {\n.line[data-v-5a228f80] {\r\n    width: 80%;\n}\n#cursos-btn[data-v-5a228f80] {\r\n    display: none;\n}\n}\n.line[data-v-5a228f80] {\r\n  margin-bottom: 24px;\r\n  width: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  height: 1px;\n}\n.form-control[data-v-5a228f80] {\r\n  border: 0;\r\n  border-bottom: 1px solid #ced4da;\r\n  border-radius: 0;\r\n  padding-bottom: 1px;\r\n  padding-top: 1px;\r\n  height: calc(1.5em + 0.4rem);\n}\n.form-group[data-v-5a228f80] {\r\n  margin-bottom: 0.3rem;\n}\n.btn-submit[data-v-5a228f80] {\r\n  background-color: tomato;\r\n  font-family: \"Roboto\", sans-serif;\r\n  box-shadow: 0px 4px 7px #777;\r\n  height: 60px;\n}\n.btn-submit[data-v-5a228f80]:hover {\r\n  background-color: #d44a0b;\n}\na box-icon[data-v-5a228f80]{\r\n  position:fixed;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nlabel[data-v-5a228f80] {\r\n  margin-bottom: -0.3rem;\n}\nform[data-v-5a228f80] {\r\n  display: block;\r\n  margin-top: 0em;\n}\n.form-check[data-v-5a228f80] {\r\n  margin-top: 10px;\r\n  margin-bottom: 10px;\n}\nbutton[data-v-5a228f80] {\r\n  width: 100%;\r\n  margin-bottom: 20px;\n}\n@media (min-width: 768px) {\n.line[data-v-5a228f80] {\r\n    width: 80%;\n}\n#cursos-btn[data-v-5a228f80] {\r\n    display: none;\n}\n}\n.line[data-v-5a228f80] {\r\n  margin-bottom: 24px;\r\n  width: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  height: 1px;\n}\n.form-control[data-v-5a228f80] {\r\n  border: 0;\r\n  border-bottom: 1px solid #ced4da;\r\n  border-radius: 0;\r\n  padding-bottom: 1px;\r\n  padding-top: 1px;\r\n  height: calc(1.5em + 0.4rem);\n}\n.form-group[data-v-5a228f80] {\r\n  margin-bottom: 0.3rem;\n}\n.btn-submit[data-v-5a228f80] {\r\n  background-color: tomato;\r\n  font-family: \"Roboto\", sans-serif;\r\n  box-shadow: 0px 4px 7px #777;\r\n  height: 60px;\n}\n.btn-submit[data-v-5a228f80]:hover {\r\n  background-color: #d44a0b;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20860,7 +20930,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbox-sizing: border-box;\n}\n.sidebar[data-v-17605453] {\r\n\twidth: 200px;\r\n\tz-index: 100;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 100%;\r\n\tbackground: #11101d;\r\n\tpadding: 6px 14px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.sidebar-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\n}\n.sidebar .closeBtn[data-v-17605453] {\r\n\tfill: white;\r\n\tposition: absolute;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tbackground-color: #11101d;\r\n\tborder-radius: 50%;\r\n\tleft: 175px;\r\n\tcursor: pointer;\n}\n.sidebar .closeBtn box-icon[data-v-17605453] {\r\n\tposition: relative;\r\n\tleft: 5px;\r\n\ttop: 2px;\n}\n.sidebar .closeBtn[data-v-17605453]:hover {\r\n\tfill: #007bff;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: felx;\r\n\twidth: 100%;\r\n\talign-items: center;\n}\n.logo .logo-name[data-v-17605453] {\r\n\tcolor: white;\r\n\tfont-size: x-large\n}\n.sidebar ul[data-v-17605453] {\r\n\tmargin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n\tposition: relative;\r\n\theight: 50px;\r\n\twidth: 100%;\r\n\tmargin: 0 5px;\r\n\tlist-style: none;\r\n\tline-height: 50px;\r\n\tcursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\ttext-decoration: none;\r\n\ttransition: all 0.4s ease;\r\n\tborder-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n\tcolor: #11101d;\r\n\tbackground: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n\theight: 50px;\r\n\tmin-width: 50px;\r\n\tborder-radius: 12px;\r\n\tline-height: 50px;\r\n\ttext-align: center;\n}\n.adm-content[data-v-17605453] {\r\n\tpadding: 15px;\r\n\tposition: absolute;\r\n\theight: auto;\r\n\twidth: calc(100% - 200px);\r\n\tleft: 200px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.adm-content-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n[data-v-17605453] h2 {\r\n\tfont-size: 20px;\r\n\tfont-weight: 400;\r\n\tmargin-bottom: 20px;\n}\n[data-v-17605453] .btn-danger {\r\n\tbackground-color: #dc3545;\n}\n[data-v-17605453] .btn-danger:hover:not(:disabled) {\r\n\tbackground-color: #c82333;\n}\n[data-v-17605453] .btn-primary {\r\n\tbackground-color: #007bff;\n}\n[data-v-17605453] .btn-primary:hover:not(:disabled) {\r\n\tbackground-color: #005dc0;\n}\r\n\r\n/* MODALS */\n[data-v-17605453] .modal-mask {\r\n\tposition: fixed;\r\n\tz-index: 600;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(0, 0, 0, 0.5);\r\n\tdisplay: table;\r\n\ttransition: opacity 0.3s ease;\n}\n[data-v-17605453] .modal-wrapper {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\n}\n[data-v-17605453] .modal-container {\r\n\twidth: 300px;\r\n\tmargin: 0px auto;\r\n\tbackground-color: #fff;\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n\ttransition: all 0.3s ease;\r\n\tfont-family: Helvetica, Arial, sans-serif;\n}\n[data-v-17605453] .modal-header h3 {\r\n\tmargin-top: 0;\r\n\tcolor: #42b983;\n}\n[data-v-17605453] .modal-body {\r\n\tmargin: 8px 0;\n}\n[data-v-17605453] .modal-header {\r\n\tpadding: 10px 10px;\n}\n[data-v-17605453] .disabled {\r\n\tpointer-events: none;\r\n\tcursor: not-allowed;\n}\r\n\r\n/* Boton cerrar-abrir */\n.arrow[data-v-17605453]{\r\n  padding:0.375rem 0.75rem;\n}\n.line[data-v-17605453]:first-of-type{\r\n  transform: rotate(45deg);\n}\n.line[data-v-17605453]:last-of-type{\r\n  transform: rotate(-45deg);\n}\n.arrow-expanded .line[data-v-17605453]:first-of-type{\r\n  transform: translateY(5px) translateX(10px) rotate(-45deg);\n}\n.arrow-expanded .line[data-v-17605453]:last-of-type{\r\n  transform: translateY(-5px) translateX(10px) rotate(45deg);\n}\n.line[data-v-17605453]{\r\n  position:fixed;\r\n  width:15px;\r\n  height: 3px;\r\n  border-radius: 3px;\r\n  background-color: #fff;\r\n  transition: transform 0.3s ease-in-out;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-17605453] {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tbox-sizing: border-box;\n}\n.sidebar[data-v-17605453] {\r\n\twidth: 200px;\r\n\tz-index: 100;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 100%;\r\n\tbackground: #11101d;\r\n\tpadding: 6px 14px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.sidebar-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\n}\n.sidebar .closeBtn[data-v-17605453] {\r\n\tfill: white;\r\n\tposition: absolute;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tbackground-color: #11101d;\r\n\tborder-radius: 50%;\r\n\tleft: 178px;\r\n\tcursor: pointer;\n}\n.sidebar .closeBtn box-icon[data-v-17605453] {\r\n\tposition: relative;\r\n\tleft: 5px;\r\n\ttop: 2px;\n}\n.sidebar .closeBtn[data-v-17605453]:hover {\r\n\tfill: #007bff;\n}\n.sidebar .logo_content .logo[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: felx;\r\n\twidth: 100%;\r\n\talign-items: center;\n}\n.logo .logo-name[data-v-17605453] {\r\n\tcolor: white;\r\n\tfont-size: x-large\n}\n.sidebar ul[data-v-17605453] {\r\n\tmargin-top: 20px;\n}\n.sidebar ul li[data-v-17605453] {\r\n\tposition: relative;\r\n\theight: 50px;\r\n\twidth: 100%;\r\n\tmargin: 0 5px;\r\n\tlist-style: none;\r\n\tline-height: 50px;\r\n\tcursor: pointer;\n}\n.sidebar ul li a[data-v-17605453] {\r\n\tcolor: #fff;\r\n\tdisplay: flex;\r\n\talign-items: center;\r\n\ttext-decoration: none;\r\n\ttransition: all 0.4s ease;\r\n\tborder-radius: 12px;\n}\n.sidebar ul li a[data-v-17605453]:hover {\r\n\tcolor: #11101d;\r\n\tbackground: #fff;\n}\n.sidebar ul li i[data-v-17605453] {\r\n\theight: 50px;\r\n\tmin-width: 50px;\r\n\tborder-radius: 12px;\r\n\tline-height: 50px;\r\n\ttext-align: center;\n}\n.adm-content[data-v-17605453] {\r\n\tpadding: 15px;\r\n\tposition: absolute;\r\n\theight: auto;\r\n\twidth: calc(100% - 200px);\r\n\tleft: 200px;\r\n\ttransition: transform 0.3s ease-in-out;\n}\n.adm-content-moved[data-v-17605453] {\r\n\ttransform: translateX(-200px);\r\n\twidth: 100%;\r\n\theight: 100%;\n}\n[data-v-17605453] h2 {\r\n\tfont-size: 20px;\r\n\tfont-weight: 400;\r\n\tmargin-bottom: 20px;\n}\n[data-v-17605453] .btn-danger {\r\n\tbackground-color: #dc3545;\n}\n[data-v-17605453] .btn-danger:hover:not(:disabled) {\r\n\tbackground-color: #c82333;\n}\n[data-v-17605453] .btn-primary {\r\n\tbackground-color: #007bff;\n}\n[data-v-17605453] .btn-primary:hover:not(:disabled) {\r\n\tbackground-color: #005dc0;\n}\r\n\r\n/* MODALS */\n[data-v-17605453] .modal-mask {\r\n\tposition: fixed;\r\n\tz-index: 600;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(0, 0, 0, 0.5);\r\n\tdisplay: table;\r\n\ttransition: opacity 0.3s ease;\n}\n[data-v-17605453] .modal-wrapper {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\n}\n[data-v-17605453] .modal-container {\r\n\twidth: 300px;\r\n\tmargin: 0px auto;\r\n\tbackground-color: #fff;\r\n\tborder-radius: 2px;\r\n\tbox-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n\ttransition: all 0.3s ease;\r\n\tfont-family: Helvetica, Arial, sans-serif;\n}\n[data-v-17605453] .modal-header h3 {\r\n\tmargin-top: 0;\r\n\tcolor: #42b983;\n}\n[data-v-17605453] .modal-body {\r\n\tmargin: 8px 0;\n}\n[data-v-17605453] .modal-header {\r\n\tpadding: 10px 10px;\n}\n[data-v-17605453] .disabled {\r\n\tpointer-events: none;\r\n\tcursor: not-allowed;\n}\r\n\r\n/* Boton cerrar-abrir */\n.arrow[data-v-17605453]{\r\n  padding:0.375rem 0.75rem;\n}\n.line[data-v-17605453]:first-of-type{\r\n  transform: rotate(45deg);\n}\n.line[data-v-17605453]:last-of-type{\r\n  transform: rotate(-45deg);\n}\n.arrow-expanded .line[data-v-17605453]:first-of-type{\r\n  transform: translateY(5px) translateX(10px) rotate(-45deg);\n}\n.arrow-expanded .line[data-v-17605453]:last-of-type{\r\n  transform: translateY(-5px) translateX(10px) rotate(45deg);\n}\n.line[data-v-17605453]{\r\n  position:fixed;\r\n  width:15px;\r\n  height: 3px;\r\n  border-radius: 3px;\r\n  background-color: #fff;\r\n  transition: transform 0.3s ease-in-out;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20956,7 +21026,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.contain[data-v-d858159c]{\r\n    display: flex;\r\n    flex-direction: row;\n}\n.izq[data-v-d858159c]{\r\n    display: flex;\r\n    flex-direction: column;\r\n    flex: auto;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100vh;\r\n    margin: 0 40px;\n}\n@media (min-width: 768px){\n.izq[data-v-d858159c] {\r\n        flex: 1;\n}\n}\n.der[data-v-d858159c]{\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/login_view.png);\r\n    background-repeat: repeat-y;\n}\n@media (min-width: 768px){\n.der[data-v-d858159c] {\r\n        flex: 1.4;\r\n        display: block;\n}\n}\n@media (min-width:1366px){\n.izq[data-v-d858159c]{flex:4}\n.der[data-v-d858159c]{\r\n        flex:6;\r\n        display:block\n}\n}\ndiv.izq img[data-v-d858159c]{\r\n    width: 300px;\n}\n#mensaje[data-v-d858159c]{\r\n    padding: 40% 12% 0% 12%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\na box-icon[data-v-d858159c]{\r\n    fill: aliceblue;\n}\nheader[data-v-d858159c]{\r\n    display: none !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.contain[data-v-d858159c] {\r\n    display: flex;\r\n    flex-direction: column;\n}\n.izq[data-v-d858159c] {\r\n    padding: 50px 40px;\r\n    height: 100vh;\n}\n.der[data-v-d858159c] {\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    position: relative;\r\n    display: none;\r\n    background-image: url(/images/login_view.png);\r\n    background-repeat: repeat-y;\r\n    height: 100vh;\n}\n@media (min-width: 768px) {\n.der[data-v-d858159c] {\r\n        flex: 1.4;\r\n        display: block;\n}\n.izq[data-v-d858159c] {\r\n        flex: 1;\n}\n.contain[data-v-d858159c] {\r\n        flex-direction: row;\n}\n}\n@media (min-width:1366px) {\n.izq[data-v-d858159c] {\r\n        flex: 4\n}\n.der[data-v-d858159c] {\r\n        flex: 6;\r\n        display: block\n}\n}\ndiv.izq img[data-v-d858159c] {\r\n    width: 300px;\n}\n#mensaje[data-v-d858159c] {\r\n    padding: 35% 12% 0% 12%;\r\n    color: aliceblue;\r\n    font-size: larger;\n}\ndiv a[data-v-d858159c]{\r\n        display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\n}\nbox-icon[data-v-d858159c] {\r\n    fill: aliceblue;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -49234,6 +49304,8 @@ var render = function () {
                     "/cursos/" +
                     _vm.$parent.category +
                     "/" +
+                    _vm.orderBy +
+                    "/" +
                     (+_vm.currentPage - 1),
                 },
               },
@@ -49336,7 +49408,7 @@ var render = function () {
         {
           staticClass:
             "block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden",
-          attrs: { href: "/curso/" + _vm.curso.shortname },
+          attrs: { href: _vm.route("curso", { any: _vm.curso.shortname }) },
         },
         [
           _c("div", { staticClass: "relative pb-48 overflow-hidden" }, [
@@ -49510,7 +49582,9 @@ var render = function () {
                       staticClass: "btn",
                       attrs: {
                         as: "button",
-                        href: "/cursos/all/" + _vm.$parent.orderBy,
+                        href: _vm.route("cursos", {
+                          order_by: _vm.$parent.orderBy,
+                        }),
                       },
                       on: {
                         click: function ($event) {
@@ -49535,11 +49609,10 @@ var render = function () {
                         staticClass: "btn",
                         attrs: {
                           as: "button",
-                          href:
-                            "/cursos/" +
-                            categoria.name +
-                            "/" +
-                            _vm.$parent.orderBy,
+                          href: _vm.route("cursos", {
+                            categoria: categoria.name,
+                            order_by: _vm.$parent.orderBy,
+                          }),
                         },
                         on: {
                           click: function ($event) {
@@ -49597,7 +49670,7 @@ var render = function () {
                 [
                   _c("i", { staticClass: "bx bx-chevron-right" }),
                   _vm._v(" "),
-                  _c("inertia-link", { attrs: { href: "/" } }, [
+                  _c("inertia-link", { attrs: { href: _vm.route("home") } }, [
                     _vm._v("Inicio"),
                   ]),
                 ],
@@ -49609,9 +49682,15 @@ var render = function () {
                 [
                   _c("i", { staticClass: "bx bx-chevron-right" }),
                   _vm._v(" "),
-                  _c("inertia-link", { attrs: { href: "/cursos/all/o" } }, [
-                    _vm._v("Cursos"),
-                  ]),
+                  _c(
+                    "inertia-link",
+                    {
+                      attrs: {
+                        href: _vm.route("cursos", { categoria: "all" }),
+                      },
+                    },
+                    [_vm._v("Cursos")]
+                  ),
                 ],
                 1
               ),
@@ -49791,10 +49870,10 @@ var render = function () {
     "header",
     { staticClass: "main-header", attrs: { id: "navbar" } },
     [
-      _c("div", { staticClass: "container" }, [
+      _c("div", {}, [
         _c(
           "nav",
-          { staticClass: "navbar navbar-expand-md main-nav pl-0" },
+          { staticClass: "navbar navbar-expand-md main-nav" },
           [
             _c("inertia-link", { attrs: { href: "/" } }, [
               _c("a", { staticClass: "navbar-brand" }, [
@@ -49814,15 +49893,23 @@ var render = function () {
                 _vm._l(_vm.navElements, function (item) {
                   return _c(
                     "li",
-                    { key: item.name, staticClass: "nav-item text-uppercase" },
+                    {
+                      key: item.name,
+                      staticClass: "nav-item text-uppercase",
+                      attrs: { id: item.name },
+                    },
                     [
-                      _c("inertia-link", { attrs: { href: item.path } }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t" +
-                            _vm._s(item.text) +
-                            "\n\t\t\t\t\t\t"
-                        ),
-                      ]),
+                      _c(
+                        "inertia-link",
+                        { attrs: { href: _vm.route(item.path) } },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t" +
+                              _vm._s(item.text) +
+                              "\n\t\t\t\t\t\t"
+                          ),
+                        ]
+                      ),
                     ],
                     1
                   )
@@ -49882,20 +49969,24 @@ var render = function () {
                     _c(
                       "li",
                       [
-                        _c("inertia-link", { attrs: { href: "/ingreso" } }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: { id: "loginBtn" },
-                            },
-                            [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\tIngrese\n\t\t\t\t\t\t\t"
-                              ),
-                            ]
-                          ),
-                        ]),
+                        _c(
+                          "inertia-link",
+                          { attrs: { href: _vm.route("ingreso") } },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { id: "loginBtn" },
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\tIngrese\n\t\t\t\t\t\t\t"
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
                       ],
                       1
                     ),
@@ -50009,7 +50100,7 @@ var render = function () {
                 {
                   staticClass:
                     "block w-full md:px-1  py-2 text-gray-300  group-hover:bg-slate-500 md:text-black md:right-5",
-                  attrs: { as: "button", href: "/personal" },
+                  attrs: { as: "button", href: _vm.route("personal.data") },
                 },
                 [_vm._v("\n          Perfil\n        ")]
               ),
@@ -50024,7 +50115,7 @@ var render = function () {
             {
               staticClass:
                 "block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500",
-              attrs: { as: "button", href: "/mis-cursos" },
+              attrs: { as: "button", href: _vm.route("personal.mis-cursos") },
             },
             [_vm._v("\n        Ver mis cursos\n      ")]
           ),
@@ -50036,7 +50127,10 @@ var render = function () {
                 {
                   staticClass:
                     "block w-full md:px-1 md:text-black py-2 text-gray-300 hover:bg-slate-500",
-                  attrs: { as: "button", href: "/admin/testimonials" },
+                  attrs: {
+                    as: "button",
+                    href: _vm.route("admin.testimonials"),
+                  },
                 },
                 [_vm._v("\n        Seccion Admin\n      ")]
               )
@@ -50049,7 +50143,11 @@ var render = function () {
             {
               staticClass:
                 "block w-full md:px-1 md:text-black py-2 text-gray-300 hover:text-black hover:bg-slate-300",
-              attrs: { as: "button", method: "post", href: "/logout" },
+              attrs: {
+                as: "button",
+                method: "post",
+                href: _vm.route("logout"),
+              },
             },
             [_vm._v("Cerrar Sesión")]
           ),
@@ -50082,7 +50180,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex flex-no-wrap md:hidden bg-gray-200" }, [
+  return _c("div", { staticClass: "a" }, [
     _c(
       "div",
       {
@@ -50091,7 +50189,7 @@ var render = function () {
         attrs: { id: "mobile-nav" },
       },
       [
-        _c("div", [
+        _c("div", { staticClass: "scrolled" }, [
           _c(
             "ul",
             {
@@ -50105,7 +50203,7 @@ var render = function () {
             _vm._l(_vm.$parent.navElements, function (item) {
               return _c(
                 "inertia-link",
-                { key: item.name, attrs: { href: item.path } },
+                { key: item.name, attrs: { href: _vm.route(item.path) } },
                 [
                   _c("li", { staticClass: "mob-nav-item text-uppercase" }, [
                     _vm._v(
@@ -50124,7 +50222,9 @@ var render = function () {
             _c("a", { attrs: { href: _vm.moodleUrl + "login/index.php" } }, [
               _c(
                 "li",
-                { staticClass: "mob-nav-item text-uppercase fill-white" },
+                {
+                  staticClass: "mob-nav-item text-uppercase fill-white d-flex",
+                },
                 [
                   _vm._v("\n                        moodle"),
                   _c("box-icon", { attrs: { name: "link-external" } }),
@@ -50133,62 +50233,62 @@ var render = function () {
               ),
             ]),
           ]),
-        ]),
-        _vm._v(" "),
-        !_vm.$page.props.auth.user
-          ? _c(
-              "div",
-              {
-                staticClass: "flex flex-col bottom-0",
-                on: {
-                  click: function ($event) {
-                    $event.preventDefault()
-                    return _vm.sidebarHandler()
+          _vm._v(" "),
+          !_vm.$page.props.auth.user
+            ? _c(
+                "div",
+                {
+                  staticClass: "flex flex-col bottom-0",
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.sidebarHandler()
+                    },
                   },
                 },
-              },
-              [
-                _c("inertia-link", { attrs: { href: "/" } }, [
-                  _c("li", { staticClass: "mob-nav-item" }, [
-                    _vm._v(
-                      "\n                    Regístrese\n                "
-                    ),
+                [
+                  _c("inertia-link", { attrs: { href: "/" } }, [
+                    _c("li", { staticClass: "mob-nav-item" }, [
+                      _vm._v(
+                        "\n                        Regístrese\n                    "
+                      ),
+                    ]),
                   ]),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "list-none justify-between py-3 px-5" },
-                  [
-                    _c(
-                      "inertia-link",
-                      {
-                        staticClass: "btn btn-primary flex w-full",
-                        attrs: { href: "/ingreso", as: "button" },
-                      },
-                      [
-                        _vm._v(
-                          "\n                    Ingrese\n                "
-                        ),
-                      ]
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("ul", [
-          _vm.$page.props.auth.user
-            ? _c(
-                "li",
-                { staticClass: "list-none" },
-                [_c("user-menu-component")],
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "list-none justify-between py-3 px-5" },
+                    [
+                      _c(
+                        "inertia-link",
+                        {
+                          staticClass: "btn btn-primary flex w-full",
+                          attrs: { href: _vm.route("ingreso"), as: "button" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                        Ingrese\n                    "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
                 1
               )
             : _vm._e(),
+          _vm._v(" "),
+          _c("ul", [
+            _vm.$page.props.auth.user
+              ? _c(
+                  "li",
+                  { staticClass: "list-none" },
+                  [_c("user-menu-component")],
+                  1
+                )
+              : _vm._e(),
+          ]),
         ]),
       ]
     ),
@@ -50446,7 +50546,7 @@ var render = function () {
             "inertia-link",
             {
               attrs: {
-                href: "/forgot-password",
+                href: _vm.route("password.request"),
                 as: "button",
                 disabled: _vm.loading,
               },
@@ -50463,16 +50563,19 @@ var render = function () {
         "div",
         { staticClass: "container" },
         [
-          _c("inertia-link", { attrs: { href: "/" } }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { disabled: _vm.loading, id: "registro-btn" },
+          _c(
+            "inertia-link",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: {
+                href: _vm.route("home"),
+                as: "button",
+                disabled: _vm.loading,
+                id: "registro-btn",
               },
-              [_vm._v("\n          Regístrese")]
-            ),
-          ]),
+            },
+            [_vm._v("\n          Regístrese\n      ")]
+          ),
         ],
         1
       ),
@@ -50485,7 +50588,7 @@ var render = function () {
             attrs: {
               disabled: _vm.loading,
               id: "cursos-btn",
-              href: _vm.moodleUrl + "login/index.php",
+              href: _vm.moodleUrl,
             },
           },
           [
@@ -50606,7 +50709,9 @@ var render = function () {
                       key: index,
                       staticClass: "dropdown-item",
                       class: item.shortname == "NE" ? "disabled" : "",
-                      attrs: { href: "/curso/" + item.shortname },
+                      attrs: {
+                        href: _vm.route("curso", { any: item.shortname }),
+                      },
                       on: {
                         click: function ($event) {
                           _vm.question = ""
@@ -50768,7 +50873,9 @@ var render = function () {
                                           ? "disabled"
                                           : "",
                                       attrs: {
-                                        href: "/curso/" + item.shortname,
+                                        href: _vm.route("curso", {
+                                          any: item.shortname,
+                                        }),
                                       },
                                     },
                                     [
@@ -50878,7 +50985,7 @@ var render = function () {
               "div",
               { staticClass: "logo-name" },
               [
-                _c("inertia-link", { attrs: { href: "/" } }, [
+                _c("inertia-link", { attrs: { href: _vm.route("home") } }, [
                   _vm._v(
                     "\n\t\t\t\t\t" +
                       _vm._s(_vm.appName + " (Admin) ") +
@@ -50902,7 +51009,7 @@ var render = function () {
                     [
                       _c(
                         "inertia-link",
-                        { attrs: { href: "/admin/" + menu_item.component } },
+                        { attrs: { href: _vm.route(menu_item.component) } },
                         [_c("span", [_vm._v(_vm._s(menu_item.name))])]
                       ),
                     ],
@@ -50961,7 +51068,13 @@ var render = function () {
             [
               _c(
                 "inertia-link",
-                { attrs: { href: "/cursos/" + _vm.curso.category } },
+                {
+                  attrs: {
+                    href: _vm.route("cursos", {
+                      categoria: _vm.curso.category,
+                    }),
+                  },
+                },
                 [
                   _vm._v(
                     "\n            " +
@@ -51090,8 +51203,10 @@ var render = function () {
                     key: orden.id,
                     staticClass: "dropdown-item",
                     attrs: {
-                      href:
-                        "/cursos/" + _vm.selected_category + "/" + orden.value,
+                      href: _vm.route("cursos", {
+                        categoria: _vm.selected_category,
+                        order_by: orden.value,
+                      }),
                     },
                   },
                   [
@@ -51208,12 +51323,9 @@ var render = function () {
     [
       _c("AppHead", { attrs: { title: "Ingreso" } }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "izq" },
-        [_vm._m(0), _vm._v(" "), _c("login-component")],
-        1
-      ),
+      _c("div", { staticClass: "izq" }, [
+        _c("div", [_vm._m(0), _vm._v(" "), _c("login-component")], 1),
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "der" }, [
         _c("div", { staticClass: "text-justify", attrs: { id: "mensaje" } }, [
@@ -51223,7 +51335,7 @@ var render = function () {
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "Recuerde que para acceder al contenido de los cursos que usted adquirió debe ingresar en el siguiente enlace con las mismas credenciales con las que se registró en este sitio:"
+              "Recuerde que para acceder al contenido de los cursos que usted adquirió debe ingresar en el siguiente\n                enlace con las mismas credenciales con las que se registró en este sitio:"
             ),
           ]),
           _vm._v(" "),
@@ -51235,7 +51347,7 @@ var render = function () {
               attrs: { href: _vm.moodleUrl + "login/index.php" },
             },
             [
-              _vm._v("\r\n            Ir a aula virtual (Moodle)"),
+              _vm._v("\n                Ir a aula virtual (Moodle)"),
               _c("box-icon", { attrs: { name: "link-external" } }),
             ],
             1
@@ -63468,14 +63580,6 @@ var map = {
 		"./resources/js/components/Admin/AdminMatriculasPendientesComponent.vue",
 		"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue"
 	],
-	"./Admin/AdminNavigationComponent": [
-		"./resources/js/components/Admin/AdminNavigationComponent.vue",
-		"resources_js_components_Admin_AdminNavigationComponent_vue"
-	],
-	"./Admin/AdminNavigationComponent.vue": [
-		"./resources/js/components/Admin/AdminNavigationComponent.vue",
-		"resources_js_components_Admin_AdminNavigationComponent_vue"
-	],
 	"./Admin/AdminPagosUsuario": [
 		"./resources/js/components/Admin/AdminPagosUsuario.vue",
 		"resources_js_components_Admin_AdminPagosUsuario_vue"
@@ -63925,7 +64029,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminNavigationComponent_vue":1,"resources_js_components_Admin_AdminPagosUsuario_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_CursosSmComponent_vue":1,"resources_js_components_Email_Notice_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_RegistroComponent_vue":1,"resources_js_components_TestimonialsComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Admin_AdminConfigController_vue":1,"resources_js_components_Admin_AdminCoursesComponent_vue":1,"resources_js_components_Admin_AdminCoursesMoodleComponent_vue":1,"resources_js_components_Admin_AdminMatriculasPendientesComponent_vue":1,"resources_js_components_Admin_AdminPagosUsuario_vue":1,"resources_js_components_Admin_AdminPublicImagesComponent_vue":1,"resources_js_components_Admin_AdminTestimonialComponent_vue":1,"resources_js_components_Admin_AdminUsersComponent_vue":1,"resources_js_components_Admin_Modals_CambiarEstadoMatriculaModal_vue":1,"resources_js_components_Admin_Modals_ChangeRoleModal_vue":1,"resources_js_components_Admin_Modals_VerPagoModal_vue":1,"resources_js_components_CaratulaComponent_vue":1,"resources_js_components_CursosSmComponent_vue":1,"resources_js_components_Email_Notice_vue":1,"resources_js_components_HomeComponent_vue":1,"resources_js_components_MatriculaComponent_vue":1,"resources_js_components_NotFoundComponent_vue":1,"resources_js_components_RegistroComponent_vue":1,"resources_js_components_TestimonialsComponent_vue":1,"resources_js_components_User_CursosUserComponent_vue":1,"resources_js_components_User_EliminarCuentaComponent_vue":1,"resources_js_components_User_Modals_ChangeEmailModal2_vue":1,"resources_js_components_User_Modals_ChangePasswordModal2_vue":1,"resources_js_components_User_ProfileComponent_vue":1,"resources_js_components_auth_ForgotPasswordComponent_vue":1,"resources_js_components_auth_ResetPasswordComponent_vue":1,"resources_js_components_payments_DepositoTransferenciaComponent_vue":1,"resources_js_components_payments_PaymentsModal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

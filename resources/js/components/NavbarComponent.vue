@@ -1,7 +1,7 @@
 <template>
 	<header class="main-header" id="navbar">
-		<div class="container">
-			<nav class="navbar navbar-expand-md main-nav pl-0">
+		<div class="">
+			<nav class="navbar navbar-expand-md main-nav">
 				<inertia-link href="/">
 					<a class="navbar-brand">
 						<img src="/images/logo.png" :alt="siteName + ' Logo'" />
@@ -9,8 +9,8 @@
 				</inertia-link>
 				<div class="collapse navbar-collapse main-menu">
 					<ul class="navbar-nav f1">
-						<li v-for="item in navElements" :key="item.name" class="nav-item text-uppercase">
-							<inertia-link :href="item.path">
+						<li  v-for="item in navElements" :key="item.name" :id="item.name" class="nav-item text-uppercase">
+							<inertia-link :href="route(item.path)">
 								{{item.text}}
 							</inertia-link>
 						</li>
@@ -43,7 +43,7 @@
 							</a>
 						</li>
 						<li>
-							<inertia-link :href="'/ingreso'">
+							<inertia-link :href="route('ingreso')">
 								<a class="btn btn-primary" id="loginBtn">
 									Ingrese
 								</a>
@@ -74,13 +74,13 @@ export default {
 			navElements: [
 				{
 					name: 'home-component',
-					path: '/',
+					path: 'home',
 					text: 'Inicio',
 					params: {}
 				},
 				{
 					name: 'cursos',
-					path: '/cursos/all/o/',
+					path: 'cursos',
 					text: 'Cursos',
 					params: {
 					}
@@ -114,6 +114,10 @@ export default {
 </script>
 
 <style scoped>
+.navbar{
+	background-color: #d95d22;
+	padding: 0.5rem 1.5rem;
+}
 .main-menu {
 	position: relative;
 	z-index: 200;
@@ -156,7 +160,7 @@ export default {
 }
 
 .main-header {
-	background-color: #d95d22;
+	background-color: #0000005c;
 	box-shadow: 0px 4px 7px #777;
 	position: fixed;
 	align-content: center;
@@ -183,6 +187,12 @@ export default {
 
 /* main-header end */
 
+@media(max-width: 840px){
+	#home-component{
+		display: none;
+	}
+}
+
 @media (max-width: 767px) {
 	/*header starts*/
 
@@ -190,18 +200,6 @@ export default {
 		width: 40px;
 		height: 40px;
 		position: relative;
-	}
-
-	.main-header .container {
-		align-content: center;
-		align-items: center;
-	}
-
-	.main-header .navbar-nav {
-		float: none;
-		padding-left: 0;
-		padding-right: 0;
-		align-items: flex-start;
 	}
 
 	.main-header .navbar-nav li {

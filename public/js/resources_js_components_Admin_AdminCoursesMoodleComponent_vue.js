@@ -80,7 +80,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       courses: [],
       loading: false,
-      baseCursosUrl: "/api/admin/cursos-moodle",
       linksToPages: [],
       searchTerm: ""
     };
@@ -103,15 +102,11 @@ __webpack_require__.r(__webpack_exports__);
     getCourses: function getCourses() {
       var _this = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseCursosUrl;
-
       if (this.searchTerm.length >= 2 || this.searchTerm === "") {
         this.loading = true;
-        axios.get(url, {
-          params: {
-            search: this.searchTerm
-          }
-        }).then(function (response) {
+        axios.get(this.route('admin.cursos-moodle.index', {
+          search: this.searchTerm
+        })).then(function (response) {
           _this.courses = response.data.data;
           _this.linksToPages = response.data.links;
           _this.loading = false;
@@ -128,13 +123,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.loading = true;
-      axios.post("/api/admin/cursos-local/importar", {
+      axios.post(this.route('admin.cursos.importar', {
         shortname: id
-      }).then(function (response) {
+      })).then(function (response) {
         _this2.loading = false;
 
         _this2.$toast.open({
-          message: "Curso importados correctamente",
+          message: "Curso importado correctamente",
           type: "success",
           duration: 5000
         });

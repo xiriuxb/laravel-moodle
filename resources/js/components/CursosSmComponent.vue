@@ -6,7 +6,7 @@
         <img class="card-img-top rounded" :src="comment.file" alt="Imagen del curso">
         <div class="card-body container">
           <p class="card-topico"><small class="topico-muted">{{ comment.category }}</small></p>
-          <inertia-link :href="'/curso/' + comment.shortname">
+          <inertia-link :href="route('curso', {any:comment.shortname})">
             <h5 class="card-title">{{ comment.fullname }}</h5>
           </inertia-link>
           <p v-html="comment.summary">
@@ -71,7 +71,7 @@ export default {
     }
   },
   created() {
-    axios.get('/api/cursos-local/destacados').then(response => {
+    axios.get(this.route('cursos.destacados')).then(response => {
       this.comments2 = response.data.data;
       this.visible = true;
     }).catch(

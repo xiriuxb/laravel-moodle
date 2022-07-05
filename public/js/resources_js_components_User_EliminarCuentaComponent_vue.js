@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteUser: function deleteUser() {
       var _this = this;
 
-      this.form.post("/user/delete", {
+      this.form.post(this.route('user.delete'), {
         onStart: function onStart() {
           return _this.passwordError = "";
         },

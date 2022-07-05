@@ -16,7 +16,7 @@
                       <li class="dropdown-item" v-if="$parent.loading && $parent.question.length >= 2">
                         <loading-component :position="'relative'" :width="'200px'"></loading-component>
                       </li>
-                      <inertia-link v-for="(item, index) in $parent.resultados" :key="index" :href="'/curso/'+item.shortname"
+                      <inertia-link v-for="(item, index) in $parent.resultados" :key="index" :href="route('curso',{any:item.shortname})"
                        class="dropdown-item" :class="item.shortname == 'NE' ? 'disabled' : ''" >
                         {{ item.fullname }}
                       </inertia-link>

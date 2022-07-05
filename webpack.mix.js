@@ -19,5 +19,6 @@ mix.js('resources/js/app.js', 'public/js')
       ]);
 
 mix.alias({
-    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue")
+    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
+    ziggyRoutes: path.resolve('resources/js/ziggy.js'),
 })

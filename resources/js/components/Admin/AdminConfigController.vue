@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         loadVars() {
-            axios.get("/api/admin/site-config").then(response => {
+            axios.get(this.route('admin.site.index')).then(response => {
                 this.form = response.data;
                 this.loading = false;
             }).catch(
@@ -88,7 +88,7 @@ export default {
             this.editMode = false;
             this.selected = null;
             this.selectedValue = null;
-            axios.post("/api/admin/site-config", {
+            axios.post(this.route('admin.site.update'), {
                 variable_key: id,
                 variable_value: value,
                 variable_name: var_name
@@ -113,7 +113,7 @@ export default {
         },
         updateConfig(){
             this.loading = true;
-            axios.post("/api/admin/site-config/update").then(response => {
+            axios.post(this.route('admin.site.update-config')).then(response => {
                 this.loading = false;
                 this.$toast.open({
                     message: 'Actualizado',

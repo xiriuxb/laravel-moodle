@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-12 col-sm-8 col-md-6">
           <div>
-            <inertia-link :href="'/cursos/' + curso.category">
+            <inertia-link :href="route('cursos',{categoria:curso.category})">
               {{ curso.category }}
             </inertia-link>
           </div>

@@ -16,11 +16,11 @@
         <div class="card-body">
           <ul class="list-menu">
             <li>
-              <inertia-link as="button" class="btn" :href="`/cursos/all/${$parent.orderBy}`" @click="updateCurrentCategory('all')">Todos
+              <inertia-link as="button" class="btn" :href="route('cursos',{order_by:$parent.orderBy})" @click="updateCurrentCategory('all')">Todos
               </inertia-link>
             </li>
             <li v-for="categoria in categories" :key="categoria.id">
-              <inertia-link as="button" class="btn" :href="`/cursos/${categoria.name}/${$parent.orderBy}`"
+              <inertia-link as="button" class="btn" :href="route('cursos',{categoria:categoria.name, order_by:$parent.orderBy})"
                 @click="updateCurrentCategory(categoria.name)">{{ categoria.name }}</inertia-link>
             </li>
           </ul>
@@ -37,13 +37,14 @@ export default {
       type: String,
     },
   },
-  beforeCreate() {
-    axios.get('/api/categorias').then((response) => {
+  mounted() {
+    axios.get(this.route('categorias')).then((response) => {
       this.categories = response.data.data;
       this.loading = false;
     }).catch((err) => {
       this.$toast.open({message: 'Error al cargar las categorías',type: 'error',duration: 5000});
     });
+    this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
   },
   data() {
     return {
@@ -51,11 +52,6 @@ export default {
       categorias_expanded:false,
       loading:true,
     }
-  },
-  mounted(){
-    this.categorias_expanded = document.getElementById('categorias-toggler').getAttribute('aria-expanded');
-  },
-  onUpdate(){
   },
   methods: {
     updateCurrentCategory: function (currentCategory) {

@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = {};
-      this.form.post('/api/register', {
+      this.form.post(this.route('register'), {
         onStart: function onStart() {
           return _this.disableBtnSubmit(true);
         },
@@ -128,9 +128,6 @@ __webpack_require__.r(__webpack_exports__);
         this.loading = false;
         this.btnText = "Registrarse";
       }
-    },
-    loginBtn: function loginBtn() {
-      window.location.href = "/ingreso";
     }
   }
 });
@@ -578,9 +575,7 @@ var render = function () {
                 [
                   _vm._v("\n        " + _vm._s(this.btnText) + "\n        "),
                   this.loading
-                    ? _c("loading-component", {
-                        attrs: { position: "relative" },
-                      })
+                    ? _c("loading-component", { attrs: { position: "fixed" } })
                     : _vm._e(),
                 ],
                 1
@@ -596,10 +591,10 @@ var render = function () {
           _vm._v(" "),
           _c(
             "p",
-            { staticClass: "loginhere", attrs: { id: "registered" } },
+            { attrs: { id: "registered" } },
             [
               _vm._v("\n      ¿Ya tiene una cuenta?\n      "),
-              _c("inertia-link", { attrs: { href: "/ingreso" } }, [
+              _c("inertia-link", { attrs: { href: _vm.route("ingreso") } }, [
                 _c("a", { staticClass: "loginhere-link" }, [
                   _vm._v("Ingrese aquí"),
                 ]),

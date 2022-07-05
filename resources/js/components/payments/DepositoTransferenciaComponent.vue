@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="comprobantePagoFile">Foto del comprobante:</label>
+                        <label for="comprobantePagoFile">Foto del comprobante: (Máximo 5MB)</label>
                         <input type="file" accept=".png,.jpg,.jpeg"
                             @input="form.file = $event.target.files[0]; previewImage($event.target)"
                             class="form-control-file" id="comprobantePagoFile" required>
@@ -99,7 +99,7 @@ export default {
     methods: {
         matricula() {
             this.loading = true;
-            this.form.post('/matricula-deposito-transferencia',
+            this.form.post(this.route('matricula.dep-transf'),
                 {
                     onStart: () => { this.loading = true; },
                     onSuccess: () => (this.loading = false),

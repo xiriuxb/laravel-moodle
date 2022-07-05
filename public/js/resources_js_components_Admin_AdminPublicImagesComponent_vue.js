@@ -76,8 +76,7 @@ __webpack_require__.r(__webpack_exports__);
       caratula: null,
       logo: null,
       default_course_image: null,
-      login_view: null,
-      baseUrl: "/api/admin/images"
+      login_view: null
     };
   },
   methods: {
@@ -88,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       var formData = new FormData();
       formData.append('favicon', this.favicon);
-      axios.post("".concat(this.baseUrl, "/favicon"), formData).then(function (res) {
+      axios.post(this.route('admin.images.favicon'), formData).then(function (res) {
         _this.loading = false;
 
         _this.$toast.open({
@@ -113,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = [];
       this.loading = true;
       var formData = this.makeFormData(nombre_imagen, file);
-      axios.post(this.baseUrl, formData).then(function (res) {
+      axios.post(this.route('admin.images'), formData).then(function (res) {
         _this2.loading = false;
 
         _this2.$toast.open({
@@ -313,7 +312,9 @@ var render = function () {
       _c("h2", [_vm._v("Administración de imágenes")]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "favicon" } }, [_vm._v("Icono:")]),
+        _c("label", { attrs: { for: "favicon" } }, [
+          _vm._v("Icono: (Máximo 64KB)"),
+        ]),
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control-file",
@@ -350,7 +351,9 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "caratula" } }, [_vm._v("Carátula:")]),
+        _c("label", { attrs: { for: "caratula" } }, [
+          _vm._v("Carátula: (Máximo 512KB)"),
+        ]),
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control-file",
@@ -387,7 +390,9 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "logo" } }, [_vm._v("Logo:")]),
+        _c("label", { attrs: { for: "logo" } }, [
+          _vm._v("Logo: (Máximo 512KB)"),
+        ]),
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control-file",
@@ -425,7 +430,7 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "logo" } }, [
-          _vm._v("Imagen para cursos sin imagen:"),
+          _vm._v("Imagen para cursos sin imagen: (Máximo 512KB)"),
         ]),
         _vm._v(" "),
         _c("input", {
@@ -471,7 +476,7 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "logo" } }, [
-          _vm._v("Imagen de la vista de ingreso:"),
+          _vm._v("Imagen de la vista de ingreso: (Máximo 512KB)"),
         ]),
         _vm._v(" "),
         _c("input", {

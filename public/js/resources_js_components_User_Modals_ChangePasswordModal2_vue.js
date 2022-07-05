@@ -95,8 +95,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$page.props.errors = {};
-      this.form.post('/change-password', {
-        onSrart: function onSrart() {
+      this.form.post(this.route('change.password'), {
+        onStart: function onStart() {
           _this.message = '';
         },
         onSuccess: function onSuccess() {

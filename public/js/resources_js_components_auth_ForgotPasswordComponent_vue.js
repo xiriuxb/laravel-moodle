@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.errorMessage = "";
       this.visible = true;
-      this.form.post('/forgot-password', {
+      this.form.post(this.route('password.email'), {
         onError: function onError(error) {
           _this.errorMessage = error[0];
 
@@ -336,8 +336,8 @@ var render = function () {
             "div",
             [
               _vm._v("\n        O "),
-              _c("inertia-link", { attrs: { href: "/ingreso" } }, [
-                _c("a", [_vm._v("Ingrese")]),
+              _c("inertia-link", { attrs: { href: _vm.route("ingreso") } }, [
+                _c("a", [_vm._v("Ingrese al sistema aquí")]),
               ]),
             ],
             1

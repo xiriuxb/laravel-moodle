@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         deleteUser() {
-            this.form.post("/user/delete", {
+            this.form.post(this.route('user.delete'), {
                 onStart: () => (this.passwordError = ""),
                 onError: (response) => {
                     this.passwordError = response.password;

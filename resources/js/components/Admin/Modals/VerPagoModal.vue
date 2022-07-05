@@ -7,7 +7,7 @@
                 </button>
             </div>
             <div class="modal-wrapper">
-                    <img :src="'/api/admin/matriculas/pendientes/imagen/' + pago_id">
+                    <img :src="route('admin.matricula.imagen',{id:pago_id})">
             </div>
         </div>
     </transition>

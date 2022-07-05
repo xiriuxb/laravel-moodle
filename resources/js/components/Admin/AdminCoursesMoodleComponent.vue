@@ -66,7 +66,6 @@ export default {
     return {
       courses: [],
       loading:false,
-      baseCursosUrl: "/api/admin/cursos-moodle",
       linksToPages: [],
       searchTerm: "",
     };
@@ -86,11 +85,11 @@ export default {
     }
   },
   methods: {
-    getCourses(url=this.baseCursosUrl) {
+    getCourses() {
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
         axios
-          .get(url,{params:{search:this.searchTerm}})
+          .get(this.route('admin.cursos-moodle.index',{search:this.searchTerm}))
           .then((response) => {
             this.courses = response.data.data;
             this.linksToPages = response.data.links;
@@ -108,11 +107,11 @@ export default {
     importar(id) {
       this.loading = true;
       axios
-        .post("/api/admin/cursos-local/importar", { shortname: id })
+        .post( this.route('admin.cursos.importar', { shortname: id }))
         .then((response) => {
           this.loading = false;
           this.$toast.open({
-            message: "Curso importados correctamente",
+            message: "Curso importado correctamente",
             type: "success",
             duration: 5000,
           });

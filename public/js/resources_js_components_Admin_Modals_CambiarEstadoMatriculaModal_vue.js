@@ -85,8 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.error = '';
-      var url = '/api/admin/matriculas';
-      axios.put(url, this.form).then(function (response) {
+      axios.put(this.route('admin.matriculas.update'), this.form).then(function (response) {
         _this.loading = false;
 
         _this.$toast.open({
@@ -114,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.loading = true;
-    axios.get('/api/admin/matriculas/estados').then(function (response) {
+    axios.get(this.route('admin.matriculas.estados')).then(function (response) {
       _this2.estados = response.data.estados;
       _this2.loading = false;
     })["catch"](function (error) {

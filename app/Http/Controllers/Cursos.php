@@ -27,7 +27,7 @@ class Cursos extends Controller
      * @param  array  $data
      * @return \App\Models\Comment
      */
-    public function index($categoria = null, $order_by = 'defecto', $page = 1)
+    public function index($categoria = 'all', $order_by = 'defecto', $page = 1)
     {
         if(!in_array($order_by,array_keys($this->ORDER_BY))){
             return redirect()->route('cursos', ['categoria' => $categoria,'order_by'=>'defecto','page'=>$page]);

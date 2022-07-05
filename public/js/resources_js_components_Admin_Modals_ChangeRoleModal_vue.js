@@ -90,7 +90,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 _this.errors = [];
                 _context.next = 4;
-                return axios.post('/api/admin/users/change-role', _this.form).then(function (response) {
+                return axios.post(_this.route('admin.user.change-role'), _this.form).then(function (response) {
                   _this.loading = false;
 
                   _this.$toast.open({
@@ -130,11 +130,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this2 = this;
 
     this.loading = true;
-    axios.get('/api/admin/users/get-user-role', {
-      params: {
-        id: this.userid
-      }
-    }).then(function (response) {
+    axios.get(this.route('admin.user.role.get', {
+      id: this.userid
+    })).then(function (response) {
       _this2.form.role = response.data.role;
       _this2.oldRole = response.data.role;
       _this2.loading = false;

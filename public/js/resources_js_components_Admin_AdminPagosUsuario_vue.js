@@ -109,7 +109,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     reloadPagos: function reloadPagos() {
       this.loading = true;
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__.Inertia.visit("/admin/matriculas/usuario/".concat(this.username), {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__.Inertia.visit(this.route('admin.matriculas.usuario.index', {
+        username: this.username
+      }), {
         method: 'get',
         only: ['matriculas']
       });
@@ -203,8 +205,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       this.error = '';
-      var url = '/api/admin/matriculas';
-      axios.put(url, this.form).then(function (response) {
+      axios.put(this.route('admin.matriculas.update'), this.form).then(function (response) {
         _this.loading = false;
 
         _this.$toast.open({
@@ -232,7 +233,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.loading = true;
-    axios.get('/api/admin/matriculas/estados').then(function (response) {
+    axios.get(this.route('admin.matriculas.estados')).then(function (response) {
       _this2.estados = response.data.estados;
       _this2.loading = false;
     })["catch"](function (error) {
@@ -1077,7 +1078,7 @@ var render = function () {
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("img", {
           attrs: {
-            src: "/api/admin/matriculas/pendientes/imagen/" + _vm.pago_id,
+            src: _vm.route("admin.matricula.imagen", { id: _vm.pago_id }),
           },
         }),
       ]),

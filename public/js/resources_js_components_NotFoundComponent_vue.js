@@ -212,7 +212,7 @@ var render = function () {
             {
               staticClass:
                 "items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto",
-              attrs: { as: "button", href: "/" },
+              attrs: { as: "button", href: _vm.route("home") },
             },
             [_vm._v("Volver al inicio")]
           ),

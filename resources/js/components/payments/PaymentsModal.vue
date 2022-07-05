@@ -21,7 +21,7 @@
           <loading-component v-if="loading" :position="'relative'"></loading-component>
           <div id="paypal-button-container"></div>
           <div>
-            <inertia-link v-if="!loading" :as="'button'" :href="'/pago-deposito-transferencia/' + this.curso"
+            <inertia-link v-if="!loading" :as="'button'" :href="route('deposito-transferencia',{curso_id:this.curso})"
               class="relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white">
               Depósito/Transferencia Bancaria <box-icon class="fill-orange-400 fixed" name='right-arrow-alt'></box-icon>
             </inertia-link>
@@ -113,7 +113,7 @@ export default {
 
   mounted() {
     this.loading = true;
-    axios.get("/api/paypal-data").then((response) => {
+    axios.get(this.route('paypal-data')).then((response) => {
       this.paypalData = response.data;
       this.loading = false;
       this.loadPaypalButtons();

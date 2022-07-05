@@ -6,7 +6,7 @@
         <div class="alert alert-success" role="success">
           {{ message }}
         </div>
-        <inertia-link :as="'button'" :href="'/ingreso'">
+        <inertia-link :as="'button'" :href="route('ingreso')">
           Ingresar
         </inertia-link>
       </div>
@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     sendRequest() {
-      this.form.post("/reset-password", {
+      this.form.post(this.route('password.reset.update'), {
         onStart: () => {
           this.errors = "";
         },

@@ -76,8 +76,7 @@ __webpack_require__.r(__webpack_exports__);
       showPagoModal: false,
       matriculas: [],
       loading: true,
-      searchTerm: "",
-      baseUrl: '/api/admin/matriculas/pendientes'
+      searchTerm: ""
     };
   },
   created: function created() {
@@ -87,9 +86,8 @@ __webpack_require__.r(__webpack_exports__);
     loadMatriculas: function loadMatriculas() {
       var _this = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseUrl;
       this.loading = true;
-      axios.get(url).then(function (response) {
+      axios.get(this.route('admin.matricula-pendiente.index')).then(function (response) {
         _this.loading = false;
         _this.linksToPages = response.data.links;
         _this.matriculas = response.data.matriculas;
@@ -111,10 +109,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.loading = true;
-      axios.put(this.baseUrl, {
+      axios.put(this.route('admin.matricula-pendiente.index', {
         matricula_id: matricula_id,
         estado: estado
-      }).then(function (response) {
+      })).then(function (response) {
         _this2.loading = false;
 
         _this2.$toast.open({
@@ -535,7 +533,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("td", [
                   _c("div", { staticClass: "d-flex flex-row" }, [
-                    _vm.setting
+                    _vm.loading
                       ? _c("span", {
                           staticClass: "spinner-border spinner-border-sm",
                           attrs: { role: "status", "aria-hidden": "true" },
@@ -670,7 +668,7 @@ var render = function () {
       _c("div", { staticClass: "modal-wrapper" }, [
         _c("img", {
           attrs: {
-            src: "/api/admin/matriculas/pendientes/imagen/" + _vm.pago_id,
+            src: _vm.route("admin.matricula.imagen", { id: _vm.pago_id }),
           },
         }),
       ]),

@@ -102,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.loadUsers();
-    axios.get('/api/admin/roles').then(function (response) {
+    axios.get(this.route('admin.user.roles')).then(function (response) {
       _this.roles = response.data;
     })["catch"](function (error) {
       _this.$toast.open({
@@ -118,7 +118,6 @@ __webpack_require__.r(__webpack_exports__);
       roles: [],
       users: [],
       linksToPages: [],
-      baseUrl: '/api/admin/users',
       role: 999,
       search: '',
       setting: false,
@@ -126,7 +125,6 @@ __webpack_require__.r(__webpack_exports__);
       isModalPagosVisible: false,
       selectedUser: null,
       usersDeleted: false,
-      usersSuspended: false,
       totalResultados: 0
     };
   },
@@ -134,15 +132,12 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this2 = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseUrl;
       this.setting = true;
-      axios.get(url, {
-        params: {
-          role: this.role,
-          keyword: this.search,
-          deleted: this.usersDeleted
-        }
-      }).then(function (response) {
+      axios.get(this.route('admin.user.index', {
+        role: this.role,
+        keyword: this.search,
+        deleted: this.usersDeleted
+      })).then(function (response) {
         _this2.users = response.data.data;
         _this2.linksToPages = response.data.links;
         _this2.loading = false;
@@ -269,7 +264,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 _this.errors = [];
                 _context.next = 4;
-                return axios.post('/api/admin/users/change-role', _this.form).then(function (response) {
+                return axios.post(_this.route('admin.user.change-role'), _this.form).then(function (response) {
                   _this.loading = false;
 
                   _this.$toast.open({
@@ -309,11 +304,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this2 = this;
 
     this.loading = true;
-    axios.get('/api/admin/users/get-user-role', {
-      params: {
-        id: this.userid
-      }
-    }).then(function (response) {
+    axios.get(this.route('admin.user.role.get', {
+      id: this.userid
+    })).then(function (response) {
       _this2.form.role = response.data.role;
       _this2.oldRole = response.data.role;
       _this2.loading = false;

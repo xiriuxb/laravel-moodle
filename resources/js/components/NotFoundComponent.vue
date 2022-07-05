@@ -7,7 +7,7 @@
       <p>La página que estás buscando no existe o no está disponible.</p>
       <inertia-link as='button'
         class="items-center font-bold w-full px-3 py-2 my-3 text-lg text-white border-2 border-orange-400 bg-[#002e45ab] rounded-md sm:mb-0 hover:bg-[#002e45] sm:w-auto"
-        :href="'/'">Volver al inicio</inertia-link>
+        :href="route('home')">Volver al inicio</inertia-link>
     </div>
   </div>
 </template>

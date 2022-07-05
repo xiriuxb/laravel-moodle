@@ -78,7 +78,7 @@ export default {
   methods: {
     saveForm() {
       this.$page.props.errors = {};
-      this.form.post('/change-email', {
+      this.form.post(this.route('change.email'), {
         onStart: () => (this.message = ""),
         onSuccess: () => {
           this.message = 'Se ha cambiado el correo electrónico';

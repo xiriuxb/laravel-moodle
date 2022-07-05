@@ -17,7 +17,7 @@
           <tr v-for="curso in data" :key="curso.shortname">
             <td>{{ curso.category }}</td>
             <td>
-              <inertia-link class="text-blue-700" :href="'/curso/' + curso.shortname">
+              <inertia-link class="text-blue-700" :href="route('curso', {any:curso.shortname})">
                 {{ curso.fullname }}
               </inertia-link>
             </td>

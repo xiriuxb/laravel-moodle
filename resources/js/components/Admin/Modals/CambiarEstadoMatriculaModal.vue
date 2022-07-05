@@ -71,8 +71,7 @@ export default {
     changeEstado() {
       this.loading = true;
       this.error = '';
-      let url = '/api/admin/matriculas';
-      axios.put(url,this.form).then(response => {
+      axios.put(this.route('admin.matriculas.update'),this.form).then(response => {
         this.loading = false;
         this.$toast.open({
           message: response.data.matricula,
@@ -98,7 +97,7 @@ export default {
   
   created() {
     this.loading = true;
-    axios.get('/api/admin/matriculas/estados').then(response => {
+    axios.get(this.route('admin.matriculas.estados')).then(response => {
       this.estados = response.data.estados;
       this.loading = false;
     }).catch(error => {

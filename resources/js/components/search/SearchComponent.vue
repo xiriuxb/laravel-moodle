@@ -15,7 +15,7 @@
           <li class="dropdown-item" v-if="loading && question.length >= 2">
             <loading-component :position="'relative'" :width="'200px'"></loading-component>
           </li>
-          <inertia-link v-for='(item, index) in resultados' :key='index' :href="'/curso/' + item.shortname"
+          <inertia-link v-for='(item, index) in resultados' :key='index' :href="route('curso',{any:item.shortname})"
             class="dropdown-item" :class="item.shortname == 'NE' ? 'disabled' : ''" @click="question = ''">
             {{ item.fullname }}
           </inertia-link>
@@ -54,7 +54,7 @@ export default {
         var vm = this;
         vm.loading = true;
         axios
-          .get("/api/courses/search", { params: { keyword: this.question } })
+          .get(this.route('curso.busqueda', { keyword: this.question }))
           .then(function (response) {
             vm.resultados = response.data;
             if (response.data.length == 0) {

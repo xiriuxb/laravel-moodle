@@ -64,7 +64,6 @@ export default {
       linksToPages: [],
       loading:true,
       searchTerm: "",
-      baseUrl: '/api/admin/cursos-local',
     }
   },
   created(){
@@ -77,10 +76,10 @@ export default {
     },
   },
   methods:{
-    loadCourses(url=this.baseUrl){
+    loadCourses(){
       if(this.searchTerm.length >=2 || this.searchTerm === ""){
         this.loading = true;
-        axios.get(url,{params:{search:this.searchTerm}}).then(response => {
+        axios.get(this.route('admin.cursos.index',{search:this.searchTerm})).then(response => {
           this.loading = false;
           this.linksToPages = response.data.links;
           this.courses = response.data.data;
@@ -97,7 +96,7 @@ export default {
     },
     setDestacado(shortname,destacado){
       this.loading = true;
-      axios.post(this.baseUrl+'/destacado', {id: shortname, destacado:destacado}).then(response => {
+      axios.post(this.route('admin.set-destacado', {id: shortname, destacado:destacado})).then(response => {
         this.loading = false;
         this.loadCourses();
       }).catch(

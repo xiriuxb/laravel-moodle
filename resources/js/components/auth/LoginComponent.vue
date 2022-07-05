@@ -39,20 +39,19 @@
             </button>
           </div>
         </form>
-        <inertia-link :href="'/forgot-password'" :as="'button'" :disabled="loading">
+        <inertia-link :href="route('password.request')" :as="'button'" :disabled="loading">
           ¿Olvidó su contraseña?
         </inertia-link>
       </div>
       <hr class="line" />
       <div class="container">
-        <inertia-link :href="'/'">
-          <button :disabled="loading" class="btn btn-secondary" id="registro-btn">
-            Regístrese</button>
+        <inertia-link :href="route('home')" as="button" class="btn btn-secondary" :disabled="loading"  id="registro-btn">
+            Regístrese
         </inertia-link>
       </div>
       <div class="container">
         <a :disabled="loading" class="btn btn-warning w-full" id="cursos-btn"
-          :href="moodleUrl+'login/index.php'">
+          :href="moodleUrl">
           Ingrese al aula virtual (Moodle)<box-icon name='link-external'></box-icon>
         </a>
       </div>
@@ -76,12 +75,12 @@ export default {
   },
   computed:{
     moodleUrl(){
-      return this.$page.props.siteData.moodleUrl;
+      return `${this.$page.props.siteData.moodleUrl}login/index.php`;
     }
   },
   methods: {
     loginForm() {
-      this.form.post('/vuelogin', {
+      this.form.post(this.route('vuelogin'), {
         onStart: () => (this.loading = true),
         onFinish: () => (this.loading = false),
       });
@@ -151,9 +150,5 @@ button {
 
 .btn-submit:hover {
   background-color: #d44a0b;
-}
-
-a box-icon{
-  position:fixed;
 }
 </style>

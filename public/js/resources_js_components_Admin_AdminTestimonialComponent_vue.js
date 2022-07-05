@@ -121,7 +121,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "AdminCommentComponent",
   data: function data() {
     return {
-      apiRoute: '/api/testimonials',
       id: 0,
       isFormHidden: true,
       editMode: true,
@@ -146,13 +145,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       this.loading = true;
+      this.errors = [];
       var formData = new FormData();
       formData.append("_method", "put");
       formData.append('autor', this.form.autor);
       formData.append('texto', this.form.texto);
       formData.append('is_active', this.form.is_active);
       if (this.form.file != null) formData.append('file', this.form.file);
-      axios.post("".concat(this.apiRoute, "/").concat(this.id), formData).then(function () {
+      axios.post(this.route('testimonials.update', {
+        testimonial: this.id
+      }), formData).then(function () {
         _this.loading = false;
         _this.isFormHidden = true;
 
@@ -188,7 +190,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         formData.append('texto', this.form.texto);
         formData.append('is_active', this.form.is_active);
         if (this.form.file != null) formData.append('file', this.form.file);
-        axios.post(this.apiRoute, formData).then(function () {
+        axios.post(this.route('testimonials.store'), formData).then(function () {
           _this2.errors = [];
 
           _this2.$toast.open({
@@ -222,7 +224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this3.loading = true;
                 _context.next = 3;
-                return axios.get(_this3.apiRoute).then(function (response) {
+                return axios.get(_this3.route('testimonials.index')).then(function (response) {
                   _this3.comments = response.data.data;
                   _this3.loading = false;
                 })["catch"](function (err) {
@@ -252,9 +254,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteComment: function deleteComment(index) {
       var _this4 = this;
 
+      window.scrollTo(0, 0);
       this.editMode = false;
       this.loading = true;
-      axios["delete"]("".concat(this.apiRoute, "/").concat(index)).then(function (response) {
+      axios["delete"](this.route('testimonials.destroy', {
+        testimonial: index
+      })).then(function (response) {
         _this4.loadComments();
       })["catch"](function (err) {
         _this4.errors = err.response.data.errors;
@@ -272,15 +277,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.isFormHidden = false;
       this.loading = true;
-      axios.get("".concat(this.apiRoute, "/").concat(index)).then(function (response) {
+      axios.get(this.route('testimonials.show', {
+        testimonial: index
+      })).then(function (response) {
         _this5.id = response.data.data.id;
         _this5.form.autor = response.data.data.autor;
         _this5.form.texto = response.data.data.texto;
-        _this5.form.is_active = response.data.data.is_active;
+        _this5.form.is_active = response.data.data.is_active == 1 ? true : false;
         _this5.file_name = response.data.data.file;
         _this5.loading = false;
       })["catch"](function (err) {
-        _this5.errors = err.response.data.errors;
+        _this5.$toast.open({
+          message: "Error al cargar",
+          type: "error",
+          position: "top-right"
+        });
       });
     },
     onClickEdit: function onClickEdit(index) {

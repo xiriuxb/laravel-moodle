@@ -75,7 +75,7 @@ __webpack_require__.r(__webpack_exports__);
     loadVars: function loadVars() {
       var _this = this;
 
-      axios.get("/api/admin/site-config").then(function (response) {
+      axios.get(this.route('admin.site.index')).then(function (response) {
         _this.form = response.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -109,7 +109,7 @@ __webpack_require__.r(__webpack_exports__);
       this.editMode = false;
       this.selected = null;
       this.selectedValue = null;
-      axios.post("/api/admin/site-config", {
+      axios.post(this.route('admin.site.update'), {
         variable_key: id,
         variable_value: value,
         variable_name: var_name
@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.loading = true;
-      axios.post("/api/admin/site-config/update").then(function (response) {
+      axios.post(this.route('admin.site.update-config')).then(function (response) {
         _this4.loading = false;
 
         _this4.$toast.open({

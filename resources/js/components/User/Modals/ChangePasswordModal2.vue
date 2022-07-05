@@ -81,8 +81,8 @@ export default {
   methods: {
     updateForm() {
       this.$page.props.errors = {};
-      this.form.post('/change-password', {
-        onSrart: () => {
+      this.form.post(this.route('change.password'), {
+        onStart: () => {
           this.message = '';
         },
         onSuccess: () => {

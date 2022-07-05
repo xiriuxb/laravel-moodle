@@ -47,10 +47,10 @@ class MatriculaController extends Controller
             }
             if (doubleval($curso->price == 0)) {
                 //Si el curso es gratis
-                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula-free', 'verificado' => $user_verified]);
+                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => 'matricula.free', 'verificado' => $user_verified]);
             } else {
                 //Si el curso no es gratis
-                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/matricula', 'verificado' => $user_verified]);
+                return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => 'matricula', 'verificado' => $user_verified]);
             }
         } else {
             return inertia('MatriculaComponent', ['curso' => $curso, 'matriculado' => false, 'ruta' => '/login']);

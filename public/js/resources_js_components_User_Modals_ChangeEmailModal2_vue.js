@@ -92,7 +92,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$page.props.errors = {};
-      this.form.post('/change-email', {
+      this.form.post(this.route('change.email'), {
         onStart: function onStart() {
           return _this.message = "";
         },

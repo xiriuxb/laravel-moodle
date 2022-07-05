@@ -11,7 +11,7 @@
 
 			<div class="logo">
 				<div class="logo-name">
-					<inertia-link :href="'/'">
+					<inertia-link :href="route('home')">
 						{{ `${appName} (Admin) ` }}
 					</inertia-link>
 				</div>
@@ -19,7 +19,7 @@
 			<ul class="nav-list">
 				<li v-for="menu_item in menu_items" :key="menu_item.name"
 					v-if="menu_item.permission != 'su' || $page.props.auth.role == 'su_admin'">
-					<inertia-link :href="'/admin/' + menu_item.component">
+					<inertia-link :href="route(menu_item.component)">
 						<span>{{ menu_item.name }}</span>
 					</inertia-link>
 				</li>
@@ -41,13 +41,13 @@ export default {
 		return {
 			movedSidebar: true,
 			menu_items: [
-				{ name: 'Testimonios', component: 'testimonials', permission: '' },
-				{ name: 'Cursos', component: 'cursos', permission: '' },
-				{ name: 'Cursos Moodle', component: 'cursos-moodle', permission: '' },
-				{ name: 'Usuarios', component: 'users', permission: '' },
-				{ name: 'Matriculas Pendientes', component: 'matriculas-pendientes', permission: '' },
-				{ name: 'Imágenes', component: 'site-images', permission: 'su' },
-				{ name: 'Configuración', component: 'site-config', permission: 'su' },
+				{ name: 'Testimonios', component: 'admin.testimonials', permission: '' },
+				{ name: 'Cursos', component: 'admin.cursos', permission: '' },
+				{ name: 'Cursos Moodle', component: 'admin.cursos-moodle', permission: '' },
+				{ name: 'Usuarios', component: 'admin.users', permission: '' },
+				{ name: 'Matriculas Pendientes', component: 'admin.matriculas-pendientes', permission: '' },
+				{ name: 'Imágenes', component: 'admin.site-images', permission: 'su' },
+				{ name: 'Configuración', component: 'admin.site-config', permission: 'su' },
 			],
 			error: '',
 		};
@@ -104,7 +104,7 @@ export default {
 	height: 40px;
 	background-color: #11101d;
 	border-radius: 50%;
-	left: 175px;
+	left: 178px;
 	cursor: pointer;
 }
 

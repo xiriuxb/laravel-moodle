@@ -27,7 +27,7 @@
               <!-- Mensaje de verificación de correo -->
               <div v-if="!user.email_verified_at" class="alert alert-warning">
                 Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click
-                <inertia-link class="text-sky-900" :href="'/email/verification-notification'">aquí</inertia-link>
+                <inertia-link class="text-sky-900" :href="route('verificarion.notice')">aquí</inertia-link>
                 y siga los pasos.
               </div>
               <div v-if="$page.props.auth.role == 'suspended'" class="alert alert-warning">
@@ -94,7 +94,7 @@
             </div>
             <!-- /.card-body -->
             <div class="flex flex-row-reverse pr-2">
-              <inertia-link :href="'/eliminar-cuenta'" v-if="$page.props.auth.role != 'suspended'">Eliminar Cuenta</inertia-link>
+              <inertia-link :href="route('eliminar-cuenta')" v-if="$page.props.auth.role != 'suspended'">Eliminar Cuenta</inertia-link>
             </div>
           </div>
           <!-- /.card -->
@@ -110,6 +110,7 @@ import vueCountryRegionSelect from "vue-country-region-select";
 import ChangeEmailModal2 from "./Modals/ChangeEmailModal2.vue";
 import ChangePasswordModal2 from "./Modals/ChangePasswordModal2.vue";
 import Home from "../views/Home.vue";
+import route from "../../../../vendor/tightenco/ziggy/src/js";
 export default {
   layout: Home,
   components: {
@@ -155,7 +156,7 @@ export default {
   },
   methods: {
     updateUser() {
-      this.form.post("/update-user", {
+      this.form.post(route('user.update'), {
         onStart: () => (this.loading = true),
         onFinish: () => (this.loading = false),
       });

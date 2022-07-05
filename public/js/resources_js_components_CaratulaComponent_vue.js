@@ -45,6 +45,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -164,7 +167,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = {};
-      this.form.post('/api/register', {
+      this.form.post(this.route('register'), {
         onStart: function onStart() {
           return _this.disableBtnSubmit(true);
         },
@@ -194,9 +197,6 @@ __webpack_require__.r(__webpack_exports__);
         this.loading = false;
         this.btnText = "Registrarse";
       }
-    },
-    loginBtn: function loginBtn() {
-      window.location.href = "/ingreso";
     }
   }
 });
@@ -493,7 +493,7 @@ var render = function () {
       _c(
         "div",
         {
-          staticClass: "flex flex-wrap items-center px-10 py-10 pt-[120px]",
+          staticClass: "flex flex-wrap items-center px-10 py-10 pt-[90px]",
           attrs: { id: "caratula" },
         },
         [
@@ -517,7 +517,7 @@ var render = function () {
                 "p",
                 {
                   staticClass:
-                    "self-center md:self-start text-2xl font-bold text-orange-200",
+                    "self-center md:self-start text-2xl font-bold text-orange-300",
                 },
                 [_vm._v("\n          Inscríbete en un curso\n        ")]
               ),
@@ -530,7 +530,7 @@ var render = function () {
                   attrs: {
                     as: "button",
                     type: "button",
-                    href: "/cursos/all/o/",
+                    href: _vm.route("cursos", { categoria: "all" }),
                   },
                 },
                 [
@@ -552,7 +552,7 @@ var render = function () {
                 "p",
                 {
                   staticClass:
-                    "self-center md:self-start text-2xl font-bold text-orange-200",
+                    "self-center md:self-start text-2xl font-bold text-orange-300",
                 },
                 [_vm._v("Y accede al contenido en Moodle (aula virtual)")]
               ),
@@ -573,6 +573,12 @@ var render = function () {
                   ),
                 ]
               ),
+              _vm._v(" "),
+              _c("p", { staticClass: "self-center md:self-start" }, [
+                _vm._v(
+                  "\n          Accedes con las mismas credenciales con las que te registras en este sitio.\n        "
+                ),
+              ]),
             ],
             1
           ),
@@ -903,9 +909,7 @@ var render = function () {
                 [
                   _vm._v("\n        " + _vm._s(this.btnText) + "\n        "),
                   this.loading
-                    ? _c("loading-component", {
-                        attrs: { position: "relative" },
-                      })
+                    ? _c("loading-component", { attrs: { position: "fixed" } })
                     : _vm._e(),
                 ],
                 1
@@ -921,10 +925,10 @@ var render = function () {
           _vm._v(" "),
           _c(
             "p",
-            { staticClass: "loginhere", attrs: { id: "registered" } },
+            { attrs: { id: "registered" } },
             [
               _vm._v("\n      ¿Ya tiene una cuenta?\n      "),
-              _c("inertia-link", { attrs: { href: "/ingreso" } }, [
+              _c("inertia-link", { attrs: { href: _vm.route("ingreso") } }, [
                 _c("a", { staticClass: "loginhere-link" }, [
                   _vm._v("Ingrese aquí"),
                 ]),

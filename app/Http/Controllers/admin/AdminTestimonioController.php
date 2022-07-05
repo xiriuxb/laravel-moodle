@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\File;
@@ -12,21 +13,15 @@ class AdminTestimonioController extends Controller
     {
         $this->middleware('auth', ['except' => ['visibles']]);
         //El CRUD puede ser hecho por los roles su-adm y admin
-        $this->middleware('can:testimonial.crud', ['except' => ['visibles']]);
     }
     /**
      *
      * @param  array  $data
-     * @return \App\Models\Comment
+     * @return \App\Models\Testimonial
      */
     public function index()
     {
         return response()->json(['status' => 'ok', 'data' => Testimonial::all()], 200);
-    }
-
-    public function visibles()
-    {
-        return response()->json(['status' => 'ok', 'data' => Testimonial::where('is_active', 1)->select('id', 'autor', 'texto','file')->get()], 200);
     }
 
     public function store(Request $request)
@@ -36,7 +31,7 @@ class AdminTestimonioController extends Controller
             'texto' => ['required', 'string', 'max:512'],
             'file' => ['nullable','sometimes','image', 'max:128','mimes:jpeg,png,jpg'],
         ]);
-        $request->is_active = $request->is_active = true? 1 : 0;
+        $request->is_active = $request->is_active == 'true'? 1 : 0;
         try {
             $testimonial = new Testimonial();
             $testimonial->autor = $request->autor;
@@ -78,7 +73,7 @@ class AdminTestimonioController extends Controller
             'texto' => ['required', 'string', 'max:512'],
             'file' => ['nullable','sometimes','image', 'max:512','mimes:jpeg,png,jpg'],
         ]);
-        $request->is_active = $request->is_active = true? 1 : 0;
+        $request->is_active = $request->is_active == "true"? 1 : 0;
         try {
             $testimonial->autor = $request->autor;
             $testimonial->user_id = $request->user()->id;
@@ -112,3 +107,4 @@ class AdminTestimonioController extends Controller
         return response()->json(['code' => 204, 'message' => 'Se ha eliminado el comentario correctamente.'], 204);
     }
 }
+

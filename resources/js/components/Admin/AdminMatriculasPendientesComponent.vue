@@ -28,7 +28,7 @@
                 @click="openModalImage(matricula.pago.id)">Ver</a></td>
             <td>
               <div class="d-flex flex-row">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="setting"></span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
                 <button class="btn btn-outline-primary btn-sm" title="Aceptar" @click.prevent="updateMatricula(matricula.id, 1)">
                   <box-icon name="check" class="fill-blue-800"></box-icon>
                 </button>
@@ -63,16 +63,15 @@ export default {
       matriculas: [],
       loading: true,
       searchTerm: "",
-      baseUrl: '/api/admin/matriculas/pendientes',
     }
   },
   created() {
     this.loadMatriculas();
   },
   methods: {
-    loadMatriculas(url = this.baseUrl) {
+    loadMatriculas() {
       this.loading = true;
-      axios.get(url).then(response => {
+      axios.get(this.route('admin.matricula-pendiente.index')).then(response => {
         this.loading = false;
         this.linksToPages = response.data.links;
         this.matriculas = response.data.matriculas;
@@ -93,7 +92,7 @@ export default {
     },
     updateMatricula(matricula_id, estado) {
       this.loading = true;
-      axios.put(this.baseUrl,{matricula_id:matricula_id,estado:estado}).then(response => {
+      axios.put(this.route('admin.matricula-pendiente.index',{matricula_id:matricula_id,estado:estado})).then(response => {
         this.loading = false;
         this.$toast.open({
           message: response.data.matricula,

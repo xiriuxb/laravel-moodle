@@ -44,7 +44,7 @@ export default {
   methods: {
     sendEmail() {
       this.$inertia.visit(
-        '/email/verification-notification',
+        this.route('verification.resend'),
         {
           method: 'POST',
           onStart: () => {

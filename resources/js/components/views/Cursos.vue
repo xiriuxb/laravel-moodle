@@ -14,7 +14,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownOrderByButton">
             <inertia-link class="dropdown-item" v-for="orden in valuesOrderBy" :key="orden.id"
-              :href="`/cursos/${selected_category}/${orden.value}`">
+              :href="route('cursos',{categoria:selected_category,order_by:orden.value})">
               {{orden.name}}
             </inertia-link>
           </div>
@@ -106,9 +106,6 @@ export default {
       }
     };
   },
-  mounted(){
-    console.log(this.valuesOrderBy[this.orderBy].name)
-  }
 };
 </script>
 

@@ -376,7 +376,7 @@ __webpack_require__.r(__webpack_exports__);
           this.loading = true;
 
           if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00" || this.payment_form.payment_id != "") {
-            this.payment_form.post(this.ruta, {
+            this.payment_form.post(this.route(this.ruta), {
               onStart: function onStart() {
                 _this.loading = true;
               },
@@ -616,7 +616,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this2 = this;
 
     this.loading = true;
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/paypal-data").then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.route('paypal-data')).then(function (response) {
       _this2.paypalData = response.data;
       _this2.loading = false;
 
@@ -1079,8 +1079,9 @@ var render = function () {
                                 "relative w-full btn border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white",
                               attrs: {
                                 as: "button",
-                                href:
-                                  "/pago-deposito-transferencia/" + this.curso,
+                                href: _vm.route("deposito-transferencia", {
+                                  curso_id: this.curso,
+                                }),
                               },
                             },
                             [

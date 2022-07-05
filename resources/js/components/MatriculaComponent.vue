@@ -94,7 +94,7 @@ export default {
 					this.loading = true;
 
 					if (this.curso.price == 0 || this.curso.price == "0" || this.curso.price == "0.00" || this.payment_form.payment_id != "") {
-						this.payment_form.post(this.ruta,
+						this.payment_form.post(this.route(this.ruta),
 							{
 								onStart: () => { this.loading = true; },
 								onSuccess: () => (this.loading = false),

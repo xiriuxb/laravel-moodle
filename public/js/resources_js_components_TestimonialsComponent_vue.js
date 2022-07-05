@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
   beforeMount: function beforeMount() {
     var _this = this;
 
-    axios.get('api/visibleComments').then(function (response) {
+    axios.get(this.route('testimonios.visibles')).then(function (response) {
       _this.comments = response.data.data;
       _this.visible = true;
     })["catch"](function (err) {});

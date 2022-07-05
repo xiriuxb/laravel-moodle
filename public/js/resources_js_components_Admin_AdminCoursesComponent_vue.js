@@ -76,8 +76,7 @@ __webpack_require__.r(__webpack_exports__);
       courses: [],
       linksToPages: [],
       loading: true,
-      searchTerm: "",
-      baseUrl: '/api/admin/cursos-local'
+      searchTerm: ""
     };
   },
   created: function created() {
@@ -93,15 +92,11 @@ __webpack_require__.r(__webpack_exports__);
     loadCourses: function loadCourses() {
       var _this = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.baseUrl;
-
       if (this.searchTerm.length >= 2 || this.searchTerm === "") {
         this.loading = true;
-        axios.get(url, {
-          params: {
-            search: this.searchTerm
-          }
-        }).then(function (response) {
+        axios.get(this.route('admin.cursos.index', {
+          search: this.searchTerm
+        })).then(function (response) {
           _this.loading = false;
           _this.linksToPages = response.data.links;
           _this.courses = response.data.data;
@@ -118,10 +113,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.loading = true;
-      axios.post(this.baseUrl + '/destacado', {
+      axios.post(this.route('admin.set-destacado', {
         id: shortname,
         destacado: destacado
-      }).then(function (response) {
+      })).then(function (response) {
         _this2.loading = false;
 
         _this2.loadCourses();

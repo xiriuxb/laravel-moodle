@@ -23,7 +23,7 @@ class AdminUsersController extends Controller
     public function index(Request $request)
     {
         $role = $this->idToRole($request->role);
-        $deleted = $request->deleted == 'true' ? true : false;
+        $deleted = $request->deleted == '1' ? 1 : 0;
         return response()->json(
 
             User::whereHas(

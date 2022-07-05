@@ -345,7 +345,9 @@ var render = function () {
                       "inertia-link",
                       {
                         staticClass: "text-blue-700",
-                        attrs: { href: "/curso/" + curso.shortname },
+                        attrs: {
+                          href: _vm.route("curso", { any: curso.shortname }),
+                        },
                       },
                       [
                         _vm._v(

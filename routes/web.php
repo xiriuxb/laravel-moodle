@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use function PHPSTORM_META\map;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,47 +26,49 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('vuelogin', 'App\Http\Controllers\Auth\LoginController@vuelogin')->name('vuelogin');
 
-    Route::get('/mis-cursos', 'App\Http\Controllers\UserController@matriculas')->name('mis-cursos');
+    Route::get('/mis-cursos', 'App\Http\Controllers\UserController@matriculas')->name('personal.mis-cursos');
 
     Route::prefix('admin')->middleware('auth', 'can:admin.home')->group(function () {
         Route::get('/testimonials', function () {
             return inertia('Admin/AdminTestimonialComponent');
-        })->name('admin.home');
+        })->name('admin.testimonials');
         Route::get('/cursos-moodle', function () {
             return inertia('Admin/AdminCoursesMoodleComponent');
-        });
+        })->name('admin.cursos-moodle');
         Route::get('/cursos', function () {
             return inertia('Admin/AdminCoursesComponent');
-        });
+        })->name('admin.cursos');
         Route::get('/users', function () {
             return inertia('Admin/AdminUsersComponent');
-        });
+        })->name('admin.users');
         Route::get('/matriculas-pendientes', function () {
             return inertia('Admin/AdminMatriculasPendientesComponent');
-        });
+        })->name('admin.matriculas-pendientes');
         Route::get('/site-images', function () {
             return inertia('Admin/AdminPublicImagesComponent');
-        })->middleware('can:admuser.siteconfig');;
+        })->middleware('can:admuser.siteconfig')->name('admin.site-images');
         Route::get('/site-config', function () {
             return inertia('Admin/AdminConfigController');
-        })->middleware('can:admuser.siteconfig');
+        })->middleware('can:admuser.siteconfig')->name('admin.site-config');
         Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser')->middleware('can:admuser.getusermatricula')->name('admin.matriculas.usuario');
     });
 
-    Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeFree')->name('matricula-free');
+    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');
+
+    Route::post('/matricula-free', 'App\Http\Controllers\MatriculaController@storeFree')->name('matricula.free');
     Route::post('/matricula', 'App\Http\Controllers\MatriculaController@storePaypalOrCreditCard')->name('matricula');
-    Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula-dep-transf');
+    Route::post('/matricula-deposito-transferencia', 'App\Http\Controllers\MatriculaController@storeDepositoTransferencia')->name('matricula.dep-transf');
 
     Route::get('/cursos/{categoria?}/{order_by?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursos');
 
-    Route::redirect('/cursos', '/cursos/all/1');
+    Route::redirect('/cursos', '/cursos/all/');
 
     Route::get('/eliminar-cuenta', function () {
         return inertia('User/EliminarCuentaComponent');
     })->middleware('auth', 'can:user.deleteprofileview')->name('eliminar-cuenta');
 
     Route::post('/user/delete', 'App\Http\Controllers\UserController@deleteProfile')->name('user.delete');
-    Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*']);
+    Route::get('/curso/{any}', 'App\Http\Controllers\MatriculaController@index')->where(['any' => '.*'])->name('curso');
 
     Route::get('/email/verification-notification', 'App\Http\Controllers\Auth\VerificationController@index')->name('verification.notice');
 
@@ -79,7 +84,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('guest')->name('password.email');
 
     Route::get('/reset-password/{token}', 'App\Http\Controllers\Auth\ResetPasswordController@index')->middleware('guest')->name('password.reset');
-    Route::post('/reset-password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('password.update');
+    Route::post('/reset-password', 'App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('password.reset.update');
 
     Route::get('/personal', 'App\Http\Controllers\UserController@index')->middleware('auth')->name('personal.data');
 
@@ -92,7 +97,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/change-email', 'App\Http\Controllers\UserController@changeEmail')->middleware('auth')->name('change.email');
 
-    Route::post('/update-user', 'App\Http\Controllers\UserController@update')->middleware('auth');
+    Route::post('/update-user', 'App\Http\Controllers\UserController@update')->middleware('auth')->name('user.update');
 
     Route::get('not-found', function () {
         return inertia('NotFoundComponent');

@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/api/cursos-local/destacados').then(function (response) {
+    axios.get(this.route('cursos.destacados')).then(function (response) {
       _this.comments2 = response.data.data;
       _this.visible = true;
     })["catch"](function (error) {
@@ -390,7 +390,11 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "inertia-link",
-                      { attrs: { href: "/curso/" + comment.shortname } },
+                      {
+                        attrs: {
+                          href: _vm.route("curso", { any: comment.shortname }),
+                        },
+                      },
                       [
                         _c("h5", { staticClass: "card-title" }, [
                           _vm._v(_vm._s(comment.fullname)),

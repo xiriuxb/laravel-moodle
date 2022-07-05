@@ -18,8 +18,8 @@
           </button>
         </form>
         <div>
-          O <inertia-link :href="'/ingreso'">
-            <a>Ingrese</a>
+          O <inertia-link :href="route('ingreso')">
+            <a>Ingrese al sistema aquí</a>
           </inertia-link>
         </div>
 
@@ -46,7 +46,7 @@ export default {
     sendRequest() {
       this.errorMessage = "";
       this.visible = true;
-      this.form.post('/forgot-password', {
+      this.form.post(this.route('password.email'), {
         onError: (error) => {
           this.errorMessage = error[0];
           this.$toast.open({

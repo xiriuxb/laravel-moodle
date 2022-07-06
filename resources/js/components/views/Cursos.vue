@@ -1,28 +1,26 @@
 <template>
-  <div id="cursos" class="container-fluid bg-slate-100">
+  <div id="cursos" class="container-fluid">
     <AppHead :title="'Cursos'" />
     <div id="encabezado-cursos">
-      <div class="justify-content-center">
-        <p id="titulo-cursos">Cursos</p>
-      </div>
+      <p>Cursos</p>
       <div class="align-bottom" v-if="selected_category">({{ selected_category }})</div>
       <div id="order-by">
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownOrderByButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Ordernar por: {{this.valuesOrderBy[this.orderBy].name}}
+            Ordernar por: {{ this.valuesOrderBy[this.orderBy].name }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownOrderByButton">
             <inertia-link class="dropdown-item" v-for="orden in valuesOrderBy" :key="orden.id"
-              :href="route('cursos',{categoria:selected_category,order_by:orden.value})">
-              {{orden.name}}
+              :href="route('cursos', { categoria: selected_category, order_by: orden.value })">
+              {{ orden.name }}
             </inertia-link>
           </div>
         </div>
       </div>
     </div>
     <div class="d-flex justify-around">
-      <div class="d:w-1/4">
+      <div class="d:w-1/4 filter-container">
         <filter-component></filter-component>
       </div>
       <div class="md:w-3/4 d-flex flex-column">
@@ -78,27 +76,27 @@ export default {
       visible: false,
       selected_category: this.category,
       valuesOrderBy: {
-        'defecto':{
+        'defecto': {
           id: 1,
           value: 'defecto',
           name: 'Por defecto'
         },
-        'precio_desc':{
+        'precio_desc': {
           id: 2,
           value: 'precio_desc',
           name: 'Precio: De mas alto a mas bajo'
         },
-        'precio_asc':{
+        'precio_asc': {
           id: 3,
           value: 'precio_asc',
           name: 'Precio: De mas bajo a mas alto'
         },
-        'fecha_desc':{
+        'fecha_desc': {
           id: 4,
           value: 'fecha_desc',
           name: 'Fecha: Más reciente primero'
         },
-       'fecha_asc':{
+        'fecha_asc': {
           id: 5,
           vlaue: 'fecha_asc',
           name: 'Fecha: Más antiguo primero'
@@ -120,18 +118,23 @@ export default {
   align-items: center;
 }
 
-#titulo-cursos {
+#encabezado-cursos p {
   font-size: 60px;
   font-weight: 700;
   padding: 10px 20px;
 }
 
-@media (max-width: 750px) {
+.filter-container {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
   .d-flex {
     flex-flow: column;
-    align-items: center;
   }
-  #encabezado-cursos{
+
+  #encabezado-cursos {
     flex-direction: column;
   }
 }

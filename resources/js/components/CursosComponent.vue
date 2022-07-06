@@ -1,5 +1,5 @@
 <template>
-  <div class="justify-content-center mb-50">
+  <div class="mb-50">
     <div>
       <div class="row">
         <curso-card-component v-for="curso in $parent.data" :key="curso.shortname" :curso="curso" :moodleUrl="moodleUrl">

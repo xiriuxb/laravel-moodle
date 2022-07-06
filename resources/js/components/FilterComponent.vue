@@ -16,7 +16,7 @@
         <div class="card-body">
           <ul class="list-menu">
             <li>
-              <inertia-link as="button" class="btn" :href="route('cursos',{order_by:$parent.orderBy})" @click="updateCurrentCategory('all')">Todos
+              <inertia-link as="button" class="btn" :href="route('cursos',{categoria:'all',order_by:$parent.orderBy})" @click="updateCurrentCategory('all')">Todos
               </inertia-link>
             </li>
             <li v-for="categoria in categories" :key="categoria.id">

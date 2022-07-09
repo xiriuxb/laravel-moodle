@@ -8,22 +8,24 @@
 					<div class="line"></div>
 				</div>
 			</button>
-
-			<div class="logo">
-				<div class="logo-name">
-					<inertia-link :href="route('home')">
-						{{ `${appName} (Admin) ` }}
-					</inertia-link>
+			<div class="scroll">
+				<div>
+					<div class="logo-name">
+						<inertia-link :href="route('home')">
+							{{ `${appName} (Admin) ` }}
+						</inertia-link>
+					</div>
 				</div>
+				<ul class="nav-list">
+					<li v-for="menu_item in menu_items" :key="menu_item.name"
+						v-if="menu_item.permission != 'su' || $page.props.auth.role == 'su_admin'">
+						<inertia-link :href="route(menu_item.component)">
+							<span>{{ menu_item.name }}</span>
+						</inertia-link>
+					</li>
+				</ul>
 			</div>
-			<ul class="nav-list">
-				<li v-for="menu_item in menu_items" :key="menu_item.name"
-					v-if="menu_item.permission != 'su' || $page.props.auth.role == 'su_admin'">
-					<inertia-link :href="route(menu_item.component)">
-						<span>{{ menu_item.name }}</span>
-					</inertia-link>
-				</li>
-			</ul>
+
 		</div>
 		<div id="admin" class="adm-content" :class="movedSidebar ? 'adm-content' : 'adm-content-moved'">
 			<slot />
@@ -89,7 +91,7 @@ export default {
 	left: 0;
 	height: 100%;
 	background: #11101d;
-	padding: 6px 14px;
+	padding: 6px 0px 6px 14px;
 	transition: transform 0.3s ease-in-out;
 }
 
@@ -118,14 +120,7 @@ export default {
 	fill: #007bff;
 }
 
-.sidebar .logo_content .logo {
-	color: #fff;
-	display: felx;
-	width: 100%;
-	align-items: center;
-}
-
-.logo .logo-name {
+.logo-name {
 	color: white;
 	font-size: x-large
 }
@@ -135,19 +130,14 @@ export default {
 }
 
 .sidebar ul li {
-	position: relative;
-	height: 50px;
-	width: 100%;
 	margin: 0 5px;
 	list-style: none;
 	line-height: 50px;
-	cursor: pointer;
 }
 
 .sidebar ul li a {
 	color: #fff;
 	display: flex;
-	align-items: center;
 	text-decoration: none;
 	transition: all 0.4s ease;
 	border-radius: 12px;
@@ -156,14 +146,6 @@ export default {
 .sidebar ul li a:hover {
 	color: #11101d;
 	background: #fff;
-}
-
-.sidebar ul li i {
-	height: 50px;
-	min-width: 50px;
-	border-radius: 12px;
-	line-height: 50px;
-	text-align: center;
 }
 
 .adm-content {
@@ -179,6 +161,12 @@ export default {
 	transform: translateX(-200px);
 	width: 100%;
 	height: 100%;
+}
+
+.scroll{
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 ::v-deep h2 {

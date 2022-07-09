@@ -69,7 +69,7 @@ export default {
 }
 
 .scrolled{
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(100% - 65px);
 }
 

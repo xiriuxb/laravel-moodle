@@ -104,10 +104,10 @@ class MatriculaController extends Controller
                 $curso_aux->fullname,
                 $curso_aux->shortname,
                 $curso_aux->summary,
-                $curso_aux->customfields[1]->value,
+                $curso_aux->customfields[intval(config('app.mdl_precio_index'))]->value,
                 $curso_aux->categoryname,
                 $curso_aux->overviewfiles == null ? '/images/default_course_image.png' : str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl), //remove /webservice string,
-                $curso_aux->customfields[2]->value,
+                $curso_aux->customfields[intval(config('app.mdl_aprendera_index'))]->value,
             );
             return $curso;
         }

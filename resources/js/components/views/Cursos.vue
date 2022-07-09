@@ -67,7 +67,7 @@ export default {
     orderBy: {
       type: String,
       required: false,
-      default: ''
+      default: 'defecto'
     }
   },
   data() {

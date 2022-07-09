@@ -61,8 +61,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/cursos/{categoria?}/{order_by?}/{page?}', 'App\Http\Controllers\Cursos@index')->name('cursos');
 
-    Route::redirect('/cursos', '/cursos/all/');
-
     Route::get('/eliminar-cuenta', function () {
         return inertia('User/EliminarCuentaComponent');
     })->middleware('auth', 'can:user.deleteprofileview')->name('eliminar-cuenta');

@@ -148,6 +148,8 @@ return [
     'site_twitter' => env('SITE_TWITTER', ''),
     'site_instagram' => env('SITE_INSTAGRAM', ''),
     'site_youtube' => env('SITE_YOUTUBE', ''),
+    'mdl_precio_index' => env('MDL_PRECIO_INDEX',1),
+    'mdl_aprendera_index' => env('MDL_APRENDERA_INDEX',2),
 
 
     /*

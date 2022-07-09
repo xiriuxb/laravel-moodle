@@ -236,6 +236,18 @@ class SiteConfigController extends Controller
                 'value' => config('mail.from.address'),
                 'campo' => 'Direccion de envío del Mail',
             ],
+            [
+                'name'  => 'MDL_PRECIO_INDEX',
+                'config_key' => 'app.mdl_precio_index',
+                'value' => config('app.mdl_precio_index'),
+                'campo' => 'Posición del precio en los datos del curso Moodle',
+            ],
+            [
+                'name'  => 'MDL_APRENDERA_INDEX',
+                'config_key' => 'app.mdl_aprendera_index',
+                'value' => config('app.mdl_aprendera_index'),
+                'campo' => 'Posición del campo aprendera en los datos del curso Moodle',
+            ],
         ];
         return response()->json($variables);
     }

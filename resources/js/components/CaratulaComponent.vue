@@ -7,7 +7,7 @@
           <p class="self-center md:self-start text-2xl font-bold text-orange-300">
             Inscríbete en un curso
           </p>
-          <inertia-link class="caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto" as="button" type="button"
+          <inertia-link class="caratula-button sm:mb-0 hover:bg-[#002e45] md:self-start sm:w-auto" as="button"
             :href="route('cursos',{categoria:'all'})">
             Lista de cursos
             <span>

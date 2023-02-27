@@ -27,7 +27,7 @@
               <!-- Mensaje de verificación de correo -->
               <div v-if="!user.email_verified_at" class="alert alert-warning">
                 Usted no ha verificado su dirección de correo electrónico, para hacerlo haga click
-                <inertia-link class="text-sky-900" :href="route('verificarion.notice')">aquí</inertia-link>
+                <inertia-link class="text-sky-900" :href="route('verification.notice')">aquí</inertia-link>
                 y siga los pasos.
               </div>
               <div v-if="$page.props.auth.role == 'suspended'" class="alert alert-warning">
@@ -64,18 +64,20 @@
                 </div>
                 <div class="row">
                   <div class="from-group col-12 col-sm-6">
+                    <label for="selectPais">País:</label>
                     <country-select v-model="form.country" class="form-control" name="country" id="country"
-                      placeholder="País" :whiteList="['EC']" :countryName="true" :autocomplete="true"
+                      placeholder="País" :whiteList="['EC']" :countryName="true" :autocomplete="true" :id="'selectPais'"
                       :removePlaceholder="false" :country="user.country" />
                   </div>
                   <div class="form-group col-12 col-sm-6">
+                    <label for="selectEstado">Provincia:</label>
                     <region-select v-model="form.region" :region="user.region" class="form-control" defaultRegion="EC"
-                      :regionName="true" name="region" id="region" placeholder="Provincia" :disabled="!form.country" />
+                      :regionName="true" name="region" id="region" placeholder="Provincia" :disabled="!form.country" :id="'selectEstado'"/>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="fechaNacimiento">Día de nacimiento</label>
-                  <input v-model="form.birth_day" type="date" class="form-control" placeholder="Fecha de nacimiento" />
+                  <label for="inputBirthday">Día de nacimiento</label>
+                  <input v-model="form.birth_day" type="date" class="form-control" placeholder="Fecha de nacimiento" id="inputBirthday" />
                   <!-- Errors -->
                   <div v-if="$page.props.errors.birth_day != null" class="alert alert-danger">
                     {{ $page.props.errors.birth_day }}
@@ -106,15 +108,16 @@
 </template>
 
 <script>
-import vueCountryRegionSelect from "vue-country-region-select";
-import ChangeEmailModal2 from "./Modals/ChangeEmailModal2.vue";
-import ChangePasswordModal2 from "./Modals/ChangePasswordModal2.vue";
+import { RegionSelect, CountrySelect} from "vue-country-region-select";
+const ChangeEmailModal2 =  () => import( "./Modals/ChangeEmailModal2.vue");
+const ChangePasswordModal2=  () => import(  "./Modals/ChangePasswordModal2.vue");
 import Home from "../views/Home.vue";
 import route from "../../../../vendor/tightenco/ziggy/src/js";
 export default {
   layout: Home,
   components: {
-    vueCountryRegionSelect,
+    RegionSelect,
+    CountrySelect,
     ChangeEmailModal2,
     ChangePasswordModal2,
   },
@@ -137,11 +140,6 @@ export default {
         this.form.birth_day !== this.user.birth_day
         ? false
         : true;
-    },
-    formFiltered() {
-      return Object.fromEntries(
-        Object.entries(this.form).filter(([_, v]) => v != "")
-      );
     },
   },
   data() {

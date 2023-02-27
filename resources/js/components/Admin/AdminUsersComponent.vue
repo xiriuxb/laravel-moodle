@@ -8,17 +8,18 @@
 		<div class="container">
 			<form class="input-group mb-3" :disabled='setting'>
 				<div>
-					<label><input type="checkbox" v-model="usersDeleted" name="deletedFilter"
+					<label>
+						<input type="checkbox" v-model="usersDeleted" name="deletedFilter"
 							id="deletedFilter">Eliminados</label>
 				</div>
 				<div class="input-group flex-row flex-wrap">
 					<div class="input-group-prepend">
 						<select class="custom-select" id="roleSelect" v-model="role">
 							<option value="999">Todos</option>
-							<option v-for="role in roles" :value="role.id">{{ role.name }}</option>
+							<option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
 						</select>
 					</div>
-					<input type="text" class="form-control" v-model="search" placeholder="Buscar usuario">
+					<input type="text" class="form-control" v-model="search" placeholder="Buscar usuario" title="Buscar usuario">
 					<div class="input-group-append">
 						<button class="btn btn-outline-primary" type="submit" id="inputButtonSearch"
 							@click.prevent="loadUsers()">Buscar</button>
@@ -85,13 +86,13 @@ export default {
 	},
 	created() {
 		this.loadUsers();
-		axios.get(this.route('admin.user.roles')).then(response => {
-			this.roles = response.data;
-		}).catch(error => {
+		axios.get(this.route('admin.user.roles'))
+		.then(({data}) => {
+			this.roles = data;
+		}).catch(() => {
 			this.$toast.open({
 				message: 'Error al cargar roles',
-				type: 'error',
-				duration: 5000
+				type: 'error'
 			});
 		});
 	},
@@ -114,21 +115,21 @@ export default {
 	methods: {
 		loadUsers() {
 			this.setting = true;
-			axios.get(this.route('admin.user.index', { role: this.role, keyword: this.search, deleted: this.usersDeleted })).then((response) => {
-				this.users = response.data.data;
-				this.linksToPages = response.data.links;
-				this.loading = false;
-				this.setting = false;
-				this.totalResultados = response.data.total;
-			}).catch((error) => {
-				this.loading = false;
-				this.setting = false;
+			axios.get(this.route('admin.user.index', { role: this.role, keyword: this.search, deleted: this.usersDeleted }))
+			.then(({data}) => {
+				this.users = data.data;
+				this.linksToPages = data.links;
+				this.totalResultados = data.total;
+			}).catch(() => {
 				this.$toast.open({
 					message: 'Error al cargar',
-					type: 'error',
-					duration: 5000
+					type: 'error'
 				});
 			})
+			.finally(()=>{
+				this.loading = false;
+				this.setting = false;
+			});
 		},
 		showModal(id) {
 			this.isModalVisible = true;

@@ -2,7 +2,7 @@
     <transition name="modal">
         <div class="modal-mask">
             <div class="d-flex flex-row-reverse">
-                <button class="btn">
+                <button class="btn" title="Cerrar modal">
                     <box-icon name='x' color='#ffffff' @click="$emit('close')"></box-icon>
                 </button>
             </div>

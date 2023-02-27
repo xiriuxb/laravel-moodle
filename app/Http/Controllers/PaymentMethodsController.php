@@ -30,7 +30,7 @@ class PaymentMethodsController extends Controller
 
     public function depositoTransferenciaPaymentData($curso_id){
         $curso_aux = $this->getCourseFromMoodle($curso_id);
-        $curso_data = ['shortname'=>$curso_aux->shortname,'fullname'=>$curso_aux->fullname, 'precio'=>$curso_aux->customfields[1]->value];
+        $curso_data = ['shortname'=>$curso_aux->shortname,'fullname'=>$curso_aux->fullname, 'precio'=>$curso_aux->customfields[intval(config('app.mdl_precio_index'))]->value];
         if(Matricula::where([['usuario_id', Auth::user()->id], ['curso_moodle_id', $curso_aux->id]])
         ->where(function($query){
             $query->where('estado_matricula_id',1)->orWhere('estado_matricula_id',3);

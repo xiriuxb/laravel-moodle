@@ -11,7 +11,15 @@
           </div>
           <h1 id="titulo-cursos" class="text-orange-600 font-bold text-3xl sm:text-4xl">{{ curso.fullname }}</h1>
           <div id="summary">
-            <p v-html="this.curso.summary"></p>
+            <p v-html="curso.summary"></p>
+          </div>
+          <div class="dates">
+            <div>
+              Fecha inicio: <span>{{`${startdate.getDate()} - ${startdate.getUTCMonth() + 1} - ${startdate.getFullYear()}`}}</span>
+            </div>
+            <div v-if="curso.enddate !== 0">
+              Fecha fin: <span>{{`${enddate.getDate()} - ${enddate.getUTCMonth() + 1} - ${enddate.getFullYear()}`}}</span>
+            </div>
           </div>
           <div class="mt-0 md:mt-6">
             <slot></slot>
@@ -55,10 +63,14 @@ export default {
     image() {
       return this.curso.image?this.curso.image:'/images/default_course_image.png';
     },
+    startdate(){
+      return new Date(this.curso.startdate * 1000);
+    },
+    enddate(){
+      return new Date(this.curso.enddate * 1000);
+    },
   },
   methods: {
-  },
-  beforeMount() {
   },
 };
 </script>
@@ -109,5 +121,12 @@ img {
 
 ::v-deep li {
   font-size: 1.1rem !important;
+}
+
+.dates{
+  display: grid;
+}
+.dates span{
+  color: #fff;
 }
 </style>

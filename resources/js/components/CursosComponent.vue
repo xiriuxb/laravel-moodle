@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import Home from './views/Home.vue';
-import Cursos from "./views/Cursos.vue";
-import CursoCardComponent from "../components/CursoCardComponent.vue";
+const Home = () => import('./views/Home.vue');
+const Cursos = () => import('./views/Cursos.vue');
+const CursoCardComponent = () => import('../components/CursoCardComponent.vue');
 export default {
   layout: [Home, Cursos],
   components: {

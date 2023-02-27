@@ -40,6 +40,6 @@ class ForgotPasswordController extends Controller
         );
         return $status === Password::RESET_LINK_SENT
             ? redirect()->back()->with('message', __($status))
-            : redirect()->back()->withErrors(__($status));
+            : redirect()->back()->withErrors(['message'=>__($status)]);
     }
 }

@@ -1,8 +1,9 @@
 <template>
   <div id="adminMatriculasPendientes" :class="{ 'disabled': loading }">
     <AppHead :title="'Admin | Matriculas Pendientes'" />
-    <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'" v-if="loading">
-      </loading-component>
+    <loading-component :backgroundColor="'rgb(0 0 0 / 29%)'" :width="'100%'" :height="'100%'" :position="'fixed'"
+      v-if="loading">
+    </loading-component>
     <h2>
       Administración de matrículas pendientes
     </h2>
@@ -24,15 +25,19 @@
               {{ matricula.user.name + ' ' + matricula.user.last_name }}
             </td>
             <td>{{ matricula.cursos.fullname }}</td>
-            <td>($ {{ matricula.pago.amount }})<a href="#" class="text-cyan-600 hover:underline cursor-pointer"
-                @click="openModalImage(matricula.pago.id)">Ver</a></td>
+            <td>($ {{ matricula.pago.amount }})
+              <a href="#" class="text-cyan-600 hover:underline cursor-pointer"
+                @click="openModalImage(matricula.pago.id)">Ver</a>
+              </td>
             <td>
               <div class="d-flex flex-row">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="loading"></span>
-                <button class="btn btn-outline-primary btn-sm" title="Aceptar" @click.prevent="updateMatricula(matricula.id, 1)">
+                <button class="btn btn-outline-primary btn-sm" title="Aceptar"
+                  @click.prevent="updateMatricula(matricula.id, 1)">
                   <box-icon name="check" class="fill-blue-800"></box-icon>
                 </button>
-                <button class="btn btn-outline-danger btn-sm" title="Rechazar" @click.prevent="updateMatricula(matricula.id,2)">
+                <button class="btn btn-outline-danger btn-sm" title="Rechazar"
+                  @click.prevent="updateMatricula(matricula.id,2)">
                   <box-icon name='x' class="fill-red-600"></box-icon>
                 </button>
               </div>
@@ -71,20 +76,20 @@ export default {
   methods: {
     loadMatriculas() {
       this.loading = true;
-      axios.get(this.route('admin.matricula-pendiente.index')).then(response => {
-        this.loading = false;
-        this.linksToPages = response.data.links;
-        this.matriculas = response.data.matriculas;
-      }).catch(
-        error => {
-          this.loading = false;
-          this.$toast.open({
-            message: 'Error al cargar',
-            type: 'error',
-            duration: 5000
-          });
-        }
-      );
+      axios.get(this.route('admin.matricula-pendiente.index'))
+        .then(({ data }) => {
+          this.linksToPages = data.links;
+          this.matriculas = data.matriculas;
+        })
+        .catch(
+          () => {
+            this.$toast.open({
+              message: 'Error al cargar',
+              type: 'error'
+            });
+          }
+        )
+        .finally(() => { this.loading = false });
     },
     openModalImage(seleccionado) {
       this.pagoSeleccionado = seleccionado;
@@ -92,24 +97,21 @@ export default {
     },
     updateMatricula(matricula_id, estado) {
       this.loading = true;
-      axios.put(this.route('admin.matricula-pendiente.index',{matricula_id:matricula_id,estado:estado})).then(response => {
-        this.loading = false;
-        this.$toast.open({
-          message: response.data.matricula,
-          type: 'success',
-          duration: 5000
+      axios.put(this.route('admin.matricula-pendiente.index', { matricula_id: matricula_id, estado: estado }))
+        .then(({data}) => {
+          this.$toast.open(data.matricula);
+        }).catch(
+          () => {
+            this.$toast.open({
+              message: 'Error al actualizar',
+              type: 'error'
+            });
+          }
+        )
+        .finally(() => {
+          this.loading = false;
+          this.loadMatriculas();
         });
-        this.loadMatriculas();
-      }).catch(
-        error => {
-          this.loading = false,
-          this.$toast.open({
-            message: 'Error al actualizar',
-            type: 'error',
-            duration: 5000
-          });
-        }
-      );
     },
   },
 }

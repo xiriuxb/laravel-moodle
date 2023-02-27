@@ -50,7 +50,6 @@
                 <div class="col col-12 col-sm-5">
                     <div v-if="preview">
                         <img :src="preview" class="img-fluid" />
-                        <p class="mb-0">Archivo: {{ image.name }}</p>
                         <p class="mb-0">Tamaño: {{ image.size / 1024 }}KB</p>
                     </div>
                 </div>
@@ -113,7 +112,7 @@ export default {
         },
         previewImage(input) {
             if (input.files) {
-                var reader = new FileReader();
+                const reader = new FileReader();
                 reader.onload = (e) => {
                     this.preview = e.target.result;
                 }

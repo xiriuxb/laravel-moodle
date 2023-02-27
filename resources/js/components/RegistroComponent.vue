@@ -1,5 +1,5 @@
 <template>
-  <section class="container-fluid d-flex justify-content-center">
+  <section id="registro" class="container-fluid d-flex justify-content-center">
     <div class="signup-content shadow-lg shadow-indigo-500/40">
       <h2 class="font-bold">Regístrese</h2>
       <form autocomplete="off" id="signup-form" class="signup-form" @submit.prevent="saveFrom" preserve-scroll>
@@ -8,14 +8,14 @@
           <div class="col compartido form-group">
             <label for="name">*Primer nombre</label>
             <input v-model="form.name" type="text" v-on:keypress="isLetter($event)" class="form-control" name="name"
-              id="name" placeholder="Nombre" required autocomplete="first_name" maxlength="16" />
+              id="name" placeholder="Nombre" required autocomplete="first_name" maxlength="16" :disabled="form.processing" />
             <div v-if="$page.props.errors.name" class="alert alert-danger">
               {{ $page.props.errors.name }}
             </div>
           </div>
           <div class="col form-group" v-on:keypress="isLetter($event)">
             <label for="last_name">*Primer apellido</label>
-            <input v-model="form.last_name" type="text" class="form-control" name="last_name" id="last_name"
+            <input v-model="form.last_name" type="text" class="form-control" name="last_name" id="last_name" :disabled="form.processing" 
               placeholder="Apellido" v-on:keypress="isLetter($event)" />
             <div v-if="$page.props.errors.last_name" class="alert alert-danger">
               {{ $page.props.errors.last_name }}
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <label for="email">*Dirección de e-mail</label>
-          <input v-model="form.email" required class="form-control" type="email" name="email" id="email"
+          <input v-model="form.email" required class="form-control" type="email" name="email" id="email" :disabled="form.processing" 
             placeholder="user@example.com" label="Email" />
           <div v-if="$page.props.errors.email" class="alert alert-danger">
             {{ $page.props.errors.email }}
@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
           <label for="password">*Contraseña (Mínimo 8 caracteres)</label>
-          <input v-model="form.password" required class="form-control" type="password" name="password" id="password"
+          <input v-model="form.password" required class="form-control" type="password" name="password" id="password" :disabled="form.processing" 
             ref="password" />
           <div v-if="$page.props.errors.password" class="alert alert-danger">
             {{ $page.props.errors.password }}
@@ -40,13 +40,13 @@
         </div>
         <div class="form-group">
           <label for="password-confirmation">*Confirme la contraseña</label>
-          <input class="form-control" type="password" name="password_confirmation" id="password_confirmation"
+          <input class="form-control" type="password" name="password-confirmation" id="password-confirmation" :disabled="form.processing" 
             v-model="form.password_confirmation" data-vv-as="password" required preserve-scroll />
         </div>
         <button type="submit" name="submit" id="submit" class="form-submit btn btn-submit" value="Registrar"
           role="button" :disabled="form.processing" preserve-scroll>
-          {{ this.btnText }}
-          <loading-component v-if="this.loading" :position="'fixed'"></loading-component>
+          {{ form.processing ? "" : "Registrarse" }}
+          <loading-component v-if="form.processing"  :borderColor="'rgb(0,0,0)'" :position="'relative'"></loading-component>
         </button>
       </form>
       <div class="relative font-[14px] top-1 bottom-1">*Requerido</div>
@@ -82,8 +82,8 @@ export default {
     saveFrom() {
       this.errors = {};
       this.form.post(this.route('register'), {
-        onStart: () => (this.disableBtnSubmit(true)),
-        onFinish: () => (this.disableBtnSubmit(false)),
+        onStart: () => {},
+        onFinish: () => {},
       });
     },
     isLetter(e) {
@@ -95,17 +95,6 @@ export default {
       let char = String.fromCharCode(e.keyCode);
       if (/^[0-9]/.test(char)) return true;
       else e.preventDefault();
-    },
-    disableBtnSubmit(value) {
-      const button = document.getElementById("submit");
-      button.disabled = value;
-      if (value) {
-        this.loading = value;
-        this.btnText = "";
-      } else {
-        this.loading = false;
-        this.btnText = "Registrarse";
-      }
     },
   },
 };

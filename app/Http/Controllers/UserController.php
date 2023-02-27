@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\MoodleServicesTrait;
+use App\Models\Matricula;
 use App\Models\MoodleCurso;
 use App\Models\User;
 use App\Notifications\EmailUpdatedNotification;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
 use Illuminate\Http\Request;
+use Psy\Command\WhereamiCommand;
 
 class UserController extends Controller
 {
@@ -52,7 +54,7 @@ class UserController extends Controller
     }
 
     protected function updateMoodlePassword(string $newPassword, string $username){
-        $userID = $this->getUserId($username);
+        $userID = $this->getMoodleUserId($username);
         $client = new \GuzzleHttp\Client();
         $request = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
@@ -88,7 +90,7 @@ class UserController extends Controller
     }
     
     protected function updateMoodleEmail(string $newEmail, string $username){
-        $userID = $this->getUserId($username);
+        $userID = $this->getMoodleUserId($username);
         $client = new \GuzzleHttp\Client();
         $request = $client->request('POST', config('app.moodle_ws_url'), [
             'query' => [
@@ -109,9 +111,13 @@ class UserController extends Controller
         //return response()->json(Matricula::where([['usuario_id',Auth::user()->id],['curso_id',MoodleCurso::select('id')->where('shortname','=',$curso)->get()[0]->id]])->exists());
     }
 
-    public function matriculas(){
+    public function matriculas(Request $request){
         $userID = Auth::user()->id;
-        return inertia('User/CursosUserComponent',['data' => User::find($userID)->cursos()->where('fullname','LIKE','%'.request('b').'%')->get()]);
+        $b = request('b');
+        $matriculas = Matricula::wherehas('cursos',function($query) use ($b){
+            $query->where('fullname','LIKE','%'.$b.'%');
+        })->with('cursos:id,category,fullname,shortname')->where('usuario_id',$userID)->select('curso_id','estado_matricula_id','pago_id')->paginate(10);
+        return inertia('User/CursosUserComponent',['data' => $matriculas]);
     }
 
     public function update(Request $request)
@@ -147,7 +153,7 @@ class UserController extends Controller
             return back()->withErrors(['password'=>'La contraseña no es correcta']);
         } else{
             try {
-                $this->deleteUserFromMoodle($this->getUserId($request->user()->username));
+                $this->deleteUserFromMoodle($this->getMoodleSUserId($request->user()->username));
             } catch (\Throwable $th) {
             }
             $request->user()->update(['deleted' => true]);

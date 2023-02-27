@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-
-use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +34,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/cursos', function () {
             return inertia('Admin/AdminCoursesComponent');
         })->name('admin.cursos');
+        Route::get('/cursos/listado/{id}', function () {
+            return inertia('Admin/ListadoPorCursoComponent');
+        })->name('admin.listado.curso');
         Route::get('/users', function () {
             return inertia('Admin/AdminUsersComponent');
         })->name('admin.users');
@@ -51,6 +50,8 @@ Route::group(['middleware' => ['web']], function () {
             return inertia('Admin/AdminConfigController');
         })->middleware('can:admuser.siteconfig')->name('admin.site-config');
         Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser')->middleware('can:admuser.getusermatricula')->name('admin.matriculas.usuario');
+        Route::get('/downloadUserPDF/{username}','App\Http\Controllers\admin\AdminMatriculasPendientesController@generarReporteUsuario')->name('admin.matriculas.usuario.reporte');
+        Route::get('/downloadCoursePDF/{shortname}','App\Http\Controllers\admin\AdminLocalCursosController@generarReporte')->name('admin.cursos.reporte');
     });
 
     Route::post('register', 'App\Http\Controllers\Auth\RegisterController@create')->name('register')->middleware('guest');

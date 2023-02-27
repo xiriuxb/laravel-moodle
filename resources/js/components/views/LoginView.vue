@@ -3,7 +3,7 @@
         <AppHead :title="'Ingreso'" />
         <div class="izq">
             <div>
-                <a href="/">
+                <a href="/" >
                     <img src="/images/logo.png" alt="Bussiness Logo">
                 </a>
                 <login-component></login-component>

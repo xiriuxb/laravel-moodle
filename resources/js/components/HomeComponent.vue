@@ -8,8 +8,6 @@
                     <p class="bienvenido">
                         Inicia tu aprendizaje de calidad.
                     </p>
-                    <p class="section-pair">Nuestra aplicación consta de dos partes: ésta, en la cual puedes ver e inscribirte en los cursos
-                        que desees y <a :href="moodleUrl">Moodle <box-icon name='link-external'></box-icon></a>, en donde accedes a los conocimientos que impartimos. </p>
                 </div>
             </div>
             <section class="section-pair">
@@ -98,8 +96,8 @@
 
 <script>
 import CaratulaComponent from './CaratulaComponent.vue'
-import CursosSmComponent from './CursosSmComponent.vue'
-import TestimonialsComponent from './TestimonialsComponent.vue'
+const CursosSmComponent = () =>import( './CursosSmComponent.vue');
+const TestimonialsComponent = () =>import( './TestimonialsComponent.vue');
 import Home from './views/Home.vue';
 
 
@@ -118,7 +116,7 @@ export default {
                 {
                     titulo: 'Regístrese',
                     descripcion: 'Solo necesitas un correo electrónico.',
-                    imagen: 'step1-1.png'
+                    imagen: 'step1.png'
                 },
                 {
                     titulo: 'Inscríbase en un curso',
@@ -171,8 +169,6 @@ body {
     h1 {
         font-size: 3rem;
     }
-
-    /*1rem = 16px*/
 }
 
 @media (min-width: 768px) {

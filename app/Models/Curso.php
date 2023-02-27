@@ -12,7 +12,7 @@ class Curso extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'matricula', 'curso_id', 'username')->withTimestamps();
+        return $this->belongsToMany(User::class, 'matricula', 'curso_id', 'usuario_id','id','id');
     }
 
     /**

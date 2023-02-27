@@ -4,7 +4,7 @@
       <a class="block px-0 user-profile" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <img class="rounded-[50%]"
-          :src="'https://ui-avatars.com/api/?background=002e45&color=fff&name=' + $page.props.auth.user" alt="">
+          :src="'https://ui-avatars.com/api/?background=002e45&color=fff&name=' + $page.props.auth.user" alt="Menu usuario">
       </a>
       <div @click="$parent.sidebarHandler()"
         class="dropdown-menu dropdown-menu-right absolute md:fixed md:right-0 mr-1 bg-cyan-900 w-full mt-1 md:w-auto md:bg-slate-100 md:rounded-sm"

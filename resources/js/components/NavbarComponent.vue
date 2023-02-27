@@ -9,15 +9,16 @@
 				</inertia-link>
 				<div class="collapse navbar-collapse main-menu">
 					<ul class="navbar-nav f1">
-						<li  v-for="item in navElements" :key="item.name" :id="item.name" class="nav-item text-uppercase">
+						<li v-for="item in navElements" :key="item.name" :id="item.name"
+							class="nav-item text-uppercase">
 							<inertia-link :href="route(item.path)">
-								{{item.text}}
+								{{ item.text }}
 							</inertia-link>
 						</li>
 					</ul>
 					<ul class="navbar-nav mr-auto f1">
 						<li class="nav-item text-uppercase">
-							<a :href="`${this.moodleUrl}login/index.php`">moodle <box-icon name='link-external'></box-icon>
+							<a :href="`${this.moodleUrl}login/index.php`">aula<box-icon name='link-external'></box-icon>
 							</a>
 						</li>
 					</ul>
@@ -38,7 +39,7 @@
 				<div class="collapse navbar-collapse main-menu">
 					<ul class="navbar-nav mr-0" v-if="!$page.props.auth.user">
 						<li>
-							<a href="/">
+							<a href="/#registro">
 								Regístrese
 							</a>
 						</li>
@@ -59,32 +60,33 @@
 			</nav>
 		</div>
 		<!-- /.container -->
-		<sidebar-component></sidebar-component>
+		<sidebar-component v-if="windowWidth < 768"></sidebar-component>
 	</header>
 </template>
 
 <script>
-import SearchComponent from './search/SearchComponent.vue';
-import SidebarComponent from './User/SidebarComponent.vue';
-import UserMenuComponent from "./UserMenuComponent.vue";
+const SearchComponent = () => import('./search/SearchComponent.vue');
+const SidebarComponent = () => import('./User/SidebarComponent.vue');
+const UserMenuComponent = () => import("./UserMenuComponent.vue");
 export default {
 	data() {
 		return {
 			movedSidebar: true,
-			navElements: [
-				{
-					name: 'home-component',
-					path: 'home',
-					text: 'Inicio',
-					params: {}
-				},
-				{
-					name: 'cursos',
-					path: 'cursos',
-					text: 'Cursos',
-					params: {
-					}
-				},
+			windowWidth: window.innerWidth,
+				navElements: [
+					{
+						name: 'home-component',
+						path: 'home',
+						text: 'Inicio',
+						params: {}
+					},
+					{
+						name: 'cursos',
+						path: 'cursos',
+						text: 'Cursos',
+						params: {
+						}
+					},
 			],
 		};
 	},
@@ -101,6 +103,9 @@ export default {
 				this.$data.movedSidebar = true;
 			}
 		},
+		onResize() {
+			this.windowWidth = window.innerWidth;
+		}
 	},
 	computed: {
 		siteName() {
@@ -110,14 +115,24 @@ export default {
 			return this.$page.props.siteData.moodleUrl
 		}
 	},
+	mounted() {
+		this.$nextTick(() => {
+			window.addEventListener('resize', this.onResize);
+		})
+	},
+
+	beforeDestroy() {
+		window.removeEventListener('resize', this.onResize);
+	},
 };
 </script>
 
 <style scoped>
-.navbar{
+.navbar {
 	background-color: #d95d22;
 	padding: 0.5rem 1.5rem;
 }
+
 .main-menu {
 	position: relative;
 	z-index: 200;
@@ -161,7 +176,7 @@ export default {
 
 .main-header {
 	background-color: #0000005c;
-	box-shadow: 0px 4px 7px #777;
+	box-shadow: 0px 4px 7px #00000069;
 	position: fixed;
 	align-content: center;
 	left: 0;
@@ -176,8 +191,8 @@ export default {
 }
 
 .main-header .navbar-brand img {
-	max-width: 200px;
-	min-width: 200px;
+	max-height: 35px;
+	min-height: 35px;
 	animation: fadeInLeft 0.4s both 0.4s;
 }
 
@@ -187,8 +202,8 @@ export default {
 
 /* main-header end */
 
-@media(max-width: 840px){
-	#home-component{
+@media(max-width: 840px) {
+	#home-component {
 		display: none;
 	}
 }
@@ -264,7 +279,7 @@ export default {
 	flex-direction: row-reverse;
 }
 
-a box-icon{
-	position:fixed;
+a box-icon {
+	position: fixed;
 }
 </style>

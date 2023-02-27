@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\MoodleServicesTrait;
 use App\Models\User;
+use App\Notifications\MoodleAccountCreation;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class AdminUsersController extends Controller
 {
@@ -16,7 +18,7 @@ class AdminUsersController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:admuser.getuserrole', ['only' => ['getUserRole']]);
-        $this->middleware('can:admuser.changerole', ['only' => ['changeRole']]);
+        $this->middleware('can:admuser.changerole', ['only' => ['changeRole', 'createMoodleUser']]);
         $this->middleware('can:admuser.getusers', ['only' => ['index']]);
     }
 
@@ -76,7 +78,7 @@ class AdminUsersController extends Controller
         if (($user->email_verified_at == null) && (request('role') != 'suspended' and $user->getRoleNames()[0] != 'suspended')) {
             return response()->json(['message' => ' El usuario debe verificar su email primero'], 422);
         }
-        if ($user->getRoleNames()[0] == 'admin' && User::role('admin')->count() == 1) {
+        if ($user->getRoleNames()[0] == 'su_admin' && User::role('su_admin')->count() == 1) {
             return response()->json(['message' => 'No puede quedarse sin administradores'], 422);
         }
         if ($user->id == $request->user()->id) {
@@ -100,13 +102,14 @@ class AdminUsersController extends Controller
 
     public function getUserRole()
     {
+        $has_moodle_user = $this->getMoodleUserId(request('id')) == -1 ? false : true;
         $user = User::where('username', '=', request('id'))->firstOrFail();
-        return response()->json(['role' => $user->roles->first()->name, 'status' => 200]);
+        return response()->json(['role' => $user->roles->first()->name, 'has_moodle_user' => $has_moodle_user, 'status' => 200]);
     }
 
     public function suspendOnMoodle(string $userName, int $suspended)
     {
-        $userMoodleId = $this->getUserId($userName);
+        $userMoodleId = $this->getMoodleUserId($userName);
 
         $client = new \GuzzleHttp\Client();
         try {
@@ -120,10 +123,49 @@ class AdminUsersController extends Controller
                 ], 'verify' => false
             ]);
             $jsonResponse = json_decode($res->getBody());
-            //dd('Entramos porque es suspended'.$userMoodleId.' '.$suspended.' '.$jsonResponse);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Ocurrió un error. No se pudo verificar el usuario'], 200);
         }
         return response()->json(['message' => 'El usuario ha sido suspendido', 'status' => 200]);
+    }
+
+    public function createMoodleUser(Request $request)
+    {
+
+        $user = User::where('username', '=',$request->username)->first();
+        $client = new \GuzzleHttp\Client();
+        $password = $this->generatePassword(8);
+        $guzzleRequest = $client->request('GET', config('app.moodle_ws_url'), [
+            'query' => [
+                'wstoken' => (string)config('app.moodle_ws_token'),
+                'wsfunction' => 'core_user_create_users',
+                'users[0][username]' => $user->username,
+                'users[0][password]' => $password,
+                'users[0][firstname]' => $user->name,
+                'users[0][lastname]' => $user->last_name,
+                'users[0][email]' => $user->email,
+                'users[0][idnumber]' => $user->id,
+                'moodlewsrestformat' => 'json',
+            ], 'verify' => false
+        ]);
+        $user->password = Hash::make($password);
+        $user->save();
+        try {
+            Notification::route('mail', $user->email) //Sending mail to subscriber
+                    ->notify(new MoodleAccountCreation($password));
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'No se envió el mail de notificación'], 500);
+        }
+    }
+
+    private function generatePassword($length)
+    {
+        $key = "";
+        $pattern = "1234567890abcdefghijklmnopqrstuvwxyz";
+        $max = strlen($pattern) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $key .= substr($pattern, mt_rand(0, $max), 1);
+        }
+        return $key;
     }
 }

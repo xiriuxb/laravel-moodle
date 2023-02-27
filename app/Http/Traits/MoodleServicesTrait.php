@@ -6,7 +6,7 @@ trait MoodleServicesTrait {
      * @param  string  $username
      * @return int
      */
-    public function getUserId(string $userName, string $field = 'username'){
+    public function getMoodleUserId(string $userName, string $field = 'username'){
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', config('app.moodle_ws_url'), [
             'query' => [
@@ -21,7 +21,7 @@ trait MoodleServicesTrait {
         if(!empty($jsonResponse)){
             return $jsonResponse[0]->id;
         }else{
-            
+            return -1;
         }
     }
 

@@ -15,13 +15,13 @@
                 <ul>
                     <a :href="moodleUrl + 'login/index.php'">
                         <li class="mob-nav-item text-uppercase fill-white d-flex">
-                            moodle<box-icon name='link-external'></box-icon>
+                            aula<box-icon name='link-external'></box-icon>
                         </li>
                     </a>
                 </ul>
 
                 <div class="flex flex-col bottom-0" @click.prevent="sidebarHandler()" v-if="!$page.props.auth.user">
-                    <inertia-link href="/">
+                    <inertia-link href="/#registro">
                         <li class="mob-nav-item">
                             Regístrese
                         </li>
@@ -34,7 +34,7 @@
                 </div>
                 <ul>
                     <li class="list-none" v-if="$page.props.auth.user">
-                        <user-menu-component></user-menu-component>
+                        <user-menu-component v-if="!this.$parent.movedSidebar"></user-menu-component>
                     </li>
                 </ul>
             </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import UserMenuComponent from "../UserMenuComponent.vue";
+const UserMenuComponent = () => import("../UserMenuComponent.vue");
 export default {
     components: { UserMenuComponent },
     methods: {

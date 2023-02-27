@@ -22,3 +22,4 @@ mix.alias({
   ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
   ziggyRoutes: path.resolve('resources/js/ziggy.js'),
 })
+

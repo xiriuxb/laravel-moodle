@@ -30,24 +30,29 @@ class MoodleCurso extends Model
         }
     }
     
-    public function __construct5(
+    public function __construct7(
          string $fullname, string $shortname,
          string $summary,string $category,
-         string $file)
+         string $file,
+         int $startdate, int $enddate)
     {
         $this->fullname = $fullname;
         $this->shortname = $shortname;
         $this->summary = $summary;
         $this->category = $category;
         $this->file = $file;
+        $this->startdate = $startdate;
+        $this->enddate = $enddate;
     }
 
-    public function __construct7(
+    public function __construct9(
         string $moodle_id, string $fullname, 
         string $shortname, string $summary, 
         string $price, string $category,
         ?string $image=null,
-        ?string $ex_description=null)
+        ?string $ex_description=null,
+        int $startdate, int $enddate
+        )
     {
         $this->moodle_id = $moodle_id;
         $this->fullname = $fullname;
@@ -57,6 +62,8 @@ class MoodleCurso extends Model
         $this->category = $category;
         $this->image = $image;
         $this->ex_description = $ex_description;
+        $this->startdate = $startdate;
+        $this->enddate = $enddate;
     }
     /**
      * The attributes that are mass assignable.

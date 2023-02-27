@@ -8,6 +8,9 @@
         <div>
             <h3>Usuario: {{ user }}</h3>
         </div>
+        <a :href="route('admin.matriculas.usuario.reporte',{username:this.username})" target="_blank">
+            Generar reporte
+        </a>
         <table class="table">
             <tr>
                 <th>Curso</th>
@@ -17,14 +20,14 @@
                 <th>Imagen</th>
                 <th>Fecha</th>
             </tr>
-            <tr v-for="matricula in matriculas.data" :key="matricula.id">
+            <tr v-if="matriculas.data" v-for="matricula in matriculas.data" :key="matricula.id">
                 <td>{{ matricula.cursos.fullname }}</td>
-                <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" :class="loading?'disabled':''"
+                <td><a href="#" :class="loading?'disabled':''"
                         @click="openModalEstado(matricula)">{{ matricula.estado_matricula.nombre }}</a></td>
                 <td>{{ matricula.pago ? matricula.pago.amount : 'Gratuito' }}</td>
                 <td>{{ matricula.pago ? matricula.pago.payment_id : 'Gratuito' }}</td>
-                <td><a href="#" class="text-cyan-600 hover:underline cursor-pointer" v-if="matricula.pago" :class="loading?'disabled':''"
-                        @click="openModalImage(matricula.pago.id)">{{ matricula.pago.file }}</a></td>
+                <td><a href="#" v-if="matricula.pago && matricula.pago.file" :class="{disabled:loading}"
+                        @click="openModalImage(matricula.pago.id)">Ver</a></td>
                 <td>{{ matricula.created_at.substring(0, matricula.created_at.indexOf("T")) }}</td>
             </tr>
         </table>
@@ -92,7 +95,7 @@ export default {
         },
         reloadPagos() {
             this.loading = true;
-            Inertia.visit(this.route('admin.matriculas.usuario.index',{username:this.username}), { method: 'get', only: ['matriculas'] });
+            Inertia.visit(this.route('admin.matriculas.usuario',{username:this.username}), { method: 'get', only: ['matriculas'] });
         }
     }
 }
@@ -107,5 +110,12 @@ export default {
 
 .modal-wrapper {
     display: unset;
+}
+a{
+    color: rgb(8 145 178);
+    cursor: pointer;
+}
+a:hover{
+    text-decoration: underline;
 }
 </style>

@@ -13,7 +13,7 @@
           }}</span>
         <h5 class="mt-2 mb-2  font-bold text-slate-900">{{ curso.fullname }}</h5>
         <p class="pb-2" v-html="curso.summary"></p>
-        <div class="text-right border-t border-l-sky-900 text-base text-gray-700 py-3">
+        <div class="text-right border-t border-l-sky-900 text-base text-gray-900 py-3">
           ${{ curso.precio }} USD
         </div>
       </div>
@@ -22,11 +22,7 @@
 </template>
 
 <script>
-import LoadingComponent from './LoadingComponent.vue';
 export default {
-  components: {
-    LoadingComponent,
-  },
   props: {
     curso: Object,
     moodleUrl: String,
@@ -47,7 +43,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: #777;
+  color: rgb(46, 46, 46);
 }
 
 .card-body {

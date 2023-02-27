@@ -1,9 +1,9 @@
 <template>
   <div class="lds-ring" :style="style">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+    <div :style="styleDiv"></div>
+    <div :style="styleDiv"></div>
+    <div :style="styleDiv"></div>
+    <div :style="styleDiv"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   props:{
     borderColor: {
       type: String,
-      default: "rgb(180, 52, 52) transparent transparent transparent",
+      default: "rgb(180, 52, 52)",
     },
     backgroundColor: {
       type: String,
@@ -38,9 +38,12 @@ export default {
         position: this.position,
         width: this.width,
         height: this.height,
-        'border-color': this.borderColor,
         'backgroundColor': this.backgroundColor,
+        'border-color': `${this.borderColor} transparent transparent transparent`,
       },
+      styleDiv:{
+        'border-color': `${this.borderColor} transparent transparent transparent`,
+      }
     };
   },
 };
@@ -67,7 +70,6 @@ export default {
   border: 8px solid #fff;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: rgb(180, 52, 52) transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;

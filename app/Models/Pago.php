@@ -12,7 +12,7 @@ class Pago extends Model
 
     public function matricula()
     {
-        return $this->belongsTo(Matricula::class,'id');
+        return $this->belongsTo(Matricula::class,'pago_id','id');
     }
 
     public function paymentMethod()

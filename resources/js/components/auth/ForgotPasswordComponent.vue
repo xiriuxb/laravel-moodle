@@ -10,7 +10,7 @@
         </div>
         <form class="form-group" @submit.prevent="sendRequest" v-if="!this.stat">
           <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-            placeholder="Correo electrónico" v-model="form.email" required />
+            placeholder="Correo electrónico" v-model="form.email" required :disabled="form.processing"/>
           <button type="submit" class="btn btn-primary" :disabled="form.processing">
             <span class="spinner-border spinner-border-sm" v-if="form.processing" role="status"
               aria-hidden="true"></span>
@@ -19,10 +19,9 @@
         </form>
         <div>
           O <inertia-link :href="route('ingreso')">
-            <a>Ingrese al sistema aquí</a>
+            <span class="text-[#158CBA]">Ingrese al sistema aquí</span>
           </inertia-link>
         </div>
-
       </div>
     </div>
   </div>
@@ -56,12 +55,12 @@ export default {
           this.stat = false;
           this.form.reset();
         },
-        onSuccess: page => {
+        onSuccess: () => {
           this.successMessage = this.$page.props.flash.message;
           this.stat = true;
           this.form.reset();
         },
-        onFinish: page => {
+        onFinish: () => {
           this.errorMessage = this.$page.props.errors.message ? this.$page.props.errors.message : "";
         }
       });

@@ -100,11 +100,11 @@ export default {
 
               },
             }).render("#paypal-button-container");
+            this.loading = false;
         } catch (error) {
           this.$toast.open({
             message: "Error al cargar los botones de PayPal",
-            type: "danger",
-            duration: 5000,
+            type: "error",
           });
         }
       }
@@ -115,7 +115,6 @@ export default {
     this.loading = true;
     axios.get(this.route('paypal-data')).then((response) => {
       this.paypalData = response.data;
-      this.loading = false;
       this.loadPaypalButtons();
     });
   },

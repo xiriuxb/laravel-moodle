@@ -2,14 +2,14 @@
   <div class="px-2">
     <ul class="flex-row-reverse align-items-center">
       <li>
-        <button class="btn" @click.prevent="showModal">
+        <button class="btn" @click.prevent="showModal" title="Botón búsqueda">
           <box-icon name="search-alt-2"></box-icon>
         </button>
       </li>
 
       <li class="nav-item dropdown show" tabindex="-1" id="input-search">
         <input class="form-control" type="text" name="busqueda" id="busqueda" autocomplete="off" data-toggle="dropdown"
-          v-model="question" placeholder="Buscar Curso" />
+          v-model="question" placeholder="Buscar Curso" title="Búsqueda" />
 
         <ul class="dropdown-menu" tabindex="-1" id="respuestas">
           <li class="dropdown-item" v-if="loading && question.length >= 2">
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import SearchModal from "../search/modals/SearchModal.vue";
+const SearchModal = () =>import( "../search/modals/SearchModal.vue");
+var _debounce = require('lodash/debounce');
 import LoadingComponent from "../LoadingComponent.vue"
 export default {
   components: {
@@ -78,7 +79,7 @@ export default {
     document.addEventListener("keyup", this.nextItem);
   },
   created: function () {
-    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+    this.debouncedGetAnswer = _debounce(this.getAnswer, 500)
   },
   watch: {
     // whenever question changes, this function will run

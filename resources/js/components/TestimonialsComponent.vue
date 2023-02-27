@@ -1,8 +1,8 @@
 <template>
-  <section class="container" id="commentss" v-if="visible">
+  <section class="container" id="commentss" v-if="testimonios.length > 0">
     <h3 class="texto">Nuestros estudiantes comentan:</h3>
     <VueSlickCarousel v-bind="settings">
-      <div v-for="comment in comments" :key="comment.id">
+      <div v-for="comment in testimonios" :key="comment.id">
         <div class="card-body container">
           <h5 class="card-title">{{ comment.texto }}</h5>
           <div class="ftr">
@@ -32,7 +32,7 @@ export default {
   data: function () {
     return {
       visible: false,
-      comments: [],
+      testimonios: [],
       //settings for slick carousel
       settings: {
         "infinite": true,
@@ -72,10 +72,9 @@ export default {
     }
   },
   beforeMount() {
-    axios.get(this.route('testimonios.visibles')).then((response) => {
-      this.comments = response.data.data;
-      this.visible = true;
-    }).catch((err) => {
+    axios.get(this.route('testimonios.visibles')).then(({data}) => {
+      this.testimonios = data.testimonios;
+    }).catch(() => {
 
     });
   },

@@ -2,7 +2,7 @@
 	<div>
 		<AppHead :title="'Admin'" />
 		<div class="sidebar" :class="movedSidebar ? 'sidebar' : 'sidebar-moved'" id="sidebar">
-			<button class="closeBtn" @click="sidebarHandler">
+			<button class="closeBtn" @click="sidebarHandler" title="Mover menu">
 				<div class="arrow" :class="movedSidebar ? '' : 'arrow-expanded'">
 					<div class="line"></div>
 					<div class="line"></div>

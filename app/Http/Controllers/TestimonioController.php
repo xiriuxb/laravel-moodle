@@ -13,6 +13,7 @@ class TestimonioController extends Controller
 
     public function visibles()
     {
-        return response()->json(['status' => 'ok', 'data' => Testimonial::where('is_active', 1)->select('id', 'autor', 'texto','file')->get()], 200);
+        $testimonios = Testimonial::where('is_active', 1)->select('id', 'autor', 'texto','file')->get();
+        return response()->json(['status' => 'ok', 'testimonios' => $testimonios], 200);
     }
 }

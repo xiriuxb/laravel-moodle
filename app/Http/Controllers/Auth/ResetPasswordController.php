@@ -51,7 +51,7 @@ class ResetPasswordController extends Controller
             }
         );
         if(Password::PASSWORD_RESET) {
-            $userid= $this->getUserId($request->only('email')['email'],'email');
+            $userid= $this->getMoodleUserId($request->only('email')['email'],'email');
             $this->updateMoodlePassword($request->only('password')['password'], $userid);
         }
     

@@ -15,7 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail/*, JWTSubject*/
 
     public function cursos()
     {
-        return $this->belongsToMany(Curso::class, 'matricula', 'usuario_id', 'curso_id', 'id', 'id')->withPivot('estado_matricula_id');
+        return $this->belongsToMany(Curso::class, 'matricula', 'usuario_id', 'curso_id', 'id', 'id');
     }
 
     public function sendEmailVerificationNotification()

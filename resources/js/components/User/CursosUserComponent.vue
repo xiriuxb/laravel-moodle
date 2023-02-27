@@ -4,9 +4,8 @@
     <h2 class="text-2xl">Mis cursos <span class="spinner-border spinner-border-sm" v-if="loading" role="status"
         aria-hidden="true"></span></h2>
     <form action="#" @submit.prevent="busquedaCurso">
-      <input v-model="termino_busqueda" type="search" class="form-control" placeholder="Buscar curso">
-      <button type="submit" class="btn btn-primary"
-        :disabled="this.loading">
+      <input v-model="termino_busqueda" type="search" class="form-control" placeholder="Buscar curso" title="Buscar curso">
+      <button type="submit" class="btn btn-primary" :disabled="this.loading">
         <span class="spinner-border spinner-border-sm" v-if="loading" role="status" aria-hidden="true"></span>
         Buscar
       </button>
@@ -14,39 +13,50 @@
     <div class="container">
       <table class="table">
         <tbody>
-          <tr v-for="curso in data" :key="curso.shortname">
-            <td>{{ curso.category }}</td>
+          <tr v-for="(curso, index) in data.data" :key="curso.index">
+            <td>{{ curso.cursos.category }}</td>
             <td>
-              <inertia-link class="text-blue-700" :href="route('curso', {any:curso.shortname})">
-                {{ curso.fullname }}
+              <inertia-link class="text-blue-700" :href="route('curso', { any: curso.cursos.shortname })">
+                {{ curso.cursos.fullname }}
               </inertia-link>
             </td>
             <td>
-              <div v-if="curso.pivot.estado_matricula_id == 3" class="text-blue-900">
+              <div v-if="curso.estado_matricula_id == 3" class="text-blue-900">
                 Su matrícula esta pendiente.
               </div>
-              <div v-else-if="curso.pivot.estado_matricula_id == 2" class="text-red-900">
+              <div v-else-if="curso.estado_matricula_id == 2" class="text-red-900">
                 Su matrícula fue rechazada.*
               </div>
-              <div v-else-if="curso.pivot.estado_matricula_id == 4" class="text-red-900">
+              <div v-else-if="curso.estado_matricula_id == 4" class="text-red-900">
                 Su matrícula fue cancelada/revocada.*
               </div>
-              <button v-else class="btn btn-primary" @click.prevent="redirectToMoodle(curso.shortname)">
-                <span class="align-middle"> Ver en Moodle</span>
+              <a v-else class="btn btn-primary" :href="moodleUrl + curso.cursos.shortname" target="_blank">
+                <span class="align-middle"> Ver en Aula</span>
                 <box-icon class="align-middle" name='link-external' color="#fff"></box-icon>
-              </button>
+              </a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <p>*En caso de tener un reclamo, por favor contáctese con nosotros</p>
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item"
+          :class="!link.active ? link.url == null ? 'page-item disabled' : 'page-item' : 'page-item active'"
+          v-for="link in data.links" :key="link.label">
+          <inertia-link class="page-link" :href="link.url" :only="['data']" tabindex="-1">
+            <div v-html="link.label"></div>
+          </inertia-link>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script>
-import Home from "../views/Home.vue";
-import { Inertia } from '@inertiajs/inertia'
+import Home from '../views/Home.vue';
+const  { Inertia } = import('@inertiajs/inertia');
 import LoadingComponent from "../LoadingComponent.vue";
 export default {
   layout: Home,
@@ -55,7 +65,7 @@ export default {
   },
   props: {
     data: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
@@ -84,9 +94,9 @@ export default {
       }
     },
   },
-  computed:{
+  computed: {
     moodleUrl() {
-      return this.$page.props.siteData.moodleUrl+'course/view.php?name=';
+      return this.$page.props.siteData.moodleUrl + 'course/view.php?name=';
     },
   }
 };

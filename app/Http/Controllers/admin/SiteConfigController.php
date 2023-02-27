@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SiteConfigController extends Controller
 {
@@ -254,13 +256,16 @@ class SiteConfigController extends Controller
 
     public function update(Request $request)
     {
+        if(!Hash::check($request->password, Auth::user()->password)){
+            return response()->json(['error'=>'Error al actualizar (Password).'],500);
+        }
         try {
-            $env_value = str_replace(' ', '_', $request->variable_value);
+            $new_env_value = str_replace(' ', '_', $request->variable_value);
             $path = base_path('.env');
             if (file_exists($path)) {
                 file_put_contents($path, str_replace(
                     $request->variable_name.'='.config($request->variable_key),
-                    $request->variable_name.'='. $env_value,
+                    $request->variable_name.'='. $new_env_value,
                     file_get_contents($path)
                 ));
                 return response()->json(['success' => 'Variable actualizada correctamente']);

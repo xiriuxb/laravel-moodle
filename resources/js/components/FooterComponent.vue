@@ -24,17 +24,17 @@
                     </div>
                     <div class="col-lg-3 col-md-6 footer-info">
                         <div class="social-links mt-3">
-                            <a :href="siteData.siteSocialNetworks.facebook" v-if="siteData.siteSocialNetworks.facebook">
+                            <a :href="siteData.siteSocialNetworks.facebook" v-if="siteData.siteSocialNetworks.facebook" title="Facebook">
                                 <box-icon type='logo' name='facebook-circle'></box-icon>
                             </a>
-                            <a :href="siteData.siteSocialNetworks.twitter" v-if="siteData.siteSocialNetworks.twitter">
+                            <a :href="siteData.siteSocialNetworks.twitter" v-if="siteData.siteSocialNetworks.twitter" title="Twitter">
                                 <box-icon type='logo' name='twitter'></box-icon>
                             </a>
                             <a :href="siteData.siteSocialNetworks.instagram"
-                                v-if="siteData.siteSocialNetworks.instagram">
+                                v-if="siteData.siteSocialNetworks.instagram" title="Instagram">
                                 <box-icon type='logo' name='instagram'></box-icon>
                             </a>
-                            <a :href="siteData.siteSocialNetworks.youtube" v-if="siteData.siteSocialNetworks.youtube">
+                            <a :href="siteData.siteSocialNetworks.youtube" v-if="siteData.siteSocialNetworks.youtube" title="YouTube">
                                 <box-icon type='logo' name='youtube'></box-icon>
                             </a>
                         </div>

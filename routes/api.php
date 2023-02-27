@@ -21,10 +21,12 @@ Route::group(['middleware'=>['api']],function(){
     Route::prefix('admin')->group(function(){
         Route::get('/cursos-moodle', 'App\Http\Controllers\admin\AdminMoodleCursosController@index')->name('admin.cursos-moodle.index');
         Route::get('/cursos-local', 'App\Http\Controllers\admin\AdminLocalCursosController@index')->name('admin.cursos.index');
+        Route::get('/cursos-local/listado/{id}', 'App\Http\Controllers\admin\AdminLocalCursosController@listadoCurso')->name('admin.cursos.listado');
         Route::post('/cursos-local/destacado', 'App\Http\Controllers\admin\AdminLocalCursosController@setDestacado')->name('admin.set-destacado');
         Route::post('/cursos-local/importar', 'App\Http\Controllers\admin\AdminLocalCursosController@importFromMoodle')->name('admin.cursos.importar');
         Route::get('/users', 'App\Http\Controllers\admin\AdminUsersController@index')->name('admin.user.index');
         Route::post('/users/change-role', 'App\Http\Controllers\admin\AdminUsersController@changeRole')->name('admin.user.change-role');
+        Route::post('/users/generate-moodle-user', 'App\Http\Controllers\admin\AdminUsersController@createMoodleUser')->name('admin.user.generate-moodle');
         Route::get('/users/get-user-role', 'App\Http\Controllers\admin\AdminUsersController@getUserRole')->name('admin.user.role.get');
         Route::get('/roles', 'App\Http\Controllers\admin\RolesController@index')->name('admin.user.roles');
         Route::post('/images/favicon', 'App\Http\Controllers\admin\AdminSiteImagesController@storeIcon')->name('admin.images.favicon');
@@ -35,10 +37,11 @@ Route::group(['middleware'=>['api']],function(){
         Route::get('/matriculas/pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@index')->name('admin.matricula-pendiente.index');
         Route::put('/matriculas/pendientes', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@updatePending')->name('admin.matricula-pendiente.update');
         Route::get('/matriculas/pendientes/imagen/{id}', 'App\Http\Controllers\PagoController@getImage')->name('admin.matricula.imagen');
-        Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser')->name('admin.matriculas.usuario.index');
+        // Route::get('/matriculas/usuario/{username}', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@indexByUser')->name('admin.matriculas.usuario.index');
         Route::put('/matriculas', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@update')->name('admin.matriculas.update');
         Route::get('/matriculas/estados', 'App\Http\Controllers\admin\AdminMatriculasPendientesController@getEstados')->name('admin.matriculas.estados');
         Route::apiResource('/testimonials', 'App\Http\Controllers\admin\AdminTestimonioController');
+        Route::post('/testimonials/deleteImage/{id}', 'App\Http\Controllers\admin\AdminTestimonioController@deleteImageOnly')->name('admin.testimonials.deleteImage');
     });
     
     Route::get('/testimonials', 'App\Http\Controllers\TestimonioController@visibles')->name('testimonios.visibles');

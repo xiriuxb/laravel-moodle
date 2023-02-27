@@ -9,7 +9,7 @@
       desea modificar la información de los cursos debe hacerlo desde Moodle.
       Al actualizarse un curso, éste se quita de la lista de destacados.
     </p>
-    <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='loading'>
+    <input v-model="searchTerm" type="text" class="form-control" placeholder="Buscar curso" :disabled='loading' title="Buscar curso">
     <div class="container">
       <table class="table">
         <thead>
@@ -33,9 +33,10 @@
               </button>
             </td>
             <td>
-              <button class="btn btn-primary" :disabled="loading" @click.prevent="redirectToMoodle(course.shortname)">
+              <a class="btn btn-primary" :disabled="loading" :href="moodleUrl+'course/view.php?name=' + course.shortname" target="_blank"
+              title="Ver en Moodle">
                 <box-icon class="align-middle" name="link-external" color="#fff"></box-icon>
-              </button>
+              </a>
             </td>
           </tr>
         </tbody>
@@ -57,6 +58,7 @@
 <script>
 import LoadingComponent from "../../components/LoadingComponent.vue";
 import Admin from "../views/Admin.vue";
+var _debounce = require('lodash/debounce');
 export default {
   layout: Admin,
   components: {
@@ -72,10 +74,10 @@ export default {
   },
   created() {
     this.getCourses();
-    this.debouncedGetAnswer = _.debounce(this.getCourses, 500);
+    this.debouncedGetAnswer = _debounce(this.getCourses, 500);
   },
   watch: {
-    searchTerm: function (newQuestion, oldQuestion) {
+    searchTerm: function () {
       this.debouncedGetAnswer();
     },
   },
@@ -90,45 +92,33 @@ export default {
         this.loading = true;
         axios
           .get(this.route('admin.cursos-moodle.index',{search:this.searchTerm}))
-          .then((response) => {
-            this.courses = response.data.data;
-            this.linksToPages = response.data.links;
-            this.loading = false;
+          .then(({data}) => {
+            this.courses = data.data;
+            this.linksToPages = data.links;
           })
-          .catch((error) => {
+          .catch(() => {
             this.$toast.open({
               message: "Error al cargar los cursos",
-              type: "error",
-              duration: 5000,
+              type: "error"
             });
-          });
+          })
+          .finally(()=>{this.loading = false;});
       }
     },
     importar(id) {
       this.loading = true;
       axios
         .post( this.route('admin.cursos.importar', { shortname: id }))
-        .then((response) => {
-          this.loading = false;
-          this.$toast.open({
-            message: "Curso importado correctamente",
-            type: "success",
-            duration: 5000,
-          });
+        .then(() => {
+          this.$toast.open("Curso importado correctamente");
         })
-        .catch((error) => {
-          this.loading = false;
+        .catch(() => {
           this.$toast.open({
             message: "Error al importar el curso",
-            type: "error",
-            duration: 5000,
+            type: "error"
           });
-        });
-    },
-    redirectToMoodle(cursoShortname) {
-      window.open =
-        (this.moodleUrl+"course/view.php?name=" + cursoShortname,
-        "_blank");
+        })
+        .finally(()=>{this.loading = false;});
     },
   },
 };

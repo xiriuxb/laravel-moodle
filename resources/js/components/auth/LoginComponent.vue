@@ -7,7 +7,7 @@
         </div>
         <form autocomplete="true" id="login-form" @submit.prevent="loginForm()">
           <!--@csrf-->
-          <input type="hidden" name="_token" value=window.window.Laravel.csrfToken v-model="form.token">
+          <input type="hidden" name="_token" v-model="form.token">
           <div class="form-group row">
             <label for="email" class="text-md-right">E-Mail</label>
             <input id="email" type="email" class="form-control" name="email" v-model="form.email" required autofocus
@@ -45,12 +45,10 @@
       </div>
       <hr class="line" />
       <div class="container">
-        <inertia-link :href="route('home')" as="button" class="btn btn-secondary" :disabled="loading"  id="registro-btn">
+        <a href="/#registro" class="btn btn-secondary w-full mb-1" :disabled="loading" :class="{disabled : loading}" id="registro-btn">
             Regístrese
-        </inertia-link>
-      </div>
-      <div class="container">
-        <a :disabled="loading" class="btn btn-warning w-full" id="cursos-btn"
+        </a>
+        <a :disabled="loading" class="btn btn-warning w-full" :class="{disabled : loading}" id="cursos-btn"
           :href="moodleUrl">
           Ingrese al aula virtual (Moodle)<box-icon name='link-external'></box-icon>
         </a>

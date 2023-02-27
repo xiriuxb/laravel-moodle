@@ -8,7 +8,7 @@
     </div>
 
     <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-      id="passwordModalCenter" tabindex="-1" aria-labelledby="passwordModalCenterTitle" aria-modal="true" role="dialog">
+      id="passwordModalCenter" tabindex="-1" aria-modal="true" role="dialog">
       <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
         <div
           class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
@@ -31,15 +31,18 @@
             </div>
             <form :class="{ 'disabled': form.processing }" @submit.prevent="updateForm">
               <div class="form-group">
-                <input type="password" class="form-control" v-model="form.passwordActual" id="passwordActual"
-                  placeholder="Escriba su contraseñá actual" required>
+                <label for="passwordActual">Contraseña actual:</label>
+                <input type="password" class="form-control" v-model="form.passwordActual" id="passwordActual" spellcheck="false"
+                  placeholder="Escriba su contraseña actual" required>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" v-model="form.new_password" id="new-password"
+                <label for="newPassword">Nueva contraseña:</label>
+                <input type="password" class="form-control" v-model="form.new_password" id="newPassword" spellcheck="false"
                   placeholder="Escriba su nueva contraseña" required>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" v-model="form.new_password_confirmation"
+                <label for="new-password-confirmation">Confirme su nueva contraseña:</label>
+                <input type="password" class="form-control" v-model="form.new_password_confirmation" spellcheck="false"
                   data-vv-as="new-password" id="new-password-confirmation" placeholder="Escriba al contraseña otra vez"
                   required>
               </div>

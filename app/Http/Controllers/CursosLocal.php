@@ -23,10 +23,10 @@ class CursosLocal extends Controller
     }
 
     public function destacados(){
-        $cursosDestacados =Curso::where('destacado', 1)->select('moodle_id')->get()->map(function ($item) {
+        $cursosDestacados = Curso::where('destacado', 1)->select('moodle_id')->get()->map(function ($item) {
             return $item->moodle_id;
         });
-        return response()->json(['status' => 'ok', 'data' =>  $this->getFromMood($cursosDestacados)], 200);
+        return sizeof($cursosDestacados) != 0 ? response()->json(['status' => 'ok', 'data' =>  $this->getFromMood($cursosDestacados)], 200):response()->json([],404);
 
     }
 
@@ -59,7 +59,8 @@ class CursosLocal extends Controller
                         $curso_aux->summary,
                         $curso_aux->categoryname,
                         $curso_aux->overviewfiles == null?'/images/default_course_image.png':str_replace('/webservice', '', $curso_aux->overviewfiles[0]->fileurl),
-                        //'destacado' => $json->courses[0]->customfields[3]->value,
+                        $curso_aux->startdate,
+                        $curso_aux->enddate,
                     );
                     $cursos[] = $curso;
                 }

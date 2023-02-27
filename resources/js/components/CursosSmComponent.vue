@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import VueSlickCarousel from 'vue-slick-carousel'
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+const VueSlickCarousel = ()=>import('vue-slick-carousel');
+import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 export default {
 
   components: { VueSlickCarousel },
@@ -71,11 +71,11 @@ export default {
     }
   },
   created() {
-    axios.get(this.route('cursos.destacados')).then(response => {
-      this.comments2 = response.data.data;
+    axios.get(this.route('cursos.destacados')).then(({data}) => {
+      this.comments2 = data.data;
       this.visible = true;
     }).catch(
-      error => {
+      () => {
         this.visible = false;
       }
     );

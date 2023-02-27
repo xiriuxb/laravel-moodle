@@ -12,18 +12,18 @@ class Matricula extends Model
     protected $table= 'matricula';
     public function cursos()
     {
-        return $this->belongsTo(Curso::class,'curso_id');
+        return $this->belongsTo(Curso::class,'curso_id','id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class,'usuario_id');
+        return $this->hasOne(User::class,'id','usuario_id');
     }
     public function pago(){
-        return $this->belongsTo(Pago::class,'pago_id');
+        return $this->hasOne(Pago::class,'id','pago_id');
     }
     public function estado_matricula(){
-        return $this->belongsTo(EstadoMatricula::class,'estado_matricula_id');
+        return $this->belongsTo(EstadoMatricula::class,'estado_matricula_id','id');
     }
     protected $fillable = [
         'curso_id',

@@ -8,8 +8,8 @@
               <div class="d-flex">
                 <div class="col-11">
                   <li class="nav-item dropdown show" tabindex="-1">
-                    <input class="form-control" type="text" name="busquedaModal" id="busquedaModal" autocomplete="off"
-                      data-toggle="dropdown" v-model="$parent.question" placeholder="Buscar Curso" />
+                    <input class="form-control" type="text" name="inputBusqueda" id="inputBusqueda" autocomplete="off" ref="inputBusqueda"
+                      data-toggle="dropdown" v-model="$parent.question" placeholder="Buscar Curso" title="Búsqueda" />
                     <ul class="dropdown-menu" tabindex="-1" id="respuestas"
                       @click="$emit('close') ;$parent.question = ''"
                       @keypress.enter="$emit('close'); $parent.question = ''">
@@ -24,7 +24,7 @@
                   </li>
                 </div>
                 <div class="col-1">
-                  <button class="btn" @click="$emit('close')">
+                  <button class="btn" @click="$emit('close')" title="Cerrar">
                     <box-icon name="x" color="#ffffff"></box-icon>
                   </button>
                 </div>
@@ -44,6 +44,9 @@ export default {
     LoadingComponent,
   },
   methods: {},
+  created(){
+    this.$nextTick(()=>{this.$refs.inputBusqueda.focus();});
+  },
   data() {
     return {
       form: {
